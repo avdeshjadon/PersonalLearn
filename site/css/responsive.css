@@ -1,0 +1,8 @@
+/* Responsive rules separated into their own file */
+@media (max-width:800px){
+  .sidebar{position:fixed;left:0;top:0;bottom:0;z-index:30;width:260px;transform:translateX(-110%);transition:transform .25s ease}
+  .sidebar.open{transform:translateX(0)}
+  .app{padding-left:0}
+  .page-title-wrap h1{font-size:20px}
+  #list{height:calc(100vh - 200px)}
+}

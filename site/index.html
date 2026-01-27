@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Java Notes</title>
+  <link rel="icon" href="images/turtle.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="images/turtle.svg">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/dark.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">Java Notes</div>
+      <input id="search" placeholder="Search notes..." />
+      <nav id="list"></nav>
+    </aside>
+    <main class="content">
+      <header class="page-header">
+        <div class="nav-links">
+          <div class="page-title-wrap"><h1 id="page-title">Select a note</h1></div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <button id="menuToggle" class="menu-toggle" title="Toggle menu" aria-label="Toggle menu">☰</button>
+            <button id="darkToggle" class="dark-toggle" title="Toggle dark mode" aria-label="Toggle dark mode"><i id="darkIcon" class="fa-regular fa-moon"></i></button>
+          </div>
+        </div>
+      </header>
+      <article id="article" class="article"></article>
+      <div class="content-footer">
+        <a id="prevLink" class="nav-foot" href="#" aria-label="Previous topic">&larr; Previous</a>
+        <a id="nextLink" class="nav-foot" href="#" aria-label="Next topic">Next &rarr;</a>
+      </div>
+      <footer class="site-footer">Made with ♥ — Content rendered by Avdesh Jadon.</footer>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

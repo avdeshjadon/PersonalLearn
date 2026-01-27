@@ -1,0 +1,135 @@
+:root{
+  --bg:#f6ecd2;
+  --paper:#fffdf6;
+  --accent:#2b6f6f;
+  --muted:#7a6f5a;
+  --ink:#222;
+}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html,body,#app{height:100%}
+body{margin:0;font-family: 'Iowan Old Style', 'Georgia', 'Times New Roman', serif;background:linear-gradient(180deg,var(--bg),#efe7d6);color:var(--ink)}
+.app{display:flex;min-height:100vh}
+.sidebar{width:320px;max-width:40vw;padding:20px;background:linear-gradient(180deg,var(--paper),#f5f1e0);border-right:3px solid rgba(0,0,0,0.06);box-shadow:8px 0 24px rgba(0,0,0,0.04);position:sticky;top:0;height:100vh;align-self:flex-start}
+.sidebar{transition:transform .22s ease, box-shadow .22s ease}
+
+/* Large visible favicon/logo fixed to top-left of the page */
+.page-favicon{position:fixed;left:12px;top:12px;width:56px;height:56px;z-index:70;border-radius:10px;background:var(--paper);padding:8px;box-shadow:0 8px 28px rgba(0,0,0,0.12);display:inline-block}
+.page-favicon:hover{transform:scale(1.03)}
+.page-favicon + .app{padding-left:0} /* no layout shift */
+/* hide any accidental logos inside the sidebar */
+.sidebar img{display:none}
+.brand{font-family:monospace;font-size:18px;color:var(--accent);margin-bottom:12px}
+#search{width:100%;padding:10px;border:2px solid var(--muted);border-radius:6px;margin-bottom:12px;background:transparent}
+#list{overflow:auto;height:calc(100vh - 180px);padding-right:6px}
+.group{margin-bottom:12px}
+.group h4{margin:8px 0 6px;font-size:13px;color:rgba(0,0,0,0.55);letter-spacing:.6px;cursor:pointer;font-weight:700}
+.group ul{list-style:none;padding-left:6px;margin:0}
+.group li{margin:6px 0}
+.topic-link{display:block;padding:6px 8px;border-radius:6px;color:var(--ink);text-decoration:none;background:transparent;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topic-link{transition:background-color .18s ease, transform .14s ease}
+.topic-link:hover{background:rgba(43,111,111,0.04);transform:translateX(4px)}
+.topic-link.active{background:rgba(43,111,111,0.12);font-weight:700}
+.subitems{margin-left:14px;margin-top:6px;font-size:13px;color:var(--muted)}
+
+/* Collapsed group list: hide children by default */
+.group-list{max-height:0;overflow:hidden;transition:max-height .28s ease, opacity .2s ease;opacity:.0}
+.group-list.collapsed{max-height:0;opacity:0}
+.group-list:not(.collapsed){max-height:800px;opacity:1}
+
+.group .subitems{color:var(--muted);font-size:12px}
+
+.note-link{display:none}
+.content{flex:1;padding:28px}
+.content, .article{will-change:transform,opacity}
+.content header{border-bottom:1px dashed rgba(0,0,0,0.06);margin-bottom:18px;padding-bottom:6px}
+.nav-links{display:flex;align-items:center;justify-content:space-between}
+.nav-link{color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:6px;min-width:120px;text-align:center}
+.nav-link:hover{background:rgba(0,0,0,0.03)}
+.page-title-wrap{flex:1;text-align:center}
+.page-title-wrap h1{margin:0;font-size:28px}
+
+/* Footer navigation under article */
+.content-footer{display:flex;gap:12px;justify-content:space-between;align-items:center;margin-top:20px}
+.nav-foot{flex:1;text-align:center;padding:12px 14px;border-radius:8px;background:linear-gradient(180deg,rgba(43,111,111,0.06),rgba(43,111,111,0.02));color:var(--accent);text-decoration:none;font-weight:700;border:1px solid rgba(0,0,0,0.04)}
+.nav-foot:disabled, .nav-foot[aria-disabled="true"]{opacity:.4;pointer-events:none}
+
+@media (max-width:800px){
+  .content-footer{flex-direction:column}
+  .nav-foot{width:100%}
+}
+
+/* Minimal dark-mode toggle button */
+.dark-toggle{width:36px;height:36px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);background:transparent;display:inline-flex;align-items:center;justify-content:center;padding:6px;cursor:pointer;font-size:14px}
+.dark-toggle i{display:inline-block;color:var(--muted);transition:color .18s ease, transform .18s ease}
+.dark-toggle:focus{outline:none;box-shadow:0 0 0 4px rgba(43,111,111,0.06)}
+
+/* Slightly smaller on mobile */
+@media (max-width:480px){
+  .dark-toggle{width:30px;height:30px}
+  .dark-toggle::before{width:10px;height:10px}
+}
+.article{background:var(--paper);padding:22px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.04);transition:opacity .22s ease, transform .22s ease}
+.article.fading{opacity:0;transform:translateY(6px)}
+.article h1,.article h2{font-family:Georgia,serif}
+.article pre{
+  background: #fbf8ef;
+  color: #111;
+  padding: 14px;
+  border-radius: 6px;
+  overflow: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace;
+  white-space: pre; /* preserve ASCII diagram layout */
+  font-size: 14px;
+  line-height: 1.45;
+  border: 1px dashed rgba(0,0,0,0.06);
+}
+
+/* ASCII diagram specific styling to make boxes/diagrams look cleaner */
+.ascii-diagram{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 18px;
+  margin: 14px 0;
+  font-size:15px;
+  line-height:1.6;
+  letter-spacing:0.6px;
+  color: #0b2b2b;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.04);
+  border-radius:8px;
+}
+.ascii-diagram code{background:transparent;padding:0}
+.article code{background:#f1efe7;padding:2px 6px;border-radius:4px}
+
+/* Ensure images and diagrams scale nicely */
+.article img{max-width:100%;height:auto;display:block;margin:12px 0}
+.chart-canvas{max-width:100%;height:320px}
+.svg-diagram{ max-width:100%; margin:12px 0; }
+.svg-diagram svg{ width:100%; height:auto; display:block; }
+.svg-diagram .t{fill:var(--ink);}
+.svg-diagram .muted{fill:var(--muted);}
+.svg-diagram svg{will-change:transform,opacity}
+
+/* make interactive pieces smoother */
+.menu-toggle{transition:transform .18s ease, opacity .18s ease}
+.dark-toggle{transition:background-color .18s ease, border-color .18s ease}
+.nav-foot{transition:transform .18s ease, opacity .18s ease}
+
+/* Mobile-friendly header/menu button */
+.menu-toggle{display:none;border:0;background:transparent;font-size:20px;cursor:pointer;padding:6px;border-radius:6px}
+
+/* Responsive */
+@media (max-width:800px){
+  .sidebar{position:fixed;left:0;top:0;bottom:0;z-index:30;width:260px;transform:translateX(-110%);transition:transform .25s ease}
+  .sidebar.open{transform:translateX(0)}
+  .app{padding-left:0}
+  .menu-toggle{display:inline-block}
+  .page-title-wrap h1{font-size:20px}
+  #list{height:calc(100vh - 200px)}
+}
+
+/* Old-school paper texture */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(0,0,0,0.01) 1px, transparent 1px);background-size:100% 24px;mix-blend-mode:multiply}
+
+/* Footer */
+.site-footer{padding:18px 28px;text-align:center;color:var(--muted);font-size:13px;border-top:1px solid rgba(0,0,0,0.03);margin-top:28px}
