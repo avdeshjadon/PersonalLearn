@@ -227,35 +227,176 @@ async function buildManifestDirect() {
 }
 
 function buildStructureFromManifest() {
-  // Group topics by tens
-  const groups = [];
-  let currentGroup = null;
-  let groupStart = 1;
-  
-  ordered.forEach((item) => {
-    const num = getNumberFromSlug(item.slug);
-    if (num === null) return;
-    
-    // Determine which group this belongs to
-    const groupIndex = Math.floor((num - 1) / 10);
-    const groupStartNum = groupIndex * 10 + 1;
-    const groupEndNum = Math.min(groupStartNum + 9, 113);
-    
-    // Create new group if needed
-    if (!currentGroup || groupStart !== groupStartNum) {
-      groupStart = groupStartNum;
-      currentGroup = {
-        group: `Topics ${groupStartNum}-${groupEndNum}`,
-        items: []
-      };
-      groups.push(currentGroup);
-    }
-    
-    currentGroup.items.push(num);
-  });
-  
+  // Build exact sidebar groups as specified by the user (explicit ordering)
+  const groupsDef = [
+    { group: 'Programming Basics & Foundations', items: [
+      '01-what-is-program',
+      '02-what-is-programming-language',
+      '03-low-vs-high-level-languages',
+      '04-compiler-vs-interpreter'
+    ]},
+    { group: 'Java Introduction & History', items: [
+      '05-why-java-was-created',
+      '06-problems-cpp-java-solved',
+      '07-what-is-java',
+      '08-history-of-java',
+      '09-evolution-java-versions',
+      '10-why-java-popular',
+      '11-where-java-used-today'
+    ]},
+    { group: 'Java Editions & Platform Independence', items: [
+      '12-java-editions',
+      '13-platform-independence',
+      '14-wora',
+      '15-source-vs-bytecode',
+      '16-class-file'
+    ]},
+    { group: 'Java Architecture & JVM Internals', items: [
+      '17-jdk',
+      '18-jre',
+      '19-jvm',
+      '20-jvm-architecture',
+      '21-class-loading-process',
+      '22-program-execution-flow'
+    ]},
+    { group: 'Java Program Structure', items: [
+      '23-main-method',
+      '24-why-main-static',
+      '25-string-args',
+      '26-program-structure',
+      '27-tokens',
+      '28-keywords',
+      '29-identifiers',
+      '30-literals'
+    ]},
+    { group: 'Comments & Coding Standards', items: [
+      '31-comments',
+      '32-coding-conventions',
+      '108-best-practices',
+      '109-common-myths'
+    ]},
+    { group: 'Variables & Data Types', items: [
+      '33-what-is-variable',
+      '34-declaration-vs-initialization',
+      '35-types-of-variables',
+      '36-scope-of-variables',
+      '37-lifetime-of-variables',
+      '38-data-types',
+      '39-primitive-data-types',
+      '40-default-values'
+    ]},
+    { group: 'Type Conversion & Encoding', items: [
+      '41-ascii-vs-unicode',
+      '42-type-casting',
+      '43-type-promotion'
+    ]},
+    { group: 'Operators in Java', items: [
+      '44-operators-overview',
+      '45-arithmetic-operators',
+      '46-relational-operators',
+      '47-logical-operators',
+      '48-bitwise-operators',
+      '49-assignment-operators',
+      '50-unary-operators',
+      '51-ternary-operator',
+      '52-instanceof-operator',
+      '53-operator-precedence'
+    ]},
+    { group: 'Input & Output in Java', items: [
+      '54-system-out-println',
+      '55-scanner-class',
+      '56-bufferedreader',
+      '57-input-mismatch',
+      '58-command-line-arguments'
+    ]},
+    { group: 'Control Statements', items: [
+      '59-if-statement',
+      '60-if-else-statement',
+      '61-if-else-if-ladder',
+      '62-nested-if',
+      '63-switch-statement',
+      '64-switch-expressions'
+    ]},
+    { group: 'Loops & Flow Control', items: [
+      '65-loops-overview',
+      '66-for-loop',
+      '67-while-loop',
+      '68-do-while-loop',
+      '69-enhanced-for-loop',
+      '70-break-statement',
+      '71-continue-statement',
+      '72-nested-loops'
+    ]},
+    { group: 'Arrays in Java', items: [
+      '73-arrays-introduction',
+      '74-single-dimensional-arrays',
+      '75-multi-dimensional-arrays',
+      '76-jagged-arrays',
+      '77-array-memory-layout',
+      '78-arrays-class-utility',
+      '90-arrays-utility-methods'
+    ]},
+    { group: 'String Handling', items: [
+      '79-string-class',
+      '80-string-immutability',
+      '81-string-pool',
+      '82-stringbuilder',
+      '83-stringbuffer',
+      '84-string-comparison'
+    ]},
+    { group: 'Wrapper & Utility Classes', items: [
+      '85-wrapper-classes',
+      '86-autoboxing-unboxing',
+      '87-math-class',
+      '88-system-class',
+      '89-object-class'
+    ]},
+    { group: 'Memory Management & JVM Lifecycle', items: [
+      '91-stack-memory',
+      '92-heap-memory',
+      '93-references',
+      '94-garbage-collection',
+      '95-finalize-method',
+      '96-jvm-shutdown'
+    ]},
+    { group: 'Exception Handling', items: [
+      '97-errors-vs-exceptions',
+      '98-exception-hierarchy',
+      '99-try-catch',
+      '100-finally-block',
+      '101-throw-vs-throws'
+    ]},
+    { group: 'Packages & Modifiers', items: [
+      '102-packages',
+      '103-import-statement',
+      '104-access-modifiers',
+      '105-classpath',
+      '106-static-keyword',
+      '107-static-blocks'
+    ]},
+    { group: 'Performance & Career', items: [
+      '110-performance-tips',
+      '111-java-roadmap',
+      '112-interview-prep',
+      '113-quick-reference'
+    ]}
+  ];
+
+  // Preserve order and only include items that exist in the manifest
+  const groups = groupsDef.map(g => {
+    const items = (g.items || []).map(s => {
+      // slugs in manifest are filename without .md
+      const found = manifest.find(m => m.slug === s || m.slug === s.replace(/^[0-9]+-/, ''));
+      if(found) return found.slug;
+      // as fallback, try numeric mapping
+      const n = getNumberFromSlug(s);
+      return n != null ? n : s;
+    }).filter(Boolean);
+    return { group: g.group, items };
+  }).filter(g => g.items && g.items.length);
+
   structure = groups;
-  console.log(`📋 Created ${groups.length} groups`);
+  console.log(`📋 Created ${groups.length} sidebar groups (explicit)`);
 }
 
 function renderGroupedSidebar(){
@@ -311,13 +452,16 @@ function renderGroupedSidebar(){
     });
 
     (group.items||[]).forEach(num=>{
-      const topic = findByNumber(num);
+      let topic = null;
+      if (typeof num === 'number') topic = findByNumber(num);
+      else topic = manifest.find(m => m.slug === String(num));
       if(!topic) return;
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.className = 'topic-link';
       a.href = '#'+topic.slug;
-      a.textContent = cleanTitle(topic.title);
+      const noteNum = getNumberFromSlug(topic.slug);
+      a.textContent = (noteNum ? (noteNum + ') ') : '') + cleanTitle(topic.title);
       a.onclick = (e)=>{
         e.preventDefault();
         showNote(topic.slug);
@@ -477,6 +621,25 @@ async function showNote(slug){
     
     setTimeout(() => {
       articleEl.innerHTML = html;
+
+      // Number in-article headings (h2-h6) for easier reading
+      (function(){
+        const counters = [0,0,0,0,0,0,0];
+        const headings = articleEl.querySelectorAll('h1,h2,h3,h4,h5,h6');
+        headings.forEach(h => {
+          const lvl = parseInt(h.tagName.substring(1), 10);
+          if(lvl <= 1) return; // skip h1
+          counters[lvl] += 1;
+          for(let i = lvl + 1; i <= 6; i++) counters[i] = 0;
+          const parts = [];
+          for(let i = 2; i <= lvl; i++){
+            if(counters[i]) parts.push(String(counters[i]));
+          }
+          if(parts.length){
+            h.textContent = parts.join('.') + ' ' + h.textContent;
+          }
+        });
+      })();
       articleEl.style.opacity = '1';
       articleEl.style.transform = 'translateY(0)';
       articleEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
@@ -531,11 +694,16 @@ async function showNote(slug){
 
 function applySearch(q){
   q = (q||'').toLowerCase();
-  document.querySelectorAll('.group li').forEach(li=>{
+  document.querySelectorAll('.group').forEach(group => {
+    let anyVisible = false;
+    group.querySelectorAll('li').forEach(li => {
     const a = li.querySelector('.topic-link');
     const text = (a && a.textContent) ? a.textContent.toLowerCase() : '';
     const found = text.includes(q) || (li.textContent||'').toLowerCase().includes(q);
     li.style.display = found ? '' : 'none';
+      if (found) anyVisible = true;
+    });
+    group.style.display = anyVisible ? '' : 'none';
   });
 }
 
@@ -600,6 +768,9 @@ ls *.md | jq -R . | jq -s . > file-list.json</code></pre>
 }
 
 searchInput.addEventListener('input', ()=>applySearch(searchInput.value));
+if (searchInput) {
+  searchInput.addEventListener('input', () => applySearch(searchInput.value));
+}
 window.addEventListener('popstate', async (ev)=>{ 
   if(location.hash) await showNote(location.hash.slice(1)); 
 });
