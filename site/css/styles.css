@@ -698,5 +698,266 @@ body{
 /* Old-school paper texture */
 body::after{content:'';position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(0,0,0,0.01) 1px, transparent 1px);background-size:100% 24px;mix-blend-mode:multiply}
 
+/* Enhanced Markdown Content Styling */
+
+/* Better Headers */
+.article h1 {
+  font-size: 36px;
+  margin: 32px 0 20px 0;
+  padding-bottom: 12px;
+  border-bottom: 3px solid rgba(43,111,111,0.15);
+  color: var(--accent);
+}
+
+.article h2 {
+  font-size: 28px;
+  margin: 28px 0 16px 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid rgba(43,111,111,0.1);
+  color: #1a4f4f;
+}
+
+.article h3 {
+  font-size: 22px;
+  margin: 24px 0 12px 0;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.article h4 {
+  font-size: 18px;
+  margin: 20px 0 10px 0;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* Better Paragraphs */
+.article p {
+  line-height: 1.8;
+  margin: 14px 0;
+  color: var(--ink);
+}
+
+/* Beautiful Lists */
+.article ul, .article ol {
+  margin: 16px 0;
+  padding-left: 32px;
+  line-height: 1.8;
+}
+
+.article ul li, .article ol li {
+  margin: 8px 0;
+  padding-left: 8px;
+}
+
+.article ul li::marker {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.article ol li::marker {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+/* Nested Lists */
+.article ul ul, .article ol ul, .article ul ol, .article ol ol {
+  margin: 8px 0;
+  padding-left: 24px;
+}
+
+/* Beautiful Tables */
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  background: rgba(255,255,255,0.6);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow-medium);
+  transition: all var(--transition-medium);
+}
+
+.article table:hover {
+  box-shadow: var(--shadow-heavy);
+  transform: translateY(-2px);
+}
+
+.article table thead {
+  background: linear-gradient(135deg, rgba(43,111,111,0.15), rgba(43,111,111,0.08));
+  border-bottom: 2px solid rgba(43,111,111,0.3);
+}
+
+.article table th {
+  padding: 16px 20px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.article table td {
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  color: var(--ink);
+  transition: background var(--transition-fast);
+}
+
+.article table tbody tr {
+  transition: all var(--transition-fast);
+}
+
+.article table tbody tr:hover {
+  background: rgba(43,111,111,0.04);
+  transform: translateX(4px);
+}
+
+.article table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Alternating rows */
+.article table tbody tr:nth-child(even) {
+  background: rgba(0,0,0,0.02);
+}
+
+/* Blockquotes */
+.article blockquote {
+  margin: 20px 0;
+  padding: 16px 24px;
+  border-left: 4px solid var(--accent);
+  background: rgba(43,111,111,0.05);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: var(--muted);
+  transition: all var(--transition-medium);
+}
+
+.article blockquote:hover {
+  background: rgba(43,111,111,0.08);
+  transform: translateX(8px);
+}
+
+/* Horizontal Rules */
+.article hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(43,111,111,0.3), transparent);
+  margin: 32px 0;
+}
+
+/* Links */
+.article a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 2px solid rgba(43,111,111,0.2);
+  transition: all var(--transition-fast);
+  padding-bottom: 2px;
+}
+
+.article a:hover {
+  color: #1a4f4f;
+  border-bottom-color: var(--accent);
+  background: rgba(43,111,111,0.05);
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+/* Inline Code */
+.article code {
+  background: rgba(43,111,111,0.08);
+  color: #1a4f4f;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Courier New', monospace;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+/* Code in Pre blocks */
+.article pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font-weight: 400;
+}
+
+/* Strong/Bold */
+.article strong, .article b {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Emphasis/Italic */
+.article em, .article i {
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Definition Lists */
+.article dl {
+  margin: 16px 0;
+  padding: 16px;
+  background: rgba(0,0,0,0.02);
+  border-radius: 8px;
+}
+
+.article dt {
+  font-weight: 700;
+  color: var(--accent);
+  margin-top: 12px;
+}
+
+.article dd {
+  margin: 4px 0 12px 24px;
+  color: var(--ink);
+}
+
+/* Checkboxes in Lists */
+.article input[type="checkbox"] {
+  margin-right: 8px;
+  accent-color: var(--accent);
+}
+
+/* Images */
+.article img {
+  border-radius: 10px;
+  box-shadow: var(--shadow-medium);
+  transition: all var(--transition-medium);
+}
+
+.article img:hover {
+  box-shadow: var(--shadow-heavy);
+  transform: scale(1.02);
+}
+
+/* Better spacing between sections */
+.article > *:first-child {
+  margin-top: 0;
+}
+
+.article > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Keyboard Keys */
+.article kbd {
+  background: linear-gradient(180deg, #f5f5f5, #e8e8e8);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+  color: #333;
+  padding: 2px 8px;
+  font-family: ui-monospace, monospace;
+  font-size: 0.9em;
+}
+
+/* Mark/Highlight */
+.article mark {
+  background: rgba(255,235,59,0.3);
+  padding: 2px 4px;
+  border-radius: 3px;
+  color: var(--ink);
+}
 /* Footer */
 .site-footer{padding:18px 28px;text-align:center;color:var(--muted);font-size:13px;border-top:1px solid rgba(0,0,0,0.03);margin-top:28px}

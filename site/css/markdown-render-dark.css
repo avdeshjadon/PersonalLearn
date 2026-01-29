@@ -1,0 +1,230 @@
+/* Dark Theme for Markdown Rendering */
+/* Applied when body has class 'dark' */
+
+body.dark {
+    /* Dark colour palette */
+    --md-bg-primary: #0f1720;
+    --md-bg-secondary: #0b1220;
+    --md-bg-code: #07121a;
+
+    /* Dark text colours */
+    --md-text-primary: #e6eef6;
+    --md-text-secondary: #9aa6b2;
+    --md-text-muted: #6b7885;
+    --md-text-code: #cfeee0;
+
+    /* Dark accent colours */
+    --md-accent-blue: #7dd3fc;
+    --md-accent-teal: #5eead4;
+
+    /* Dark borders */
+    --md-border-light: rgba(255, 255, 255, 0.06);
+    --md-border-medium: rgba(255, 255, 255, 0.1);
+    --md-border-dark: rgba(255, 255, 255, 0.15);
+
+    /* Dark shadows */
+    --md-shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Article container */
+body.dark .article {
+    background: var(--md-bg-secondary);
+    color: var(--md-text-primary);
+}
+
+/* Headings in dark mode */
+body.dark .article h1,
+body.dark .article h2,
+body.dark .article h3,
+body.dark .article h4,
+body.dark .article h5,
+body.dark .article h6 {
+    color: var(--md-text-primary);
+}
+
+body.dark .article h1 {
+    border-bottom-color: var(--md-border-light);
+}
+
+body.dark .article h2 {
+    color: var(--md-accent-blue);
+    border-bottom-color: var(--md-border-light);
+}
+
+body.dark .article h3 {
+    color: var(--md-accent-teal);
+}
+
+body.dark .article h5,
+body.dark .article h6 {
+    color: var(--md-text-secondary);
+}
+
+/* Links in dark mode */
+body.dark .article a {
+    color: var(--md-accent-blue);
+}
+
+body.dark .article a:hover {
+    color: var(--md-accent-teal);
+    border-bottom-color: var(--md-accent-teal);
+}
+
+/* Text styles */
+body.dark .article strong,
+body.dark .article b {
+    color: var(--md-text-primary);
+}
+
+body.dark .article em,
+body.dark .article i {
+    color: var(--md-text-secondary);
+}
+
+/* List markers */
+body.dark .article ul li::marker {
+    color: var(--md-accent-blue);
+}
+
+body.dark .article ol li::marker {
+    color: var(--md-accent-blue);
+}
+
+/* Code blocks in dark mode */
+body.dark .article pre {
+    background: var(--md-bg-code);
+    border-color: var(--md-border-light);
+    color: var(--md-text-code);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.015);
+}
+
+body.dark .article pre code {
+    color: var(--md-text-code);
+}
+
+/* Inline code */
+body.dark .article code {
+    background: var(--md-bg-code);
+    border-color: var(--md-border-light);
+    color: var(--md-text-code);
+}
+
+/* ASCII diagrams */
+body.dark .article .ascii-diagram {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.01));
+    border-color: var(--md-border-light);
+    color: var(--md-text-primary);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+body.dark .article .ascii-diagram code {
+    background: transparent;
+    color: inherit;
+}
+
+/* Blockquotes in dark mode */
+body.dark .article blockquote {
+    border-left-color: var(--md-accent-blue);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--md-text-secondary);
+}
+
+/* Horizontal rule */
+body.dark .article hr {
+    background: var(--md-border-light);
+}
+
+/* Tables in dark mode */
+body.dark .article table {
+    border-color: var(--md-border-light);
+    background: var(--md-bg-secondary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+body.dark .article table th,
+body.dark .article table td {
+    border-color: var(--md-border-light);
+}
+
+body.dark .article table th {
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--md-text-primary);
+}
+
+body.dark .article table tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.015);
+}
+
+body.dark .article table tr:hover {
+    background: rgba(125, 211, 252, 0.08);
+}
+
+/* Selection in dark mode */
+body.dark .article ::selection {
+    background: rgba(125, 211, 252, 0.3);
+    color: var(--md-text-primary);
+}
+
+body.dark .article ::-moz-selection {
+    background: rgba(125, 211, 252, 0.3);
+    color: var(--md-text-primary);
+}
+
+/* Highlight/mark in dark mode */
+body.dark .article mark {
+    background: rgba(255, 235, 59, 0.25);
+    color: var(--md-text-primary);
+}
+
+/* Images in dark mode */
+body.dark .article img {
+    opacity: 0.9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+body.dark .article img:hover {
+    opacity: 1;
+}
+
+/* Keyboard keys in dark mode */
+body.dark .article kbd {
+    background: linear-gradient(180deg, #2a3441, #1a2431);
+    border-color: var(--md-border-medium);
+    color: var(--md-text-primary);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Definition lists in dark mode */
+body.dark .article dl {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+body.dark .article dt {
+    color: var(--md-accent-blue);
+}
+
+body.dark .article dd {
+    color: var(--md-text-primary);
+}
+
+/* Scrollbar in dark mode */
+body.dark .article pre::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+body.dark .article pre::-webkit-scrollbar-thumb {
+    background: var(--md-border-medium);
+}
+
+body.dark .article pre::-webkit-scrollbar-thumb:hover {
+    background: var(--md-border-dark);
+}
+
+/* SVG diagram colors in dark mode */
+body.dark .svg-diagram .t {
+    fill: var(--md-text-primary);
+}
+
+body.dark .svg-diagram .muted {
+    fill: var(--md-text-muted);
+}
