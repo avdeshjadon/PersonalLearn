@@ -806,15 +806,18 @@ if(menuToggle){
     if(isOpen) {
       sidebar.classList.remove('open');
       overlay.classList.remove('active');
+      document.body.classList.remove('sidebar-open');
     } else {
       sidebar.classList.add('open');
       overlay.classList.add('active');
+      document.body.classList.add('sidebar-open');
     }
   });
   
   overlay.addEventListener('click', ()=>{
     document.querySelector('.sidebar').classList.remove('open');
     overlay.classList.remove('active');
+    document.body.classList.remove('sidebar-open');
   });
   
   document.addEventListener('click', (e)=>{
@@ -822,9 +825,17 @@ if(menuToggle){
       setTimeout(() => {
         document.querySelector('.sidebar').classList.remove('open');
         overlay.classList.remove('active');
+        document.body.classList.remove('sidebar-open');
       }, 300);
     }
   });
 }
+
+// Add global fade-in for buttery smooth load
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    document.body.classList.add('js-fadein');
+  }, 10);
+});
 
 init();
