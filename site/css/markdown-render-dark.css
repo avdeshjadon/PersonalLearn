@@ -7,35 +7,75 @@ body.dark {
     --md-text-muted: #9aa6b2;
     --md-accent: #7dd3fc;
     --md-code-bg: #07121a;
-    --md-border: rgba(255,255,255,0.1);
+    --md-border: rgba(255, 255, 255, 0.1);
 }
 
 /* Article */
-body.dark .article { background: var(--md-bg); color: var(--md-text); }
+body.dark .article {
+    background: var(--md-bg);
+    color: var(--md-text);
+}
 
 /* Headings */
-body.dark .article h2 { color: var(--md-accent); }
+body.dark .article h2 {
+    color: var(--md-accent);
+}
 
 /* Links */
-body.dark .article a { color: var(--md-accent); }
-body.dark .article em { color: var(--md-text-muted); }
+body.dark .article a {
+    color: var(--md-accent);
+}
+
+body.dark .article em {
+    color: var(--md-text-muted);
+}
 
 /* Code */
-body.dark .article pre { background: var(--md-code-bg); border-color: var(--md-border); color: #cfeee0; }
-body.dark .article code { background: var(--md-code-bg); color: #cfeee0; }
+body.dark .article pre {
+    background: var(--md-code-bg);
+    border-color: var(--md-border);
+    color: #cfeee0;
+}
+
+body.dark .article code {
+    background: var(--md-code-bg);
+    color: #cfeee0;
+}
 
 /* ASCII Diagrams */
-body.dark .article .ascii-diagram { background: rgba(255,255,255,0.02); border-color: var(--md-border); }
+body.dark .article .ascii-diagram {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: var(--md-border);
+}
 
 /* Blockquotes */
-body.dark .article blockquote { background: rgba(255,255,255,0.03); border-left-color: var(--md-accent); }
+body.dark .article blockquote {
+    background: rgba(255, 255, 255, 0.03);
+    border-left-color: var(--md-accent);
+}
 
 /* Tables */
-body.dark .article th { background: rgba(255,255,255,0.03); }
-body.dark .article tr:nth-child(even) { background: rgba(255,255,255,0.015); }
-body.dark .article tr:hover { background: rgba(125,211,252,0.08); }
+body.dark .article th {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+body.dark .article tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.015);
+}
+
+body.dark .article tr:hover {
+    background: rgba(125, 211, 252, 0.08);
+}
 
 /* Scrollbar */
-body.dark .article pre::-webkit-scrollbar { height: 8px; }
-body.dark .article pre::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
-body.dark .article pre::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
+body.dark .article pre::-webkit-scrollbar {
+    height: 8px;
+}
+
+body.dark .article pre::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+body.dark .article pre::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+}

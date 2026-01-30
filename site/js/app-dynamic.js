@@ -575,6 +575,9 @@ async function showNote(slug){
       for(const it of items){
         if(typeof it === 'number' && it === noteNum){ foundGroup = i; break; }
         if(typeof it === 'object' && it.num === noteNum){ foundGroup = i; break; }
+        if(typeof it === 'string'){
+          if(it === slug || getNumberFromSlug(it) === noteNum){ foundGroup = i; break; }
+        }
       }
       if(foundGroup >= 0) break;
     }
@@ -587,6 +590,14 @@ async function showNote(slug){
         if(header) header.classList.add('expanded');
       }
     }
+
+    // Ensure the active item is visible in the sidebar
+    try{
+      const activeLink = document.querySelector(`.topic-link[href="#${slug}"]`);
+      if(activeLink){
+        activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }catch(e){/* ignore */}
   }
 
   // Show loading state

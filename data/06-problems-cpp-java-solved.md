@@ -22,104 +22,123 @@ C aur C++ powerful languages hain, but 1990s mein kuch major problems face ho ra
 
 ## Definitions
 
-### 🔹 Very Simple Definition
+### Very Simple Definition
 Java ne C/C++ ki major problems (pointers, memory leaks, platform dependency) ko solve kiya aur ek safer, simpler language banayi.
 
-### 🔹 College Exam Definition
+### College Exam Definition
 Java addressed critical limitations of C/C++ including manual memory management, pointer-related errors, platform dependency, lack of built-in security, and complex syntax, by introducing automatic garbage collection, references instead of pointers, platform independence through JVM, and a simpler object-oriented design.
 
-### 🔹 Viva Definition
+### Viva Definition
 C/C++ suffered from memory management issues (leaks, dangling pointers), platform-specific compilation, security vulnerabilities (buffer overflows), and complexity (multiple inheritance, preprocessor directives). Java eliminated these through managed memory with garbage collection, JVM-based platform independence, no pointer arithmetic, single inheritance, and built-in security mechanisms.
 
-### 🔹 Interview Definition
+### Interview Definition
 Java was architected to overcome C/C++'s fundamental challenges: manual memory management leading to leaks and corruption, pointer arithmetic causing security vulnerabilities, platform-dependent binaries requiring recompilation, multiple inheritance complexity (diamond problem), and lack of built-in networking/security. Java introduced automatic GC, references, bytecode+JVM architecture, single inheritance with interfaces, and comprehensive standard libraries for modern application development.
 
-### 🔹 Technical Definition
+### Technical Definition
 Java addressed C/C++'s architectural limitations by replacing manual memory allocation/deallocation with automatic garbage collection, eliminating pointer arithmetic through object references, achieving platform independence via bytecode intermediate representation and JVM abstraction layer, simplifying inheritance model by removing multiple inheritance while adding interfaces, and providing built-in security through bytecode verification, sandboxing, and security manager APIs.
 
-### 🔹 One-line Crisp Definition
+### One-line Crisp Definition
 Java = C/C++ power - (Pointers + Manual Memory + Platform Dependency + Complexity)
 
 ---
 
-## DIAGRAM: Problems in C/C++
+## DIAGRAM: C/C++ Problems Overview
 
 ```
-┌─────────────────────────────────────────────────────┐
-│         C/C++ MAJOR PROBLEMS (1990s)                │
-└─────────────────────────────────────────────────────┘
+╔═════════════════════════════════════════════════════════════╗
+║              C/C++ MAJOR PROBLEMS (1990s)                   ║
+╚═════════════════════════════════════════════════════════════╝
 
-PROBLEM 1: POINTERS
-┌──────────────────────────────────────┐
-│  int* ptr;                           │
-│  ptr = (int*)malloc(100);            │
-│  *ptr = 10;                          │
-│  free(ptr);                          │
-│  *ptr = 20;  ← DANGLING POINTER! 💥  │
-└──────────────────────────────────────┘
-    ↓
-Crashes, Security holes, Undefined behavior
+┌────────────────────────────────────────────────────────────┐
+│  PROBLEM 1: POINTERS & MEMORY CORRUPTION                   │
+├────────────────────────────────────────────────────────────┤
+│  int* ptr;                                                 │
+│  ptr = (int*)malloc(100);                                  │
+│  *ptr = 10;                                                │
+│  free(ptr);                                                │
+│  *ptr = 20;  ← DANGLING POINTER!                           │
+│                                                            │
+│  CONSEQUENCES:                                             │
+│  • Crashes                                                 │
+│  • Security holes                                          │
+│  • Undefined behavior                                      │
+└────────────────────────────────────────────────────────────┘
 
+┌────────────────────────────────────────────────────────────┐
+│  PROBLEM 2: MEMORY LEAKS                                   │
+├────────────────────────────────────────────────────────────┤
+│  void function() {                                         │
+│      int* data = malloc(1000);                             │
+│      // ... use data                                       │
+│      // Forgot to call free()!                             │
+│  }                                                         │
+│                                                            │
+│  CONSEQUENCES:                                             │
+│  • Memory never released                                   │
+│  • Program eventually crashes                              │
+│  • System slowdown                                         │
+└────────────────────────────────────────────────────────────┘
 
-PROBLEM 2: MEMORY LEAKS
-┌──────────────────────────────────────┐
-│  void function() {                   │
-│      int* data = malloc(1000);       │
-│      // ... use data                 │
-│      // Forgot to call free()! ❌    │
-│  }                                   │
-└──────────────────────────────────────┘
-    ↓
-Memory never released → Program crashes
+┌────────────────────────────────────────────────────────────┐
+│  PROBLEM 3: PLATFORM DEPENDENCY                            │
+├────────────────────────────────────────────────────────────┤
+│  program.cpp                                               │
+│      ↓ compile on Windows                                  │
+│  program.exe (Only Windows)                                │
+│                                                            │
+│  program.cpp                                               │
+│      ↓ compile on Linux                                    │
+│  a.out (Only Linux)                                        │
+│                                                            │
+│  CONSEQUENCES:                                             │
+│  • Different binaries for each OS                          │
+│  • Must recompile for each platform                        │
+│  • Maintenance nightmare                                   │
+└────────────────────────────────────────────────────────────┘
 
+┌────────────────────────────────────────────────────────────┐
+│  PROBLEM 4: MULTIPLE INHERITANCE (Diamond Problem)         │
+├────────────────────────────────────────────────────────────┤
+│         ClassA                                             │
+│        /      \                                            │
+│    ClassB    ClassC                                        │
+│        \      /                                            │
+│         ClassD                                             │
+│                                                            │
+│  Which version of method?                                  │
+│                                                            │
+│  CONSEQUENCES:                                             │
+│  • Ambiguity                                               │
+│  • Complexity                                              │
+│  • Hard to maintain                                        │
+└────────────────────────────────────────────────────────────┘
 
-PROBLEM 3: PLATFORM DEPENDENCY
-┌──────────────────────────────────────┐
-│  program.cpp                         │
-│      ↓ compile on Windows            │
-│  program.exe (Only Windows)          │
-│                                      │
-│  program.cpp                         │
-│      ↓ compile on Linux              │
-│  a.out (Only Linux)                  │
-└──────────────────────────────────────┘
-    ↓
-Same code, different binaries for each OS
+┌────────────────────────────────────────────────────────────┐
+│  PROBLEM 5: NO BUILT-IN SECURITY                           │
+├────────────────────────────────────────────────────────────┤
+│  char buffer[10];                                          │
+│  gets(buffer);  ← No bounds check!                         │
+│  // User enters 50 characters                              │
+│  // Buffer overflow!                                       │
+│                                                            │
+│  CONSEQUENCES:                                             │
+│  • Security vulnerabilities                                │
+│  • Exploits possible                                       │
+│  • System compromise                                       │
+└────────────────────────────────────────────────────────────┘
 
-
-PROBLEM 4: MULTIPLE INHERITANCE (Diamond Problem)
-┌──────────────────────────────────────┐
-│         ClassA                       │
-│        /      \                      │
-│    ClassB    ClassC                  │
-│        \      /                      │
-│         ClassD                       │
-│                                      │
-│  Which version of method? 🤔         │
-└──────────────────────────────────────┘
-    ↓
-Ambiguity, Complexity
-
-
-PROBLEM 5: NO BUILT-IN SECURITY
-┌──────────────────────────────────────┐
-│  char buffer[10];                    │
-│  gets(buffer);  ← No bounds check!   │
-│  // User enters 50 characters        │
-│  // Buffer overflow! 💥              │
-└──────────────────────────────────────┘
-    ↓
-Security vulnerabilities, Exploits
-
-
-PROBLEM 6: PREPROCESSOR ISSUES
-┌──────────────────────────────────────┐
-│  #define MAX 100                     │
-│  #include <header.h>                 │
-│  // Text replacement, no type safety │
-└──────────────────────────────────────┘
-    ↓
-Hard to debug, No type checking
+┌────────────────────────────────────────────────────────────┐
+│  PROBLEM 6: PREPROCESSOR ISSUES                            │
+├────────────────────────────────────────────────────────────┤
+│  #define MAX 100                                           │
+│  #include <header.h>                                       │
+│  // Text replacement, no type safety                       │
+│                                                            │
+│  CONSEQUENCES:                                             │
+│  • Hard to debug                                           │
+│  • No type checking                                        │
+│  • Macro side effects                                      │
+└────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -127,81 +146,149 @@ Hard to debug, No type checking
 ## DIAGRAM: Java's Solutions
 
 ```
-┌─────────────────────────────────────────────────────┐
-│         JAVA'S SOLUTIONS                            │
-└─────────────────────────────────────────────────────┘
+╔═════════════════════════════════════════════════════════════╗
+║                    JAVA'S SOLUTIONS                         ║
+╚═════════════════════════════════════════════════════════════╝
 
-SOLUTION 1: NO POINTERS (Only References)
-┌──────────────────────────────────────┐
-│  String str = new String("Hello");   │
-│  // No pointer arithmetic            │
-│  // No manual memory access          │
-│  // Safe! ✅                          │
-└──────────────────────────────────────┘
-    ↓
-No dangling pointers, No memory corruption
+┌────────────────────────────────────────────────────────────┐
+│  SOLUTION 1: NO POINTERS (Only References)                 │
+├────────────────────────────────────────────────────────────┤
+│  String str = new String("Hello");                         │
+│  // No pointer arithmetic                                  │
+│  // No manual memory access                                │
+│  // Safe!                                                  │
+│                                                            │
+│  BENEFITS:                                                 │
+│  • No dangling pointers                                    │
+│  • No memory corruption                                    │
+│  • Type-safe references                                    │
+└────────────────────────────────────────────────────────────┘
 
+┌────────────────────────────────────────────────────────────┐
+│  SOLUTION 2: AUTOMATIC GARBAGE COLLECTION                  │
+├────────────────────────────────────────────────────────────┤
+│  void function() {                                         │
+│      String data = new String("Hi");                       │
+│      // ... use data                                       │
+│      // No need to free!                                   │
+│  } // GC automatically cleans up                           │
+│                                                            │
+│  BENEFITS:                                                 │
+│  • No memory leaks                                         │
+│  • Automatic cleanup                                       │
+│  • Developer focus on logic                                │
+└────────────────────────────────────────────────────────────┘
 
-SOLUTION 2: AUTOMATIC GARBAGE COLLECTION
-┌──────────────────────────────────────┐
-│  void function() {                   │
-│      String data = new String("Hi"); │
-│      // ... use data                 │
-│      // No need to free! ✅          │
-│  } // GC automatically cleans up     │
-└──────────────────────────────────────┘
-    ↓
-No memory leaks, Automatic cleanup
+┌────────────────────────────────────────────────────────────┐
+│  SOLUTION 3: PLATFORM INDEPENDENCE (WORA)                  │
+├────────────────────────────────────────────────────────────┤
+│  Program.java                                              │
+│      ↓ javac (compile once)                                │
+│  Program.class (Bytecode)                                  │
+│      ↓                                                     │
+│  ┌─────────┬─────────┬─────────┐                           │
+│  │ Windows │  Linux  │   Mac   │                           │
+│  │  JVM    │  JVM    │   JVM   │                           │
+│  └─────────┴─────────┴─────────┘                           │
+│                                                            │
+│  BENEFITS:                                                 │
+│  • Write once, run anywhere                                │
+│  • Same bytecode for all platforms                         │
+│  • Easy distribution                                       │
+└────────────────────────────────────────────────────────────┘
 
+┌────────────────────────────────────────────────────────────┐
+│  SOLUTION 4: SINGLE INHERITANCE + INTERFACES               │
+├────────────────────────────────────────────────────────────┤
+│  class Child extends Parent {                              │
+│      // Only ONE parent class                              │
+│  }                                                         │
+│                                                            │
+│  class MyClass implements I1, I2 {                         │
+│      // Multiple interfaces OK                             │
+│  }                                                         │
+│                                                            │
+│  BENEFITS:                                                 │
+│  • No diamond problem                                      │
+│  • Clear hierarchy                                         │
+│  • Simple to understand                                    │
+└────────────────────────────────────────────────────────────┘
 
-SOLUTION 3: PLATFORM INDEPENDENCE (WORA)
-┌──────────────────────────────────────┐
-│  Program.java                        │
-│      ↓ javac (compile once)          │
-│  Program.class (Bytecode)            │
-│      ↓                                │
-│  ┌─────────┬─────────┬─────────┐    │
-│  │ Windows │  Linux  │   Mac   │    │
-│  │  JVM    │  JVM    │   JVM   │    │
-│  └─────────┴─────────┴─────────┘    │
-└──────────────────────────────────────┘
-    ↓
-Write once, run anywhere!
+┌────────────────────────────────────────────────────────────┐
+│  SOLUTION 5: BUILT-IN SECURITY                             │
+├────────────────────────────────────────────────────────────┤
+│  int[] arr = new int[10];                                  │
+│  arr[15] = 100;  ← Bounds checked!                         │
+│  // ArrayIndexOutOfBoundsException                         │
+│  // Program safe!                                          │
+│                                                            │
+│  BENEFITS:                                                 │
+│  • Array bounds checking                                   │
+│  • No buffer overflow                                      │
+│  • Bytecode verification                                   │
+└────────────────────────────────────────────────────────────┘
 
+┌────────────────────────────────────────────────────────────┐
+│  SOLUTION 6: NO PREPROCESSOR                               │
+├────────────────────────────────────────────────────────────┤
+│  final int MAX = 100;  // Type-safe                        │
+│  import java.util.*;   // Packages                         │
+│  // Compile-time checking                                  │
+│                                                            │
+│  BENEFITS:                                                 │
+│  • Type safety                                             │
+│  • Better error messages                                   │
+│  • Cleaner code                                            │
+└────────────────────────────────────────────────────────────┘
+```
 
-SOLUTION 4: SINGLE INHERITANCE + INTERFACES
-┌──────────────────────────────────────┐
-│  class Child extends Parent {        │
-│      // Only ONE parent class        │
-│  }                                   │
-│                                      │
-│  class MyClass implements I1, I2 {   │
-│      // Multiple interfaces OK       │
-│  }                                   │
-└──────────────────────────────────────┘
-    ↓
-No diamond problem, Clear hierarchy
+---
 
+## DIAGRAM: Problem-Solution Mapping
 
-SOLUTION 5: BUILT-IN SECURITY
-┌──────────────────────────────────────┐
-│  int[] arr = new int[10];            │
-│  arr[15] = 100;  ← Bounds checked!   │
-│  // ArrayIndexOutOfBoundsException   │
-│  // Program safe! ✅                 │
-└──────────────────────────────────────┘
-    ↓
-Array bounds checking, No buffer overflow
+```
+╔═════════════════════════════════════════════════════════════╗
+║           C/C++ PROBLEM  →  JAVA SOLUTION                   ║
+╚═════════════════════════════════════════════════════════════╝
 
-
-SOLUTION 6: NO PREPROCESSOR
-┌──────────────────────────────────────┐
-│  final int MAX = 100;  // Type-safe  │
-│  import java.util.*;   // Packages   │
-│  // Compile-time checking ✅         │
-└──────────────────────────────────────┘
-    ↓
-Type safety, Better error messages
+┌─────────────────────────────┬───────────────────────────────┐
+│   C/C++ PROBLEM             │   JAVA SOLUTION               │
+├─────────────────────────────┼───────────────────────────────┤
+│ Pointers                    │ References only               │
+│ • Dangling pointers         │ • No pointer arithmetic       │
+│ • Memory corruption         │ • Type-safe references        │
+│ • Buffer overflows          │ • Garbage collector manages   │
+├─────────────────────────────┼───────────────────────────────┤
+│ Manual Memory Management    │ Automatic Garbage Collection  │
+│ • malloc/free required      │ • new only (no free)          │
+│ • Memory leaks common       │ • GC automatically cleans     │
+│ • Developer burden          │ • Focus on logic              │
+├─────────────────────────────┼───────────────────────────────┤
+│ Platform Dependency         │ Platform Independence         │
+│ • OS-specific binaries      │ • Bytecode + JVM              │
+│ • Recompile per platform    │ • Write once, run anywhere    │
+│ • Different codebases       │ • Single codebase             │
+├─────────────────────────────┼───────────────────────────────┤
+│ Multiple Inheritance        │ Single Inheritance            │
+│ • Diamond problem           │ • One parent class only       │
+│ • Ambiguity issues          │ • Multiple interfaces         │
+│ • Complex hierarchy         │ • Clear, simple hierarchy     │
+├─────────────────────────────┼───────────────────────────────┤
+│ No Built-in Security        │ Built-in Security             │
+│ • No bounds checking        │ • Array bounds checked        │
+│ • Buffer overflows          │ • Bytecode verification       │
+│ • Security vulnerabilities  │ • Security Manager            │
+├─────────────────────────────┼───────────────────────────────┤
+│ Preprocessor Issues         │ No Preprocessor               │
+│ • Text replacement          │ • Type-safe constants         │
+│ • No type safety            │ • Package system              │
+│ • Macro bugs                │ • Compile-time checks         │
+├─────────────────────────────┼───────────────────────────────┤
+│ Undefined Behavior          │ Well-defined Behavior         │
+│ • Unpredictable results     │ • Consistent across JVMs      │
+│ • Compiler-dependent        │ • Exceptions for errors       │
+│ • Hard to debug             │ • Predictable behavior        │
+└─────────────────────────────┴───────────────────────────────┘
 ```
 
 ---
@@ -217,7 +304,7 @@ Har customer ke liye:
 - Table manually allocate karo
 - Khana serve karo
 - Customer jane ke baad table manually clean karo
-- Agar bhool gaye clean karna → Tables khatam! 😫
+- Agar bhool gaye clean karna → Tables khatam!
 ```
 
 **Java (Automatic):**
@@ -226,7 +313,7 @@ Ab socho automated restaurant:
 - Customer aaya → Table auto-assign
 - Khana serve karo
 - Customer gaya → Cleaning staff (GC) auto clean karega
-- Tum tension-free! ✅
+- Tum tension-free!
 ```
 
 ### Example 2: Pointers
@@ -239,7 +326,7 @@ Socho tumhare paas ek address hai:
 Tum directly us ghar mein ghus sakte ho (pointer)
 - Kisi ka bhi ghar
 - Kuch bhi tod sakte ho
-- Dangerous! 💥
+- Dangerous!
 ```
 
 **Java (Safe):**
@@ -247,7 +334,7 @@ Tum directly us ghar mein ghus sakte ho (pointer)
 Ab tumhare paas sirf phone number hai (reference)
 - Ghar wale se baat kar sakte ho
 - But directly ghar mein nahi ghus sakte
-- Safe! ✅
+- Safe!
 ```
 
 ---
@@ -432,112 +519,86 @@ import java.util.ArrayList;  // Import specific class
 // Package system clean
 ```
 
-### Problem 7: Undefined Behavior
-
-**C/C++ Issue:**
-```cpp
-int x = 5;
-int y = x++ + ++x;  // Undefined behavior!
-// Different compilers, different results
-
-int arr[5];
-arr[10] = 100;  // Undefined behavior!
-// May crash, may not, unpredictable
-```
-
-**Java Solution:**
-```java
-int x = 5;
-int y = x++ + ++x;  // Well-defined behavior
-// Consistent across all JVMs
-
-int[] arr = new int[5];
-arr[10] = 100;  // ArrayIndexOutOfBoundsException
-// Predictable, safe error
-```
-
 ---
 
 ## Memory Behavior Comparison
 
-**C/C++ Memory:**
 ```
-┌─────────────────────────────────────┐
-│  MANUAL MEMORY MANAGEMENT           │
-│                                     │
-│  Developer Responsibilities:        │
-│  ┌──────────────────────────────┐  │
-│  │ 1. Allocate (malloc/new)     │  │
-│  │ 2. Use carefully             │  │
-│  │ 3. Track all pointers        │  │
-│  │ 4. Free at right time        │  │
-│  │ 5. Avoid double-free         │  │
-│  │ 6. Avoid use-after-free      │  │
-│  └──────────────────────────────┘  │
-│                                     │
-│  Mistakes → Crashes, Leaks, Hacks   │
-└─────────────────────────────────────┘
-```
+╔═════════════════════════════════════════════════════════════╗
+║            MEMORY MANAGEMENT COMPARISON                     ║
+╚═════════════════════════════════════════════════════════════╝
 
-**Java Memory:**
-```
-┌─────────────────────────────────────┐
-│  AUTOMATIC MEMORY MANAGEMENT        │
-│                                     │
-│  Developer Responsibilities:        │
-│  ┌──────────────────────────────┐  │
-│  │ 1. Create objects (new)      │  │
-│  │ 2. Use them                  │  │
-│  │ 3. Done! GC handles rest     │  │
-│  └──────────────────────────────┘  │
-│                                     │
-│  GC Responsibilities:               │
-│  ┌──────────────────────────────┐  │
-│  │ 1. Track references          │  │
-│  │ 2. Identify unreachable      │  │
-│  │ 3. Free memory               │  │
-│  │ 4. Compact heap              │  │
-│  └──────────────────────────────┘  │
-│                                     │
-│  Safe, No leaks (usually)           │
-└─────────────────────────────────────┘
+C/C++ MEMORY (Manual):
+┌─────────────────────────────────────────────────────────────┐
+│  Developer Responsibilities:                                │
+│  ┌──────────────────────────────────────┐                   │
+│  │ 1. Allocate (malloc/new)             │                   │
+│  │ 2. Use carefully                     │                   │
+│  │ 3. Track all pointers                │                   │
+│  │ 4. Free at right time                │                   │
+│  │ 5. Avoid double-free                 │                   │
+│  │ 6. Avoid use-after-free              │                   │
+│  └──────────────────────────────────────┘                   │
+│                                                             │
+│  RISK: Mistakes → Crashes, Leaks, Security holes            │
+└─────────────────────────────────────────────────────────────┘
+
+JAVA MEMORY (Automatic):
+┌─────────────────────────────────────────────────────────────┐
+│  Developer Responsibilities:                                │
+│  ┌──────────────────────────────────────┐                   │
+│  │ 1. Create objects (new)              │                   │
+│  │ 2. Use them                          │                   │
+│  │ 3. Done! GC handles rest             │                   │
+│  └──────────────────────────────────────┘                   │
+│                                                             │
+│  GC Responsibilities:                                       │
+│  ┌──────────────────────────────────────┐                   │
+│  │ 1. Track references                  │                   │
+│  │ 2. Identify unreachable objects      │                   │
+│  │ 3. Free memory                       │                   │
+│  │ 4. Compact heap                      │                   │
+│  └──────────────────────────────────────┘                   │
+│                                                             │
+│  BENEFIT: Safe, No leaks (usually)                          │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
 ## Advantages (What Java Gained)
 
-✅ **Safety**: No pointers, no memory corruption  
-✅ **Simplicity**: No manual memory management  
-✅ **Portability**: Write once, run anywhere  
-✅ **Security**: Built-in bounds checking, bytecode verification  
-✅ **Productivity**: Less code, fewer bugs  
-✅ **Maintainability**: Cleaner code, easier to understand  
-✅ **Reliability**: Predictable behavior, no undefined behavior  
-✅ **Modern Features**: Built-in networking, threading, collections  
+**Safety**: No pointers, no memory corruption  
+**Simplicity**: No manual memory management  
+**Portability**: Write once, run anywhere  
+**Security**: Built-in bounds checking, bytecode verification  
+**Productivity**: Less code, fewer bugs  
+**Maintainability**: Cleaner code, easier to understand  
+**Reliability**: Predictable behavior, no undefined behavior  
+**Modern Features**: Built-in networking, threading, collections  
 
 ---
 
 ## Limitations (What Java Lost)
 
-❌ **Performance**: GC overhead, JVM overhead  
-❌ **Control**: No direct hardware access  
-❌ **Memory Footprint**: JVM requires more memory  
-❌ **Startup Time**: JVM initialization takes time  
-❌ **Determinism**: GC pauses unpredictable  
+**Performance**: GC overhead, JVM overhead  
+**Control**: No direct hardware access  
+**Memory Footprint**: JVM requires more memory  
+**Startup Time**: JVM initialization takes time  
+**Determinism**: GC pauses unpredictable  
 
 ---
 
 ## Edge Cases
 
-🔸 **When C/C++ is still better:**
+**When C/C++ is still better:**
 - Operating system kernels
 - Device drivers
 - Real-time systems (no GC pauses)
 - Embedded systems with limited memory
 - Performance-critical applications (game engines)
 
-🔸 **Java's compromises:**
+**Java's compromises:**
 - JNI (Java Native Interface) for C/C++ integration
 - Unsafe class for low-level operations (not recommended)
 - Direct ByteBuffers for performance
@@ -546,23 +607,23 @@ arr[10] = 100;  // ArrayIndexOutOfBoundsException
 
 ## Common Beginner Misconceptions
 
-🚫 **"Java is always slower than C/C++"**  
+**"Java is always slower than C/C++"**  
 → Modern JIT compilers make Java competitive. For many applications, difference is negligible.
 
-🚫 **"No pointers means less powerful"**  
+**"No pointers means less powerful"**  
 → References provide same functionality without dangers. Power comes from what you build, not low-level access.
 
-🚫 **"GC means no memory issues"**  
+**"GC means no memory issues"**  
 → Memory leaks still possible (holding references). But much rarer than C/C++.
 
-🚫 **"Java solved all C/C++ problems"**  
+**"Java solved all C/C++ problems"**  
 → No. Java made trade-offs. C/C++ still better for certain domains.
 
 ---
 
 ## Important Interview Points
 
-💡 **Q: What problems of C/C++ did Java solve?**  
+**Q: What problems of C/C++ did Java solve?**  
 **A**: 
 1. **Pointers**: Removed pointer arithmetic, only references
 2. **Memory Management**: Automatic GC instead of manual malloc/free
@@ -571,7 +632,7 @@ arr[10] = 100;  // ArrayIndexOutOfBoundsException
 5. **Security**: Array bounds checking, bytecode verification
 6. **Complexity**: Simpler syntax, no preprocessor
 
-💡 **Q: How does Java prevent memory leaks?**  
+**Q: How does Java prevent memory leaks?**  
 **A**: Garbage Collector automatically:
 - Tracks object references
 - Identifies unreachable objects
@@ -579,20 +640,20 @@ arr[10] = 100;  // ArrayIndexOutOfBoundsException
 - Runs in background
 - Developer doesn't manually free memory
 
-💡 **Q: Why did Java remove pointers?**  
+**Q: Why did Java remove pointers?**  
 **A**: Pointers caused:
 - Memory corruption (dangling pointers)
 - Security vulnerabilities (buffer overflows)
 - Complexity (pointer arithmetic)
 - Java uses references instead - safer, simpler
 
-💡 **Q: What is the diamond problem and how does Java solve it?**  
+**Q: What is the diamond problem and how does Java solve it?**  
 **A**: 
 - **Problem**: Multiple inheritance ambiguity (which parent's method?)
 - **Java Solution**: Single inheritance for classes, multiple inheritance for interfaces
 - Interfaces have no implementation (until Java 8 default methods), so no ambiguity
 
-💡 **Q: Is Java completely safe from memory issues?**  
+**Q: Is Java completely safe from memory issues?**  
 **A**: No, but much safer:
 - **Still possible**: Memory leaks (holding references), OutOfMemoryError
 - **Prevented**: Dangling pointers, buffer overflows, use-after-free, double-free
@@ -603,7 +664,3 @@ arr[10] = 100;  // ArrayIndexOutOfBoundsException
 
 C/C++ mein major problems thi: pointers se memory corruption, manual memory management se leaks, platform dependency, multiple inheritance complexity, aur security vulnerabilities. Java ne yeh sab solve kiya: pointers remove karke references diye, automatic garbage collection add kiya, bytecode+JVM se platform independence achieve kiya, single inheritance+interfaces se diamond problem solve kiya, aur built-in security features add kiye. Trade-off yeh hai ki Java thoda slower hai aur less control deta hai, but safety aur productivity bahut better hai.
 
----
-
-**Previous**: [← 05 - Why Java Was Created](./05-why-java-was-created.md)  
-**Next**: [07 - What is Java →](./07-what-is-java.md)
