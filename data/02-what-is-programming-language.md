@@ -419,11 +419,10 @@ Bilkul isi tarah, programming language ek **translator** ki tarah kaam karti hai
 ## Syntax Explanation (Simple Java Program)
 
 ```java
-// Yeh ek simple Java program hai
 
-public class HelloWorld {                     // Class definition
-    public static void main(String[] args) {  // Main method - execution start
-        System.out.println("Hello, World!");  // Output instruction
+public class HelloWorld {                     
+    public static void main(String[] args) {  
+        System.out.println("Hello, World!");  
     }
 }
 ```

@@ -464,39 +464,32 @@ hexdump -C Hello.class | head -20
 
 ---
 
+
 ## Advantages and Limitations
 
 ### Advantages
 
-**Platform Independence**: Same .class file runs on any JVM regardless of operating system or hardware architecture.
-
-**Compact Size**: Smaller than source code due to binary format, no comments, and optimized representation.
-
-**Fast Loading**: Pre-compiled bytecode loads faster than parsing source code at runtime.
-
-**Security**: Bytecode can be verified before execution preventing malicious code from running.
-
-**Optimization**: JIT compiler can optimize bytecode to native machine code at runtime based on usage patterns.
-
-**Distribution**: Can distribute applications without exposing source code protecting intellectual property.
-
-**Versioning**: Version information embedded in file ensuring compatibility checking.
-
-**Metadata**: Contains debugging information like line numbers and variable names when compiled with -g flag.
+| Advantage | Description |
+|-----------|-------------|
+| **Platform Independence** | Same .class file runs on any JVM regardless of operating system or hardware architecture. |
+| **Compact Size** | Smaller than source code due to binary format, no comments, and optimized representation. |
+| **Fast Loading** | Pre-compiled bytecode loads faster than parsing source code at runtime. |
+| **Security** | Bytecode can be verified before execution preventing malicious code from running. |
+| **Optimization** | JIT compiler can optimize bytecode to native machine code at runtime based on usage patterns. |
+| **Distribution** | Can distribute applications without exposing source code protecting intellectual property. |
+| **Versioning** | Version information embedded in file ensuring compatibility checking. |
+| **Metadata** | Contains debugging information like line numbers and variable names when compiled with -g flag. |
 
 ### Limitations
 
-**Not Human-Readable**: Binary format requires tools like javap to view contents.
-
-**Decompilation Risk**: Can be decompiled back to approximate source code using tools exposing logic.
-
-**Version Dependency**: .class files compiled with newer Java versions cannot run on older JVMs.
-
-**Debugging Difficulty**: Harder to debug without corresponding source files.
-
-**Binary Format**: Cannot be easily edited or modified unlike text-based source files.
-
-**Size Increase**: Each class requires separate .class file which can increase file count for large applications.
+| Limitation | Description |
+|------------|-------------|
+| **Not Human-Readable** | Binary format requires tools like javap to view contents. |
+| **Decompilation Risk** | Can be decompiled back to approximate source code using tools exposing logic. |
+| **Version Dependency** | .class files compiled with newer Java versions cannot run on older JVMs. |
+| **Debugging Difficulty** | Harder to debug without corresponding source files. |
+| **Binary Format** | Cannot be easily edited or modified unlike text-based source files. |
+| **Size Increase** | Each class requires separate .class file which can increase file count for large applications. |
 
 ---
 

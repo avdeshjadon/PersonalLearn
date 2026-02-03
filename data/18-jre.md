@@ -294,47 +294,37 @@ java -Xms512m -Xmx2g MyApp
 
 ---
 
-## Advantages and Limitations
 
+## Advantages and Limitations
 
 ### Advantages
 
-**Complete Runtime Package**: JVM, libraries, and supporting files sab kuch ek hi package mein milta hai, easy installation ke saath.
-
-**Lightweight**: JDK ke comparison mein chhota size kyunki development tools nahi hote, sirf runtime components hote hain.
-
-**Easy for End Users**: Sirf download aur install karo, koi complex configuration ki zaroorat nahi.
-
-**Platform Independence**: Same bytecode har platform pe bina modification ke run hota hai.
-
-**Automatic Updates**: Security patches aur bug fixes easily mil jaate hain.
-
-**Memory Management**: Automatic garbage collection, manual memory management ki zaroorat nahi.
-
-**Security**: Bytecode verification aur security manager built-in hote hain, malicious code se protection milta hai.
-
-**Rich Libraries**: Hazaaron pre-compiled classes standard functionality ke liye included hain.
-
-**Multithreading Support**: Concurrent programming easily possible hai.
-
-**Networking Capabilities**: HTTP, sockets, URL handling jaise features readily available hain.
+| Advantage | Description |
+|-----------|-------------|
+| **Complete Runtime Package** | JVM, libraries, and supporting files all in one package, easy installation. |
+| **Lightweight** | Smaller size than JDK, only runtime components. |
+| **Easy for End Users** | Simple download and install, no complex configuration. |
+| **Platform Independence** | Same bytecode runs on all platforms without modification. |
+| **Automatic Updates** | Security patches and bug fixes are easy to get. |
+| **Memory Management** | Automatic garbage collection, no manual memory management needed. |
+| **Security** | Built-in bytecode verification and security manager. |
+| **Rich Libraries** | Thousands of pre-compiled classes included for standard functionality. |
+| **Multithreading Support** | Concurrent programming is easy. |
+| **Networking Capabilities** | HTTP, sockets, URL handling features included. |
 
 ### Limitations
 
-**No Development Tools**: Java code compile nahi kar sakte, kyunki javac compiler included nahi hota.
+| Limitation | Description |
+|------------|-------------|
+| **No Development Tools** | Cannot compile Java code, no javac compiler. |
+| **No Debugger** | No debugging tools (jdb) included. |
+| **No JAR Creation** | Cannot create JAR files, jar tool missing. |
+| **No Documentation Generator** | No javadoc tool. |
+| **Memory Overhead** | JVM requires significant RAM to run programs. |
+| **Startup Time** | JVM initialization can delay program start. |
+| **Disk Space Requirement** | JRE installation requires 200-300 MB disk space. |
 
-**No Debugger**: Debugging tools (jdb) JRE mein nahi hote, sirf JDK mein milte hain.
-
-**No JAR Creation**: jar archiving tool missing hai, JAR files create nahi kar sakte.
-
-**No Documentation Generator**: javadoc tool nahi hota.
-
-**Memory Overhead**: JVM ko kaafi RAM chahiye hoti hai programs run karne ke liye.
-
-**Startup Time**: JVM initialize hone mein thoda time lagta hai, isliye program start hone mein delay ho sakta hai.
-
-**Disk Space Requirement**: JRE installation ko 200-300 MB tak space chahiye hota hai.
-
+---
 **Version Compatibility Issues**: Alag-alag JRE versions mein kabhi-kabhi compatibility problems aa sakti hain.
 
 **Garbage Collection Pauses**: GC execution ke time application temporarily pause ho sakta hai, responsiveness affect ho sakti hai.

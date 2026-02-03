@@ -358,11 +358,10 @@ Yeh bhi ek program hai jo ATM machine follow karti hai!
 ## Syntax Explanation (Simple Java Program)
 
 ```java
-// Yeh ek simple Java program hai
 
-public class HelloWorld {                     // Class definition
-    public static void main(String[] args) {  // Main method - execution start
-        System.out.println("Hello, World!");  // Output instruction
+public class HelloWorld {                     
+    public static void main(String[] args) {  
+        System.out.println("Hello, World!");  
     }
 }
 ```
@@ -430,9 +429,6 @@ Kabhi-kabhi beginners sochte hain ki ek chhoti si syntax mistake, jaise semicolo
 
 **Mistake 4: Logic Errors Ko Nahi Samajhna**
 Kai baar program sahi tarah se run toh ho jata hai, lekin output galat aata hai. Iska matlab hai ki logic mein kuch problem hai. Sirf program chal jana kaafi nahi hai, hamesha expected aur actual output ko compare karke logic check karna chahiye.
-
-
-## Important Interview Questions & Answers
 
 
 ## Important Interview Questions & Answers

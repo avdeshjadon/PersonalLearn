@@ -770,54 +770,49 @@ public class HelloME extends MIDlet {
 
 ---
 
+
 ## Advantages
 
-**Java SE Advantages:**  
-Foundation for all Java development  
-Rich standard library for general programming  
-Cross-platform desktop applications  
-Easy to learn and get started  
-Strong community and resources  
-Suitable for standalone tools and utilities  
-
-**Java EE Advantages:**  
-Enterprise-grade scalability  
-Container-managed services (transactions, security)  
-Standard specifications for enterprise features  
-Industry-proven architecture  
-Multi-tier application support  
-Clustering and high availability  
-
-**Java ME Advantages:**  
-Extremely small memory footprint  
-Optimized for resource-constrained devices  
-Low power consumption  
-Portable across embedded platforms  
-Suitable for IoT applications  
+| Edition | Advantage | Description |
+|---------|-----------|-------------|
+| Java SE | Foundation | Foundation for all Java development |
+| Java SE | Rich Library | Rich standard library for general programming |
+| Java SE | Cross-platform | Cross-platform desktop applications |
+| Java SE | Easy to Learn | Easy to learn and get started |
+| Java SE | Community | Strong community and resources |
+| Java SE | Standalone | Suitable for standalone tools and utilities |
+| Java EE | Scalability | Enterprise-grade scalability |
+| Java EE | Managed Services | Container-managed services (transactions, security) |
+| Java EE | Standardization | Standard specifications for enterprise features |
+| Java EE | Proven Architecture | Industry-proven architecture |
+| Java EE | Multi-tier | Multi-tier application support |
+| Java EE | High Availability | Clustering and high availability |
+| Java ME | Small Footprint | Extremely small memory footprint |
+| Java ME | Optimized | Optimized for resource-constrained devices |
+| Java ME | Low Power | Low power consumption |
+| Java ME | Portability | Portable across embedded platforms |
+| Java ME | IoT | Suitable for IoT applications |
 
 ---
 
 ## Limitations
 
-**Java SE Limitations:**  
-No built-in enterprise features  
-Manual configuration for web servers  
-Limited scalability for large systems  
-No container-managed services  
-
-**Java EE Limitations:**  
-Complex architecture and setup  
-Heavy memory and resource requirements  
-Steep learning curve  
-Slow application startup  
-Vendor lock-in with some servers  
-
-**Java ME Limitations:**  
-Very limited API set  
-Largely obsolete for smartphones  
-Small developer ecosystem  
-Not suitable for modern mobile apps  
-Replaced by Android for mobile devices  
+| Edition | Limitation | Description |
+|---------|------------|-------------|
+| Java SE | No Enterprise | No built-in enterprise features |
+| Java SE | Manual Config | Manual configuration for web servers |
+| Java SE | Scalability | Limited scalability for large systems |
+| Java SE | No Managed Services | No container-managed services |
+| Java EE | Complexity | Complex architecture and setup |
+| Java EE | Resource Usage | Heavy memory and resource requirements |
+| Java EE | Learning Curve | Steep learning curve |
+| Java EE | Startup Time | Slow application startup |
+| Java EE | Vendor Lock-in | Vendor lock-in with some servers |
+| Java ME | Limited API | Very limited API set |
+| Java ME | Obsolete | Largely obsolete for smartphones |
+| Java ME | Small Ecosystem | Small developer ecosystem |
+| Java ME | Not Modern | Not suitable for modern mobile apps |
+| Java ME | Replaced | Replaced by Android for mobile devices |
 
 ---
 

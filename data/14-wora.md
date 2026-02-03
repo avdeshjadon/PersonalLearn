@@ -555,34 +555,39 @@ public class Calculator {
 
 ---
 
+
 ## Advantages
 
-**Cost Effective**: Single development team, single codebase  
-**Faster Time to Market**: Develop once, deploy everywhere  
-**Easy Maintenance**: Fix bug once, applies to all platforms  
-**Simplified Testing**: Test primarily on one platform  
-**Easy Distribution**: Single JAR file for all platforms  
-**Future Proof**: New platforms automatically supported with JVM  
-**Consistent Behavior**: Same output across all systems  
-**Developer Productivity**: Focus on logic, not platform quirks  
-**Reduced Complexity**: No conditional compilation directives  
-**Vendor Independence**: Not tied to specific operating system or hardware  
-**Code Reusability**: Same code works everywhere  
-**Lower Training Costs**: Developers learn once  
+| Advantage | Description |
+|-----------|-------------|
+| **Cost Effective** | Single development team, single codebase |
+| **Faster Time to Market** | Develop once, deploy everywhere |
+| **Easy Maintenance** | Fix bug once, applies to all platforms |
+| **Simplified Testing** | Test primarily on one platform |
+| **Easy Distribution** | Single JAR file for all platforms |
+| **Future Proof** | New platforms automatically supported with JVM |
+| **Consistent Behavior** | Same output across all systems |
+| **Developer Productivity** | Focus on logic, not platform quirks |
+| **Reduced Complexity** | No conditional compilation directives |
+| **Vendor Independence** | Not tied to specific operating system or hardware |
+| **Code Reusability** | Same code works everywhere |
+| **Lower Training Costs** | Developers learn once |
 
 ---
 
 ## Limitations
 
-**Not 100% WORA**: Exceptions exist (JNI, GUI, file paths)  
-**JVM Required**: Target platform must have JVM installed  
-**Performance Overhead**: JVM layer adds execution overhead  
-**Startup Time**: JVM initialization adds latency  
-**Memory Footprint**: JVM requires significant RAM  
-**GUI Differences**: Look and feel varies across platforms  
-**Platform-Specific Features**: Some OS features unavailable  
-**Testing Still Needed**: Edge cases may behave differently  
-**JVM Version Compatibility**: Different JVM versions may behave slightly differently  
+| Limitation | Description |
+|------------|-------------|
+| **Not 100% WORA** | Exceptions exist (JNI, GUI, file paths) |
+| **JVM Required** | Target platform must have JVM installed |
+| **Performance Overhead** | JVM layer adds execution overhead |
+| **Startup Time** | JVM initialization adds latency |
+| **Memory Footprint** | JVM requires significant RAM |
+| **GUI Differences** | Look and feel varies across platforms |
+| **Platform-Specific Features** | Some OS features unavailable |
+| **Testing Still Needed** | Edge cases may behave differently |
+| **JVM Version Compatibility** | Different JVM versions may behave slightly differently |
 
 ---
 

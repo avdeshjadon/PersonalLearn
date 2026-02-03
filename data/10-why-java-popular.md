@@ -394,33 +394,38 @@ While popularity is conceptual, Java's memory management contributes to it:
 
 ---
 
+
 ## Advantages
 
-**Job Security**: High demand in market, consistent opportunities  
-**Versatility**: Web, mobile, desktop, enterprise, big data, cloud  
-**Stability**: 25+ years proven in production environments  
-**Community**: Millions of developers, extensive resources  
-**Ecosystem**: Rich frameworks, libraries, and tools  
-**Learning Curve**: Moderate difficulty, good learning resources  
-**Career Growth**: Clear path from junior to architect  
-**Enterprise Standard**: Widely used in banks and corporations  
-**Android Development**: Official language for Android platform  
-**Open Source**: OpenJDK freely available  
-**Backward Compatible**: Old code works with new JVMs  
-**Modern Features**: Continuous evolution with new capabilities  
+| Advantage | Description |
+|-----------|-------------|
+| **Job Security** | High demand in market, consistent opportunities |
+| **Versatility** | Web, mobile, desktop, enterprise, big data, cloud |
+| **Stability** | 25+ years proven in production environments |
+| **Community** | Millions of developers, extensive resources |
+| **Ecosystem** | Rich frameworks, libraries, and tools |
+| **Learning Curve** | Moderate difficulty, good learning resources |
+| **Career Growth** | Clear path from junior to architect |
+| **Enterprise Standard** | Widely used in banks and corporations |
+| **Android Development** | Official language for Android platform |
+| **Open Source** | OpenJDK freely available |
+| **Backward Compatible** | Old code works with new JVMs |
+| **Modern Features** | Continuous evolution with new capabilities |
 
 ---
 
 ## Limitations
 
-**Verbose Syntax**: More boilerplate code than Python or JavaScript  
-**Startup Time**: JVM initialization adds latency  
-**Memory Footprint**: JVM requires significant RAM overhead  
-**GUI Limitations**: Swing and JavaFX less polished than native frameworks  
-**Mobile iOS**: Not supported on Apple iOS platform  
-**Scripting**: Not ideal for quick one-off scripts  
-**Learning Curve**: Steeper than Python for beginners  
-**Garbage Collection**: Can cause unpredictable pauses  
+| Limitation | Description |
+|------------|-------------|
+| **Verbose Syntax** | More boilerplate code than Python or JavaScript |
+| **Startup Time** | JVM initialization adds latency |
+| **Memory Footprint** | JVM requires significant RAM overhead |
+| **GUI Limitations** | Swing and JavaFX less polished than native frameworks |
+| **Mobile iOS** | Not supported on Apple iOS platform |
+| **Scripting** | Not ideal for quick one-off scripts |
+| **Learning Curve** | Steeper than Python for beginners |
+| **Garbage Collection** | Can cause unpredictable pauses |
 
 ---
 

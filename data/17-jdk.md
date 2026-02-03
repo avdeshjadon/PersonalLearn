@@ -450,41 +450,33 @@ jdb Hello
 
 ---
 
+
 ## Advantages and Limitations
 
 ### Advantages
 
-**Complete Development Toolkit**: All necessary tools in one package for entire development lifecycle.
-
-**Standardized Environment**: Same tools and behavior across different platforms ensuring consistency.
-
-**Well-Documented**: Extensive official documentation and community resources available.
-
-**Integrated Tools**: All tools work seamlessly together without compatibility issues.
-
-**Free Options Available**: OpenJDK provides free alternative to commercial Oracle JDK.
-
-**Regular Updates**: New versions released every six months with improvements and features.
-
-**Backward Compatible**: Older code continues to work with newer JDK versions.
-
-**Industry Standard**: Universally accepted and used worldwide for Java development.
-
-**Rich Ecosystem**: Large collection of libraries, frameworks, and IDE support.
+| Advantage | Description |
+|-----------|-------------|
+| **Complete Development Toolkit** | All necessary tools in one package for entire development lifecycle. |
+| **Standardized Environment** | Same tools and behavior across different platforms ensuring consistency. |
+| **Well-Documented** | Extensive official documentation and community resources available. |
+| **Integrated Tools** | All tools work seamlessly together without compatibility issues. |
+| **Free Options Available** | OpenJDK provides free alternative to commercial Oracle JDK. |
+| **Regular Updates** | New versions released every six months with improvements and features. |
+| **Backward Compatible** | Older code continues to work with newer JDK versions. |
+| **Industry Standard** | Universally accepted and used worldwide for Java development. |
+| **Rich Ecosystem** | Large collection of libraries, frameworks, and IDE support. |
 
 ### Limitations
 
-**Large Installation Size**: JDK installation typically requires 300-500 MB disk space.
-
-**Overkill for End Users**: Regular users running Java applications don't need full JDK.
-
-**Version Management Complexity**: Managing multiple JDK versions can be challenging.
-
-**Oracle Licensing Restrictions**: Oracle JDK requires commercial license for production use.
-
-**Learning Curve**: Many tools and commands to learn for beginners.
-
-**Platform-Specific Installation**: Different installation procedures for different operating systems.
+| Limitation | Description |
+|------------|-------------|
+| **Large Installation Size** | JDK installation typically requires 300-500 MB disk space. |
+| **Overkill for End Users** | Regular users running Java applications don't need full JDK. |
+| **Version Management Complexity** | Managing multiple JDK versions can be challenging. |
+| **Oracle Licensing Restrictions** | Oracle JDK requires commercial license for production use. |
+| **Learning Curve** | Many tools and commands to learn for beginners. |
+| **Platform-Specific Installation** | Different installation procedures for different operating systems. |
 
 ---
 

@@ -308,47 +308,37 @@ G1 Garbage Collector enable karta hai. Different flags exist for different GC al
 ## Advantages and Limitations
 
 
+
 ### Advantages
 
-**Modular Design**: Har component ka clear responsibility hai, architecture easily samajh aata hai aur maintain karna easy hota hai.
-
-**Platform Independence**: JVM architecture har implementation mein standard hai, isliye code har OS pe run hota hai.
-
-**Security**: Bytecode verification execution se pehle hoti hai, malicious code se protection milta hai.
-
-**Automatic Memory Management**: Garbage collection se manual memory errors avoid hote hain.
-
-**Performance Optimization**: JIT compiler hot bytecode ko native code mein convert karta hai, performance improve hoti hai.
-
-**Multithreading Support**: Per-thread stacks aur shared heap se concurrent programming easy ho jaati hai.
-
-**Scalability**: Memory areas configurable hain, alag-alag application sizes ke liye tuning possible hai.
-
-**GC Flexibility**: Alag-alag garbage collection algorithms choose kar sakte hain, latency ya throughput ke hisaab se.
-
-**Debugging Ease**: Clear memory model aur execution flow se debugging easy ho jaati hai.
-
-**Standardization**: JVM specification ki wajah se har implementation consistent hoti hai.
-
-**Extensibility**: Custom class loaders bana sakte hain special loading requirements ke liye.
+| Advantage | Description |
+|-----------|-------------|
+| **Modular Design** | Each component has clear responsibility, easy to understand and maintain. |
+| **Platform Independence** | Standard architecture across implementations, code runs on any OS. |
+| **Security** | Bytecode verification before execution protects against malicious code. |
+| **Automatic Memory Management** | Garbage collection avoids manual memory errors. |
+| **Performance Optimization** | JIT compiler converts hot bytecode to native code for better performance. |
+| **Multithreading Support** | Per-thread stacks and shared heap enable easy concurrent programming. |
+| **Scalability** | Configurable memory areas for different application sizes. |
+| **GC Flexibility** | Multiple garbage collection algorithms for latency or throughput needs. |
+| **Debugging Ease** | Clear memory model and execution flow make debugging easier. |
+| **Standardization** | JVM specification ensures consistent implementation. |
+| **Extensibility** | Custom class loaders for special loading requirements. |
 
 ### Limitations
 
-**Complexity**: Architecture samajhna aur tune karna beginners ke liye tough ho sakta hai.
+| Limitation | Description |
+|------------|-------------|
+| **Complexity** | Architecture and tuning can be tough for beginners. |
+| **Memory Overhead** | JVM internal structures use memory. |
+| **Startup Time** | JVM initialization and class loading take time. |
+| **GC Pauses** | Garbage collection can cause stop-the-world events. |
+| **Tuning Required** | JVM tuning needed for optimal performance. |
+| **Stack Size Limitation** | Deep recursion can cause StackOverflowError. |
+| **Heap Size Limitation** | Too many objects can cause OutOfMemoryError. |
+| **Metaspace Growth** | Metaspace can grow unbounded, consuming native memory. |
 
-**Memory Overhead**: JVM internal structures ke liye bhi memory use karta hai.
-
-**Startup Time**: JVM initialization aur class loading mein time lagta hai.
-
-**GC Pauses**: Garbage collection ke time application stop-the-world event face kar sakti hai.
-
-**Tuning Required**: Optimal performance ke liye JVM tuning zaroori hai, default settings sab ke liye best nahi hoti.
-
-**Stack Size Limitation**: Deep recursion se StackOverflowError aa sakta hai.
-
-**Heap Size Limitation**: Zyada objects hone par OutOfMemoryError aa sakta hai.
-
-**Metaspace Growth**: Metaspace ka size unbounded ho sakta hai, native memory zyada consume ho sakti hai.
+---
 
 **JIT Warmup**: Peak performance sirf initial execution ke baad hi milti hai, warmup period lagta hai.
 

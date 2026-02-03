@@ -601,32 +601,35 @@ Benefits:
 
 ---
 
+
 ## Advantages
 
-**Longevity Factors**:
-
-**Backward Compatibility**: Code from 1996 still runs  
-**Enterprise Trust**: Proven reliability for critical systems  
-**Massive Ecosystem**: Libraries, frameworks, tools  
-**Platform Independence**: True WORA implementation  
-**Performance**: JIT made it competitive  
-**Evolution**: Adapted to modern programming trends  
-**Community**: Millions of developers worldwide  
-**Android**: Biggest mobile platform uses Java  
-**JVM Ecosystem**: Kotlin, Scala, Groovy run on JVM  
-**Open Source**: OpenJDK ensures transparency  
+| Advantage | Description |
+|-----------|-------------|
+| **Backward Compatibility** | Code from 1996 still runs |
+| **Enterprise Trust** | Proven reliability for critical systems |
+| **Massive Ecosystem** | Libraries, frameworks, tools |
+| **Platform Independence** | True WORA implementation |
+| **Performance** | JIT made it competitive |
+| **Evolution** | Adapted to modern programming trends |
+| **Community** | Millions of developers worldwide |
+| **Android** | Biggest mobile platform uses Java |
+| **JVM Ecosystem** | Kotlin, Scala, Groovy run on JVM |
+| **Open Source** | OpenJDK ensures transparency |
 
 ---
 
 ## Limitations
 
-**Applets Died**: Original killer feature obsolete  
-**Verbose Syntax**: More code than Python/Ruby  
-**Startup Time**: JVM warmup overhead  
-**Memory Footprint**: Higher than native languages  
-**Oracle Licensing**: Confusion over commercial use  
-**Release Fatigue**: 6-month cycle overwhelming  
-**Competition**: C#, Go, Rust challenging dominance  
+| Limitation | Description |
+|------------|-------------|
+| **Applets Died** | Original killer feature obsolete |
+| **Verbose Syntax** | More code than Python/Ruby |
+| **Startup Time** | JVM warmup overhead |
+| **Memory Footprint** | Higher than native languages |
+| **Oracle Licensing** | Confusion over commercial use |
+| **Release Fatigue** | 6-month cycle overwhelming |
+| **Competition** | C#, Go, Rust challenging dominance |
 
 ---
 

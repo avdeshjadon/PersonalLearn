@@ -559,32 +559,37 @@ public class Program {
 
 ---
 
+
 ## Advantages
 
-**Write Once, Run Anywhere**: Single codebase works on all platforms  
-**Cost Effective**: No need to maintain platform-specific versions  
-**Faster Development**: Write and test primarily once  
-**Easy Distribution**: Single JAR file for all platforms  
-**Consistent Behavior**: Same output across different systems  
-**Future Proof**: New platforms automatically supported with JVM  
-**Simplified Testing**: Test mainly on one platform  
-**No Recompilation**: Bytecode works as-is everywhere  
-**Vendor Independence**: Not tied to specific hardware or OS  
-**Reduced Complexity**: Developers focus on logic, not platform quirks  
+| Advantage | Description |
+|-----------|-------------|
+| **Write Once, Run Anywhere** | Single codebase works on all platforms |
+| **Cost Effective** | No need to maintain platform-specific versions |
+| **Faster Development** | Write and test primarily once |
+| **Easy Distribution** | Single JAR file for all platforms |
+| **Consistent Behavior** | Same output across different systems |
+| **Future Proof** | New platforms automatically supported with JVM |
+| **Simplified Testing** | Test mainly on one platform |
+| **No Recompilation** | Bytecode works as-is everywhere |
+| **Vendor Independence** | Not tied to specific hardware or OS |
+| **Reduced Complexity** | Developers focus on logic, not platform quirks |
 
 ---
 
 ## Limitations
 
-**Performance Overhead**: JVM layer adds execution overhead  
-**JVM Requirement**: Target platform must have JVM installed  
-**Not 100% Independent**: Native code via JNI breaks portability  
-**GUI Differences**: Swing and JavaFX may look different across OS  
-**File Path Handling**: Windows backslash vs Unix forward slash  
-**Line Endings**: Platform-specific newline characters  
-**Platform-Specific Features**: Some OS features unavailable everywhere  
-**Startup Time**: JVM initialization adds latency  
-**Memory Footprint**: JVM requires significant memory  
+| Limitation | Description |
+|------------|-------------|
+| **Performance Overhead** | JVM layer adds execution overhead |
+| **JVM Requirement** | Target platform must have JVM installed |
+| **Not 100% Independent** | Native code via JNI breaks portability |
+| **GUI Differences** | Swing and JavaFX may look different across OS |
+| **File Path Handling** | Windows backslash vs Unix forward slash |
+| **Line Endings** | Platform-specific newline characters |
+| **Platform-Specific Features** | Some OS features unavailable everywhere |
+| **Startup Time** | JVM initialization adds latency |
+| **Memory Footprint** | JVM requires significant memory |
 
 ---
 

@@ -421,26 +421,31 @@ arr[15] = 100;  // ArrayIndexOutOfBoundsException
 
 ---
 
-## Advantages
+## Advantages of Java over C/C++
 
-**Safety**: No pointers, no memory corruption  
-**Simplicity**: No manual memory management  
-**Portability**: Write once, run anywhere  
-**Security**: Built-in bounds checking, bytecode verification  
-**Productivity**: Less code, fewer bugs  
-**Maintainability**: Cleaner code, easier to understand  
-**Reliability**: Predictable behavior, no undefined behavior  
-**Modern Features**: Built-in networking, threading, collections  
+| Advantage | Description |
+|-----------|-------------|
+| **No Pointers** | Eliminates pointer-related bugs and security issues |
+| **Automatic Memory Management** | Garbage collector prevents memory leaks |
+| **Platform Independence** | Write once, run anywhere (JVM/bytecode) |
+| **Built-in Security** | Array bounds checking, bytecode verification |
+| **Simpler Syntax** | No preprocessor, no multiple inheritance |
+| **Rich Standard Library** | Networking, collections, utilities included |
+| **Error Detection** | Compile-time and runtime checks |
+| **Community Support** | Large ecosystem and resources |
 
 ---
 
-## Limitations
+## Disadvantages of Java (vs C/C++)
 
-**Performance**: GC overhead, JVM overhead  
-**Control**: No direct hardware access  
-**Memory Footprint**: JVM requires more memory  
-**Startup Time**: JVM initialization takes time  
-**Determinism**: GC pauses unpredictable  
+| Disadvantage | Description |
+|--------------|-------------|
+| **Performance Overhead** | Slower than native C/C++ due to JVM layer |
+| **Less Hardware Control** | No direct memory or hardware access |
+| **Higher Memory Usage** | JVM and GC consume more resources |
+| **Dependency on JVM** | Requires JVM installed on target machine |
+| **Limited Low-level Features** | No pointer arithmetic, less suitable for embedded/real-time |
+| **Version Compatibility** | Updates may break old code |
 
 ---
 

@@ -572,35 +572,40 @@ Program completed
 
 ---
 
+
 ## Advantages
 
-**Platform Independence**: Write once, run anywhere (WORA)  
-**Object-Oriented**: Modular, reusable, maintainable code  
-**Simple**: No pointers, automatic memory management  
-**Secure**: Bytecode verification, no direct memory access  
-**Robust**: Strong type checking, exception handling  
-**Multithreaded**: Built-in concurrency support  
-**Rich API**: Comprehensive standard library  
-**Large Community**: Millions of developers, extensive resources  
-**Enterprise Ready**: Proven in production systems  
-**Android**: Official language for Android development  
-**Backward Compatible**: Old code works with new JVMs  
-**Open Source**: OpenJDK freely available  
+| Advantage | Description |
+|-----------|-------------|
+| **Platform Independence** | Write once, run anywhere (WORA) |
+| **Object-Oriented** | Modular, reusable, maintainable code |
+| **Simple** | No pointers, automatic memory management |
+| **Secure** | Bytecode verification, no direct memory access |
+| **Robust** | Strong type checking, exception handling |
+| **Multithreaded** | Built-in concurrency support |
+| **Rich API** | Comprehensive standard library |
+| **Large Community** | Millions of developers, extensive resources |
+| **Enterprise Ready** | Proven in production systems |
+| **Android** | Official language for Android development |
+| **Backward Compatible** | Old code works with new JVMs |
+| **Open Source** | OpenJDK freely available |
 
 ---
 
 ## Limitations
 
-**Performance Overhead**: Slower than C/C++ due to JVM layer  
-**Memory Consumption**: JVM requires significant memory  
-**Startup Time**: JVM initialization takes time  
-**Verbose Syntax**: More code compared to Python  
-**GUI Limitations**: Swing/JavaFX not as polished as native frameworks  
-**No Unsigned Types**: Only signed integers  
-**No Operator Overloading**: Cannot customize operators  
-**Single Inheritance Only**: Classes cannot inherit from multiple classes  
-**Garbage Collection Pauses**: Can cause latency  
-**No Low-level Control**: Cannot directly access hardware  
+| Limitation | Description |
+|------------|-------------|
+| **Performance Overhead** | Slower than C/C++ due to JVM layer |
+| **Memory Consumption** | JVM requires significant memory |
+| **Startup Time** | JVM initialization takes time |
+| **Verbose Syntax** | More code compared to Python |
+| **GUI Limitations** | Swing/JavaFX not as polished as native frameworks |
+| **No Unsigned Types** | Only signed integers |
+| **No Operator Overloading** | Cannot customize operators |
+| **Single Inheritance Only** | Classes cannot inherit from multiple classes |
+| **Garbage Collection Pauses** | Can cause latency |
+| **No Low-level Control** | Cannot directly access hardware |
 
 ---
 

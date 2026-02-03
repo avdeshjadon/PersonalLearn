@@ -1,317 +1,338 @@
-# 21) CLASS LOADING PROCESS
+# CLASS LOADING PROCESS
 
 ## Concept Introduction
 
-Class Loading Process wo mechanism hai jisse JVM .class files ko memory mein load karta hai aur execute karne ke liye ready karta hai. Jab tum `java MyProgram` run karte ho, toh JVM pehle MyProgram.class file ko dhundta hai, phir usko memory mein load karta hai, verify karta hai ki bytecode safe hai, aur finally execute karta hai. Yeh process teen phases mein hota hai: Loading, Linking (Verification, Preparation, Resolution), aur Initialization. Class loading lazy hai — matlab class tabhi load hoti hai jab pehli baar use ho, pehle se nahi. Yeh interview mein bahut important topic hai!
-
----
+Class Loading Process wo mechanism hai jisse JVM .class files ko memory mein load karta hai aur execute karne ke liye ready karta hai. Jab tum `java MyProgram` run karte ho, toh JVM pehle MyProgram.class file ko dhundta hai, phir usko memory mein load karta hai, verify karta hai ki bytecode safe hai, aur finally execute karta hai. Yeh process teen phases mein hota hai: Loading, Linking (Verification, Preparation, Resolution), aur Initialization. Class loading lazy hai — matlab class tabhi load hoti hai jab pehli baar use ho, pehle se nahi. Yeh interview mein bahut important topic hai.
 
 ## Why This Concept Exists
 
-**Problem:**
-- .class files disk pe stored hain, memory mein kaise aayengi?
-- Bytecode safe hai ya malicious? Kaise check karein?
-- Dependencies (other classes) kaise load karein?
-- Static variables ko kab initialize karein?
-- Multiple class loaders kaise manage karein?
+### Problem (Without Class Loading Process):
 
-**Solution (Class Loading Process):**
-- Systematic three-phase approach
+Before Java introduced systematic class loading process, bytecode execution faced significant challenges. .class files stored on disk had no standardized mechanism to reach memory for execution. Bytecode security verification was impossible making malicious code execution trivial. Dependency management was manual requiring developers to explicitly load all required classes. Static variable initialization order was undefined causing unpredictable program behavior. Multiple class loaders could not coexist preventing application isolation. Duplicate class loading consumed excessive memory and caused inconsistency. No mechanism existed to validate bytecode format and structural integrity before execution. Platform-specific loading mechanisms created portability issues.
+
+- .class files disk pe stored hain, memory mein kaise aayengi
+- Bytecode safe hai ya malicious, kaise check karein
+- Dependencies (other classes) kaise load karein
+- Static variables ko kab initialize karein
+- Multiple class loaders kaise manage karein
+- Duplicate loading se memory waste
+
+### Solution (Class Loading Process):
+
+Java introduced systematic three-phase class loading process solving execution challenges comprehensively. Loading phase uses hierarchical class loaders (bootstrap, extension, application) with parent delegation model ensuring security and preventing core class spoofing. Linking phase validates bytecode through four-pass verification checking format, metadata, bytecode instructions, and symbolic references ensuring type safety. Preparation allocates memory for static variables with type-specific default values before actual initialization. Resolution converts symbolic references in constant pool to direct memory addresses. Initialization phase executes static initializers and static blocks in defined order with thread safety guarantees. Lazy loading loads classes on-demand optimizing memory usage. Parent delegation prevents duplicate loading and maintains namespace isolation.
+
+- Systematic three-phase approach (Load, Link, Initialize)
 - Security through bytecode verification
-- Lazy loading for efficiency
-- Parent delegation for security
-- Clear initialization order
-- Prevents duplicate loading
+- Lazy loading for memory efficiency
+- Parent delegation for security and consistency
+- Clear initialization order for predictability
+- Thread-safe initialization preventing race conditions
 
 ---
 
 ## Definitions
 
-### 🔹 Very Simple Definition
+### Very Simple Definition
 Class Loading Process wo tarika hai jisse JVM .class files ko memory mein load karta hai, verify karta hai, aur execute karne ke liye ready karta hai.
 
-### 🔹 College Exam Definition
+### College Exam Definition
 Class Loading Process is the mechanism by which JVM loads .class files into memory through three phases: Loading (finding and loading bytecode), Linking (verification, preparation, resolution), and Initialization (executing static initializers). It uses a parent delegation model where child class loaders delegate to parent before attempting to load themselves.
 
-### 🔹 Viva Definition
+### Viva Definition
 Class Loading Process consists of three phases: (1) Loading - class loaders (bootstrap, extension, application) locate and load .class files into method area using parent delegation model, (2) Linking - verification validates bytecode format and security, preparation allocates memory for static variables with default values, resolution converts symbolic references to direct references, (3) Initialization - executes static initializers and static blocks in top-down order. The process is lazy (on-demand), thread-safe, and ensures each class is loaded only once.
 
-### 🔹 Interview Definition
+### Interview Definition
 Class Loading Process implements dynamic class loading with three phases: (1) Loading - hierarchical class loaders (bootstrap for rt.jar/java.base, extension for jre/lib/ext, application for CLASSPATH) use parent delegation (child delegates to parent first, loads only if parent fails), locate .class file, create Class object in heap, store metadata in method area, (2) Linking - verification (bytecode format validation, type checking, control flow analysis, stack verification using dataflow analysis), preparation (allocate memory for static variables in method area, assign default values like 0/null/false, no initialization yet), resolution (symbolic references in constant pool converted to direct memory references, lazy or eager based on JVM), (3) Initialization - execute static initializers in source order, execute static blocks, assign actual values to static variables, thread-safe with initialization lock, happens once per class. ClassNotFoundException if loading fails, NoClassDefFoundError if linking fails, ExceptionInInitializerError if initialization fails.
 
-### 🔹 Technical Definition
-Class Loading Process implements JVM specification for dynamic class loading: (1) Loading phase - ClassLoader.loadClass() with parent delegation (prevents core class spoofing), defineClass() creates Class object from bytecode array, resolveClass() for linking, findLoadedClass() prevents duplicates, custom class loaders via ClassLoader subclassing, (2) Linking phase - verification uses type inference and dataflow analysis (4-pass verification: format, metadata, bytecode, symbolic references), preparation allocates static storage in method area with type-specific defaults, resolution can be lazy (on first use) or eager (at link time) based on -XX:+EagerInitialization, (3) Initialization phase - <clinit> method synthesized from static initializers, synchronized on Class object for thread safety, initialization lock prevents deadlock, happens-before relationship ensures visibility, recursive initialization for superclasses. ClassCircularityError for circular dependencies, LinkageError hierarchy for linking failures.
+### Technical Definition
+Class Loading Process implements JVM specification for dynamic class loading: (1) Loading phase - ClassLoader.loadClass() with parent delegation (prevents core class spoofing), defineClass() creates Class object from bytecode array, resolveClass() for linking, findLoadedClass() prevents duplicates, custom class loaders via ClassLoader subclassing, (2) Linking phase - verification uses type inference and dataflow analysis (4-pass verification: format, metadata, bytecode, symbolic references), preparation allocates static storage in method area with type-specific defaults, resolution can be lazy (on first use) or eager (at link time) based on -XX:+EagerInitialization, (3) Initialization phase - clinit method synthesized from static initializers, synchronized on Class object for thread safety, initialization lock prevents deadlock, happens-before relationship ensures visibility, recursive initialization for superclasses. ClassCircularityError for circular dependencies, LinkageError hierarchy for linking failures.
 
-### 🔹 One-line Crisp Definition
-Class Loading = Load (find bytecode) → Link (verify + prepare + resolve) → Initialize (execute static)
-
----
-
-## DIAGRAM: Complete Class Loading Process
-
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                    CLASS LOADING PROCESS (COMPLETE)                         │
-└─────────────────────────────────────────────────────────────────────────────┘
-
-USER RUNS: $ java com.myapp.MyClass
-
-┌───────────────────────────────────────────────────────────────────────────┐
-│  PHASE 1: LOADING                                                         │
-│                                                                           │
-│  STEP 1: Request to load com.myapp.MyClass                               │
-│          ↓                                                                │
-│  ┌─────────────────────────────────────────────────────────────────────┐ │
-│  │  Application ClassLoader receives request                           │ │
-│  │  ├─ Check if already loaded: findLoadedClass()                      │ │
-│  │  │  └─ If found, return cached Class object                         │ │
-│  │  ├─ If not found, delegate to parent                                │ │
-│  │  └─ Parent Delegation Model starts                                  │ │
-│  └─────────────────────────────────────────────────────────────────────┘ │
-│          ↓                                                                │
-│  ┌─────────────────────────────────────────────────────────────────────┐ │
-│  │  Extension ClassLoader receives request                             │ │
-│  │  ├─ Check if already loaded                                         │ │
-│  │  ├─ If not found, delegate to parent                                │ │
-│  │  └─ Continues delegation                                            │ │
-│  └─────────────────────────────────────────────────────────────────────┘ │
-│          ↓                                                                │
-│  ┌─────────────────────────────────────────────────────────────────────┐ │
-│  │  Bootstrap ClassLoader receives request                             │ │
-│  │  ├─ Check if already loaded                                         │ │
-│  │  ├─ Search in rt.jar / java.base module                            │ │
-│  │  ├─ Not found (not a core class)                                    │ │
-│  │  └─ Return null to child                                            │ │
-│  └─────────────────────────────────────────────────────────────────────┘ │
-│          ↓                                                                │
-│  ┌─────────────────────────────────────────────────────────────────────┐ │
-│  │  Extension ClassLoader tries to load                                │ │
-│  │  ├─ Search in jre/lib/ext                                           │ │
-│  │  ├─ Not found (not an extension)                                    │ │
-│  │  └─ Return null to child                                            │ │
-│  └─────────────────────────────────────────────────────────────────────┘ │
-│          ↓                                                                │
-│  ┌─────────────────────────────────────────────────────────────────────┐ │
-│  │  Application ClassLoader tries to load                              │ │
-│  │  ├─ Search in CLASSPATH                                             │ │
-│  │  ├─ Found: com/myapp/MyClass.class                                  │ │
-│  │  ├─ Read bytecode into byte array                                   │ │
-│  │  ├─ Call defineClass(byte[])                                        │ │
-│  │  │  ├─ Create Class object in heap                                  │ │
-│  │  │  ├─ Store class metadata in method area                          │ │
-│  │  │  └─ Return Class object                                          │ │
-│  │  └─ Cache Class object for future use                               │ │
-│  └─────────────────────────────────────────────────────────────────────┘ │
-│                                                                           │
-│  RESULT: Class loaded into memory                                        │
-│  ├─ Class object created in heap                                         │
-│  ├─ Metadata stored in method area                                       │
-│  └─ Ready for linking phase                                              │
-└───────────────────────────────────────────────────────────────────────────┘
-          ↓
-┌───────────────────────────────────────────────────────────────────────────┐
-│  PHASE 2: LINKING                                                         │
-│                                                                           │
-│  ┌─────────────────────────────────────────────────────────────────────┐ │
-│  │  STEP 2.1: VERIFICATION                                             │ │
-│  │  ┌───────────────────────────────────────────────────────────────┐ │ │
-│  │  │  Pass 1: Format Verification                                  │ │ │
-│  │  │  ├─ Check magic number: 0xCAFEBABE                            │ │ │
-│  │  │  ├─ Check version number (major.minor)                        │ │ │
-│  │  │  ├─ Validate constant pool entries                            │ │ │
-│  │  │  ├─ Check class file structure                                │ │ │
-│  │  │  └─ Ensure no truncation                                      │ │ │
-│  │  └───────────────────────────────────────────────────────────────┘ │ │
-│  │  ┌───────────────────────────────────────────────────────────────┐ │ │
-│  │  │  Pass 2: Metadata Verification                                │ │ │
-│  │  │  ├─ Check class has superclass (except Object)                │ │ │
-│  │  │  ├─ Verify superclass is not final                            │ │ │
-│  │  │  ├─ Check interfaces are actually interfaces                  │ │ │
-│  │  │  ├─ Verify no duplicate fields/methods                        │ │ │
-│  │  │  └─ Check access modifiers consistency                        │ │ │
-│  │  └───────────────────────────────────────────────────────────────┘ │ │
-│  │  ┌───────────────────────────────────────────────────────────────┐ │ │
-│  │  │  Pass 3: Bytecode Verification (Most Complex)                 │ │ │
-│  │  │  ├─ Dataflow analysis on method bytecode                      │ │ │
-│  │  │  ├─ Type checking (operand stack types)                       │ │ │
-│  │  │  ├─ Control flow validation (no jumps to invalid locations)   │ │ │
-│  │  │  ├─ Stack depth verification (no overflow/underflow)          │ │ │
-│  │  │  ├─ Local variable initialization check                       │ │ │
-│  │  │  ├─ Type safety (no illegal casts)                            │ │ │
-│  │  │  └─ No illegal operations (e.g., pop empty stack)             │ │ │
-│  │  └───────────────────────────────────────────────────────────────┘ │ │
-│  │  ┌───────────────────────────────────────────────────────────────┐ │ │
-│  │  │  Pass 4: Symbolic Reference Verification                      │ │ │
-│  │  │  ├─ Check referenced classes exist                            │ │ │
-│  │  │  ├─ Check referenced fields exist                             │ │ │
-│  │  │  ├─ Check referenced methods exist                            │ │ │
-│  │  │  ├─ Verify access permissions                                 │ │ │
-│  │  │  └─ Check method signatures match                             │ │ │
-│  │  └───────────────────────────────────────────────────────────────┘ │ │
-│  │                                                                     │ │
-│  │  IF VERIFICATION FAILS → VerifyError thrown                        │ │
-│  └─────────────────────────────────────────────────────────────────────┘ │
-│          ↓                                                                │
-│  ┌─────────────────────────────────────────────────────────────────────┐ │
-│  │  STEP 2.2: PREPARATION                                             │ │
-│  │  ┌───────────────────────────────────────────────────────────────┐ │ │
-│  │  │  Allocate memory for static variables in method area         │ │ │
-│  │  │  ├─ static int count;     → Allocate 4 bytes, set to 0       │ │ │
-│  │  │  ├─ static String name;   → Allocate reference, set to null  │ │ │
-│  │  │  ├─ static boolean flag;  → Allocate 1 byte, set to false    │ │ │
-│  │  │  └─ static final int MAX = 100; → Set to 100 (compile-time)  │ │ │
-│  │  │                                                                │ │ │
-│  │  │  DEFAULT VALUES ASSIGNED:                                     │ │ │
-│  │  │  ├─ int, byte, short, long → 0                                │ │ │
-│  │  │  ├─ float, double → 0.0                                       │ │ │
-│  │  │  ├─ boolean → false                                           │ │ │
-│  │  │  ├─ char → '\u0000'                                           │ │ │
-│  │  │  └─ Reference types → null                                    │ │ │
-│  │  │                                                                │ │ │
-│  │  │  NOTE: Actual initialization happens in next phase            │ │ │
-│  │  └───────────────────────────────────────────────────────────────┘ │ │
-│  └─────────────────────────────────────────────────────────────────────┘ │
-│          ↓                                                                │
-│  ┌─────────────────────────────────────────────────────────────────────┐ │
-│  │  STEP 2.3: RESOLUTION                                               │ │
-│  │  ┌───────────────────────────────────────────────────────────────┐ │ │
-│  │  │  Convert symbolic references to direct references             │ │ │
-│  │  │                                                                │ │ │
-│  │  │  BEFORE RESOLUTION (Symbolic):                                │ │ │
-│  │  │  "java/lang/String"  → String reference                       │ │ │
-│  │  │  "println"           → Method reference                       │ │ │
-│  │  │  "java/lang/System"  → Class reference                        │ │ │
-│  │  │                                                                │ │ │
-│  │  │  AFTER RESOLUTION (Direct):                                   │ │ │
-│  │  │  0x7f8a3c001000  → Direct memory address of String class      │ │ │
-│  │  │  0x7f8a3c002000  → Direct memory address of println method    │ │ │
-│  │  │  0x7f8a3c003000  → Direct memory address of System class      │ │ │
-│  │  │                                                                │ │ │
-│  │  │  TYPES OF RESOLUTION:                                         │ │ │
-│  │  │  ├─ Class/Interface resolution                                │ │ │
-│  │  │  ├─ Field resolution                                          │ │ │
-│  │  │  ├─ Method resolution                                         │ │ │
-│  │  │  └─ Interface method resolution                               │ │ │
-│  │  │                                                                │ │ │
-│  │  │  Can be LAZY (on first use) or EAGER (at link time)          │ │ │
-│  │  └───────────────────────────────────────────────────────────────┘ │ │
-│  │                                                                     │ │
-│  │  IF RESOLUTION FAILS → NoClassDefFoundError, NoSuchFieldError, etc.│ │
-│  └─────────────────────────────────────────────────────────────────────┘ │
-└───────────────────────────────────────────────────────────────────────────┘
-          ↓
-┌───────────────────────────────────────────────────────────────────────────┐
-│  PHASE 3: INITIALIZATION                                                  │
-│                                                                           │
-│  ┌─────────────────────────────────────────────────────────────────────┐ │
-│  │  STEP 3: Execute Static Initializers                               │ │
-│  │  ┌───────────────────────────────────────────────────────────────┐ │ │
-│  │  │  1. Initialize superclass first (if not already initialized)  │ │ │
-│  │  │     └─ Recursive initialization up the hierarchy              │ │ │
-│  │  └───────────────────────────────────────────────────────────────┘ │ │
-│  │  ┌───────────────────────────────────────────────────────────────┐ │ │
-│  │  │  2. Execute static variable initializers (in source order)    │ │ │
-│  │  │     static int count = 10;     → count = 10                   │ │ │
-│  │  │     static String name = "Hi"; → name = "Hi"                  │ │ │
-│  │  └───────────────────────────────────────────────────────────────┘ │ │
-│  │  ┌───────────────────────────────────────────────────────────────┐ │ │
-│  │  │  3. Execute static blocks (in source order)                   │ │ │
-│  │  │     static {                                                   │ │ │
-│  │  │         System.out.println("Static block");                   │ │ │
-│  │  │         count = 20;                                           │ │ │
-│  │  │     }                                                          │ │ │
-│  │  └───────────────────────────────────────────────────────────────┘ │ │
-│  │                                                                     │ │
-│  │  THREAD SAFETY:                                                     │ │
-│  │  ├─ Initialization synchronized on Class object                    │ │
-│  │  ├─ Only one thread initializes                                    │ │
-│  │  ├─ Other threads wait                                             │ │
-│  │  └─ Happens-once guarantee                                         │ │
-│  │                                                                     │ │
-│  │  IF INITIALIZATION FAILS → ExceptionInInitializerError             │ │
-│  └─────────────────────────────────────────────────────────────────────┘ │
-└───────────────────────────────────────────────────────────────────────────┘
-          ↓
-┌───────────────────────────────────────────────────────────────────────────┐
-│  RESULT: Class fully loaded and ready to use                              │
-│  ├─ Bytecode verified and safe                                            │
-│  ├─ Static variables initialized                                          │
-│  ├─ Static blocks executed                                                │
-│  └─ Class can now be instantiated and methods called                      │
-└───────────────────────────────────────────────────────────────────────────┘
-```
+### One-line Crisp Definition
+**Class Loading = Load (find bytecode) → Link (verify + prepare + resolve) → Initialize (execute static)**
 
 ---
 
-## DIAGRAM: Parent Delegation Model
+## Class Loading Process Architecture
 
 ```
-┌─────────────────────────────────────────────────────┐
-│         PARENT DELEGATION MODEL                     │
-└─────────────────────────────────────────────────────┘
-
-REQUEST: Load class "com.myapp.MyClass"
-
-┌──────────────────────────────────────┐
-│  Application ClassLoader             │
-│  (System ClassLoader)                │
-│  ├─ Loads: CLASSPATH classes         │
-│  ├─ Check: Already loaded?           │
-│  └─ If not: Delegate to parent ↓     │
-└──────────────────────────────────────┘
-                ↓ DELEGATE
-┌──────────────────────────────────────┐
-│  Extension ClassLoader               │
-│  (Platform ClassLoader in Java 9+)   │
-│  ├─ Loads: jre/lib/ext               │
-│  ├─ Check: Already loaded?           │
-│  └─ If not: Delegate to parent ↓     │
-└──────────────────────────────────────┘
-                ↓ DELEGATE
-┌──────────────────────────────────────┐
-│  Bootstrap ClassLoader               │
-│  (Primordial ClassLoader)            │
-│  ├─ Loads: Core Java classes         │
-│  ├─ rt.jar (Java 8)                  │
-│  ├─ java.base module (Java 9+)       │
-│  ├─ Written in native code (C/C++)   │
-│  └─ Try to load...                   │
-└──────────────────────────────────────┘
-                ↓
-        NOT FOUND (not a core class)
-                ↓ RETURN NULL
-┌──────────────────────────────────────┐
-│  Extension ClassLoader               │
-│  └─ Try to load from jre/lib/ext     │
-└──────────────────────────────────────┘
-                ↓
-        NOT FOUND (not an extension)
-                ↓ RETURN NULL
-┌──────────────────────────────────────┐
-│  Application ClassLoader             │
-│  └─ Try to load from CLASSPATH       │
-│     ├─ Search: com/myapp/MyClass.class│
-│     ├─ FOUND! ✅                      │
-│     ├─ Load bytecode                 │
-│     └─ Return Class object           │
-└──────────────────────────────────────┘
-
-WHY PARENT DELEGATION?
-┌──────────────────────────────────────┐
-│  1. SECURITY                         │
-│     └─ Prevents core class spoofing  │
-│        (Can't replace java.lang.String)│
-│                                      │
-│  2. AVOID DUPLICATES                 │
-│     └─ Same class loaded only once   │
-│                                      │
-│  3. CONSISTENCY                      │
-│     └─ Core classes always from same │
-│        source                        │
-└──────────────────────────────────────┘
+╔════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                    ║
+║              ╔═══════════════════════════════════════════════════════╗             ║
+║              ║      CLASS LOADING PROCESS (COMPLETE FLOW)            ║             ║
+║              ╚═══════════════════════════════════════════════════════╝             ║
+║                                                                                    ║
+╠════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                    ║
+║  USER RUNS: $ java com.myapp.MyClass                                               ║
+║                                                                                    ║
+║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
+║   ┃  PHASE 1: LOADING                                                        ┃     ║
+║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║                                                                                    ║
+║   ┌──────────────────────────────────────────────────────────────────┐             ║
+║   │  Step 1: Request to load com.myapp.MyClass                       │             ║
+║   └──────────────────────────────────────────────────────────────────┘             ║
+║                              ↓                                                     ║
+║   ┌──────────────────────────────────────────────────────────────────┐             ║
+║   │  Application ClassLoader receives request                        │             ║
+║   │  ├─ Check if already loaded: findLoadedClass()                   │             ║
+║   │  │  └─ If found, return cached Class object                      │             ║
+║   │  ├─ If not found, delegate to parent                             │             ║
+║   │  └─ Parent Delegation Model starts                               │             ║
+║   └──────────────────────────────────────────────────────────────────┘             ║
+║                              ↓                                                     ║
+║   ┌──────────────────────────────────────────────────────────────────┐             ║
+║   │  Extension ClassLoader receives request                          │             ║
+║   │  ├─ Check if already loaded                                      │             ║
+║   │  ├─ If not found, delegate to parent                             │             ║
+║   │  └─ Continues delegation                                         │             ║
+║   └──────────────────────────────────────────────────────────────────┘             ║
+║                              ↓                                                     ║
+║   ┌──────────────────────────────────────────────────────────────────┐             ║
+║   │  Bootstrap ClassLoader receives request                          │             ║
+║   │  ├─ Check if already loaded                                      │             ║
+║   │  ├─ Search in rt.jar / java.base module                          │             ║
+║   │  ├─ Not found (not a core class)                                 │             ║
+║   │  └─ Return null to child                                         │             ║
+║   └──────────────────────────────────────────────────────────────────┘             ║
+║                              ↓                                                     ║
+║   ┌──────────────────────────────────────────────────────────────────┐             ║
+║   │  Extension ClassLoader tries to load                             │             ║
+║   │  ├─ Search in jre/lib/ext                                        │             ║
+║   │  ├─ Not found (not an extension)                                 │             ║
+║   │  └─ Return null to child                                         │             ║
+║   └──────────────────────────────────────────────────────────────────┘             ║
+║                              ↓                                                     ║
+║   ┌──────────────────────────────────────────────────────────────────┐             ║
+║   │  Application ClassLoader tries to load                           │             ║
+║   │  ├─ Search in CLASSPATH                                          │             ║
+║   │  ├─ Found: com/myapp/MyClass.class                               │             ║
+║   │  ├─ Read bytecode into byte array                                │             ║
+║   │  ├─ Call defineClass(byte[])                                     │             ║
+║   │  │  ├─ Create Class object in heap                               │             ║
+║   │  │  ├─ Store class metadata in method area                       │             ║
+║   │  │  └─ Return Class object                                       │             ║
+║   │  └─ Cache Class object for future use                            │             ║
+║   └──────────────────────────────────────────────────────────────────┘             ║
+║                                                                                    ║
+║   Result: Class loaded into memory                                                 ║
+║   ├─ Class object created in heap                                                  ║
+║   ├─ Metadata stored in method area                                                ║
+║   └─ Ready for linking phase                                                       ║
+║                                                                                    ║
+╠════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                    ║
+║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
+║   ┃  PHASE 2: LINKING                                                        ┃     ║
+║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║                                                                                    ║
+║   ┌──────────────────────────────────────────────────────────────────┐             ║
+║   │  Step 2.1: VERIFICATION                                          │             ║
+║   │  ┌────────────────────────────────────────────────────────────┐  │             ║
+║   │  │  Pass 1: Format Verification                               │  │             ║
+║   │  │  ├─ Check magic number: 0xCAFEBABE                         │  │             ║
+║   │  │  ├─ Check version number (major.minor)                     │  │             ║
+║   │  │  ├─ Validate constant pool entries                         │  │             ║
+║   │  │  ├─ Check class file structure                             │  │             ║
+║   │  │  └─ Ensure no truncation                                   │  │             ║
+║   │  └────────────────────────────────────────────────────────────┘  │             ║
+║   │  ┌────────────────────────────────────────────────────────────┐  │             ║
+║   │  │  Pass 2: Metadata Verification                             │  │             ║
+║   │  │  ├─ Check class has superclass (except Object)             │  │             ║
+║   │  │  ├─ Verify superclass is not final                         │  │             ║
+║   │  │  ├─ Check interfaces are actually interfaces               │  │             ║
+║   │  │  ├─ Verify no duplicate fields/methods                     │  │             ║
+║   │  │  └─ Check access modifiers consistency                     │  │             ║
+║   │  └────────────────────────────────────────────────────────────┘  │             ║
+║   │  ┌────────────────────────────────────────────────────────────┐  │             ║
+║   │  │  Pass 3: Bytecode Verification (Most Complex)              │  │             ║
+║   │  │  ├─ Dataflow analysis on method bytecode                   │  │             ║
+║   │  │  ├─ Type checking (operand stack types)                    │  │             ║
+║   │  │  ├─ Control flow validation (no invalid jumps)             │  │             ║
+║   │  │  ├─ Stack depth verification (no overflow/underflow)       │  │             ║
+║   │  │  ├─ Local variable initialization check                    │  │             ║
+║   │  │  ├─ Type safety (no illegal casts)                         │  │             ║
+║   │  │  └─ No illegal operations (e.g., pop empty stack)          │  │             ║
+║   │  └────────────────────────────────────────────────────────────┘  │             ║
+║   │  ┌────────────────────────────────────────────────────────────┐  │             ║
+║   │  │  Pass 4: Symbolic Reference Verification                   │  │             ║
+║   │  │  ├─ Check referenced classes exist                         │  │             ║
+║   │  │  ├─ Check referenced fields exist                          │  │             ║
+║   │  │  ├─ Check referenced methods exist                         │  │             ║
+║   │  │  ├─ Verify access permissions                              │  │             ║
+║   │  │  └─ Check method signatures match                          │  │             ║
+║   │  └────────────────────────────────────────────────────────────┘  │             ║
+║   │                                                                  │             ║
+║   │  If verification fails → VerifyError thrown                      │             ║
+║   └──────────────────────────────────────────────────────────────────┘             ║
+║                              ↓                                                     ║
+║   ┌──────────────────────────────────────────────────────────────────┐             ║
+║   │  Step 2.2: PREPARATION                                           │             ║
+║   │  ┌────────────────────────────────────────────────────────────┐  │             ║
+║   │  │  Allocate memory for static variables in method area       │  │             ║
+║   │  │  ├─ static int count;     → Allocate 4 bytes, set to 0     │  │             ║
+║   │  │  ├─ static String name;   → Allocate reference, set null   │  │             ║
+║   │  │  ├─ static boolean flag;  → Allocate 1 byte, set false     │  │             ║
+║   │  │  └─ static final int MAX = 100; → Set to 100 (constant)    │  │             ║
+║   │  │                                                            │  │             ║
+║   │  │  Default values assigned:                                  │  │             ║
+║   │  │  ├─ int, byte, short, long → 0                             │  │             ║
+║   │  │  ├─ float, double → 0.0                                    │  │             ║
+║   │  │  ├─ boolean → false                                        │  │             ║
+║   │  │  ├─ char → '\u0000'                                        │  │             ║
+║   │  │  └─ Reference types → null                                 │  │             ║
+║   │  │                                                            │  │             ║
+║   │  │  Note: Actual initialization happens in next phase         │  │             ║
+║   │  └────────────────────────────────────────────────────────────┘  │             ║
+║   └──────────────────────────────────────────────────────────────────┘             ║
+║                              ↓                                                     ║
+║   ┌──────────────────────────────────────────────────────────────────┐             ║
+║   │  Step 2.3: RESOLUTION                                            │             ║
+║   │  ┌────────────────────────────────────────────────────────────┐  │             ║
+║   │  │  Convert symbolic references to direct references          │  │             ║
+║   │  │                                                            │  │             ║
+║   │  │  Before resolution (Symbolic):                             │  │             ║
+║   │  │  "java/lang/String"  → String reference                    │  │             ║
+║   │  │  "println"           → Method reference                    │  │             ║
+║   │  │  "java/lang/System"  → Class reference                     │  │             ║
+║   │  │                                                            │  │             ║
+║   │  │  After resolution (Direct):                                │  │             ║
+║   │  │  0x7f8a3c001000  → Memory address of String class          │  │             ║
+║   │  │  0x7f8a3c002000  → Memory address of println method        │  │             ║
+║   │  │  0x7f8a3c003000  → Memory address of System class          │  │             ║
+║   │  │                                                            │  │             ║
+║   │  │  Types of resolution:                                      │  │             ║
+║   │  │  ├─ Class/Interface resolution                             │  │             ║
+║   │  │  ├─ Field resolution                                       │  │             ║
+║   │  │  ├─ Method resolution                                      │  │             ║
+║   │  │  └─ Interface method resolution                            │  │             ║
+║   │  │                                                            │  │             ║
+║   │  │  Can be LAZY (on first use) or EAGER (at link time)        │  │             ║
+║   │  └────────────────────────────────────────────────────────────┘  │             ║
+║   │                                                                  │             ║
+║   │  If resolution fails → NoClassDefFoundError, NoSuchFieldError    │             ║
+║   └──────────────────────────────────────────────────────────────────┘             ║
+║                                                                                    ║
+╠════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                    ║
+║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
+║   ┃  PHASE 3: INITIALIZATION                                                 ┃     ║
+║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║                                                                                    ║
+║   ┌──────────────────────────────────────────────────────────────────┐             ║
+║   │  Step 3: Execute Static Initializers                             │             ║
+║   │  ┌────────────────────────────────────────────────────────────┐  │             ║
+║   │  │  1. Initialize superclass first (if not already done)      │  │             ║
+║   │  │     └─ Recursive initialization up the hierarchy           │  │             ║
+║   │  └────────────────────────────────────────────────────────────┘  │             ║
+║   │  ┌────────────────────────────────────────────────────────────┐  │             ║
+║   │  │  2. Execute static variable initializers (in source order) │  │             ║
+║   │  │     static int count = 10;     → count = 10                │  │             ║
+║   │  │     static String name = "Hi"; → name = "Hi"               │  │             ║
+║   │  └────────────────────────────────────────────────────────────┘  │             ║
+║   │  ┌────────────────────────────────────────────────────────────┐  │             ║
+║   │  │  3. Execute static blocks (in source order)                │  │             ║
+║   │  │     static {                                               │  │             ║
+║   │  │         System.out.println("Static block");                │  │             ║
+║   │  │         count = 20;                                        │  │             ║
+║   │  │     }                                                      │  │             ║
+║   │  └────────────────────────────────────────────────────────────┘  │             ║
+║   │                                                                  │             ║
+║   │  Thread safety:                                                  │             ║
+║   │  ├─ Initialization synchronized on Class object                  │             ║
+║   │  ├─ Only one thread initializes                                  │             ║
+║   │  ├─ Other threads wait                                           │             ║
+║   │  └─ Happens-once guarantee                                       │             ║
+║   │                                                                  │             ║
+║   │  If initialization fails → ExceptionInInitializerError           │             ║
+║   └──────────────────────────────────────────────────────────────────┘             ║
+║                                                                                    ║
+║   Result: Class fully loaded and ready to use                                      ║
+║   ├─ Bytecode verified and safe                                                    ║
+║   ├─ Static variables initialized                                                  ║
+║   ├─ Static blocks executed                                                        ║
+║   └─ Class can now be instantiated and methods called                              ║
+║                                                                                    ║
+╚════════════════════════════════════════════════════════════════════════════════════╝
 ```
 
+---
 
+## Parent Delegation Model
+
+```
+╔════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                    ║
+║              ╔═══════════════════════════════════════════════════════╗             ║
+║              ║         PARENT DELEGATION MODEL                       ║             ║
+║              ╚═══════════════════════════════════════════════════════╝             ║
+║                                                                                    ║
+╠════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                    ║
+║  REQUEST: Load class "com.myapp.MyClass"                                           ║
+║                                                                                    ║
+║   ┌──────────────────────────────────────────────────────────────────┐             ║
+║   │  Application ClassLoader                                         │             ║
+║   │  (System ClassLoader)                                            │             ║
+║   │  ├─ Loads: CLASSPATH classes                                     │             ║
+║   │  ├─ Check: Already loaded?                                       │             ║
+║   │  └─ If not: Delegate to parent ↓                                 │             ║
+║   └──────────────────────────────────────────────────────────────────┘             ║
+║                              ↓ DELEGATE                                            ║
+║   ┌──────────────────────────────────────────────────────────────────┐             ║
+║   │  Extension ClassLoader                                           │             ║
+║   │  (Platform ClassLoader in Java 9+)                               │             ║
+║   │  ├─ Loads: jre/lib/ext                                           │             ║
+║   │  ├─ Check: Already loaded?                                       │             ║
+║   │  └─ If not: Delegate to parent ↓                                 │             ║
+║   └──────────────────────────────────────────────────────────────────┘             ║
+║                              ↓ DELEGATE                                            ║
+║   ┌──────────────────────────────────────────────────────────────────┐             ║
+║   │  Bootstrap ClassLoader                                           │             ║
+║   │  (Primordial ClassLoader)                                        │             ║
+║   │  ├─ Loads: Core Java classes                                     │             ║
+║   │  ├─ rt.jar (Java 8)                                              │             ║
+║   │  ├─ java.base module (Java 9+)                                   │             ║
+║   │  ├─ Written in native code (C/C++)                               │             ║
+║   │  └─ Try to load...                                               │             ║
+║   └──────────────────────────────────────────────────────────────────┘             ║
+║                              ↓                                                     ║
+║           NOT FOUND (not a core class)                                             ║
+║                              ↓ RETURN NULL                                         ║
+║   ┌──────────────────────────────────────────────────────────────────┐             ║
+║   │  Extension ClassLoader                                           │             ║
+║   │  └─ Try to load from jre/lib/ext                                 │             ║
+║   └──────────────────────────────────────────────────────────────────┘             ║
+║                              ↓                                                     ║
+║           NOT FOUND (not an extension)                                             ║
+║                              ↓ RETURN NULL                                         ║
+║   ┌──────────────────────────────────────────────────────────────────┐             ║
+║   │  Application ClassLoader                                         │             ║
+║   │  └─ Try to load from CLASSPATH                                   │             ║
+║   │     ├─ Search: com/myapp/MyClass.class                           │             ║
+║   │     ├─ FOUND                                                     │             ║
+║   │     ├─ Load bytecode                                             │             ║
+║   │     └─ Return Class object                                       │             ║
+║   └──────────────────────────────────────────────────────────────────┘             ║
+║                                                                                    ║
+║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
+║   ┃  WHY PARENT DELEGATION?                                                  ┃     ║
+║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║                                                                                    ║
+║   ┌──────────────────────────────────────────────────────────────────┐             ║
+║   │  1. SECURITY                                                     │             ║
+║   │     └─ Prevents core class spoofing                              │             ║
+║   │        (Cannot replace java.lang.String)                         │             ║
+║   │                                                                  │             ║
+║   │  2. AVOID DUPLICATES                                             │             ║
+║   │     └─ Same class loaded only once                               │             ║
+║   │                                                                  │             ║
+║   │  3. CONSISTENCY                                                  │             ║
+║   │     └─ Core classes always from same source                      │             ║
+║   └──────────────────────────────────────────────────────────────────┘             ║
+║                                                                                    ║
+╚════════════════════════════════════════════════════════════════════════════════════╝
+```
 
 ---
 
@@ -320,6 +341,7 @@ WHY PARENT DELEGATION?
 ### Example 1: Library Book System
 
 **Class Loading = Library Book Acquisition:**
+
 ```
 LOADING (Book Order):
 ├─ Student requests book "Advanced Java"
@@ -345,18 +367,14 @@ INITIALIZATION:
 ├─ Stamp library seal
 ├─ Write acquisition date
 └─ Book ready for lending
-
-Similarly Class Loading:
-├─ Load .class file
-├─ Verify bytecode
-├─ Prepare static variables
-├─ Resolve references
-└─ Initialize static blocks
 ```
+
+Similarly Class Loading: Load .class file, Verify bytecode, Prepare static variables, Resolve references, Initialize static blocks.
 
 ### Example 2: Restaurant Recipe
 
 **Class Loading = Recipe Preparation:**
+
 ```
 LOADING (Recipe Acquisition):
 ├─ Chef needs "Pasta Recipe"
@@ -382,18 +400,14 @@ INITIALIZATION:
 ├─ Preheat oven (static block)
 ├─ Boil water (static initialization)
 └─ Ready to cook!
-
-Class Loading similar:
-├─ Load class bytecode
-├─ Verify safety
-├─ Prepare memory
-├─ Resolve dependencies
-└─ Execute static blocks
 ```
+
+Class Loading similar: Load class bytecode, Verify safety, Prepare memory, Resolve dependencies, Execute static blocks.
 
 ### Example 3: Building Construction
 
 **Class Loading = Building Construction:**
+
 ```
 LOADING (Foundation):
 ├─ Architect provides blueprint (.class file)
@@ -419,25 +433,100 @@ INITIALIZATION:
 ├─ Turn on utilities (static blocks)
 ├─ Final inspections
 └─ Building ready for occupancy!
-
-Class Loading:
-├─ Load class
-├─ Verify bytecode
-├─ Prepare static storage
-├─ Resolve references
-└─ Initialize statics
 ```
+
+Class Loading: Load class, Verify bytecode, Prepare static storage, Resolve references, Initialize statics.
 
 ---
 
 ## Internal Working
 
 ```
-┌─────────────────────────────────────────────────────┐
-│         CLASS LOADING INTERNAL FLOW                 │
-└─────────────────────────────────────────────────────┘
+╔════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                    ║
+║              ╔═══════════════════════════════════════════════════════╗             ║
+║              ║         CLASS LOADING EXECUTION FLOW                  ║             ║
+║              ╚═══════════════════════════════════════════════════════╝             ║
+║                                                                                    ║
+╠════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                    ║
+║                         User runs: $ java MyClass                                  ║
+║                                       ↓                                            ║
+║                                                                                    ║
+║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
+║   ┃  PHASE 1: LOADING                                                        ┃     ║
+║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║                                                                                    ║
+║                  ClassLoader locates MyClass.class file                            ║
+║                  Parent delegation model applied                                   ║
+║                  Bytecode read into memory                                         ║
+║                  Class object created in heap                                      ║
+║                  Metadata stored in method area                                    ║
+║                                                                                    ║
+║                                       ↓                                            ║
+║                                                                                    ║
+║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
+║   ┃  PHASE 2: LINKING                                                        ┃     ║
+║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║                                                                                    ║
+║                  Verification: Bytecode validated                                  ║
+║                  Preparation: Static variables allocated                           ║
+║                  Resolution: References converted                                  ║
+║                                                                                    ║
+║                                       ↓                                            ║
+║                                                                                    ║
+║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
+║   ┃  PHASE 3: INITIALIZATION                                                 ┃     ║
+║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║                                                                                    ║
+║                  Static variables initialized                                      ║
+║                  Static blocks executed                                            ║
+║                  Class ready for use                                               ║
+║                                                                                    ║
+║                                       ↓                                            ║
+║                                                                                    ║
+║                         Class loaded successfully                                  ║
+║                                                                                    ║
+╚════════════════════════════════════════════════════════════════════════════════════╝
+```
 
-CODE EXAMPLE:
+To understand the internal working of class loading process, it is important to look at each phase in detail:
+
+**Phase 1: Loading**
+
+The loading process starts when the JVM needs to use a class for the first time. The Application ClassLoader receives the request to load the class. Before attempting to load, it first checks if the class is already loaded using the `findLoadedClass()` method. If the class is not cached, the parent delegation model begins.
+
+The Application ClassLoader delegates the request to its parent, the Extension ClassLoader. The Extension ClassLoader in turn delegates to its parent, the Bootstrap ClassLoader. The Bootstrap ClassLoader searches for the class in core Java libraries (rt.jar in Java 8 or java.base module in Java 9+). If the class is not a core class, the Bootstrap ClassLoader returns null.
+
+Control returns to the Extension ClassLoader, which searches in the extension directories (jre/lib/ext). If the class is not an extension, it also returns null. Finally, the Application ClassLoader searches in the CLASSPATH locations. When the .class file is found, the bytecode is read into a byte array.
+
+The `defineClass()` method is called with the bytecode array. This creates a Class object in the heap and stores class metadata (fields, methods, constant pool, access flags) in the method area. The Class object is cached for future use to prevent duplicate loading.
+
+**Phase 2: Linking**
+
+Linking consists of three sub-phases:
+
+1. **Verification:** The bytecode verifier performs four-pass verification to ensure safety. Pass 1 checks the file format (magic number 0xCAFEBABE, version number, constant pool validity). Pass 2 validates metadata (class has superclass except Object, superclass is not final, interfaces are valid). Pass 3 is bytecode verification, the most complex phase, using dataflow analysis to check type safety, control flow validity, stack depth limits, and proper variable initialization. Pass 4 verifies symbolic references (referenced classes, fields, methods exist and are accessible).
+
+2. **Preparation:** Memory is allocated for static variables in the method area. Default values are assigned based on type: 0 for numeric types (int, long, byte, short), 0.0 for floating-point types (float, double), false for boolean, '\u0000' for char, and null for object references. Compile-time constants marked as `static final` with constant values are assigned their actual values during this phase.
+
+3. **Resolution:** Symbolic references in the constant pool are converted to direct memory references. For example, a symbolic reference "java/lang/String" is resolved to the actual memory address of the String class. This can happen lazily (on first use) or eagerly (during linking) depending on JVM implementation and configuration.
+
+**Phase 3: Initialization**
+
+The initialization phase executes static initializers in a defined order. First, if the class has a superclass that is not already initialized, the superclass is initialized recursively. This ensures proper initialization hierarchy.
+
+Next, static variable initializers are executed in the order they appear in the source code. For example, `static int count = 10;` assigns the value 10 to count. Then, static blocks are executed in source order. These blocks can perform complex initialization logic.
+
+Initialization is thread-safe. The JVM uses a lock on the Class object to ensure only one thread initializes the class. Other threads attempting to initialize the same class will wait. This guarantees that initialization happens exactly once per class.
+
+If any exception occurs during initialization (in static initializers or static blocks), an ExceptionInInitializerError is thrown, and the class is marked as initialization-failed.
+
+**Example Execution:**
+
+Consider this code:
+
+```java
 public class Parent {
     static int parentStatic = 10;
     static {
@@ -455,86 +544,29 @@ public class Child extends Parent {
         System.out.println("Main method");
     }
 }
+```
 
-EXECUTION: $ java Child
+When you run `java Child`, the following sequence occurs:
 
-STEP-BY-STEP INTERNAL FLOW:
+1. JVM starts and initializes the Bootstrap ClassLoader.
+2. Core classes like java.lang.Object and java.lang.System are loaded.
+3. The Application ClassLoader loads the Child class using parent delegation.
+4. During linking, the Child class references Parent, so Parent is loaded.
+5. Both classes go through verification, preparation, and resolution.
+6. Initialization begins. Parent is initialized first (parentStatic = 10, static block executes printing "Parent static block").
+7. Then Child is initialized (childStatic = 20, static block executes printing "Child static block").
+8. The main() method is located and executed, printing "Main method".
 
-1. JVM STARTS
-   └─ Bootstrap ClassLoader initialized
-
-2. LOAD java.lang.Object (Parent of all)
-   ├─ Bootstrap ClassLoader loads
-   ├─ Verify, Link, Initialize
-   └─ Cached
-
-3. LOAD java.lang.System
-   ├─ Bootstrap ClassLoader loads
-   ├─ Needed for System.out.println
-   └─ Cached
-
-4. LOAD Child class (requested)
-   ├─ Application ClassLoader receives request
-   ├─ Delegates to Extension → Bootstrap
-   ├─ Bootstrap: Not found (not core class)
-   ├─ Extension: Not found (not extension)
-   ├─ Application: Found in CLASSPATH
-   └─ Loads Child.class
-
-5. LINKING Child
-   ├─ VERIFICATION:
-   │  ├─ Magic number: 0xCAFEBABE ✅
-   │  ├─ Version: Compatible ✅
-   │  ├─ Bytecode valid ✅
-   │  └─ Has superclass (Parent) ✅
-   ├─ PREPARATION:
-   │  └─ childStatic allocated, set to 0
-   └─ RESOLUTION:
-      └─ Resolve Parent reference
-
-6. LOAD Parent class (dependency)
-   ├─ Application ClassLoader loads
-   ├─ Verify, Link
-   └─ Prepare: parentStatic = 0
-
-7. INITIALIZATION (Top-down)
-   ├─ Initialize Parent first:
-   │  ├─ parentStatic = 10
-   │  ├─ Execute static block
-   │  └─ Output: "Parent static block"
-   ├─ Then initialize Child:
-   │  ├─ childStatic = 20
-   │  ├─ Execute static block
-   │  └─ Output: "Child static block"
-
-8. EXECUTE main()
-   └─ Output: "Main method"
-
-FINAL OUTPUT:
+The output will be:
+```
 Parent static block
 Child static block
 Main method
-
-MEMORY STATE AFTER LOADING:
-
-METHOD AREA:
-┌──────────────────────────────────────┐
-│  Parent class metadata               │
-│  ├─ parentStatic = 10                │
-│  └─ Methods: <clinit>, etc.          │
-├──────────────────────────────────────┤
-│  Child class metadata                │
-│  ├─ childStatic = 20                 │
-│  └─ Methods: main, <clinit>          │
-└──────────────────────────────────────┘
-
-HEAP:
-┌──────────────────────────────────────┐
-│  Class object for Parent             │
-├──────────────────────────────────────┤
-│  Class object for Child              │
-└──────────────────────────────────────┘
 ```
+
+**Memory State After Loading:**
+
+After the class loading process completes, the method area contains class metadata for both Parent and Child, including their static variables (parentStatic = 10, childStatic = 20) and method bytecode. The heap contains Class objects for both classes, used for reflection. The classes are now ready for instantiation and method invocation.
 
 ---
 
@@ -543,6 +575,7 @@ HEAP:
 ### Viewing Class Loading:
 
 **Enable verbose class loading:**
+
 ```bash
 $ java -verbose:class MyProgram
 
@@ -557,7 +590,10 @@ $ java -verbose:class MyProgram
 [Loaded MyProgram from file:/path/to/classes/]
 ```
 
-**Custom ClassLoader example:**
+This shows every class being loaded during program execution.
+
+### Custom ClassLoader Example:
+
 ```java
 public class CustomClassLoader extends ClassLoader {
     @Override
@@ -583,7 +619,10 @@ Class<?> clazz = loader.loadClass("com.myapp.MyClass");
 Object obj = clazz.newInstance();
 ```
 
-**Check if class is loaded:**
+Use cases: Load classes from network, database, encrypted files, hot deployment, plugin systems.
+
+### Check if Class is Loaded:
+
 ```java
 ClassLoader loader = MyClass.class.getClassLoader();
 System.out.println("Loaded by: " + loader);
@@ -592,7 +631,8 @@ System.out.println("Loaded by: " + loader);
 // Loaded by: jdk.internal.loader.ClassLoaders$AppClassLoader@...
 ```
 
-**Force class initialization:**
+### Force Class Initialization:
+
 ```java
 // Load but don't initialize:
 Class<?> clazz = ClassLoader.getSystemClassLoader()
@@ -602,7 +642,8 @@ Class<?> clazz = ClassLoader.getSystemClassLoader()
 Class.forName("MyClass");  // Loads and initializes
 ```
 
-**Initialization order example:**
+### Initialization Order Example:
+
 ```java
 class Demo {
     static int a = 10;           // 1. First
@@ -626,292 +667,212 @@ class Demo {
 // Static block
 ```
 
+Static initializers execute in source order (top to bottom).
+
 ---
 
 ## Memory Behavior
 
 ```
-┌─────────────────────────────────────────────────────┐
-│         MEMORY DURING CLASS LOADING                 │
-└─────────────────────────────────────────────────────┘
-
-BEFORE LOADING:
-┌──────────────────────────────────────┐
-│  DISK                                │
-│  └─ MyClass.class (bytecode)         │
-└──────────────────────────────────────┘
-
-DURING LOADING:
-┌──────────────────────────────────────┐
-│  RAM - METHOD AREA                   │
-│  ┌────────────────────────────────┐  │
-│  │  MyClass metadata              │  │
-│  │  ├─ Class name                 │  │
-│  │  ├─ Superclass reference       │  │
-│  │  ├─ Interfaces                 │  │
-│  │  ├─ Fields metadata            │  │
-│  │  ├─ Methods bytecode           │  │
-│  │  ├─ Constant pool              │  │
-│  │  └─ Access flags               │  │
-│  └────────────────────────────────┘  │
-│  ┌────────────────────────────────┐  │
-│  │  Static variables              │  │
-│  │  └─ static int count = 0       │  │
-│  │     (default value)            │  │
-│  └────────────────────────────────┘  │
-└──────────────────────────────────────┘
-
-┌──────────────────────────────────────┐
-│  RAM - HEAP                          │
-│  ┌────────────────────────────────┐  │
-│  │  Class object (java.lang.Class)│  │
-│  │  ├─ Represents MyClass         │  │
-│  │  ├─ Used for reflection        │  │
-│  │  └─ MyClass.class returns this │  │
-│  └────────────────────────────────┘  │
-└──────────────────────────────────────┘
-
-AFTER INITIALIZATION:
-┌──────────────────────────────────────┐
-│  METHOD AREA                         │
-│  ┌────────────────────────────────┐  │
-│  │  Static variables              │  │
-│  │  └─ static int count = 10      │  │
-│  │     (actual value)             │  │
-│  └────────────────────────────────┘  │
-└──────────────────────────────────────┘
-
-MEMORY SIZES:
-├─ Class metadata: Few KB per class
-├─ Static variables: Based on type
-├─ Class object: ~100 bytes
-└─ Total: Usually < 10 KB per class
+╔════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                    ║
+║              ╔═══════════════════════════════════════════════════════╗             ║
+║              ║         MEMORY DURING CLASS LOADING                   ║             ║
+║              ╚═══════════════════════════════════════════════════════╝             ║
+║                                                                                    ║
+╠════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                    ║
+║  BEFORE LOADING:                                                                   ║
+║  ┌──────────────────────────────────────────────────────────────────┐              ║
+║  │  DISK                                                            │              ║
+║  │  └─ MyClass.class (bytecode)                                     │              ║
+║  └──────────────────────────────────────────────────────────────────┘              ║
+║                                                                                    ║
+║  DURING LOADING:                                                                   ║
+║  ┌──────────────────────────────────────────────────────────────────┐              ║
+║  │  RAM - METHOD AREA                                               │              ║
+║  │  ┌────────────────────────────────────────────────────────────┐  │              ║
+║  │  │  MyClass metadata                                          │  │              ║
+║  │  │  ├─ Class name                                             │  │              ║
+║  │  │  ├─ Superclass reference                                   │  │              ║
+║  │  │  ├─ Interfaces                                             │  │              ║
+║  │  │  ├─ Fields metadata                                        │  │              ║
+║  │  │  ├─ Methods bytecode                                       │  │              ║
+║  │  │  ├─ Constant pool                                          │  │              ║
+║  │  │  └─ Access flags                                           │  │              ║
+║  │  └────────────────────────────────────────────────────────────┘  │              ║
+║  │  ┌────────────────────────────────────────────────────────────┐  │              ║
+║  │  │  Static variables                                          │  │              ║
+║  │  │  └─ static int count = 0 (default value)                   │  │              ║
+║  │  └────────────────────────────────────────────────────────────┘  │              ║
+║  └──────────────────────────────────────────────────────────────────┘              ║
+║                                                                                    ║
+║  ┌──────────────────────────────────────────────────────────────────┐              ║
+║  │  RAM - HEAP                                                      │              ║
+║  │  ┌────────────────────────────────────────────────────────────┐  │              ║
+║  │  │  Class object (java.lang.Class)                            │  │              ║
+║  │  │  ├─ Represents MyClass                                     │  │              ║
+║  │  │  ├─ Used for reflection                                    │  │              ║
+║  │  │  └─ MyClass.class returns this                             │  │              ║
+║  │  └────────────────────────────────────────────────────────────┘  │              ║
+║  └──────────────────────────────────────────────────────────────────┘              ║
+║                                                                                    ║
+║  AFTER INITIALIZATION:                                                             ║
+║  ┌──────────────────────────────────────────────────────────────────┐              ║
+║  │  METHOD AREA                                                     │              ║
+║  │  ┌────────────────────────────────────────────────────────────┐  │              ║
+║  │  │  Static variables                                          │  │              ║
+║  │  │  └─ static int count = 10 (actual value)                   │  │              ║
+║  │  └────────────────────────────────────────────────────────────┘  │              ║
+║  └──────────────────────────────────────────────────────────────────┘              ║
+║                                                                                    ║
+║  MEMORY SIZES:                                                                     ║
+║  ├─ Class metadata: Few KB per class                                               ║
+║  ├─ Static variables: Based on type                                                ║
+║  ├─ Class object: ~100 bytes                                                       ║
+║  └─ Total: Usually < 10 KB per class                                               ║
+║                                                                                    ║
+╚════════════════════════════════════════════════════════════════════════════════════╝
 ```
 
 ---
 
-## Advantages
+## Advantages and Limitations
 
-✅ **Lazy Loading**: Classes loaded only when needed — saves memory  
-✅ **Security**: Bytecode verification prevents malicious code  
-✅ **Parent Delegation**: Core classes protected from spoofing  
-✅ **Dynamic Loading**: Load classes at runtime  
-✅ **Custom Loaders**: Extend ClassLoader for special needs  
-✅ **Namespace Isolation**: Different loaders = different namespaces  
-✅ **Hot Deployment**: Reload classes without restart (with custom loaders)  
-✅ **Memory Efficiency**: Shared method area across threads  
-✅ **Thread Safety**: Initialization synchronized  
-✅ **Caching**: Loaded classes cached for reuse  
-✅ **Dependency Resolution**: Automatic loading of dependencies  
-✅ **Version Management**: Different versions via different loaders  
 
----
+### Advantages
 
-## Limitations
+| Advantage | Description |
+|-----------|-------------|
+| **Lazy Loading** | Classes loaded only when needed, saving memory and improving startup time. |
+| **Security** | Bytecode verification prevents malicious code execution. |
+| **Parent Delegation** | Core classes protected from spoofing, cannot replace system classes. |
+| **Dynamic Loading** | Load classes at runtime without recompilation. |
+| **Custom Loaders** | Extend ClassLoader for plugins, hot deployment, isolation. |
+| **Namespace Isolation** | Different loaders create different namespaces for same class. |
+| **Hot Deployment** | Reload classes without restart for development efficiency. |
+| **Memory Efficiency** | Shared method area, classes loaded once and reused. |
+| **Thread Safety** | Initialization synchronized on Class object. |
+| **Caching** | Loaded classes cached for reuse, prevents duplicate loading. |
+| **Dependency Resolution** | Automatic loading of dependencies. |
+| **Version Management** | Different versions can coexist via different loaders. |
 
-❌ **Complexity**: Three-phase process complex to understand  
-❌ **Performance**: Verification takes time (first load)  
-❌ **Memory Overhead**: Class metadata consumes memory  
-❌ **ClassLoader Leaks**: Holding references prevents unloading  
-❌ **Initialization Deadlock**: Circular dependencies can deadlock  
-❌ **No Unloading**: Classes rarely unloaded (only when loader GC'd)  
-❌ **Metaspace Growth**: Too many classes → OutOfMemoryError  
-❌ **Startup Time**: Loading many classes slows startup  
-❌ **Debugging Difficulty**: ClassLoader issues hard to debug  
+### Limitations
 
----
-
-## Edge Cases
-
-🔸 **ClassNotFoundException:**
-```java
-try {
-    Class.forName("com.nonexistent.MyClass");
-} catch (ClassNotFoundException e) {
-    // Class not found in classpath
-    System.out.println("Class not found!");
-}
-
-// Solution: Check CLASSPATH
-$ java -cp /correct/path MyProgram
-```
-
-🔸 **NoClassDefFoundError:**
-```java
-// Class was found during compilation but not at runtime
-public class Demo {
-    public static void main(String[] args) {
-        Helper h = new Helper();  // NoClassDefFoundError
-    }
-}
-
-// Causes:
-// 1. Helper.class deleted after compilation
-// 2. Helper.class not in runtime classpath
-// 3. Static initializer of Helper threw exception
-
-// Solution: Ensure class available at runtime
-```
-
-🔸 **ExceptionInInitializerError:**
-```java
-class BadClass {
-    static int value = 10 / 0;  // ArithmeticException in static initializer
-}
-
-public class Demo {
-    public static void main(String[] args) {
-        BadClass b = new BadClass();  // ExceptionInInitializerError
-    }
-}
-
-// Solution: Fix static initializer
-```
-
-🔸 **ClassCircularityError:**
-```java
-// Class A depends on B, B depends on A during initialization
-class A {
-    static B b = new B();
-}
-
-class B {
-    static A a = new A();
-}
-
-// Circular dependency during initialization
-// Solution: Redesign to avoid circular static dependencies
-```
-
-🔸 **LinkageError:**
-```java
-// Class loaded by two different class loaders
-ClassLoader loader1 = new CustomClassLoader();
-ClassLoader loader2 = new CustomClassLoader();
-
-Class<?> class1 = loader1.loadClass("MyClass");
-Class<?> class2 = loader2.loadClass("MyClass");
-
-// class1 != class2 (different namespaces)
-// Casting between them → ClassCastException
-```
-
-🔸 **Custom ClassLoader Leak:**
-```java
-// Holding reference to ClassLoader prevents class unloading
-static ClassLoader loader = new CustomClassLoader();
-static Class<?> clazz = loader.loadClass("MyClass");
-
-// Even if clazz not used, loader reference prevents GC
-// Classes never unloaded → Memory leak
-
-// Solution: Remove references when done
-loader = null;
-clazz = null;
-```
+| Limitation | Description |
+|------------|-------------|
+| **Complexity** | Three-phase process is complex to understand and debug. |
+| **Performance** | Verification takes time on first load, especially bytecode verification. |
+| **Memory Overhead** | Class metadata consumes memory in method area/metaspace. |
+| **ClassLoader Leaks** | Holding references prevents unloading, common in app servers. |
+| **Initialization Deadlock** | Circular dependencies can cause deadlock during initialization. |
+| **No Unloading** | Classes rarely unloaded, only when loader is garbage collected. |
+| **Metaspace Growth** | Too many classes loaded leads to OutOfMemoryError in metaspace. |
 
 ---
 
-## Common Beginner Mistakes
+**Startup Time**: Loading many classes slows application startup significantly in large applications.
 
-🚫 **Mistake 1**: Confusing ClassNotFoundException and NoClassDefFoundError
-```java
-❌ "Both mean class not found"
-✅ ClassNotFoundException: Class not in classpath (checked exception)
-   NoClassDefFoundError: Class was there at compile time, missing at runtime (error)
-```
-
-🚫 **Mistake 2**: Not understanding initialization order
-```java
-class Demo {
-    static int b = a + 1;  // ❌ a not initialized yet!
-    static int a = 10;
-}
-
-✅ Correct order:
-class Demo {
-    static int a = 10;     // First
-    static int b = a + 1;  // Second (now a is initialized)
-}
-```
-
-🚫 **Mistake 3**: Thinking classes are loaded at startup
-```java
-❌ "All classes loaded when program starts"
-✅ Classes loaded lazily (on first use)
-   Only main class loaded initially
-```
-
-🚫 **Mistake 4**: Not understanding parent delegation
-```java
-❌ "Application ClassLoader loads all classes"
-✅ Parent delegation: Bootstrap → Extension → Application
-   Each tries parent first
-```
-
-🚫 **Mistake 5**: Forgetting static initialization is one-time
-```java
-class Counter {
-    static int count = 0;
-    static { count++; }
-}
-
-Counter c1 = new Counter();
-Counter c2 = new Counter();
-
-❌ Thinking: count = 2
-✅ Actual: count = 1 (static block runs once during class loading)
-```
-
-
+**Debugging Difficulty**: ClassLoader issues hard to debug with confusing stack traces and error messages.
 
 ---
 
-## Important Interview Points
+## Common Interview Questions
 
-💡 **Q: Explain the class loading process?**  
-**A**: Class loading has three phases:
+**Q1: Explain the class loading process?**
+
+Class loading has three phases:
+
 1. **Loading**: ClassLoader (bootstrap/extension/application) locates .class file using parent delegation, reads bytecode, creates Class object in heap, stores metadata in method area
-2. **Linking**: 
+
+2. **Linking**:
    - Verification: Validates bytecode format, type safety, control flow (4-pass verification)
    - Preparation: Allocates memory for static variables, assigns default values (0/null/false)
    - Resolution: Converts symbolic references to direct memory references
+
 3. **Initialization**: Executes static initializers and static blocks in source order, thread-safe, happens once per class
 
-💡 **Q: What is parent delegation model?**  
-**A**: When a class is requested, child ClassLoader first delegates to parent before attempting to load itself. Order: Bootstrap (core classes) → Extension (jre/lib/ext) → Application (CLASSPATH). If parent cannot load, child tries. Benefits: Security (prevents core class spoofing), avoids duplicates, ensures consistency. Example: Loading String always goes to Bootstrap, preventing malicious replacement.
+---
 
-💡 **Q: Difference between ClassNotFoundException and NoClassDefFoundError?**  
-**A**: 
-- **ClassNotFoundException**: Checked exception, thrown when class not found in classpath during explicit loading (Class.forName(), ClassLoader.loadClass()). Cause: Class never existed or wrong classpath.
-- **NoClassDefFoundError**: Error, thrown when class was present at compile time but missing at runtime, or static initializer failed. Cause: .class file deleted, classpath changed, or initialization error.
+**Q2: What is parent delegation model?**
 
-💡 **Q: What happens during verification phase?**  
-**A**: Bytecode verification has 4 passes:
+When a class is requested, child ClassLoader first delegates to parent before attempting to load itself. Order: Bootstrap (core classes) → Extension (jre/lib/ext) → Application (CLASSPATH). If parent cannot load, child tries.
+
+Benefits:
+- Security: Prevents core class spoofing
+- Avoids duplicates: Same class loaded only once
+- Ensures consistency: Core classes always from same source
+
+Example: Loading String always goes to Bootstrap, preventing malicious replacement.
+
+---
+
+**Q3: Difference between ClassNotFoundException and NoClassDefFoundError?**
+
+**ClassNotFoundException**: 
+- Checked exception
+- Thrown when class not found in classpath during explicit loading
+- Methods: Class.forName(), ClassLoader.loadClass()
+- Cause: Class never existed or wrong classpath
+
+**NoClassDefFoundError**:
+- Error (not exception)
+- Thrown when class was present at compile time but missing at runtime
+- Or when static initializer failed
+- Cause: .class file deleted, classpath changed, initialization error
+
+---
+
+**Q4: What happens during verification phase?**
+
+Bytecode verification has 4 passes:
+
 1. **Format**: Check magic number (0xCAFEBABE), version, constant pool, structure
 2. **Metadata**: Verify class has superclass (except Object), superclass not final, interfaces valid
-3. **Bytecode**: Dataflow analysis, type checking, control flow validation, stack depth verification, no illegal operations (most complex pass)
+3. **Bytecode**: Dataflow analysis, type checking, control flow validation, stack depth verification (most complex pass)
 4. **Symbolic References**: Check referenced classes/fields/methods exist, access permissions valid
-If verification fails → VerifyError thrown.
 
-💡 **Q: When does class initialization happen?**  
-**A**: Class initialization (executing static initializers) happens on first active use:
-- Creating instance (new)
+If verification fails, VerifyError is thrown.
+
+---
+
+**Q5: When does class initialization happen?**
+
+Class initialization (executing static initializers) happens on first active use:
+- Creating instance (new keyword)
 - Accessing static field (except compile-time constants)
 - Calling static method
-- Reflection (Class.forName() with initialize=true)
+- Reflection with Class.forName(name, true, loader)
 - Initializing subclass (parent initialized first)
 - Main class at startup
-Passive uses (accessing .class, compile-time constants) don't trigger initialization.
 
-💡 **Q: What is the difference between loading and initialization?**  
-**A**: 
-- **Loading**: Reads .class file, creates Class object, stores metadata in method area. Static variables allocated with default values (0/null/false).
-- **Initialization**: Executes static initializers, assigns actual values to static variables, runs static blocks. Happens after linking, only once per class.
+Passive uses (accessing .class, compile-time constants) do not trigger initialization.
+
+---
+
+**Q6: What is the difference between loading and initialization?**
+
+**Loading**:
+- Reads .class file from disk
+- Creates Class object in heap
+- Stores metadata in method area
+- Static variables allocated with default values (0/null/false)
+
+**Initialization**:
+- Executes static initializers
+- Assigns actual values to static variables
+- Runs static blocks
+- Happens after linking
+- Only once per class
+
 Example: `static int x = 10;` → Loading sets x=0, Initialization sets x=10.
 
-💡 **Q: Can you create custom ClassLoader?**  
-**A**: Yes, extend ClassLoader and override findClass():
+---
+
+**Q7: Can you create custom ClassLoader?**
+
+Yes, extend ClassLoader and override findClass():
+
 ```java
 public class MyLoader extends ClassLoader {
     protected Class<?> findClass(String name) {
@@ -920,34 +881,104 @@ public class MyLoader extends ClassLoader {
     }
 }
 ```
+
 Use cases: Load classes from network, database, encrypted files, hot deployment, plugin systems, application servers (WAR isolation).
 
-💡 **Q: What is ClassLoader namespace?**  
-**A**: Each ClassLoader has its own namespace. Same class loaded by different loaders are considered different classes. Example:
+---
+
+**Q8: What is ClassLoader namespace?**
+
+Each ClassLoader has its own namespace. Same class loaded by different loaders are considered different classes.
+
+Example:
 ```java
 ClassLoader l1 = new MyLoader();
 ClassLoader l2 = new MyLoader();
 Class<?> c1 = l1.loadClass("MyClass");
 Class<?> c2 = l2.loadClass("MyClass");
 // c1 != c2 (different classes!)
-// Casting between them → ClassCastException
+// Casting between them throws ClassCastException
 ```
+
 Used for: Application isolation, version management, plugin systems.
 
-💡 **Q: What causes ClassLoader memory leaks?**  
-**A**: ClassLoader leaks occur when:
-1. Holding reference to ClassLoader prevents GC
+---
+
+**Q9: What causes ClassLoader memory leaks?**
+
+ClassLoader leaks occur when:
+1. Holding reference to ClassLoader prevents garbage collection
 2. Classes loaded by that loader cannot be unloaded
 3. All static variables of those classes remain in memory
-Common causes: ThreadLocal not cleaned, static references, JDBC drivers not deregistered, application server redeployments. Solution: Remove all references to ClassLoader and loaded classes.
+
+Common causes:
+- ThreadLocal not cleaned
+- Static references to application classes
+- JDBC drivers not deregistered
+- Application server redeployments
+
+Solution: Remove all references to ClassLoader and loaded classes.
+
+---
+
+**Q10: What is ExceptionInInitializerError?**
+
+ExceptionInInitializerError is thrown when static initializer or static block throws an exception.
+
+Example:
+```java
+class BadClass {
+    static int value = 10 / 0;  // ArithmeticException
+}
+// Loading BadClass throws ExceptionInInitializerError
+```
+
+Causes:
+- Exception in static variable initialization
+- Exception in static block
+- Runtime errors during initialization
+
+Solution: Fix the static initializer that's throwing the exception.
 
 ---
 
 ## Short Recap
 
-Class Loading Process teen phases mein hota hai: (1) Loading - ClassLoader (bootstrap/extension/application) parent delegation model use karke .class file load karta hai, Class object create karta hai, metadata method area mein store karta hai, (2) Linking - Verification (bytecode validate, 4-pass), Preparation (static variables ko default values assign), Resolution (symbolic references ko direct references mein convert), (3) Initialization - static initializers execute, static blocks run, actual values assign, thread-safe, one-time. Interview ke liye yaad rakho: parent delegation model, ClassNotFoundException vs NoClassDefFoundError, verification 4 passes, initialization triggers, loading vs initialization difference, aur custom ClassLoader use cases.
+Class Loading Process teen phases mein hota hai: (1) Loading - ClassLoader (bootstrap/extension/application) parent delegation model use karke .class file load karta hai, Class object create karta hai, metadata method area mein store karta hai, (2) Linking - Verification (bytecode validate, 4-pass), Preparation (static variables ko default values assign), Resolution (symbolic references ko direct references mein convert), (3) Initialization - static initializers execute, static blocks run, actual values assign, thread-safe, one-time.
 
----
+Interview ke liye yaad rakho: parent delegation model (security aur consistency ke liye), ClassNotFoundException vs NoClassDefFoundError (checked exception vs error), verification 4 passes (format, metadata, bytecode, symbolic references), initialization triggers (new, static field access, static method call, reflection, subclass init), loading vs initialization difference (default values vs actual values), aur custom ClassLoader use cases (plugin systems, hot deployment, isolation).
 
-**Previous**: [← 20 - JVM Architecture](./20-jvm-architecture.md)  
-**Next**: [22 - Program Execution Flow →](./22-program-execution-flow.md)
+```
+╔════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                    ║
+║                          ╔═══════════════════════╗                                 ║
+║                          ║   KEY TAKEAWAY        ║                                 ║
+║                          ╚═══════════════════════╝                                 ║
+║                                                                                    ║
+╠════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                    ║
+║                     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓                      ║
+║                     ┃                                       ┃                      ║
+║                     ┃  Class Loading = 3 Phases             ┃                      ║
+║                     ┃                                       ┃                      ║
+║                     ┃  Loading → Linking → Initialization   ┃                      ║
+║                     ┃                                       ┃                      ║
+║                     ┃  Parent Delegation Model              ┃                      ║
+║                     ┃  Security through Verification        ┃                      ║
+║                     ┃  Lazy Loading (On-Demand)             ┃                      ║
+║                     ┃                                       ┃                      ║
+║                     ┃  Load → Verify → Prepare → Resolve    ┃                      ║
+║                     ┃       → Initialize                    ┃                      ║
+║                     ┃                                       ┃                      ║
+║                     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛                      ║
+║                                                                                    ║
+║                                                                                    ║
+║    ╔═══════════════╗         ╔═══════════════╗         ╔═══════════════╗           ║
+║    ║               ║         ║               ║         ║               ║           ║
+║    ║   Load        ║  ═════> ║   Link        ║  ═════> ║  Initialize   ║           ║
+║    ║  (.class)     ║         ║ (Verify+Prep) ║         ║  (Static)     ║           ║
+║    ╚═══════════════╝         ╚═══════════════╝         ╚═══════════════╝           ║
+║                                                                                    ║
+║                                                                                    ║
+╚════════════════════════════════════════════════════════════════════════════════════╝
+```

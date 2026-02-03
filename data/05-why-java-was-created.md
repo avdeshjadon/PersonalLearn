@@ -417,27 +417,30 @@ After (Java):
 
 ---
 
-## Advantages
+## Advantages (in English)
 
-**Platform Independence**: Write once, run anywhere (WORA)  
-**Simple**: Easier than C++ (no pointers, single inheritance)  
-**Secure**: No direct memory access, bytecode verification  
-**Robust**: Exception handling, automatic garbage collection  
-**Object-Oriented**: Reusability through classes and objects  
-**Distributed**: Built-in networking support (RMI, sockets)  
-**Multithreaded**: Native threading support  
-**Dynamic**: Runtime class loading  
-**Rich API**: Extensive standard library  
-**Strong Community**: Large ecosystem and support  
+| Advantage | Description |
+|-----------|-------------|
+| **Easy to Read** | English-like syntax, easy to understand |
+| **Abstraction** | Complex hardware details are hidden |
+| **Productivity** | Do more with less code |
+| **Portability** | Same code runs on different platforms |
+| **Reusability** | Use of functions, libraries, modules |
+| **Error Detection** | Compiler catches syntax errors |
+| **Maintenance** | Easy to update and debug |
+| **Community** | Libraries, frameworks, and support |
 
 ---
 
-## Limitations
+## Disadvantages (in English)
 
-**Performance overhead**: Initially slower than C/C++ (JIT improved this)  
-**Memory consumption**: JVM requires more memory  
-**Verbose syntax**: More code compared to Python  
-**GUI limitations**: Swing/AWT not as polished as native frameworks  
+| Disadvantage | Description |
+|--------------|-------------|
+| **Performance Overhead** | Translation takes time (slower than direct machine code) |
+| **Learning Curve** | Each language has its own syntax |
+| **Abstraction Cost** | Less control over hardware |
+| **Dependency** | Need compiler/interpreter |
+| **Version Issues** | Language updates can break old code |
 
 ---
 

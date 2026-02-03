@@ -480,41 +480,40 @@ javap -p Add
 
 ---
 
+
 ## Advantages and Limitations
 
 ### Advantages
 
-**Source Code:**
-- Human-readable and understandable
-- Easy to edit and modify
-- Comments and documentation possible
-- Debugging friendly
-- Version control friendly
-- Can be shared for collaboration
-
-**Bytecode:**
-- Platform-independent (works on any JVM)
-- Compact size (smaller than source)
-- Faster to load than source
-- Secure (verification possible before execution)
-- Optimized (compiler optimization applied)
-- Protects intellectual property (source hidden)
-- JIT compilation opportunity (runtime optimization)
+| Type | Advantage | Description |
+|------|-----------|-------------|
+| Source Code | Human-readable | Easy to read and understand |
+| Source Code | Editable | Easy to edit and modify |
+| Source Code | Documentation | Comments and documentation possible |
+| Source Code | Debugging | Debugging friendly |
+| Source Code | Version Control | Version control friendly |
+| Source Code | Collaboration | Can be shared for collaboration |
+| Bytecode | Platform-independent | Works on any JVM |
+| Bytecode | Compact | Smaller than source |
+| Bytecode | Fast Loading | Faster to load than source |
+| Bytecode | Secure | Verification possible before execution |
+| Bytecode | Optimized | Compiler optimization applied |
+| Bytecode | IP Protection | Source hidden, protects intellectual property |
+| Bytecode | JIT Compilation | Runtime optimization possible |
 
 ### Limitations
 
-**Source Code:**
-- Cannot execute directly
-- Larger file size compared to bytecode
-- Needs compilation before execution
-- Slower to load and parse
-
-**Bytecode:**
-- Not human-readable
-- Hard to debug without source
-- Can be decompiled (reverse engineering possible)
-- Needs JVM to run
-- Version compatibility issues (Java version mismatch)
+| Type | Limitation | Description |
+|------|-----------|-------------|
+| Source Code | Not Executable | Cannot execute directly |
+| Source Code | Large Size | Larger file size compared to bytecode |
+| Source Code | Needs Compilation | Needs compilation before execution |
+| Source Code | Slow Loading | Slower to load and parse |
+| Bytecode | Not Human-readable | Not human-readable |
+| Bytecode | Debugging Difficulty | Hard to debug without source |
+| Bytecode | Decompilation Risk | Can be decompiled (reverse engineering possible) |
+| Bytecode | JVM Dependency | Needs JVM to run |
+| Bytecode | Version Issues | Java version mismatch can cause issues |
 
 ---
 

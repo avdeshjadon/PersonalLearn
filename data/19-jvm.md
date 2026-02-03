@@ -298,41 +298,33 @@ java -XX:+UseG1GC Simple
 ## Advantages and Limitations
 
 
+
 ## Advantages and Limitations
 
 ### Advantages
 
-**Platform Independence**: Same bytecode har OS pe run hota hai bina modification ke, "write once, run anywhere" possible banata hai.
-
-**Automatic Memory Management**: Garbage collection se manual memory allocation/deallocation ki zaroorat nahi, memory leaks aur dangling pointers avoid hote hain.
-
-**Security**: Bytecode verification aur security checks execution se pehle hi ho jaate hain, buffer overflow aur illegal access se protection milta hai.
-
-**Performance Optimization**: JIT compiler frequently used bytecode ko native code mein convert karta hai, runtime performance improve hoti hai.
-
-**Portability**: JVM har hardware architecture aur OS pe available hai, bina recompilation ke code run hota hai.
-
-**Robust Exception Handling**: Runtime errors se crash hone ki bajaye, JVM exceptions handle karta hai.
-
-**Multithreading Support**: JVM mein multithreading built-in hai, concurrent programming easy ho jaati hai.
-
-**Dynamic Class Loading**: Classes runtime pe load ho sakti hain, flexibility milti hai.
-
-**Mature Technology**: 25+ years ki optimization aur testing ke saath reliable platform hai.
+| Advantage | Description |
+|-----------|-------------|
+| **Platform Independence** | Same bytecode runs on any OS without modification (WORA). |
+| **Automatic Memory Management** | Garbage collection avoids manual memory errors. |
+| **Security** | Bytecode verification and security checks before execution. |
+| **Performance Optimization** | JIT compiler converts hot bytecode to native code for better performance. |
+| **Portability** | JVM available for all hardware/OS, no recompilation needed. |
+| **Robust Exception Handling** | JVM handles runtime errors with exceptions. |
+| **Multithreading Support** | Built-in support for concurrent programming. |
+| **Dynamic Class Loading** | Classes can be loaded at runtime for flexibility. |
+| **Mature Technology** | 25+ years of optimization and reliability. |
 
 ### Limitations
 
-**Startup Time**: JVM initialize hone aur classes load hone mein time lagta hai, cold start slow ho sakta hai.
-
-**Memory Overhead**: JVM ko khud bhi RAM chahiye hoti hai (100-200 MB+), application heap alag se add hota hai.
-
-**Garbage Collection Pauses**: GC ke time application temporarily pause ho sakti hai, latency aa sakti hai.
-
-**Not for Real-Time Systems**: GC unpredictability ki wajah se strict timing guarantees possible nahi hoti.
-
-**Slower than Native Code**: JIT optimization ke bawajood, JVM overhead ki wajah se Java CPU-intensive tasks mein C/C++ se slow ho sakta hai.
-
-**Resource Intensive**: JVM ko RAM aur CPU dono kaafi chahiye hote hain, lightweight native executables se zyada.
+| Limitation | Description |
+|------------|-------------|
+| **Startup Time** | JVM initialization and class loading can be slow (cold start). |
+| **Memory Overhead** | JVM itself requires significant RAM (100-200 MB+). |
+| **Garbage Collection Pauses** | GC can pause application, causing latency. |
+| **Not for Real-Time Systems** | GC unpredictability prevents strict timing guarantees. |
+| **Slower than Native Code** | JVM overhead makes Java slower than C/C++ for CPU-intensive tasks. |
+| **Resource Intensive** | JVM needs more RAM and CPU than lightweight native executables. |
 
 ---
 
