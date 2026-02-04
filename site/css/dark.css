@@ -85,6 +85,58 @@ body.dark #search {
   color: var(--ink)
 }
 
+/* Minimal navbar dark mode */
+body.dark .folder-nav-top {
+  background: var(--bg);
+  border-bottom: none;
+}
+
+body.dark .nav-container {
+  background: #0b1220;
+  box-shadow: 0 2px 24px rgba(0,0,0,0.3);
+}
+
+body.dark .article {
+  background: #0b1220;
+}
+
+body.dark .folder-btn {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+body.dark .folder-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+body.dark .folder-btn.active {
+  background: var(--accent);
+  color: #0b1220;
+  border-color: var(--accent);
+}
+
+body.dark .folder-btn.active:hover {
+  background: #90e0ff;
+  border-color: #90e0ff;
+}
+
+body.dark .menu-toggle,
+body.dark .dark-toggle {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+body.dark .menu-toggle:hover,
+body.dark .dark-toggle:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+}
+
 /* Force-remove any pale backgrounds inside pre/code in dark mode */
 body.dark .article pre,
 body.dark .article pre * {

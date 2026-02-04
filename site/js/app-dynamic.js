@@ -2,12 +2,14 @@
 
 const listEl = document.getElementById('list');
 const articleEl = document.getElementById('article');
-const pageTitle = document.getElementById('page-title');
 const searchInput = document.getElementById('search');
 const prevLinkEl = document.getElementById('prevLink');
 const nextLinkEl = document.getElementById('nextLink');
 const darkToggle = document.getElementById('darkToggle');
 const menuToggle = document.getElementById('menuToggle');
+const folderJavaBtn = document.getElementById('folderJava');
+const folderOopsBtn = document.getElementById('folderOops');
+const brandEl = document.querySelector('.brand');
 
 let manifest = [];
 let ordered = [];
@@ -15,6 +17,9 @@ let chartsToRender = [];
 let structure = [];
 let currentIndex = -1;
 let contentCache = {};
+let currentFolder = 'java';
+let searchTimeout = null;
+let isRendering = false;
 
 function renderMarkdown(text, options){
   try{
@@ -59,8 +64,8 @@ async function fetchMarkdownContent(path) {
   }
   
   try {
-    // Fetch from the data directory
-    const response = await fetch(`../data/${path}`);
+    // Fetch from the current folder directory
+    const response = await fetch(`../data/${currentFolder}/${path}`);
     if (!response.ok) {
       throw new Error(`Failed to fetch ${path}: ${response.status}`);
     }
@@ -154,15 +159,8 @@ async function findMarkdownFile(num) {
 
 // Alternative: Load from a pre-generated file list
 async function loadFileList() {
-  try {
-    const response = await fetch('../file-list.json');
-    if (response.ok) {
-      const fileList = await response.json();
-      return fileList;
-    }
-  } catch (e) {
-    console.warn('file-list.json not found, will scan files manually');
-  }
+  // We now use structure files for both Java and OOPs, no need for file-list.json
+  console.log('📚 Using structure-based loading (no file-list.json needed)');
   return null;
 }
 
@@ -200,187 +198,70 @@ async function buildManifestFromFileList() {
 }
 
 async function buildManifestDirect() {
-  console.log('📂 Scanning for .md files directly...');
+  console.log('📂 Building manifest from structure...');
   
-  // Since we can't list directory from browser, we'll try known files
-  // This requires the files to follow a predictable naming pattern
-  const knownFiles = [];
+  // Build from structure for both Java and OOPs
+  let structure = [];
   
-  // Try files 01 through 113
-  for (let i = 1; i <= 113; i++) {
-    const num = String(i).padStart(2, '0');
-    
-    // Try to fetch each file
-    try {
-      const testResponse = await fetch(`../${num}-`, { method: 'HEAD' });
-      // We can't actually test this way without knowing the full filename
-      // So we'll need a different approach
-    } catch (e) {
-      // Expected
-    }
+  if (currentFolder === 'java' && typeof getJavaStructure === 'function') {
+    console.log('📚 Building Java manifest from structure');
+    structure = getJavaStructure();
+  } else if (currentFolder === 'oops' && typeof getOopsStructure === 'function') {
+    console.log('📚 Building OOPs manifest from structure');
+    structure = getOopsStructure();
+  } else {
+    console.error('❌ No structure function found for folder:', currentFolder);
+    return [];
   }
   
-  console.log('⚠️ Direct file scanning not possible from browser');
-  console.log('ℹ️ Please create a file-list.json with all .md filenames');
+  const fileList = [];
   
-  return [];
+  structure.forEach(group => {
+    if (group.items && Array.isArray(group.items)) {
+      group.items.forEach(slug => {
+        fileList.push(`${slug}.md`);
+      });
+    }
+  });
+  
+  manifest = fileList.map(filename => {
+    const slug = filename.replace('.md', '');
+    return {
+      slug: slug,
+      title: slug.replace(/-/g, ' ').toUpperCase(),
+      path: filename
+    };
+  });
+  
+  // Load titles by fetching a small portion of each file
+  await Promise.all(manifest.map(async (item) => {
+    try {
+      const content = await fetchMarkdownContent(item.path);
+      item.title = extractTitleFromMarkdown(content);
+    } catch (e) {
+      console.warn(`Failed to load title for ${item.path}, using default`);
+      // Keep the default title if file doesn't exist yet
+    }
+  }));
+  
+  console.log(`✅ Loaded ${manifest.length} topics from ${currentFolder} structure`);
+  return manifest;
 }
 
 function buildStructureFromManifest() {
-  // Build exact sidebar groups as specified by the user (explicit ordering)
-  const groupsDef = [
-    { group: 'Programming Basics & Foundations', items: [
-      '01-what-is-program',
-      '02-what-is-programming-language',
-      '03-low-vs-high-level-languages',
-      '04-compiler-vs-interpreter'
-    ]},
-    { group: 'Java Introduction & History', items: [
-      '05-why-java-was-created',
-      '06-problems-cpp-java-solved',
-      '07-what-is-java',
-      '08-history-of-java',
-      '09-evolution-java-versions',
-      '10-why-java-popular',
-      '11-where-java-used-today'
-    ]},
-    { group: 'Java Editions & Platform Independence', items: [
-      '12-java-editions',
-      '13-platform-independence',
-      '14-wora',
-      '15-source-vs-bytecode',
-      '16-class-file'
-    ]},
-    { group: 'Java Architecture & JVM Internals', items: [
-      '17-jdk',
-      '18-jre',
-      '19-jvm',
-      '20-jvm-architecture',
-      '21-class-loading-process',
-      '22-program-execution-flow'
-    ]},
-    { group: 'Java Program Structure', items: [
-      '23-main-method',
-      '24-why-main-static',
-      '25-string-args',
-      '26-program-structure',
-      '27-tokens',
-      '28-keywords',
-      '29-identifiers',
-      '30-literals'
-    ]},
-    { group: 'Comments & Coding Standards', items: [
-      '31-comments',
-      '32-coding-conventions',
-      '108-best-practices',
-      '109-common-myths'
-    ]},
-    { group: 'Variables & Data Types', items: [
-      '33-what-is-variable',
-      '34-declaration-vs-initialization',
-      '35-types-of-variables',
-      '36-scope-of-variables',
-      '37-lifetime-of-variables',
-      '38-data-types',
-      '39-primitive-data-types',
-      '40-default-values'
-    ]},
-    { group: 'Type Conversion & Encoding', items: [
-      '41-ascii-vs-unicode',
-      '42-type-casting',
-      '43-type-promotion'
-    ]},
-    { group: 'Operators in Java', items: [
-      '44-operators-overview',
-      '45-arithmetic-operators',
-      '46-relational-operators',
-      '47-logical-operators',
-      '48-bitwise-operators',
-      '49-assignment-operators',
-      '50-unary-operators',
-      '51-ternary-operator',
-      '52-instanceof-operator',
-      '53-operator-precedence'
-    ]},
-    { group: 'Input & Output in Java', items: [
-      '54-system-out-println',
-      '55-scanner-class',
-      '56-bufferedreader',
-      '57-input-mismatch',
-      '58-command-line-arguments'
-    ]},
-    { group: 'Control Statements', items: [
-      '59-if-statement',
-      '60-if-else-statement',
-      '61-if-else-if-ladder',
-      '62-nested-if',
-      '63-switch-statement',
-      '64-switch-expressions'
-    ]},
-    { group: 'Loops & Flow Control', items: [
-      '65-loops-overview',
-      '66-for-loop',
-      '67-while-loop',
-      '68-do-while-loop',
-      '69-enhanced-for-loop',
-      '70-break-statement',
-      '71-continue-statement',
-      '72-nested-loops'
-    ]},
-    { group: 'Arrays in Java', items: [
-      '73-arrays-introduction',
-      '74-single-dimensional-arrays',
-      '75-multi-dimensional-arrays',
-      '76-jagged-arrays',
-      '77-array-memory-layout',
-      '78-arrays-class-utility',
-      '90-arrays-utility-methods'
-    ]},
-    { group: 'String Handling', items: [
-      '79-string-class',
-      '80-string-immutability',
-      '81-string-pool',
-      '82-stringbuilder',
-      '83-stringbuffer',
-      '84-string-comparison'
-    ]},
-    { group: 'Wrapper & Utility Classes', items: [
-      '85-wrapper-classes',
-      '86-autoboxing-unboxing',
-      '87-math-class',
-      '88-system-class',
-      '89-object-class'
-    ]},
-    { group: 'Memory Management & JVM Lifecycle', items: [
-      '91-stack-memory',
-      '92-heap-memory',
-      '93-references',
-      '94-garbage-collection',
-      '95-finalize-method',
-      '96-jvm-shutdown'
-    ]},
-    { group: 'Exception Handling', items: [
-      '97-errors-vs-exceptions',
-      '98-exception-hierarchy',
-      '99-try-catch',
-      '100-finally-block',
-      '101-throw-vs-throws'
-    ]},
-    { group: 'Packages & Modifiers', items: [
-      '102-packages',
-      '103-import-statement',
-      '104-access-modifiers',
-      '105-classpath',
-      '106-static-keyword',
-      '107-static-blocks'
-    ]},
-    { group: 'Performance & Career', items: [
-      '110-performance-tips',
-      '111-java-roadmap',
-      '112-interview-prep',
-      '113-quick-reference'
-    ]}
-  ];
+  // Load structure based on current folder
+  let groupsDef = [];
+  
+  if (currentFolder === 'java' && typeof getJavaStructure === 'function') {
+    groupsDef = getJavaStructure();
+    console.log('📚 Loading Java Programming structure');
+  } else if (currentFolder === 'oops' && typeof getOopsStructure === 'function') {
+    groupsDef = getOopsStructure();
+    console.log('📚 Loading OOPs Concepts structure');
+  } else {
+    console.warn('⚠️ No structure found for folder:', currentFolder);
+    groupsDef = [];
+  }
 
   // Preserve order and only include items that exist in the manifest
   const groups = groupsDef.map(g => {
@@ -391,7 +272,7 @@ function buildStructureFromManifest() {
       // as fallback, try numeric mapping
       const n = getNumberFromSlug(s);
       return n != null ? n : s;
-    }).filter(Boolean);
+    }).filter(item => item !== null && item !== undefined && item !== '');
     return { group: g.group, items };
   }).filter(g => g.items && g.items.length);
 
@@ -405,7 +286,7 @@ function renderGroupedSidebar(){
   structure.forEach((group, gidx)=>{
     const g = document.createElement('div'); 
     g.className='group';
-    g.style.transform = 'translateY(20px)';
+    g.style.transform = 'translateY(10px) translateZ(0)';
     g.style.opacity = '0';
     
     const h = document.createElement('h4'); 
@@ -475,11 +356,13 @@ function renderGroupedSidebar(){
     g.appendChild(ul);
     listEl.appendChild(g);
     
-    setTimeout(() => {
-      g.style.transform = 'translateY(0)';
-      g.style.opacity = '1';
-      g.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-    }, gidx * 100);
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        g.style.transform = 'translateY(0) translateZ(0)';
+        g.style.opacity = '1';
+        g.style.transition = 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)';
+      }, gidx * 50);
+    });
   });
   
   if (!document.querySelector('#ripple-animation')) {
@@ -551,15 +434,6 @@ async function showNote(slug){
   highlightActive(slug);
   const nice = cleanTitle(it.title);
   
-  pageTitle.style.transform = 'translateY(-10px)';
-  pageTitle.style.opacity = '0.5';
-  setTimeout(() => {
-    pageTitle.textContent = nice;
-    pageTitle.style.transform = 'translateY(0)';
-    pageTitle.style.opacity = '1';
-    pageTitle.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-  }, 150);
-  
   currentIndex = ordered.findIndex(x=>x.slug===slug);
   if(currentIndex === -1){ 
     const n = getNumberFromSlug(slug); 
@@ -628,32 +502,14 @@ async function showNote(slug){
     const html = renderMarkdown(processedContent);
     
     articleEl.style.opacity = '0';
-    articleEl.style.transform = 'translateY(20px)';
+    articleEl.style.transform = 'translateY(10px) translateZ(0)';
     
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       articleEl.innerHTML = html;
 
-      // Number in-article headings (h2-h6) for easier reading
-      (function(){
-        const counters = [0,0,0,0,0,0,0];
-        const headings = articleEl.querySelectorAll('h1,h2,h3,h4,h5,h6');
-        headings.forEach(h => {
-          const lvl = parseInt(h.tagName.substring(1), 10);
-          if(lvl <= 1) return; // skip h1
-          counters[lvl] += 1;
-          for(let i = lvl + 1; i <= 6; i++) counters[i] = 0;
-          const parts = [];
-          for(let i = 2; i <= lvl; i++){
-            if(counters[i]) parts.push(String(counters[i]));
-          }
-          if(parts.length){
-            h.textContent = parts.join('.') + ' ' + h.textContent;
-          }
-        });
-      })();
       articleEl.style.opacity = '1';
-      articleEl.style.transform = 'translateY(0)';
-      articleEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+      articleEl.style.transform = 'translateY(0) translateZ(0)';
+      articleEl.style.transition = 'opacity 0.15s ease, transform 0.15s ease';
       
       chartsToRender = [];
       articleEl.querySelectorAll('pre code').forEach((block)=>{
@@ -689,7 +545,7 @@ async function showNote(slug){
           }catch(e){console.warn('Chart error:',e);}
         });
       }
-    }, 150);
+    });
     
   } catch (error) {
     console.error('Error loading content:', error);
@@ -705,17 +561,26 @@ async function showNote(slug){
 
 function applySearch(q){
   q = (q||'').toLowerCase();
-  document.querySelectorAll('.group').forEach(group => {
-    let anyVisible = false;
-    group.querySelectorAll('li').forEach(li => {
-    const a = li.querySelector('.topic-link');
-    const text = (a && a.textContent) ? a.textContent.toLowerCase() : '';
-    const found = text.includes(q) || (li.textContent||'').toLowerCase().includes(q);
-    li.style.display = found ? '' : 'none';
-      if (found) anyVisible = true;
+  requestAnimationFrame(() => {
+    const groups = document.querySelectorAll('.group');
+    groups.forEach(group => {
+      let anyVisible = false;
+      const items = group.querySelectorAll('li');
+      items.forEach(li => {
+        const a = li.querySelector('.topic-link');
+        const text = (a && a.textContent) ? a.textContent.toLowerCase() : '';
+        const found = text.includes(q) || (li.textContent||'').toLowerCase().includes(q);
+        li.style.display = found ? '' : 'none';
+        if (found) anyVisible = true;
+      });
+      group.style.display = anyVisible ? '' : 'none';
     });
-    group.style.display = anyVisible ? '' : 'none';
   });
+}
+
+function debouncedSearch(q) {
+  if (searchTimeout) clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => applySearch(q), 150);
 }
 
 async function init(){
@@ -743,7 +608,6 @@ async function init(){
     }
   } catch(e) { 
     console.error('❌ Initialization error:', e);
-    pageTitle.textContent = 'Setup Required'; 
     articleEl.innerHTML = `
       <div style="padding: 40px; max-width: 800px; margin: 0 auto;">
         <h2 style="color: #d32f2f;">⚙️ Setup Required</h2>
@@ -778,9 +642,8 @@ ls *.md | jq -R . | jq -s . > file-list.json</code></pre>
   }
 }
 
-searchInput.addEventListener('input', ()=>applySearch(searchInput.value));
 if (searchInput) {
-  searchInput.addEventListener('input', () => applySearch(searchInput.value));
+  searchInput.addEventListener('input', () => debouncedSearch(searchInput.value));
 }
 window.addEventListener('popstate', async (ev)=>{ 
   if(location.hash) await showNote(location.hash.slice(1)); 
@@ -842,11 +705,38 @@ if(menuToggle){
   });
 }
 
+// Folder switching functionality
+if(folderJavaBtn && folderOopsBtn) {
+  folderJavaBtn.addEventListener('click', () => {
+    if(currentFolder !== 'java') {
+      currentFolder = 'java';
+      folderJavaBtn.classList.add('active');
+      folderOopsBtn.classList.remove('active');
+      if(brandEl) brandEl.textContent = 'Java Notes';
+      contentCache = {}; // Clear cache when switching folders
+      location.hash = ''; // Clear any existing hash
+      init();
+    }
+  });
+  
+  folderOopsBtn.addEventListener('click', () => {
+    if(currentFolder !== 'oops') {
+      currentFolder = 'oops';
+      folderOopsBtn.classList.add('active');
+      folderJavaBtn.classList.remove('active');
+      if(brandEl) brandEl.textContent = 'OOPs Notes';
+      contentCache = {}; // Clear cache when switching folders
+      location.hash = ''; // Clear any existing hash
+      init();
+    }
+  });
+}
+
 // Add global fade-in for buttery smooth load
 window.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => {
+  requestAnimationFrame(() => {
     document.body.classList.add('js-fadein');
-  }, 10);
+  });
 });
 
 init();

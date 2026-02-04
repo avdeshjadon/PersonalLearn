@@ -49,108 +49,77 @@ Java addressed C/C++'s architectural limitations by replacing manual memory allo
 ---
 
 ## C/C++ Problems Overview
-
 ```
-╔════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                    ║
-║              ╔═══════════════════════════════════════════════════════╗             ║
-║              ║           C/C++ MAJOR PROBLEMS (1990s)                ║             ║
-║              ╚═══════════════════════════════════════════════════════╝             ║
-║                                                                                    ║
-╠════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  PROBLEM 1: POINTERS & MEMORY CORRUPTION                                 ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                                                                    ║
-║   int* ptr;                                                                        ║
-║   ptr = (int*)malloc(100);                                                         ║
-║   *ptr = 10;                                                                       ║
-║   free(ptr);                                                                       ║
-║   *ptr = 20;  ← DANGLING POINTER!                                                  ║
-║                                                                                    ║
-║   CONSEQUENCES:                                                                    ║
-║   • System crashes                                                                 ║
-║   • Security vulnerabilities                                                       ║
-║   • Undefined behavior                                                             ║
-║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  PROBLEM 2: MEMORY LEAKS                                                 ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                                                                    ║
-║   void function() {                                                                ║
-║       int* data = malloc(1000);                                                    ║
-║       // ... use data                                                              ║
-║       // Forgot to call free()!                                                    ║
-║   }                                                                                ║
-║                                                                                    ║
-║   CONSEQUENCES:                                                                    ║
-║   • Memory never released                                                          ║
-║   • Program eventually crashes                                                     ║
-║   • System slowdown                                                                ║
-║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  PROBLEM 3: PLATFORM DEPENDENCY                                          ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                                                                    ║
-║   program.cpp                                                                      ║
-║       ↓ compile on Windows                                                         ║
-║   program.exe (Only Windows)                                                       ║
-║                                                                                    ║
-║   program.cpp                                                                      ║
-║       ↓ compile on Linux                                                           ║
-║   a.out (Only Linux)                                                               ║
-║                                                                                    ║
-║   CONSEQUENCES:                                                                    ║
-║   • Different binaries for each OS                                                 ║
-║   • Must recompile for each platform                                               ║
-║   • Maintenance nightmare                                                          ║
-║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  PROBLEM 4: MULTIPLE INHERITANCE (Diamond Problem)                       ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                                                                    ║
-║            ClassA                                                                  ║
-║           /      \                                                                 ║
-║       ClassB    ClassC                                                             ║
-║           \      /                                                                 ║
-║            ClassD                                                                  ║
-║                                                                                    ║
-║   Which version of method?                                                         ║
-║                                                                                    ║
-║   CONSEQUENCES:                                                                    ║
-║   • Ambiguity in inheritance                                                       ║
-║   • Increased complexity                                                           ║
-║   • Hard to maintain code                                                          ║
-║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  PROBLEM 5: NO BUILT-IN SECURITY                                         ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                                                                    ║
-║   char buffer[10];                                                                 ║
-║   gets(buffer);  ← No bounds check!                                                ║
-║   // User enters 50 characters                                                     ║
-║   // Buffer overflow!                                                              ║
-║                                                                                    ║
-║   CONSEQUENCES:                                                                    ║
-║   • Security vulnerabilities                                                       ║
-║   • Exploits possible                                                              ║
-║   • System compromise                                                              ║
-║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  PROBLEM 6: PREPROCESSOR ISSUES                                          ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                                                                    ║
-║   #define MAX 100                                                                  ║
-║   #include <header.h>                                                              ║
-║   // Text replacement, no type safety                                              ║
-║                                                                                    ║
-║   CONSEQUENCES:                                                                    ║
-║   • Hard to debug                                                                  ║
-║   • No type checking                                                               ║
-║   • Macro side effects                                                             ║
-║                                                                                    ║
-╚════════════════════════════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                      ║
+║                    C / C++ : CRITICAL PROBLEMS (1990s ERA)                           ║
+║                                                                                      ║
+╠══════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                      ║
+║  ┌─────────────────────────────────────┐   ┌─────────────────────────────────────┐   ║
+║  │ [1] POINTERS & MEMORY CORRUPTION    │   │ [2] MEMORY LEAKS                    │   ║
+║  ├─────────────────────────────────────┤   ├─────────────────────────────────────┤   ║
+║  │ int* p = malloc(100);               │   │ void func() {                       │   ║
+║  │ *p = 10;                            │   │   int* d = malloc(1000);            │   ║
+║  │ free(p);                            │   │   // used but not freed             │   ║
+║  │ *p = 20;  <-- Dangling Pointer      │   │ }  <-- Leak                         │   ║
+║  ├─────────────────────────────────────┤   ├─────────────────────────────────────┤   ║
+║  │ IMPACT                              │   │ IMPACT                              │   ║
+║  │ • Undefined behavior                │   │ • Memory never released             │   ║
+║  │ • Crashes & security holes          │   │ • Performance degradation           │   ║
+║  └─────────────────────────────────────┘   └─────────────────────────────────────┘   ║
+║                                                                                      ║
+╠══════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                      ║
+║  ┌─────────────────────────────────────┐   ┌─────────────────────────────────────┐   ║
+║  │ [3] PLATFORM DEPENDENCY             │   │ [4] MULTIPLE INHERITANCE            │   ║
+║  ├─────────────────────────────────────┤   │     (DIAMOND PROBLEM)               │   ║
+║  │ program.cpp                         │   ├─────────────────────────────────────┤   ║
+║  │   ├─ Windows → program.exe          │   │        ClassA                       │   ║
+║  │   ├─ Linux   → a.out                │   │        /    \                       │   ║
+║  │   └─ macOS   → binary               │   │   ClassB    ClassC                  │   ║
+║  ├─────────────────────────────────────┤   │        \    /                       │   ║
+║  │ IMPACT                              │   │         ClassD                      │   ║
+║  │ • Recompile for every OS            │   ├─────────────────────────────────────┤   ║
+║  │ • Portability issues                │   │ IMPACT                              │   ║
+║  └─────────────────────────────────────┘   │ • Method ambiguity                  │   ║
+║                                            │ • Complex maintenance               │   ║
+║                                            └─────────────────────────────────────┘   ║
+║                                                                                      ║
+╠══════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                      ║
+║  ┌─────────────────────────────────────┐   ┌─────────────────────────────────────┐   ║
+║  │ [5] NO BUILT-IN SECURITY            │   │ [6] PREPROCESSOR COMPLEXITY         │   ║
+║  ├─────────────────────────────────────┤   ├─────────────────────────────────────┤   ║
+║  │ char buf[10];                       │   │ #define MAX 100                     │   ║
+║  │ gets(buf);                          │   │ #define SQR(x) x*x                  │   ║
+║  │ User inputs > 10 chars              │   │ No type checking                    │   ║ 
+║  ├─────────────────────────────────────┤   ├─────────────────────────────────────┤   ║
+║  │ IMPACT                              │   │ IMPACT                              │   ║
+║  │ • Buffer overflow attacks           │   │ • Hard to debug                     │   ║
+║  │ • System compromise                 │   │ • Unexpected behavior               │   ║
+║  └─────────────────────────────────────┘   └─────────────────────────────────────┘   ║
+║                                                                                      ║
+╠══════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                      ║
+║                           THE DEVELOPER CRISIS                                       ║
+║                                                                                      ║
+║  • Endless debugging of pointer bugs                                                 ║
+║  • Production crashes due to memory leaks                                            ║
+║  • Massive platform-specific code duplication                                        ║
+║  • Increasing real-world security exploits                                           ║
+║  • Codebases becoming impossible to maintain                                         ║
+║                                                                                      ║
+╠══════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                      ║
+║                        THE INDUSTRY DEMANDED A CHANGE                                ║
+║                                                                                      ║
+║                                  ENTER JAVA                                          ║
+║                                                                                      ║
+║                        SAFE   |   SIMPLE   |   PORTABLE                              ║
+║                                                                                      ║
+╚══════════════════════════════════════════════════════════════════════════════════════╝
+
 ```
 
 ---

@@ -45,6 +45,55 @@
   .app { padding-left: 0; }
   .menu-toggle { display: flex !important; align-items: center; justify-content: center; }
   
+  /* Minimal navbar responsive */
+  .folder-nav-top {
+    padding: 16px 0 0 0;
+  }
+  
+  .nav-container {
+    padding: 10px 20px;
+    max-width: calc(100% - 32px);
+    margin: 0 16px 20px 16px;
+  }
+  
+  .article {
+    max-width: calc(100% - 32px);
+    padding: 24px;
+    margin: 0 16px;
+  }
+  
+  .nav-buttons {
+    gap: 6px;
+  }
+  
+  .folder-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+  
+  .nav-actions {
+    gap: 6px;
+  }
+  
+  .content-footer {
+    max-width: calc(100% - 32px);
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+  
+  .site-footer {
+    max-width: calc(100% - 32px);
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+  
+  .menu-toggle,
+  .dark-toggle {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+  }
+  
   /* Larger touch targets for mobile */
   .topic-link {
     padding: 12px 15px !important;
@@ -69,5 +118,38 @@
 @media (max-width: 480px) {
   .sidebar {
     width: 85vw;
+  }
+  
+  .folder-nav-top {
+    padding: 12px 0 0 0;
+  }
+  
+  .nav-container {
+    padding: 8px 16px;
+    max-width: calc(100% - 24px);
+    margin: 0 12px 20px 12px;
+  }
+  
+  .article {
+    max-width: calc(100% - 24px);
+    padding: 20px;
+    margin: 0 12px;
+  }
+  
+  .content-footer {
+    max-width: calc(100% - 24px);
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+  
+  .site-footer {
+    max-width: calc(100% - 24px);
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+  
+  .folder-btn {
+    padding: 8px 14px;
+    font-size: 12px;
   }
 }

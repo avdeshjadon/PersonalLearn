@@ -13,9 +13,6 @@
 .article {
     background: var(--md-bg);
     color: var(--md-text);
-    max-width: 92%;
-    padding: 3rem 2rem;
-    margin: 0 auto;
     line-height: 1.8;
 }
 

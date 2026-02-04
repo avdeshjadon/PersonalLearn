@@ -30,15 +30,26 @@
       <nav id="list"></nav>
     </aside>
     <main class="content">
-      <header class="page-header">
-        <div class="nav-links">
-          <div class="page-title-wrap"><h1 id="page-title">Loading...</h1></div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <button id="menuToggle" class="menu-toggle" title="Toggle menu" aria-label="Toggle menu">☰</button>
-            <button id="darkToggle" class="dark-toggle" title="Toggle dark mode" aria-label="Toggle dark mode"><i id="darkIcon" class="fa-regular fa-moon"></i></button>
+      <div class="folder-nav-top">
+        <div class="nav-container">
+          <div class="nav-buttons">
+            <button id="folderJava" class="folder-btn active" data-folder="java">
+              <span>Java</span>
+            </button>
+            <button id="folderOops" class="folder-btn" data-folder="oops">
+              <span>OOPs</span>
+            </button>
+          </div>
+          <div class="nav-actions">
+            <button id="menuToggle" class="menu-toggle" title="Toggle menu" aria-label="Toggle menu">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+            <button id="darkToggle" class="dark-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">
+              <i id="darkIcon" class="fa-regular fa-moon"></i>
+            </button>
           </div>
         </div>
-      </header>
+      </div>
       <article id="article" class="article">
         <div style="padding: 40px; text-align: center; color: #666;">
           <h2>🚀 Loading Java Notes...</h2>
@@ -62,6 +73,8 @@
     </main>
   </div>
 
+  <script src="js/java-structure.js"></script>
+  <script src="js/oops-structure.js"></script>
   <script src="js/app-dynamic.js"></script>
 </body>
 </html>
