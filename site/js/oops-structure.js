@@ -1,63 +1,98 @@
-// OOPs Concepts Topic Structure
+// Object-Oriented Programming - Optimized Learning Structure
 function getOopsStructure() {
   return [
-    { group: 'START HERE', items: [
-      '00-oops-roadmap'
-    ]},
-    { group: 'Fundamentals', items: [
-      '01-what-is-oops',
-      '02-procedural-vs-oops',
-      '03-class-and-object',
-      '04-encapsulation',
-      '05-inheritance',
-      '06-polymorphism',
-      '07-abstraction'
-    ]},
-    { group: 'Classes & Objects', items: [
-      '08-constructors',
-      '09-this-super-keywords',
-      '10-object-lifecycle',
-      '11-object-class-methods',
-      '12-method-overloading',
-      '13-method-overriding'
-    ]},
-    { group: 'Inheritance', items: [
-      '14-types-of-inheritance',
-      '15-constructor-chaining',
-      '16-method-hiding',
-      '17-covariant-return-types',
-      '18-IS-A-HAS-A-relationship'
-    ]},
-    { group: 'Polymorphism', items: [
-      '19-compile-time-polymorphism',
-      '20-runtime-polymorphism',
-      '21-upcasting-downcasting',
-      '22-instanceof-operator'
-    ]},
-    { group: 'Abstraction', items: [
-      '23-abstract-class',
-      '24-interface',
-      '25-abstract-vs-interface',
-      '26-default-methods',
-      '27-functional-interface'
-    ]},
-    { group: 'Keywords', items: [
-      '28-static-keyword',
-      '29-final-keyword',
-      '30-access-modifiers',
-      '31-package'
-    ]},
-    { group: 'Advanced', items: [
-      '32-inner-classes',
-      '33-composition',
-      '34-aggregation',
-      '35-association'
-    ]},
-    { group: 'Best Practices', items: [
-      '36-design-principles',
-      '37-when-to-use-inheritance',
-      '38-when-to-use-composition',
-      '39-common-mistakes'
-    ]}
+    {
+      group: 'START HERE',
+      items: [
+        '00-oops-roadmap'
+      ]
+    },
+    
+    {
+      group: 'Fundamentals',
+      items: [
+        '01-what-is-oops',
+        '02-procedural-vs-oops',
+        '03-class-and-object',
+        '04-constructors',
+        '05-this-super-keywords',
+        '06-access-modifiers',
+        '07-encapsulation'
+      ]
+    },
+    
+    {
+      group: 'Object Behavior',
+      items: [
+        '08-object-lifecycle',
+        '09-object-class-methods',
+        '10-method-overloading',
+        '11-package'
+      ]
+    },
+    
+    {
+      group: 'Inheritance',
+      items: [
+        '12-inheritance',
+        '13-types-of-inheritance',
+        '14-constructor-chaining',
+        '15-method-overriding',
+        '16-method-hiding',
+        '17-covariant-return-types',
+        '18-IS-A-HAS-A-relationship'
+      ]
+    },
+    
+    {
+      group: 'Polymorphism',
+      items: [
+        '19-polymorphism',
+        '20-compile-time-polymorphism',
+        '21-runtime-polymorphism',
+        '22-upcasting-downcasting',
+        '23-instanceof-operator'
+      ]
+    },
+    
+    {
+      group: 'Abstraction',
+      items: [
+        '24-abstraction',
+        '25-abstract-class',
+        '26-interface',
+        '27-abstract-vs-interface',
+        '28-default-methods',
+        '29-functional-interface'
+      ]
+    },
+    
+    {
+      group: 'Important Keywords',
+      items: [
+        '30-static-keyword',
+        '31-final-keyword'
+      ]
+    },
+    
+    {
+      group: 'Relationships & Advanced',
+      items: [
+        '32-association',
+        '33-aggregation',
+        '34-composition',
+        '35-inner-classes'
+      ]
+    },
+    
+    {
+      group: 'Best Practices',
+      items: [
+        '36-design-principles',
+        '37-when-to-use-inheritance',
+        '38-when-to-use-composition',
+        '39-common-mistakes'
+      ]
+    }
   ];
 }
