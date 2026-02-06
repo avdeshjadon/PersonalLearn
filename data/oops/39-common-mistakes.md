@@ -631,42 +631,323 @@ Using primitives instead of objects for domain concepts. Create value objects in
 - Write tests
 - Code reviews
 
+---
+
+## Visual Summary
+
 ```
-╔═══════════════════════════════════════════════════════════════════════════════╗
-║                        COMMON OOPs MISTAKES                                   ║
-╠═══════════════════════════════════════════════════════════════════════════════╣
-║                                                                               ║
-║   1. Wrong Inheritance:                                                       ║
-║      ❌ class Stack extends ArrayList { }                                     ║
-║      ✓ class Stack { private ArrayList list; }                                ║
-║                                                                               ║
-║   2. Breaking Encapsulation:                                                  ║
-║      ❌ public double balance;                                                ║
-║      ✓ private double balance; public double getBalance() { }                 ║
-║                                                                               ║
-║   3. God Class (SRP Violation):                                               ║
-║      ❌ class User { validate(); save(); sendEmail(); }                       ║
-║      ✓ class User { } + Validator + Repository + EmailService                ║
-║                                                                               ║
-║   4. Tight Coupling (DIP Violation):                                          ║
-║      ❌ private MySQLDatabase db = new MySQLDatabase();                       ║
-║      ✓ private Database db; // Interface + DI                                 ║
-║                                                                               ║
-║   5. Not Using Polymorphism:                                                  ║
-║      ❌ if (type == "Dog") bark();                                            ║
-║      ✓ abstract void makeSound(); // Override in subclasses                   ║
-║                                                                               ║
-║   6. No equals/hashCode:                                                      ║
-║      ❌ Using default equals (reference comparison)                           ║
-║      ✓ @Override equals() and hashCode()                                      ║
-║                                                                               ║
-║   7. Excessive Static:                                                        ║
-║      ❌ static List<User> users; static void add() { }                        ║
-║      ✓ Instance variables + Dependency Injection                              ║
-║                                                                               ║
-║   Remember: Follow SOLID, favor composition, encapsulate properly!            ║
-║                                                                               ║
-╚═══════════════════════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                        COMMON OOPs MISTAKES                                      ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+                              ╔═══════════════════╗
+                              ║   WHY LEARN       ║
+                              ║   MISTAKES?       ║
+                              ╚═════════╦═════════╝
+                                        ║
+                                        ▼
+                    ╔═══════════════════════════════════════╗
+                    ║  Avoid them in YOUR code!             ║
+                    ║  Learn from others' experiences       ║
+                    ║  Write better, cleaner code           ║
+                    ╚═══════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                1. MISUSING INHERITANCE (Wrong IS-A)                              ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║                         ❌ MISTAKE                                    ║      ║
+║   ╠═══════════════════════════════════════════════════════════════════════╣      ║
+║   ║                                                                       ║      ║
+║   ║   class Stack extends ArrayList {   // Just for code reuse!           ║      ║
+║   ║       void push(Object item) { add(item); }                           ║      ║
+║   ║       Object pop() { return remove(size() - 1); }                     ║      ║
+║   ║   }                                                                   ║      ║
+║   ║                                                                       ║      ║
+║   ║   PROBLEM: Stack exposes ALL ArrayList methods!                       ║      ║
+║   ║   • stack.add(5, item)  ←── Breaks stack behavior!                    ║      ║
+║   ║   • Stack IS-NOT-A ArrayList!                                         ║      ║
+║   ║                                                                       ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║                         ✓ CORRECT                                     ║      ║
+║   ╠═══════════════════════════════════════════════════════════════════════╣      ║
+║   ║                                                                       ║      ║
+║   ║   class Stack {                                                       ║      ║
+║   ║       private ArrayList list = new ArrayList();  // Composition!      ║      ║
+║   ║                                                                       ║      ║
+║   ║       void push(Object item) { list.add(item); }                      ║      ║
+║   ║       Object pop() { return list.remove(list.size() - 1); }           ║      ║
+║   ║   }                                                                   ║      ║
+║   ║                                                                       ║      ║
+║   ║   Only push() and pop() are exposed! ✓                                ║      ║
+║   ║                                                                       ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                2. BREAKING ENCAPSULATION                                         ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║                         ❌ MISTAKE                                    ║      ║
+║   ╠═══════════════════════════════════════════════════════════════════════╣      ║
+║   ║                                                                       ║      ║
+║   ║   class BankAccount {                                                 ║      ║
+║   ║       public double balance;      // ❌ Anyone can modify!            ║      ║
+║   ║   }                                                                   ║      ║
+║   ║                                                                       ║      ║
+║   ║   account.balance = -1000;  // No validation! Invalid state!          ║      ║
+║   ║                                                                       ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║                         ✓ CORRECT                                     ║      ║
+║   ╠═══════════════════════════════════════════════════════════════════════╣      ║
+║   ║                                                                       ║      ║
+║   ║   class BankAccount {                                                 ║      ║
+║   ║       private double balance;     // ✓ Hidden                         ║      ║
+║   ║                                                                       ║      ║
+║   ║       public double getBalance() { return balance; }                  ║      ║
+║   ║                                                                       ║      ║
+║   ║       public void deposit(double amount) {                            ║      ║
+║   ║           if (amount > 0) balance += amount;  // Validated!           ║      ║
+║   ║       }                                                               ║      ║
+║   ║   }                                                                   ║      ║
+║   ║                                                                       ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                3. GOD CLASS (SRP Violation)                                      ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║                         ❌ MISTAKE                                    ║      ║
+║   ╠═══════════════════════════════════════════════════════════════════════╣      ║
+║   ║                                                                       ║      ║
+║   ║   class User {                                                        ║      ║
+║   ║       void validateUser() { ... }      // Validation                  ║      ║
+║   ║       void saveToDatabase() { ... }    // Persistence                 ║      ║
+║   ║       void sendEmail() { ... }         // Notification                ║      ║
+║   ║       void generateReport() { ... }    // Reporting                   ║      ║
+║   ║       void authenticate() { ... }      // Security                    ║      ║
+║   ║   }                                                                   ║      ║
+║   ║                                                                       ║      ║
+║   ║   TOO MANY RESPONSIBILITIES! Hard to maintain/test.                   ║      ║
+║   ║                                                                       ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║                         ✓ CORRECT                                     ║      ║
+║   ╠═══════════════════════════════════════════════════════════════════════╣      ║
+║   ║                                                                       ║      ║
+║   ║   class User { }                      // Just data                    ║      ║
+║   ║   class UserValidator { }             // Validation only              ║      ║
+║   ║   class UserRepository { }            // Database only                ║      ║
+║   ║   class EmailService { }              // Email only                   ║      ║
+║   ║   class ReportGenerator { }           // Reports only                 ║      ║
+║   ║   class AuthenticationService { }     // Security only                ║      ║
+║   ║                                                                       ║      ║
+║   ║   Single Responsibility Principle (SRP) ✓                             ║      ║
+║   ║                                                                       ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                4. TIGHT COUPLING (DIP Violation)                                 ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║                         ❌ MISTAKE                                    ║      ║
+║   ╠═══════════════════════════════════════════════════════════════════════╣      ║
+║   ║                                                                       ║      ║
+║   ║   class OrderService {                                                ║      ║
+║   ║       private MySQLDatabase db = new MySQLDatabase();  // Concrete!   ║      ║
+║   ║                                                                       ║      ║
+║   ║       void saveOrder(Order order) {                                   ║      ║
+║   ║           db.save(order);                                             ║      ║
+║   ║       }                                                               ║      ║
+║   ║   }                                                                   ║      ║
+║   ║                                                                       ║      ║
+║   ║   PROBLEM: Cannot switch database, cannot mock for testing!           ║      ║
+║   ║                                                                       ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║                         ✓ CORRECT                                     ║      ║
+║   ╠═══════════════════════════════════════════════════════════════════════╣      ║
+║   ║                                                                       ║      ║
+║   ║   class OrderService {                                                ║      ║
+║   ║       private Database db;             // Interface (abstraction)     ║      ║
+║   ║                                                                       ║      ║
+║   ║       OrderService(Database db) {      // Dependency Injection        ║      ║
+║   ║           this.db = db;                                               ║      ║
+║   ║       }                                                               ║      ║
+║   ║   }                                                                   ║      ║
+║   ║                                                                       ║      ║
+║   ║   // Can use any Database implementation now!                         ║      ║
+║   ║   new OrderService(new MySQLDatabase());                              ║      ║
+║   ║   new OrderService(new PostgresDatabase());                           ║      ║
+║   ║   new OrderService(mockDatabase);  // Testing!                        ║      ║
+║   ║                                                                       ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                5. TYPE CHECKING INSTEAD OF POLYMORPHISM                          ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║                         ❌ MISTAKE                                    ║      ║
+║   ╠═══════════════════════════════════════════════════════════════════════╣      ║
+║   ║                                                                       ║      ║
+║   ║   void makeSound(Animal animal) {                                     ║      ║
+║   ║       if (animal instanceof Dog) {                                    ║      ║
+║   ║           System.out.println("Woof");                                 ║      ║
+║   ║       } else if (animal instanceof Cat) {                             ║      ║
+║   ║           System.out.println("Meow");                                 ║      ║
+║   ║       } else if (animal instanceof Bird) {                            ║      ║
+║   ║           System.out.println("Tweet");                                ║      ║
+║   ║       }                                                               ║      ║
+║   ║   }                                                                   ║      ║
+║   ║                                                                       ║      ║
+║   ║   PROBLEM: Must modify for each new animal type!                      ║      ║
+║   ║                                                                       ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║                         ✓ CORRECT                                     ║      ║
+║   ╠═══════════════════════════════════════════════════════════════════════╣      ║
+║   ║                                                                       ║      ║
+║   ║   abstract class Animal {                                             ║      ║
+║   ║       abstract void makeSound();   // Polymorphism!                   ║      ║
+║   ║   }                                                                   ║      ║
+║   ║                                                                       ║      ║
+║   ║   class Dog extends Animal {                                          ║      ║
+║   ║       void makeSound() { System.out.println("Woof"); }                ║      ║
+║   ║   }                                                                   ║      ║
+║   ║                                                                       ║      ║
+║   ║   // Usage - No instanceof needed!                                    ║      ║
+║   ║   animal.makeSound();  // Correct sound automatically!                ║      ║
+║   ║                                                                       ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                6. NOT OVERRIDING equals() AND hashCode()                         ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║                         ❌ MISTAKE                                    ║      ║
+║   ╠═══════════════════════════════════════════════════════════════════════╣      ║
+║   ║                                                                       ║      ║
+║   ║   class Student {                                                     ║      ║
+║   ║       String name;                                                    ║      ║
+║   ║       int id;                                                         ║      ║
+║   ║       // No equals() or hashCode() override!                          ║      ║
+║   ║   }                                                                   ║      ║
+║   ║                                                                       ║      ║
+║   ║   Student s1 = new Student("John", 1);                                ║      ║
+║   ║   Student s2 = new Student("John", 1);                                ║      ║
+║   ║   s1.equals(s2);  // FALSE! (compares memory reference)               ║      ║
+║   ║                                                                       ║      ║
+║   ║   Set<Student> set = new HashSet<>();                                 ║      ║
+║   ║   set.add(s1);                                                        ║      ║
+║   ║   set.contains(s2);  // FALSE! Broken!                                ║      ║
+║   ║                                                                       ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║                         ✓ CORRECT                                     ║      ║
+║   ╠═══════════════════════════════════════════════════════════════════════╣      ║
+║   ║                                                                       ║      ║
+║   ║   class Student {                                                     ║      ║
+║   ║       String name;                                                    ║      ║
+║   ║       int id;                                                         ║      ║
+║   ║                                                                       ║      ║
+║   ║       @Override                                                       ║      ║
+║   ║       public boolean equals(Object o) {                               ║      ║
+║   ║           if (!(o instanceof Student)) return false;                  ║      ║
+║   ║           Student s = (Student) o;                                    ║      ║
+║   ║           return id == s.id && name.equals(s.name);                   ║      ║
+║   ║       }                                                               ║      ║
+║   ║                                                                       ║      ║
+║   ║       @Override                                                       ║      ║
+║   ║       public int hashCode() {                                         ║      ║
+║   ║           return Objects.hash(name, id);                              ║      ║
+║   ║       }                                                               ║      ║
+║   ║   }                                                                   ║      ║
+║   ║                                                                       ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                    MISTAKES SUMMARY TABLE                                        ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║  ┌───────────────────────────┬──────────────────┬────────────────────────────┐   ║
+║  │  MISTAKE                  │  PRINCIPLE       │  SOLUTION                  │   ║
+║  ├───────────────────────────┼──────────────────┼────────────────────────────┤   ║
+║  │  Wrong Inheritance        │  Composition >   │  Use HAS-A, not IS-A      │   ║
+║  │                           │  Inheritance     │                            │   ║
+║  ├───────────────────────────┼──────────────────┼────────────────────────────┤   ║
+║  │  Breaking Encapsulation   │  Information     │  Private fields +         │   ║
+║  │                           │  Hiding          │  public methods           │   ║
+║  ├───────────────────────────┼──────────────────┼────────────────────────────┤   ║
+║  │  God Class                │  SRP             │  Split into smaller       │   ║
+║  │                           │                  │  classes                   │   ║
+║  ├───────────────────────────┼──────────────────┼────────────────────────────┤   ║
+║  │  Tight Coupling           │  DIP             │  Depend on interfaces     │   ║
+║  ├───────────────────────────┼──────────────────┼────────────────────────────┤   ║
+║  │  Type Checking            │  Polymorphism    │  Override methods in      │   ║
+║  │                           │                  │  subclasses               │   ║
+║  ├───────────────────────────┼──────────────────┼────────────────────────────┤   ║
+║  │  No equals/hashCode       │  Object Contract │  Override both together   │   ║
+║  ├───────────────────────────┼──────────────────┼────────────────────────────┤   ║
+║  │  Excessive Static         │  OOP Principles  │  Use instance methods     │   ║
+║  ├───────────────────────────┼──────────────────┼────────────────────────────┤   ║
+║  │  Deep Hierarchy           │  Simplicity      │  Max 2-3 levels           │   ║
+║  └───────────────────────────┴──────────────────┴────────────────────────────┘   ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                    PREVENTION TIPS                                               ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║                                                                       ║      ║
+║   ║   ✓ Follow SOLID principles                                           ║      ║
+║   ║   ✓ Favor composition over inheritance                                ║      ║
+║   ║   ✓ Keep classes small (SRP)                                          ║      ║
+║   ║   ✓ Program to interfaces                                             ║      ║
+║   ║   ✓ Write unit tests                                                  ║      ║
+║   ║   ✓ Do code reviews                                                   ║      ║
+║   ║   ✓ Refactor regularly                                                ║      ║
+║   ║   ✓ Learn design patterns                                             ║      ║
+║   ║                                                                       ║      ║
+║   ║   "Learn from mistakes - yours and others'!"                          ║      ║
+║   ║                                                                       ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
 ```
 
-**Final Advice:** Learn from mistakes, follow principles, write clean code, and always code review!
+**Final Advice:** Learn from mistakes, follow principles, write clean code, and always do code review!

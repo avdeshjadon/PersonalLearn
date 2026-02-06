@@ -93,6 +93,13 @@ function getOopsStructure() {
         '38-when-to-use-composition',
         '39-common-mistakes'
       ]
+    },
+    
+    {
+      group: 'Visual Guide',
+      items: [
+        '40-oops-flowcharts'
+      ]
     }
   ];
 }

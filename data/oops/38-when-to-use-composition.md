@@ -566,40 +566,237 @@ Through instance variables holding references to other classes, typically inject
 - Default: **Composition**
 - Exception: True IS-A → Inheritance
 
+---
+
+## Visual Summary
+
 ```
-╔═══════════════════════════════════════════════════════════════════════════════╗
-║                   WHEN TO USE COMPOSITION                                     ║
-╠═══════════════════════════════════════════════════════════════════════════════╣
-║                                                                               ║
-║   Composition is BETTER when:                                                 ║
-║   ═══════════════════════════                                                 ║
-║   ✓ HAS-A relationship exists                                                 ║
-║   ✓ Need runtime flexibility                                                  ║
-║   ✓ Want loose coupling                                                       ║
-║   ✓ Multiple features needed                                                  ║
-║   ✓ Easy testing/mocking required                                             ║
-║                                                                               ║
-║   Examples:                                                                   ║
-║   ═════════                                                                   ║
-║   Car HAS-AN Engine        → Composition ✓                                    ║
-║   Computer HAS Processor   → Composition ✓                                    ║
-║   Robot HAS Behavior       → Composition ✓                                    ║
-║                                                                               ║
-║   Composition Pattern:                                                        ║
-║   ═══════════════════                                                         ║
-║   class Car {                                                                 ║
-║       private Engine engine;  // Composition                                  ║
-║                                                                               ║
-║       Car(Engine engine) {    // Dependency Injection                         ║
-║           this.engine = engine;                                               ║
-║       }                                                                       ║
-║                                                                               ║
-║       void start() {                                                          ║
-║           engine.start();     // Delegation                                   ║
-║       }                                                                       ║
-║   }                                                                           ║
-║                                                                               ║
-║   Principle: "Favor Composition over Inheritance"                             ║
-║                                                                               ║
-╚═══════════════════════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                   WHEN TO USE COMPOSITION                                        ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+                              ╔═══════════════════╗
+                              ║  SHOULD I USE     ║
+                              ║  COMPOSITION?     ║
+                              ╚═════════╦═════════╝
+                                        ║
+                                        ▼
+            ╔═══════════════════════════════════════════════════╗
+            ║  DEFAULT ANSWER: YES!                             ║
+            ║  "Favor Composition over Inheritance"             ║
+            ╚═══════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                    COMPOSITION = HAS-A RELATIONSHIP                              ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║                        WHAT IS COMPOSITION?                           ║      ║
+║   ╠═══════════════════════════════════════════════════════════════════════╣      ║
+║   ║                                                                       ║      ║
+║   ║   One class CONTAINS another class as a member variable               ║      ║
+║   ║                                                                       ║      ║
+║   ║   ┌─────────────────┐          ┌─────────────────┐                    ║      ║
+║   ║   │     Engine      │          │      Car        │                    ║      ║
+║   ║   │ + start()       │◄─────────│ - Engine engine │                    ║      ║
+║   ║   │ + stop()        │ contains │ + drive()       │                    ║      ║
+║   ║   └─────────────────┘          └─────────────────┘                    ║      ║
+║   ║                                                                       ║      ║
+║   ║   Car HAS-A Engine (not IS-A Engine!)                                 ║      ║
+║   ║                                                                       ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+║   CODE EXAMPLE:                                                                  ║
+║   ═════════════                                                                  ║
+║                                                                                  ║
+║   class Engine {                                                                 ║
+║       void start() { System.out.println("Engine started"); }                     ║
+║       void stop() { System.out.println("Engine stopped"); }                      ║
+║   }                                                                              ║
+║                                                                                  ║
+║   class Car {                                                                    ║
+║       private Engine engine;    // HAS-A relationship                            ║
+║                                                                                  ║
+║       Car(Engine engine) {      // Dependency Injection                          ║
+║           this.engine = engine;                                                  ║
+║       }                                                                          ║
+║                                                                                  ║
+║       void start() {                                                             ║
+║           engine.start();       // Delegation                                    ║
+║       }                                                                          ║
+║   }                                                                              ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                    USE COMPOSITION WHEN...                                       ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ╔═════════════════════════════════════════════════════════════════════════╗    ║
+║   ║  1. HAS-A RELATIONSHIP EXISTS                                           ║    ║
+║   ╠═════════════════════════════════════════════════════════════════════════╣    ║
+║   ║                                                                         ║    ║
+║   ║  Car HAS-A Engine        ✓ (not Car IS-A Engine)                        ║    ║
+║   ║  Computer HAS-A Processor ✓ (not Computer IS-A Processor)               ║    ║
+║   ║  Library HAS-A Book[]    ✓ (not Library IS-A Book)                      ║    ║
+║   ║  Person HAS-A Address    ✓ (not Person IS-A Address)                    ║    ║
+║   ║                                                                         ║    ║
+║   ╚═════════════════════════════════════════════════════════════════════════╝    ║
+║                                                                                  ║
+║   ╔═════════════════════════════════════════════════════════════════════════╗    ║
+║   ║  2. NEED RUNTIME FLEXIBILITY                                            ║    ║
+║   ╠═════════════════════════════════════════════════════════════════════════╣    ║
+║   ║                                                                         ║    ║
+║   ║  class Robot {                                                          ║    ║
+║   ║      private Behavior behavior;   // Can change at runtime!             ║    ║
+║   ║                                                                         ║    ║
+║   ║      void setBehavior(Behavior b) {                                     ║    ║
+║   ║          this.behavior = b;       // Switch behaviors dynamically       ║    ║
+║   ║      }                                                                  ║    ║
+║   ║  }                                                                      ║    ║
+║   ║                                                                         ║    ║
+║   ║  robot.setBehavior(new FlyBehavior());   // Now it flies!               ║    ║
+║   ║  robot.setBehavior(new SwimBehavior());  // Now it swims!               ║    ║
+║   ║                                                                         ║    ║
+║   ║  (Inheritance cannot do this - fixed at compile time!)                  ║    ║
+║   ║                                                                         ║    ║
+║   ╚═════════════════════════════════════════════════════════════════════════╝    ║
+║                                                                                  ║
+║   ╔═════════════════════════════════════════════════════════════════════════╗    ║
+║   ║  3. NEED FEATURES FROM MULTIPLE SOURCES                                 ║    ║
+║   ╠═════════════════════════════════════════════════════════════════════════╣    ║
+║   ║                                                                         ║    ║
+║   ║  // Java doesn't allow multiple inheritance of classes!                 ║    ║
+║   ║  class Bird extends Animal, Flyable { }  // ❌ NOT ALLOWED!             ║    ║
+║   ║                                                                         ║    ║
+║   ║  // But composition allows combining multiple features:                 ║    ║
+║   ║  class Bird {                                                           ║    ║
+║   ║      private Animal animal;       // HAS-A Animal                       ║    ║
+║   ║      private FlyAbility fly;      // HAS-A FlyAbility                   ║    ║
+║   ║      private SwimAbility swim;    // HAS-A SwimAbility                  ║    ║
+║   ║  }                                                                      ║    ║
+║   ║                                                                         ║    ║
+║   ╚═════════════════════════════════════════════════════════════════════════╝    ║
+║                                                                                  ║
+║   ╔═════════════════════════════════════════════════════════════════════════╗    ║
+║   ║  4. WANT LOOSE COUPLING                                                 ║    ║
+║   ╠═════════════════════════════════════════════════════════════════════════╣    ║
+║   ║                                                                         ║    ║
+║   ║  INHERITANCE (Tight Coupling):                                          ║    ║
+║   ║  ─────────────────────────────                                          ║    ║
+║   ║  class Dog extends Animal { }                                           ║    ║
+║   ║  • Dog is TIGHTLY bound to Animal                                       ║    ║
+║   ║  • Any change in Animal affects Dog                                     ║    ║
+║   ║  • Cannot change relationship at runtime                                ║    ║
+║   ║                                                                         ║    ║
+║   ║  COMPOSITION (Loose Coupling):                                          ║    ║
+║   ║  ────────────────────────────                                           ║    ║
+║   ║  class Car {                                                            ║    ║
+║   ║      private Engine engine;   // Injected dependency                    ║    ║
+║   ║  }                                                                      ║    ║
+║   ║  • Car is LOOSELY bound to Engine (through interface)                   ║    ║
+║   ║  • Can swap different Engine implementations                            ║    ║
+║   ║  • Easy to test with mock Engine                                        ║    ║
+║   ║                                                                         ║    ║
+║   ╚═════════════════════════════════════════════════════════════════════════╝    ║
+║                                                                                  ║
+║   ╔═════════════════════════════════════════════════════════════════════════╗    ║
+║   ║  5. NEED BETTER TESTABILITY                                             ║    ║
+║   ╠═════════════════════════════════════════════════════════════════════════╣    ║
+║   ║                                                                         ║    ║
+║   ║  class UserService {                                                    ║    ║
+║   ║      private Database database;      // Composition                     ║    ║
+║   ║                                                                         ║    ║
+║   ║      UserService(Database db) {      // Dependency Injection            ║    ║
+║   ║          this.database = db;                                            ║    ║
+║   ║      }                                                                  ║    ║
+║   ║  }                                                                      ║    ║
+║   ║                                                                         ║    ║
+║   ║  // In tests:                                                           ║    ║
+║   ║  UserService service = new UserService(mockDatabase);  // Easy mock!    ║    ║
+║   ║                                                                         ║    ║
+║   ╚═════════════════════════════════════════════════════════════════════════╝    ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                    COMPOSITION BENEFITS                                          ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ┌────────────────────────┬─────────────────────────────────────────────────┐   ║
+║   │  BENEFIT               │  EXPLANATION                                    │   ║
+║   ├────────────────────────┼─────────────────────────────────────────────────┤   ║
+║   │  Flexibility           │  Change behavior at runtime                     │   ║
+║   ├────────────────────────┼─────────────────────────────────────────────────┤   ║
+║   │  Loose Coupling        │  Classes are independent, easy to change        │   ║
+║   ├────────────────────────┼─────────────────────────────────────────────────┤   ║
+║   │  No Diamond Problem    │  Multiple composition works fine                │   ║
+║   ├────────────────────────┼─────────────────────────────────────────────────┤   ║
+║   │  Better Encapsulation  │  Hide internal components                       │   ║
+║   ├────────────────────────┼─────────────────────────────────────────────────┤   ║
+║   │  Easy Testing          │  Can mock dependencies easily                   │   ║
+║   ├────────────────────────┼─────────────────────────────────────────────────┤   ║
+║   │  SOLID Compliant       │  Supports DIP, SRP, OCP principles              │   ║
+║   └────────────────────────┴─────────────────────────────────────────────────┘   ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                    STRATEGY PATTERN (Composition Example)                        ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║                        ╔═════════════════════════╗                               ║
+║                        ║    <<interface>>        ║                               ║
+║                        ║    PaymentStrategy      ║                               ║
+║                        ║    + pay(amount)        ║                               ║
+║                        ╚═══════════╦═════════════╝                               ║
+║                                    │                                             ║
+║              ╔═════════════════════╬═════════════════════╗                       ║
+║              ▼                     ▼                     ▼                       ║
+║   ╔════════════════════╗ ╔════════════════════╗ ╔════════════════════╗          ║
+║   ║  CreditCardPayment ║ ║    PayPalPayment   ║ ║   CryptoPayment    ║          ║
+║   ║  + pay(amount)     ║ ║    + pay(amount)   ║ ║   + pay(amount)    ║          ║
+║   ╚════════════════════╝ ╚════════════════════╝ ╚════════════════════╝          ║
+║                                    ▲                                             ║
+║                                    │ uses                                        ║
+║                        ╔═══════════╧═════════════╗                               ║
+║                        ║     ShoppingCart        ║                               ║
+║                        ║ - PaymentStrategy pay   ║  ←── HAS-A PaymentStrategy    ║
+║                        ║ + checkout()            ║                               ║
+║                        ╚═════════════════════════╝                               ║
+║                                                                                  ║
+║   // Usage:                                                                      ║
+║   ShoppingCart cart = new ShoppingCart();                                        ║
+║   cart.setPaymentStrategy(new CreditCardPayment());  // Pay by card              ║
+║   cart.checkout();                                                               ║
+║                                                                                  ║
+║   cart.setPaymentStrategy(new PayPalPayment());      // Changed to PayPal!       ║
+║   cart.checkout();                                                               ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                    DECISION GUIDE                                                ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║                                                                       ║      ║
+║   ║   DEFAULT: Use COMPOSITION                                            ║      ║
+║   ║                                                                       ║      ║
+║   ║   EXCEPTION: Use INHERITANCE only when:                               ║      ║
+║   ║              • TRUE IS-A relationship exists                          ║      ║
+║   ║              • Need polymorphism                                      ║      ║
+║   ║              • Parent class is stable                                 ║      ║
+║   ║              • LSP is satisfied                                       ║      ║
+║   ║                                                                       ║      ║
+║   ║   REMEMBER: "Favor Composition over Inheritance"                      ║      ║
+║   ║                                                                       ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
 ```

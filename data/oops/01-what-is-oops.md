@@ -2,9 +2,22 @@
 
 ## Concept Introduction
 
-Imagine tum ek **car** banate ho. Car mein **engine**, **wheels**, **steering** hote hain - yeh sab **parts** hain. Har part ka apna **kaam** hai. Engine start karta hai, wheels ghumte hain, steering direction change karta hai. Programming mein bhi agar hum **real-world objects** ki tarah code likhen, to use **Object-Oriented Programming (OOPs)** kehte hain.
+**Simple English definition**
 
-**OOPs = Real-world entities ko code mein represent karna**
+Object-Oriented Programming (OOP) is a style of programming where software is organized as a set of "objects." Each object groups related data (attributes/properties) and the functions that act on that data (methods). This structure improves clarity, reuse, and maintenance.
+
+**Real-life example**
+
+- Imagine a `Car` as an object.
+    - Properties: `color`, `make`, `speed`.
+    - Behaviors (methods): `start()`, `accelerate()`, `brake()`.
+    - In code: a `Car` class defines the blueprint; `myCar = new Car()` creates an instance (an object) with its own property values.
+
+**Hinglish explanation (simple)**
+
+Socho tum ek car bana rahe ho — car ke kuch parts jaise `engine`, `wheels`, aur `steering` hain (yeh data/properties hain) aur kuch kaam jaise `start karna` ya `break lagana` hain (yeh methods hain). OOPs mein in sab ko ek hi jagah (object) mein rakhte ho, jisse code samajhna, reuse karna aur maintain karna aasaan ho jaata hai.
+
+**One-line summary:** OOPs = Real-world entities ko code mein objects ki form mein represent karna.
 
 ---
 
@@ -19,16 +32,17 @@ Pehle programmers **procedural programming** use karte the jahan:
 - Large projects **manage** karna tough tha
 - **Security** kam thi (koi bhi data access kar sakta tha)
 
-```c
-// Procedural approach (C language)
-int balance = 1000;
+```java
+public class BankProcedural {
+    public static int balance = 1000;               // global-like data
 
-void withdraw(int amount) {
-    balance = balance - amount; // Anyone can modify balance
-}
+    public static void withdraw(int amount) {
+        balance = balance - amount;                 // Anyone can modify balance
+    }
 
-void deposit(int amount) {
-    balance = balance + amount;
+    public static void deposit(int amount) {
+        balance = balance + amount;
+    }
 }
 ```
 
@@ -42,9 +56,8 @@ OOPs mein:
 - **Real-world** problems ko naturally represent kar sakte hain
 
 ```java
-// OOPs approach (Java)
 class BankAccount {
-    private int balance = 1000; // Protected data
+    private int balance = 1000;                     // Protected data
     
     public void withdraw(int amount) {
         if (amount <= balance) {
@@ -79,167 +92,6 @@ OOPs is a programming paradigm centered around objects which are instances of cl
 
 ---
 
-## Key Concepts of OOPs
-
-### 1. Class
-**Blueprint** ya **template** for creating objects.
-
-```java
-class Car {
-    String brand;
-    String color;
-    int speed;
-    
-    void start() {
-        System.out.println("Car started");
-    }
-    
-    void accelerate() {
-        speed += 10;
-    }
-}
-```
-
-### 2. Object
-**Instance** of a class - real entity.
-
-```java
-Car myCar = new Car();
-myCar.brand = "Toyota";
-myCar.color = "Red";
-myCar.start();
-```
-
-### 3. Encapsulation
-Data aur methods ko **bundle** karna aur data ko **hide** karna.
-
-```java
-class BankAccount {
-    private double balance; // Hidden
-    
-    public void deposit(double amount) {
-        balance += amount;
-    }
-    
-    public double getBalance() {
-        return balance;
-    }
-}
-```
-
-### 4. Inheritance
-Parent class se properties **inherit** karna.
-
-```java
-class Vehicle {
-    void move() {
-        System.out.println("Moving");
-    }
-}
-
-class Car extends Vehicle {
-    // Car automatically gets move() method
-}
-```
-
-### 5. Polymorphism
-**Same name**, different forms.
-
-```java
-class Animal {
-    void sound() {
-        System.out.println("Animal sound");
-    }
-}
-
-class Dog extends Animal {
-    void sound() {
-        System.out.println("Bark");
-    }
-}
-
-class Cat extends Animal {
-    void sound() {
-        System.out.println("Meow");
-    }
-}
-```
-
-### 6. Abstraction
-**Essential features** dikhana, **complexity** hide karna.
-
-```java
-abstract class Shape {
-    abstract double area(); // What to do
-}
-
-class Circle extends Shape {
-    double radius;
-    
-    double area() { // How to do
-        return 3.14 * radius * radius;
-    }
-}
-```
-
----
-
-## Real-World Example
-
-```java
-// Real-world entity: Student
-class Student {
-    // Data (attributes)
-    private String name;
-    private int rollNo;
-    private double marks;
-    
-    // Constructor
-    public Student(String name, int rollNo) {
-        this.name = name;
-        this.rollNo = rollNo;
-        this.marks = 0;
-    }
-    
-    // Behaviors (methods)
-    public void study() {
-        System.out.println(name + " is studying");
-    }
-    
-    public void setMarks(double marks) {
-        if (marks >= 0 && marks <= 100) {
-            this.marks = marks;
-        }
-    }
-    
-    public double getMarks() {
-        return marks;
-    }
-    
-    public void displayInfo() {
-        System.out.println("Name: " + name);
-        System.out.println("Roll No: " + rollNo);
-        System.out.println("Marks: " + marks);
-    }
-}
-
-// Using the Student class
-public class Main {
-    public static void main(String[] args) {
-        Student s1 = new Student("Rahul", 101);
-        s1.study();
-        s1.setMarks(85.5);
-        s1.displayInfo();
-        
-        Student s2 = new Student("Priya", 102);
-        s2.setMarks(92.0);
-        s2.displayInfo();
-    }
-}
-```
-
----
-
 ## Benefits of OOPs
 
 | Benefit | Description | Example |
@@ -255,6 +107,13 @@ public class Main {
 
 ## OOPs vs Procedural Programming
 
+Before we look at the side-by-side comparison, here's the core idea you should keep in mind:
+
+- Procedural programming centers around procedures or routines (functions). Programs are built by writing sequences of instructions and organizing them into functions that operate on separate data.
+- Object-Oriented Programming (OOP) centers around objects that combine data and the operations that act on that data. OOP models problems as interacting entities (objects) which improves encapsulation, reuse, and maintainability in larger systems.
+
+In short: procedural code focuses on actions (what the program does), while OOP focuses on the things (objects) the program manipulates. Below table summarizes the practical differences and trade-offs.
+
 | Feature | Procedural | OOPs |
 |---------|-----------|------|
 | **Focus** | Functions | Objects |
@@ -263,20 +122,6 @@ public class Main {
 | **Reusability** | Limited | High (inheritance) |
 | **Security** | Low | High (encapsulation) |
 | **Examples** | C, Pascal | Java, C++, Python |
-
----
-
-## OOPs Languages
-
-### Pure OOPs Languages
-- **Java** - Everything is an object (except primitives)
-- **C#** - .NET framework
-- **Smalltalk** - First pure OOPs language
-
-### Hybrid Languages
-- **C++** - Supports both procedural and OOPs
-- **Python** - Multi-paradigm
-- **JavaScript** - Prototype-based OOPs
 
 ---
 
@@ -316,26 +161,90 @@ Procedural focuses on functions and procedures, while OOPs focuses on objects th
 
 **Benefits**: Reusability, Security, Modularity, Easy Maintenance
 
+---
+
+## Visual Summary
+
 ```
-╔═══════════════════════════════════════════════════════════════════════════════╗
-║                           OOPS CONCEPT                                        ║
-╠═══════════════════════════════════════════════════════════════════════════════╣
-║                                                                               ║
-║                         REAL WORLD                                            ║
-║                            ↓                                                  ║
-║                    ┌──────────────┐                                           ║
-║                    │     CAR      │                                           ║
-║                    ├──────────────┤                                           ║
-║                    │ brand        │  ← Attributes                             ║
-║                    │ color        │                                           ║
-║                    │ speed        │                                           ║
-║                    ├──────────────┤                                           ║
-║                    │ start()      │  ← Methods                                ║
-║                    │ accelerate() │                                           ║
-║                    │ brake()      │                                           ║
-║                    └──────────────┘                                           ║
-║                            ↓                                                  ║
-║                       OBJECT                                                  ║
-║                                                                               ║
-╚═══════════════════════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                                  WHAT IS OOPs?                                   ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+                              ╔═══════════════════╗
+                              ║    REAL WORLD     ║
+                              ╚═════════╦═════════╝
+                                        ║
+                                        ▼
+                              ╔═══════════════════╗
+                              ║   Identify Entity ║
+                              ║    (Car, Student) ║
+                              ╚═════════╦═════════╝
+                                        ║
+                    ╔═══════════════════╩═══════════════════╗
+                    ▼                                       ▼
+          ╔═════════════════════╗              ╔═════════════════════╗
+          ║    ATTRIBUTES       ║              ║     BEHAVIORS       ║
+          ║    (Properties)     ║              ║     (Methods)       ║
+          ╠═════════════════════╣              ╠═════════════════════╣
+          ║  - brand            ║              ║  - start()          ║
+          ║  - color            ║              ║  - accelerate()     ║
+          ║  - speed            ║              ║  - brake()          ║
+          ╚═════════╦═══════════╝              ╚═══════════╦═════════╝
+                    ║                                      ║
+                    ╚══════════════════╦═══════════════════╝
+                                       ▼
+                              ╔═══════════════════╗
+                              ║      CLASS        ║
+                              ║   (Blueprint)     ║
+                              ╚═════════╦═════════╝
+                                        ║
+                                        ▼
+                              ╔═══════════════════╗
+                              ║      OBJECT       ║
+                              ║  (Real Instance)  ║
+                              ╚═══════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                             THE 4 PILLARS OF OOPs                                ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ╔═════════════════╗  ╔═════════════════╗  ╔═════════════════╗  ╔════════════╗  ║
+║   ║  ENCAPSULATION  ║  ║   INHERITANCE   ║  ║  POLYMORPHISM   ║  ║ ABSTRACTION║  ║
+║   ╠═════════════════╣  ╠═════════════════╣  ╠═════════════════╣  ╠════════════╣  ║
+║   ║                 ║  ║                 ║  ║                 ║  ║            ║  ║
+║   ║  Data Hiding    ║  ║  Code Reuse     ║  ║  Many Forms     ║  ║ Hide       ║  ║
+║   ║  +              ║  ║  +              ║  ║  +              ║  ║ Complexity ║  ║
+║   ║  Data Bundling  ║  ║  IS-A Relation  ║  ║  Flexibility    ║  ║ +          ║  ║
+║   ║                 ║  ║                 ║  ║                 ║  ║ Show       ║  ║
+║   ║  private data   ║  ║  extends        ║  ║  Overloading    ║  ║ Interface  ║  ║
+║   ║  public methods ║  ║  keyword        ║  ║  Overriding     ║  ║            ║  ║
+║   ║                 ║  ║                 ║  ║                 ║  ║ abstract   ║  ║
+║   ╚═════════════════╝  ╚═════════════════╝  ╚═════════════════╝  ╚════════════╝  ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                                 OOPs CONCEPT MAP                                 ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║                               ╔═══════════╗                                      ║
+║                               ║   OOPs    ║                                      ║
+║                               ╚═════╦═════╝                                      ║
+║                                     ║                                            ║
+║            ╔════════════════════════╬════════════════════════╗                   ║
+║            ║                        ║                        ║                   ║
+║            ▼                        ▼                        ▼                   ║
+║     ╔════════════╗          ╔════════════╗           ╔════════════╗              ║
+║     ║   CLASS    ║          ║   OBJECT   ║           ║  4 PILLARS ║              ║
+║     ╚══════╦═════╝          ╚══════╦═════╝           ╚══════╦═════╝              ║
+║            ║                       ║                        ║                    ║
+║            ▼                       ▼                        ▼                    ║
+║      Blueprint              Instance of               Encapsulation              ║
+║      Template               Class                     Inheritance                ║
+║      User-defined           Actual Entity             Polymorphism               ║
+║      Data Type              in Memory                 Abstraction                ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
 ```

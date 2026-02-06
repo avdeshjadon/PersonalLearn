@@ -533,40 +533,126 @@ By declaring instance variables of other class types and initializing them (usua
 
 **Principle:** *"Favor composition over inheritance"*
 
+---
+
+## Visual Summary
+
 ```
-╔═══════════════════════════════════════════════════════════════════════════════╗
-║                          COMPOSITION                                          ║
-╠═══════════════════════════════════════════════════════════════════════════════╣
-║                                                                               ║
-║   Composition = Strong HAS-A Relationship (Part-of)                           ║
-║                                                                               ║
-║   class Engine {                                                              ║
-║       void start() { }                                                        ║
-║   }                                                                           ║
-║                                                                               ║
-║   class Car {                                                                 ║
-║       private Engine engine = new Engine();  // Composition                   ║
-║                                                                               ║
-║       void start() {                                                          ║
-║           engine.start();  // Delegate                                        ║
-║       }                                                                       ║
-║   }                                                                           ║
-║                                                                               ║
-║   Lifecycle:                                                                  ║
-║   ───────────                                                                 ║
-║   ┌─────────┐     creates & owns    ┌────────┐                               ║
-║   │   Car   │ ───────────────────> │ Engine │                               ║
-║   └─────────┘                       └────────┘                               ║
-║       │                                  │                                    ║
-║       │  When Car is destroyed           │                                    ║
-║       ▼                                  ▼                                    ║
-║    Destroyed                         Destroyed                                ║
-║                                                                               ║
-║   Real-world Examples:                                                        ║
-║   - Car → Engine, Wheels                                                      ║
-║   - Book → Pages                                                              ║
-║   - Computer → Processor, Memory                                              ║
-║   - House → Rooms                                                             ║
-║                                                                               ║
-╚═══════════════════════════════════════════════════════════════════════════════╝
+╔═══════════════════════════════════════════════════════════════════════════════════════╗
+║                           COMPOSITION RELATIONSHIP DIAGRAM                            ║
+╠═══════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                       ║
+║   ┌─────────────────────────────────────────────────────────────────────────────────┐ ║
+║   │                         COMPOSITION SYMBOL (◆ FILLED DIAMOND)                   │ ║
+║   └─────────────────────────────────────────────────────────────────────────────────┘ ║
+║                                                                                       ║
+║                    ╔═══════════════════════════════════════════════╗                  ║
+║                    ║              WHOLE (Container)                ║                  ║
+║                    ║         ┌─────────────────────┐               ║                  ║
+║                    ║         │                     │               ║                  ║
+║                    ║         │        CAR          │               ║                  ║
+║                    ║         │                     │               ║                  ║
+║                    ║         │  - model            │               ║                  ║
+║                    ║         │  - engine: Engine   │               ║                  ║
+║                    ║         │  - wheels: Wheels   │               ║                  ║
+║                    ║         │                     │               ║                  ║
+║                    ║         └─────────┬───────────┘               ║                  ║
+║                    ║                   │                           ║                  ║
+║                    ║                   ◆  ←── Filled Diamond       ║                  ║
+║                    ║                   │      (Strong Ownership)   ║                  ║
+║                    ║                   │                           ║                  ║
+║                    ╚═══════════════════│═══════════════════════════╝                  ║
+║                                        │                                              ║
+║                         ┌──────────────┼──────────────┐                               ║
+║                         │              │              │                               ║
+║                         ▼              ▼              ▼                               ║
+║                    ┌─────────┐    ┌─────────┐    ┌─────────┐                          ║
+║                    │ Engine  │    │ Wheels  │    │  Music  │   ←── PART (Component)  ║
+║                    │ (300HP) │    │  (4)    │    │ System  │       Created INSIDE     ║
+║                    └─────────┘    └─────────┘    └─────────┘       Cannot exist alone ║
+║                                                                                       ║
+║   ┌─────────────────────────────────────────────────────────────────────────────────┐ ║
+║   │                              LIFECYCLE BEHAVIOR                                 │ ║
+║   └─────────────────────────────────────────────────────────────────────────────────┘ ║
+║                                                                                       ║
+║     BEFORE DESTRUCTION                      AFTER CONTAINER DESTROYED                 ║
+║     ══════════════════                      ═════════════════════════                 ║
+║                                                                                       ║
+║     ┌─────────────────────┐                      ╳ DESTROYED ╳                        ║
+║     │        Car          │                                                           ║
+║     │       (BMW)         │                                                           ║
+║     └──────────┬──────────┘                                                           ║
+║                ◆                                                                      ║
+║                │                                                                      ║
+║     ┌──────────┼──────────┐                 ┌──────────┬──────────┐                   ║
+║     │          │          │                 │          │          │                   ║
+║     ▼          ▼          ▼                 ▼          ▼          ▼                   ║
+║  ┌──────┐  ┌──────┐  ┌──────┐           ┌──────┐  ┌──────┐  ┌──────┐                  ║
+║  │Engine│  │Wheels│  │Music │           │  ╳   │  │  ╳   │  │  ╳   │                  ║
+║  └──────┘  └──────┘  └──────┘           └──────┘  └──────┘  └──────┘                  ║
+║                                                                                       ║
+║     Parts owned by Car                   ALL PARTS DESTROYED!                         ║
+║                                          Cannot exist without Car                     ║
+║                                                                                       ║
+║   ┌─────────────────────────────────────────────────────────────────────────────────┐ ║
+║   │                    COMPOSITION (◆) vs AGGREGATION (◇)                           │ ║
+║   └─────────────────────────────────────────────────────────────────────────────────┘ ║
+║                                                                                       ║
+║   ╔═════════════════════════════════════════════════════════════════════════════════╗ ║
+║   ║                                                                                 ║ ║
+║   ║    COMPOSITION (◆)                       AGGREGATION (◇)                        ║ ║
+║   ║    ════════════════                      ═══════════════                        ║ ║
+║   ║                                                                                 ║ ║
+║   ║    ┌────────────┐                        ┌────────────┐                         ║ ║
+║   ║    │    Car     │                        │ Department │                         ║ ║
+║   ║    └─────┬──────┘                        └─────┬──────┘                         ║ ║
+║   ║          │                                     │                                ║ ║
+║   ║          ◆ FILLED                              ◇ HOLLOW                         ║ ║
+║   ║          │                                     │                                ║ ║
+║   ║          ▼                                     ▼                                ║ ║
+║   ║    ┌────────────┐                        ┌────────────┐                         ║ ║
+║   ║    │   Engine   │                        │  Teacher   │                         ║ ║
+║   ║    └────────────┘                        └────────────┘                         ║ ║
+║   ║                                                                                 ║ ║
+║   ║    • Created INSIDE Car                  • Created OUTSIDE Dept                 ║ ║
+║   ║    • EXCLUSIVE ownership                 • SHARED ownership                     ║ ║
+║   ║    • DEPENDENT lifecycle                 • INDEPENDENT lifecycle                ║ ║
+║   ║    • Car = null → Engine = null          • Dept = null → Teacher exists         ║ ║
+║   ║    • Engine is PART-OF Car               • Teacher HAS dept (not part)          ║ ║
+║   ║                                                                                 ║ ║
+║   ║    engine = new Engine();                Department(List<Teacher> t) {          ║ ║
+║   ║    // Created inside                         this.teachers = t;                 ║ ║
+║   ║                                          }  // Reference passed                 ║ ║
+║   ║                                                                                 ║ ║
+║   ╚═════════════════════════════════════════════════════════════════════════════════╝ ║
+║                                                                                       ║
+║   ┌─────────────────────────────────────────────────────────────────────────────────┐ ║
+║   │                            REAL-WORLD EXAMPLES                                  │ ║
+║   └─────────────────────────────────────────────────────────────────────────────────┘ ║
+║                                                                                       ║
+║      COMPOSITION (◆)                          AGGREGATION (◇)                         ║
+║      ═══════════════                          ═══════════════                         ║
+║      Car      ◆───► Engine                    Library  ◇───► Books                    ║
+║      Book     ◆───► Pages                     Team     ◇───► Players                  ║
+║      House    ◆───► Rooms                     Company  ◇───► Employees                ║
+║      Computer ◆───► CPU                       Playlist ◇───► Songs                    ║
+║      Human    ◆───► Heart                     School   ◇───► Students                 ║
+║                                                                                       ║
+║      Key: Parts cannot                        Key: Parts can                          ║
+║      exist without whole                      exist without whole                     ║
+║                                                                                       ║
+║   ┌─────────────────────────────────────────────────────────────────────────────────┐ ║
+║   │                     "FAVOR COMPOSITION OVER INHERITANCE"                        │ ║
+║   └─────────────────────────────────────────────────────────────────────────────────┘ ║
+║                                                                                       ║
+║      INHERITANCE (IS-A)              vs           COMPOSITION (HAS-A)                 ║
+║      ══════════════════                           ══════════════════                  ║
+║                                                                                       ║
+║      class Dog extends Animal        vs           class Dog {                         ║
+║          tight coupling                               private Behavior behavior;      ║
+║          fragile base class                           // loose coupling               ║
+║          diamond problem                              // flexible, testable           ║
+║                                                   }                                   ║
+║                                                                                       ║
+╚═══════════════════════════════════════════════════════════════════════════════════════╝
 ```

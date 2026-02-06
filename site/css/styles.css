@@ -41,6 +41,44 @@ body.js-fadein {
   opacity: 1;
 }
 
+/* Content links: remove underlines and hover underlines for a minimal look */
+.content a,
+.article a,
+.sidebar a{
+  text-decoration: none;
+  border-bottom: none;
+  opacity: 0.95;
+  transform: translateZ(0);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+
+.content a:hover,
+.article a:hover,
+.sidebar a:hover{
+  text-decoration: none;
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+/* Stronger override to prevent underlines coming from other styles (markdown, tables, visited states) */
+.content a,
+.content a:visited,
+.content a:hover,
+.content a:active,
+.article a,
+.article a:visited,
+.article a:hover,
+.article a:active,
+.sidebar a,
+.sidebar a:visited,
+.sidebar a:hover,
+.sidebar a:active,
+.content table a,
+.article table a,
+.sidebar table a{
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
 .folder-nav-top{
   background: #f6ecd2;
   border-bottom: none;
@@ -311,26 +349,24 @@ body.js-fadein {
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
-  transition:background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+  opacity:0.75;
   transform: translateZ(0);
+  transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
 .topic-link:hover{
-  background:rgba(43,111,111,0.10);
-  color:#2b6f6f;
-  transform:translateX(8px) translateZ(0);
+  opacity:1;
+  transform: translateX(6px) scale(1.02) translateZ(0);
 }
 
 .topic-link:active{
-  transform:translateX(4px) translateZ(0);
+  opacity:0.6;
 }
 
 .topic-link.active{
-  background:rgba(43,111,111,0.15);
+  opacity:1;
   color:#1a4f4f;
   font-weight:700;
-  padding-left:20px;
-  box-shadow:var(--shadow-light);
 }
 
 .subitems{
@@ -399,17 +435,17 @@ body.js-fadein {
 .nav-link{
   color:var(--muted);
   text-decoration:none;
-  padding:8px 12px;
-  border-radius:8px;
+  padding:8px 0;
   min-width:120px;
   text-align:center;
-  transition:all var(--transition-medium);
+  opacity:0.7;
+  transform: translateZ(0);
+  transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
 .nav-link:hover{
-  background:rgba(0,0,0,0.04);
-  transform:translateY(-1px);
-  box-shadow:var(--shadow-light);
+  opacity:1;
+  transform: translateY(-2px) scale(1.02);
 }
 
 .page-title-wrap{
@@ -439,29 +475,29 @@ body.js-fadein {
 .nav-foot{
   flex:1;
   text-align:center;
-  padding:14px 18px;
-  border-radius:10px;
-  background:rgba(43,111,111,0.08);
+  padding:8px 0;
+  background:transparent;
   color:var(--accent);
   text-decoration:none;
-  font-weight:700;
-  border:1px solid rgba(0,0,0,0.04);
-  transition:all var(--transition-medium);
+  font-weight:500;
+  font-size:0.875rem;
+  border:none;
+  opacity:0.7;
+  transform: translateZ(0);
+  transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
 .nav-foot:hover{
-  background:rgba(43,111,111,0.14);
-  transform:translateY(-2px) scale(1.03);
-  box-shadow:var(--shadow-medium);
-  color:#1a4f4f;
+  opacity:1;
+  transform: translateY(-2px) scale(1.03);
 }
 
 .nav-foot:active{
-  transform:translateY(0);
+  opacity:0.6;
 }
 
 .nav-foot:disabled, .nav-foot[aria-disabled="true"]{
-  opacity:.4;
+  opacity:0.25;
   pointer-events:none;
 }
 

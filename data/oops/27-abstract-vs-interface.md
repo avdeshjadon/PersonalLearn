@@ -516,32 +516,107 @@ In Java 8+, yes, through static methods. But JVM won't use it as entry point.
 
 **Choose based on:** IS-A relationship + shared code → Abstract Class, Contract + multiple inheritance → Interface
 
+## Visual Summary
+
 ```
-╔═══════════════════════════════════════════════════════════════════════════════╗
-║                  ABSTRACT CLASS VS INTERFACE                                  ║
-╠═══════════════════════════════════════════════════════════════════════════════╣
-║                                                                               ║
-║   ABSTRACT CLASS                          INTERFACE                           ║
-║                                                                               ║
-║   abstract class Animal {                 interface Flyable {                 ║
-║       String name; ✓                          // No instance vars             ║
-║                                                                               ║
-║       Animal(String name) ✓                   // No constructor               ║
-║                                                                               ║
-║       void eat() {                            void fly();                     ║
-║           // Implementation ✓                 // Only declaration             ║
-║       }                                   }                                   ║
-║                                                                               ║
-║       abstract void sound();                                                  ║
-║   }                                                                           ║
-║                                                                               ║
-║   class Dog extends Animal ✓              class Bird implements Flyable ✓    ║
-║   // Single inheritance                   // Multiple: implements A, B ✓     ║
-║                                                                               ║
-║   USE WHEN:                               USE WHEN:                           ║
-║   - Shared code                           - Contract definition               ║
-║   - Need state                            - Multiple inheritance              ║
-║   - IS-A relationship                     - Unrelated classes                 ║
-║                                                                               ║
-╚═══════════════════════════════════════════════════════════════════════════════╝
+╔═══════════════════════════════════════════════════════════════════════════════════╗
+║                       ABSTRACT CLASS VS INTERFACE                                 ║
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                   ║
+║   ╔══════════════════════════════════╗  ╔══════════════════════════════════╗     ║
+║   ║        ABSTRACT CLASS            ║  ║          INTERFACE               ║     ║
+║   ╟──────────────────────────────────╢  ╟──────────────────────────────────╢     ║
+║   ║  abstract class Animal {         ║  ║  interface Flyable {             ║     ║
+║   ║                                  ║  ║                                  ║     ║
+║   ║    String name;        ✓ State   ║  ║    int MAX = 100;   (constants)  ║     ║
+║   ║                                  ║  ║                                  ║     ║
+║   ║    Animal(String n) {  ✓ Constr. ║  ║    // No constructor ✗          ║     ║
+║   ║      this.name = n;              ║  ║                                  ║     ║
+║   ║    }                             ║  ║    void fly();       (abstract)  ║     ║
+║   ║                                  ║  ║                                  ║     ║
+║   ║    void eat() {        ✓ Concrete║  ║    default void land() {         ║     ║
+║   ║      // implementation           ║  ║      // Java 8+                  ║     ║
+║   ║    }                             ║  ║    }                             ║     ║
+║   ║                                  ║  ║  }                               ║     ║
+║   ║    abstract void sound(); //abs  ║  ║                                  ║     ║
+║   ║  }                               ║  ║                                  ║     ║
+║   ╚══════════════════════════════════╝  ╚══════════════════════════════════╝     ║
+║                                                                                   ║
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║                             INHERITANCE SUPPORT                                   ║
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                   ║
+║   ABSTRACT CLASS (Single)                 INTERFACE (Multiple)                    ║
+║                                                                                   ║
+║   ╔══════════════╗                       ╔═══════════╗   ╔═══════════╗           ║
+║   ║   Animal     ║                       ║  Flyable  ║   ║ Swimmable ║           ║
+║   ╚══════╤═══════╝                       ╚═════╤═════╝   ╚═════╤═════╝           ║
+║          │ extends (only one!)                 │               │                  ║
+║          ▼                                     └───────┬───────┘                  ║
+║   ╔══════════════╗                                     │ implements              ║
+║   ║     Dog      ║                                     ▼                          ║
+║   ╚══════════════╝                             ╔═══════════════╗                  ║
+║                                                ║     Duck      ║                  ║
+║   class Dog extends Animal ✓                   ╚═══════════════╝                  ║
+║   class Cat extends Animal ✓                                                      ║
+║   class X extends A, B ✗ ERROR!                class Duck implements              ║
+║                                                    Flyable, Swimmable ✓           ║
+║                                                                                   ║
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║                            FEATURE COMPARISON                                     ║
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                   ║
+║   ┌───────────────────────┬─────────────────────┬─────────────────────┐          ║
+║   │       Feature         │   Abstract Class    │      Interface      │          ║
+║   ├───────────────────────┼─────────────────────┼─────────────────────┤          ║
+║   │ Keyword               │ abstract class      │ interface           │          ║
+║   │ Inheritance           │ extends (single)    │ implements (multi)  │          ║
+║   │ Variables             │ Any type            │ public static final │          ║
+║   │ Constructor           │ ✓ Yes               │ ✗ No                │          ║
+║   │ Method types          │ abstract + concrete │ abstract + default  │          ║
+║   │ Access modifiers      │ Any                 │ public only*        │          ║
+║   │ Multiple inheritance  │ ✗ No                │ ✓ Yes               │          ║
+║   │ Abstraction level     │ 0-100%              │ 100% (Java 7)       │          ║
+║   └───────────────────────┴─────────────────────┴─────────────────────┘          ║
+║                                           * Java 9+ allows private methods       ║
+║                                                                                   ║
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║                            WHEN TO USE WHAT?                                      ║
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                   ║
+║   USE ABSTRACT CLASS WHEN:                USE INTERFACE WHEN:                     ║
+║   ════════════════════════                ═══════════════════                     ║
+║                                                                                   ║
+║   ┌────────────────────────────┐          ┌────────────────────────────┐         ║
+║   │ ✓ Classes share code       │          │ ✓ Define a contract        │         ║
+║   │ ✓ Need instance variables  │          │ ✓ Multiple inheritance     │         ║
+║   │ ✓ Need constructors        │          │ ✓ Unrelated classes        │         ║
+║   │ ✓ True IS-A relationship   │          │ ✓ Define capabilities      │         ║
+║   └────────────────────────────┘          └────────────────────────────┘         ║
+║                                                                                   ║
+║   Example: Employee system                Example: Comparable, Serializable      ║
+║   - All employees share base code         - Any class can implement              ║
+║   - Need employee state                   - Just defines what to do              ║
+║                                                                                   ║
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║                           COMBINING BOTH                                          ║
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                   ║
+║   ╔═══════════════╗                                                               ║
+║   ║   Interface   ║  ←── Drivable (contract)                                      ║
+║   ╚═══════╤═══════╝                                                               ║
+║           │ implements                                                            ║
+║           ▼                                                                       ║
+║   ╔═══════════════╗                                                               ║
+║   ║ Abstract Class║  ←── Vehicle (shared implementation)                          ║
+║   ╚═══════╤═══════╝                                                               ║
+║           │ extends                                                               ║
+║           ▼                                                                       ║
+║   ╔═══════════════╗                                                               ║
+║   ║ Concrete Class║  ←── Car (specific implementation)                            ║
+║   ╚═══════════════╝                                                               ║
+║                                                                                   ║
+║   class Car extends Vehicle implements Drivable, Electric { }                     ║
+║                                                                                   ║
+╚═══════════════════════════════════════════════════════════════════════════════════╝
 ```

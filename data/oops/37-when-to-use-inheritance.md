@@ -487,32 +487,212 @@ Stable, well-designed, represents clear abstraction, follows Single Responsibili
 - IS-A? → Inheritance
 - HAS-A? → Composition
 
+---
+
+## Visual Summary
+
 ```
-╔═══════════════════════════════════════════════════════════════════════════════╗
-║                    WHEN TO USE INHERITANCE                                    ║
-╠═══════════════════════════════════════════════════════════════════════════════╣
-║                                                                               ║
-║   ✓ GOOD Examples:                                                            ║
-║   ════════════════                                                            ║
-║   Dog extends Animal           → Dog IS-A Animal ✓                            ║
-║   Circle extends Shape         → Circle IS-A Shape ✓                          ║
-║   Car extends Vehicle          → Car IS-A Vehicle ✓                           ║
-║   IOException extends Exception → True specialization ✓                       ║
-║                                                                               ║
-║   ❌ BAD Examples:                                                            ║
-║   ═══════════════                                                             ║
-║   Stack extends ArrayList      → Stack IS-NOT-A ArrayList ❌                  ║
-║   Employee extends Person      → Employee HAS-A Person ❌                     ║
-║   Car extends Engine           → Car HAS-AN Engine ❌                         ║
-║                                                                               ║
-║   Key Principle:                                                              ║
-║   ═══════════════                                                             ║
-║   "Favor Composition over Inheritance"                                        ║
-║                                                                               ║
-║   Inheritance → IS-A (tight coupling, less flexible)                          ║
-║   Composition → HAS-A (loose coupling, more flexible)                         ║
-║                                                                               ║
-║   Use inheritance for INTERFACE, composition for IMPLEMENTATION               ║
-║                                                                               ║
-╚═══════════════════════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                    WHEN TO USE INHERITANCE                                       ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+                              ╔═══════════════════╗
+                              ║  SHOULD I USE     ║
+                              ║  INHERITANCE?     ║
+                              ╚═════════╦═════════╝
+                                        ║
+                                        ▼
+                              ╔═══════════════════╗
+                              ║  ASK YOURSELF:    ║
+                              ║  "IS-A" or "HAS-A"║
+                              ╚═════════╦═════════╝
+                                        ║
+                  ╔═════════════════════╩═════════════════════╗
+                  ▼                                           ▼
+        ╔═══════════════════╗                       ╔═══════════════════╗
+        ║   TRUE IS-A?      ║                       ║   HAS-A?          ║
+        ║   Dog IS-A Animal ║                       ║   Car HAS Engine  ║
+        ╚═════════╦═════════╝                       ╚═════════╦═════════╝
+                  ▼                                           ▼
+        ╔═══════════════════╗                       ╔═══════════════════╗
+        ║  USE INHERITANCE  ║                       ║  USE COMPOSITION  ║
+        ║   (extends)       ║                       ║   (HAS-A field)   ║
+        ╚═══════════════════╝                       ╚═══════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                    DECISION FLOWCHART                                            ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║                      ┌────────────────────────────────┐                          ║
+║                      │     Need Code Reuse?           │                          ║
+║                      └───────────────┬────────────────┘                          ║
+║                                      ▼                                           ║
+║                      ┌────────────────────────────────┐                          ║
+║                      │  Is there a TRUE IS-A          │                          ║
+║                      │  relationship?                 │                          ║
+║                      │  (Child IS-A type of Parent)   │                          ║
+║                      └───────────────┬────────────────┘                          ║
+║                                      │                                           ║
+║                        ┌─────────────┴─────────────┐                             ║
+║                        ▼                           ▼                             ║
+║                       YES                         NO                             ║
+║                        │                           │                             ║
+║                        ▼                           ▼                             ║
+║        ┌────────────────────────────┐  ┌────────────────────────────┐            ║
+║        │ Does child need ALL of     │  │   USE COMPOSITION          │            ║
+║        │ parent's behaviors?        │  │   (Not inheritance!)       │            ║
+║        └─────────────┬──────────────┘  └────────────────────────────┘            ║
+║                      │                                                           ║
+║           ┌──────────┴──────────┐                                                ║
+║           ▼                     ▼                                                ║
+║          YES                   NO                                                ║
+║           │                     │                                                ║
+║           ▼                     ▼                                                ║
+║  ┌────────────────────┐  ┌────────────────────┐                                  ║
+║  │ Is parent class    │  │  USE COMPOSITION   │                                  ║
+║  │ STABLE? (won't     │  │  (Inheritance      │                                  ║
+║  │ change often)      │  │   would break LSP) │                                  ║
+║  └─────────┬──────────┘  └────────────────────┘                                  ║
+║            │                                                                     ║
+║   ┌────────┴────────┐                                                            ║
+║   ▼                 ▼                                                            ║
+║  YES               NO                                                            ║
+║   │                 │                                                            ║
+║   ▼                 ▼                                                            ║
+║ ╔═════════════╗  ╔═════════════════════╗                                        ║
+║ ║    USE      ║  ║  USE COMPOSITION    ║                                        ║
+║ ║ INHERITANCE ║  ║  (Fragile base      ║                                        ║
+║ ╚═════════════╝  ║   class problem)    ║                                        ║
+║                  ╚═════════════════════╝                                        ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                    ✓ GOOD INHERITANCE EXAMPLES                                   ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║                        TRUE IS-A RELATIONSHIPS                        ║      ║
+║   ╠═══════════════════════════════════════════════════════════════════════╣      ║
+║   ║                                                                       ║      ║
+║   ║   ┌─────────────┐         ┌──────────────┐        ┌────────────────┐  ║      ║
+║   ║   │   Animal    │         │    Shape     │        │   Employee     │  ║      ║
+║   ║   └──────┬──────┘         └──────┬───────┘        └───────┬────────┘  ║      ║
+║   ║          │                       │                        │           ║      ║
+║   ║    ┌─────┼─────┐           ┌─────┼─────┐            ┌─────┼─────┐     ║      ║
+║   ║    ▼     ▼     ▼           ▼     ▼     ▼            ▼     ▼     ▼     ║      ║
+║   ║  Dog   Cat   Bird      Circle Rectangle     Manager Developer HR     ║      ║
+║   ║                              Triangle                                 ║      ║
+║   ║                                                                       ║      ║
+║   ║   Dog IS-A Animal ✓    Circle IS-A Shape ✓   Manager IS-A Employee ✓  ║      ║
+║   ║                                                                       ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+║   WHY THESE ARE GOOD:                                                            ║
+║   ═══════════════════                                                            ║
+║   ✓ True IS-A relationship (semantic meaning)                                    ║
+║   ✓ Child is a specialization of parent                                          ║
+║   ✓ All parent behaviors make sense for child                                    ║
+║   ✓ Liskov Substitution Principle (LSP) satisfied                                ║
+║   ✓ Supports polymorphism naturally                                              ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                    ❌ BAD INHERITANCE EXAMPLES                                   ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║                    WRONG IS-A (Code Reuse Only!)                      ║      ║
+║   ╠═══════════════════════════════════════════════════════════════════════╣      ║
+║   ║                                                                       ║      ║
+║   ║   ❌ Stack extends ArrayList                                          ║      ║
+║   ║      │                                                                ║      ║
+║   ║      └──► Stack IS-NOT-A ArrayList!                                   ║      ║
+║   ║           Just wants to reuse array functionality                     ║      ║
+║   ║           Exposes unwanted methods (add at index, etc.)               ║      ║
+║   ║                                                                       ║      ║
+║   ║   ❌ Car extends Engine                                               ║      ║
+║   ║      │                                                                ║      ║
+║   ║      └──► Car IS-NOT-A Engine!                                        ║      ║
+║   ║           Car HAS-A Engine (should use composition)                   ║      ║
+║   ║                                                                       ║      ║
+║   ║   ❌ Properties extends Hashtable                                     ║      ║
+║   ║      │                                                                ║      ║
+║   ║      └──► Real Java example of bad inheritance!                       ║      ║
+║   ║           Allows put(Object, Object) breaking String contract         ║      ║
+║   ║                                                                       ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+║   PROBLEMS WITH BAD INHERITANCE:                                                 ║
+║   ═══════════════════════════════                                                ║
+║   ✗ Violates LSP (Liskov Substitution Principle)                                 ║
+║   ✗ Exposes methods that shouldn't be available                                  ║
+║   ✗ Breaks encapsulation                                                         ║
+║   ✗ Creates tight coupling                                                       ║
+║   ✗ Leads to fragile base class problem                                          ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                    INHERITANCE CHECKLIST                                         ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   Before using inheritance, check ALL these boxes:                               ║
+║                                                                                  ║
+║   ┌──────────────────────────────────────────────────────────────────────────┐   ║
+║   │                                                                          │   ║
+║   │  □  "Child IS-A Parent" makes semantic sense                             │   ║
+║   │                                                                          │   ║
+║   │  □  Child needs ALL behaviors of parent (not just some)                  │   ║
+║   │                                                                          │   ║
+║   │  □  Child can substitute parent anywhere (LSP)                           │   ║
+║   │                                                                          │   ║
+║   │  □  Parent class is stable (won't change frequently)                     │   ║
+║   │                                                                          │   ║
+║   │  □  You actually need polymorphism                                       │   ║
+║   │                                                                          │   ║
+║   │  □  The inheritance hierarchy is shallow (not deep)                      │   ║
+║   │                                                                          │   ║
+║   └──────────────────────────────────────────────────────────────────────────┘   ║
+║                                                                                  ║
+║   If ANY box is unchecked → Consider COMPOSITION instead!                        ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                    INHERITANCE vs COMPOSITION                                    ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ┌─────────────────────┬──────────────────────┬──────────────────────┐          ║
+║   │      ASPECT         │    INHERITANCE       │    COMPOSITION       │          ║
+║   ├─────────────────────┼──────────────────────┼──────────────────────┤          ║
+║   │  Relationship       │  IS-A                │  HAS-A               │          ║
+║   ├─────────────────────┼──────────────────────┼──────────────────────┤          ║
+║   │  Coupling           │  Tight               │  Loose               │          ║
+║   ├─────────────────────┼──────────────────────┼──────────────────────┤          ║
+║   │  Flexibility        │  Less (compile-time) │  More (runtime)      │          ║
+║   ├─────────────────────┼──────────────────────┼──────────────────────┤          ║
+║   │  Polymorphism       │  Built-in            │  Via interfaces      │          ║
+║   ├─────────────────────┼──────────────────────┼──────────────────────┤          ║
+║   │  Code Reuse         │  Through hierarchy   │  Through delegation  │          ║
+║   ├─────────────────────┼──────────────────────┼──────────────────────┤          ║
+║   │  Testing            │  Harder              │  Easier (can mock)   │          ║
+║   └─────────────────────┴──────────────────────┴──────────────────────┘          ║
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║                                                                       ║      ║
+║   ║   GOLDEN RULE: "Favor Composition over Inheritance"                   ║      ║
+║   ║                                                                       ║      ║
+║   ║   Use inheritance ONLY when you have a TRUE IS-A relationship         ║      ║
+║   ║   and need polymorphic behavior. Otherwise, use composition!          ║      ║
+║   ║                                                                       ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
 ```

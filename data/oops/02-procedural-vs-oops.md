@@ -2,9 +2,24 @@
 
 ## Concept Introduction
 
-Imagine tum **khana banana** chahte ho. **Procedural way**: Pehle sabzi kato, phir masala daalo, phir pakao - **step-by-step instructions**. **OOPs way**: Tumhare paas ek **cook object** hai jisko tum kehte ho "Make Biryani" aur wo sab kuch internally handle kar leta hai. Procedural mein **"HOW to do"** focus hai, OOPs mein **"WHAT to do"** focus hai.
+**English definition**
 
-**Procedural = Step-by-step functions | OOPs = Objects with behaviors**
+Procedural programming organizes a program as a sequence of steps and functions that operate on shared data. Object-Oriented Programming (OOP) models a program as a collection of interacting objects that bundle their own data and the operations on that data. Procedural focuses on "how" to perform tasks; OOP focuses on the entities (objects) that perform tasks.
+
+**Real-life example (English)**
+
+- Procedural: Think of a recipe. Step 1: chop vegetables. Step 2: add spices. Step 3: cook. You follow a list of instructions to get the result.
+- OOP: Think of a kitchen appliance (a smart cooker) that exposes a `makeBiryani()` command. You call that command and the appliance handles chopping, adding spices and cooking internally.
+
+**Hinglish / simple analogy**
+
+Socho tum khana banana chahte ho. Procedural tareeka yeh hai ki tum khud step-by-step instructions follow karte ho — pehle sabzi kaatna, phir masala dalna, phir pakaana. Har step ek alag function jaisa hai aur tum define kar rahe ho "kaise" karna hai (HOW).
+
+OOPs tareeka thoda alag hai: tumhare paas ek `Cook` object hai jisme methods hote hain (`chop()`, `addSpices()`, `cook()`), aur ek high-level command `makeBiryani()` call karte hi woh object andar ke saare steps khud manage kar leta hai. Yahan tum bata rahe ho "kya chahiye" (WHAT) — object implementation ke peechhe logic chhupa deta hai.
+
+Benefits: OOPs mein code modular aur reusable hota hai — agar dusri recipe chahiye to naya object bana sakte ho ya existing `Cook` ko extend kar sakte ho. Procedural chote tasks ke liye seedha aur tez hota hai, par bade projects mein maintain karna mushkil ho sakta hai.
+
+**Procedural = Step-by-step instructions (HOW)  |  OOPs = Objects with behavior (WHAT)**
 
 ---
 
@@ -58,44 +73,37 @@ Procedural programming follows a top-down approach with emphasis on functions an
 
 ## Procedural Programming Example
 
-```c
-// C Language - Procedural Approach
-#include <stdio.h>
+```java
+public class BankProcedural {
+    public static int balance = 1000;                      
+    public static String accountHolder = "Rahul";
 
-// Global data - anyone can access
-int balance = 1000;
-char accountHolder[50] = "Rahul";
-
-// Functions operate on global data
-void deposit(int amount) {
-    balance = balance + amount;
-    printf("Deposited: %d\n", amount);
-}
-
-void withdraw(int amount) {
-    if (amount <= balance) {
-        balance = balance - amount;
-        printf("Withdrawn: %d\n", amount);
-    } else {
-        printf("Insufficient balance\n");
+    public static void deposit(int amount) {
+        balance = balance + amount;
+        System.out.println("Deposited: " + amount);
     }
-}
 
-void checkBalance() {
-    printf("Account Holder: %s\n", accountHolder);
-    printf("Balance: %d\n", balance);
-}
+    public static void withdraw(int amount) {
+        if (amount <= balance) {
+            balance = balance - amount;
+            System.out.println("Withdrawn: " + amount);
+        } else {
+            System.out.println("Insufficient balance");
+        }
+    }
 
-int main() {
-    checkBalance();
-    deposit(500);
-    withdraw(200);
-    checkBalance();
-    
-    // Problem: Anyone can directly modify data
-    balance = -5000; // Invalid but possible!
-    
-    return 0;
+    public static void checkBalance() {
+        System.out.println("Account Holder: " + accountHolder);
+        System.out.println("Balance: " + balance);
+    }
+
+    public static void main(String[] args) {
+        checkBalance();
+        deposit(500);
+        withdraw(200);
+        checkBalance();
+        balance = -5000; 
+    }
 }
 ```
 
@@ -111,20 +119,16 @@ int main() {
 ## OOPs Example
 
 ```java
-// Java - OOPs Approach
 class BankAccount {
-    // Private data - protected from outside access
-    private int balance;
+    private int balance;                                        // Private data - protected from outside access
     private String accountHolder;
     
-    // Constructor to initialize
-    public BankAccount(String name, int initialBalance) {
+    public BankAccount(String name, int initialBalance) {       // Constructor to initialize
         this.accountHolder = name;
         this.balance = initialBalance;
     }
     
-    // Public methods to interact with private data
-    public void deposit(int amount) {
+    public void deposit(int amount) {                          // Public methods to interact with private data
         if (amount > 0) {
             balance += amount;
             System.out.println("Deposited: " + amount);
@@ -145,8 +149,7 @@ class BankAccount {
         System.out.println("Balance: " + balance);
     }
     
-    // Getter for balance (controlled access)
-    public int getBalance() {
+    public int getBalance() {                                // Getter for balance (controlled access)
         return balance;
     }
 }
@@ -162,8 +165,9 @@ public class Main {
         
         // Cannot directly modify balance
         // account.balance = -5000; // ERROR! Private member
-        
         // Can only access through public methods
+
+
         System.out.println("Current Balance: " + account.getBalance());
     }
 }
@@ -177,128 +181,6 @@ public class Main {
 - Easy to maintain and modify
 
 ---
-
-## Detailed Comparison
-
-### 1. Data Security
-
-**Procedural**:
-```c
-int salary = 50000; // Global - anyone can access
-salary = -1000;     // Invalid but possible!
-```
-
-**OOPs**:
-```java
-class Employee {
-    private int salary = 50000; // Protected
-    
-    public void setSalary(int salary) {
-        if (salary > 0) {
-            this.salary = salary;
-        }
-    }
-}
-```
-
-### 2. Code Reusability
-
-**Procedural**:
-```c
-// Need to write separate functions for each account
-void depositAccount1(int amount) { }
-void depositAccount2(int amount) { }
-// Difficult to manage multiple accounts
-```
-
-**OOPs**:
-```java
-// Create multiple objects easily
-BankAccount acc1 = new BankAccount("Rahul", 1000);
-BankAccount acc2 = new BankAccount("Priya", 2000);
-BankAccount acc3 = new BankAccount("Amit", 1500);
-```
-
-### 3. Inheritance
-
-**Procedural**: Not supported
-
-**OOPs**:
-```java
-class Account {
-    protected int balance;
-    void deposit(int amount) { }
-}
-
-class SavingsAccount extends Account {
-    void addInterest() {
-        balance += balance * 0.05;
-    }
-}
-
-class CurrentAccount extends Account {
-    void chargeMaintenanceFee() {
-        balance -= 100;
-    }
-}
-```
-
-### 4. Polymorphism
-
-**Procedural**: Not supported
-
-**OOPs**:
-```java
-class Animal {
-    void sound() {
-        System.out.println("Animal sound");
-    }
-}
-
-class Dog extends Animal {
-    void sound() {
-        System.out.println("Bark");
-    }
-}
-
-class Cat extends Animal {
-    void sound() {
-        System.out.println("Meow");
-    }
-}
-
-// Same method name, different behavior
-Animal a;
-a = new Dog();
-a.sound(); // Bark
-a = new Cat();
-a.sound(); // Meow
-```
-
----
-
-## When to Use What?
-
-### Use Procedural When:
-- Small, simple programs
-- Script-like applications
-- Quick prototyping
-- Performance is critical (slightly faster)
-- Mathematical computations
-
-**Example**: Calculator, file conversion tool
-
-### Use OOPs When:
-- Large, complex applications
-- Need code reusability
-- Multiple developers working together
-- Need to model real-world entities
-- Long-term maintainability required
-
-**Example**: Banking system, E-commerce, Gaming
-
----
-
 ## Evolution: Why OOPs Emerged?
 
 ### Problems with Procedural (Large Projects):
@@ -360,29 +242,120 @@ Not always. For small, simple programs, procedural might be simpler and faster. 
 
 **Key**: OOPs emerged to solve problems of procedural programming in large-scale applications!
 
+---
+
+## Visual Summary
+
 ```
-╔═══════════════════════════════════════════════════════════════════════════════╗
-║                     PROCEDURAL VS OOPs                                        ║
-╠═══════════════════════════════════════════════════════════════════════════════╣
-║                                                                               ║
-║   PROCEDURAL                        OOPs                                      ║
-║   ═══════════                       ════                                      ║
-║                                                                               ║
-║   ┌─────────┐                    ┌──────────────┐                            ║
-║   │ Data    │                    │   OBJECT     │                            ║
-║   └─────────┘                    ├──────────────┤                            ║
-║       ↕                          │  Data        │                            ║
-║   ┌─────────┐                    │  Methods     │                            ║
-║   │Function1│                    └──────────────┘                            ║
-║   └─────────┘                                                                ║
-║   ┌─────────┐                    ┌──────────────┐                            ║
-║   │Function2│                    │   OBJECT     │                            ║
-║   └─────────┘                    ├──────────────┤                            ║
-║   ┌─────────┐                    │  Data        │                            ║
-║   │Function3│                    │  Methods     │                            ║
-║   └─────────┘                    └──────────────┘                            ║
-║                                                                               ║
-║  Separate entities           Bundled together                                ║
-║                                                                               ║
-╚═══════════════════════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                        PROCEDURAL VS OOPs                                        ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+     PROCEDURAL PROGRAMMING                    OBJECT-ORIENTED PROGRAMMING
+     ══════════════════════                    ═══════════════════════════
+
+    ╔═════════════════════╗                    ╔═════════════════════════╗
+    ║    GLOBAL DATA      ║                    ║        OBJECT 1         ║
+    ║  ┌───────────────┐  ║                    ║  ╔═════════════════╗    ║
+    ║  │ balance=1000  │  ║                    ║  ║  private data   ║    ║
+    ║  │ name="Rahul"  │  ║                    ║  ║  balance=1000   ║    ║
+    ║  └───────────────┘  ║                    ║  ╠═════════════════╣    ║
+    ╚═════════╦═══════════╝                    ║  ║ public methods  ║    ║
+              ║                                ║  ║ deposit()       ║    ║
+              ▼                                ║  ║ withdraw()      ║    ║
+    ╔═════════════════════╗                    ║  ╚═════════════════╝    ║
+    ║     FUNCTIONS       ║                    ╚═════════════════════════╝
+    ║  ┌───────────────┐  ║
+    ║  │ deposit()     │  ║                    ╔═════════════════════════╗
+    ║  │ withdraw()    │  ║                    ║        OBJECT 2         ║
+    ║  │ checkBalance()│  ║                    ║  ╔═════════════════╗    ║
+    ║  └───────────────┘  ║                    ║  ║  private data   ║    ║
+    ╚═════════════════════╝                    ║  ║  balance=2000   ║    ║
+                                               ║  ╠═════════════════╣    ║
+         Data exposed                          ║  ║ public methods  ║    ║
+         Anyone can modify                     ║  ║ deposit()       ║    ║
+                                               ║  ║ withdraw()      ║    ║
+                                               ║  ╚═════════════════╝    ║
+                                               ╚═════════════════════════╝
+
+                                                    Data protected
+                                                    Controlled access
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                        COMPARISON FLOWCHART                                      ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║                            ╔═══════════════╗                                     ║
+║                            ║    PROBLEM    ║                                     ║
+║                            ╚═══════╦═══════╝                                     ║
+║                                    ║                                             ║
+║              ╔═════════════════════╩═════════════════════╗                       ║
+║              ▼                                           ▼                       ║
+║     ╔════════════════════╗                    ╔════════════════════╗             ║
+║     ║    PROCEDURAL      ║                    ║       OOPs         ║             ║
+║     ╠════════════════════╣                    ╠════════════════════╣             ║
+║     ║ Break into         ║                    ║ Identify objects   ║             ║
+║     ║ functions          ║                    ║ & their behaviors  ║             ║
+║     ╚══════════╦═════════╝                    ╚══════════╦═════════╝             ║
+║                ▼                                         ▼                       ║
+║     ╔════════════════════╗                    ╔════════════════════╗             ║
+║     ║ Execute step       ║                    ║ Create classes     ║             ║
+║     ║ by step            ║                    ║ (blueprints)       ║             ║
+║     ╚══════════╦═════════╝                    ╚══════════╦═════════╝             ║
+║                ▼                                         ▼                       ║
+║     ╔════════════════════╗                    ╔════════════════════╗             ║
+║     ║ Functions modify   ║                    ║ Objects interact   ║             ║
+║     ║ global data        ║                    ║ through methods    ║             ║
+║     ╚══════════╦═════════╝                    ╚══════════╦═════════╝             ║
+║                ▼                                         ▼                       ║
+║     ╔════════════════════╗                    ╔════════════════════╗             ║
+║     ║     RESULT         ║                    ║     RESULT         ║             ║
+║     ║  Less secure       ║                    ║  Secure & modular  ║             ║
+║     ║  Hard to maintain  ║                    ║  Easy to maintain  ║             ║
+║     ╚════════════════════╝                    ╚════════════════════╝             ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                          FEATURE COMPARISON                                      ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║      FEATURE          PROCEDURAL              OOPs                               ║
+║   ═══════════════════════════════════════════════════════════════                ║
+║                                                                                  ║
+║   ╔═══════════════╗                                                              ║
+║   ║  APPROACH     ║    Top-Down    ────────►    Bottom-Up                        ║
+║   ╚═══════════════╝                                                              ║
+║                                                                                  ║
+║   ╔═══════════════╗                                                              ║
+║   ║  FOCUS        ║    Functions   ────────►    Objects                          ║
+║   ╚═══════════════╝                                                              ║
+║                                                                                  ║
+║   ╔═══════════════╗                                                              ║
+║   ║  DATA         ║    Global      ────────►    Encapsulated                     ║
+║   ╚═══════════════╝                                                              ║
+║                                                                                  ║
+║   ╔═══════════════╗                                                              ║
+║   ║  SECURITY     ║    Low         ────────►    High                             ║
+║   ╚═══════════════╝                                                              ║
+║                                                                                  ║
+║   ╔═══════════════╗                                                              ║
+║   ║  REUSABILITY  ║    Limited     ────────►    High (Inheritance)               ║
+║   ╚═══════════════╝                                                              ║
+║                                                                                  ║
+║   ╔═══════════════╗                                                              ║
+║   ║  INHERITANCE  ║    NO          ────────►    YES                              ║
+║   ╚═══════════════╝                                                              ║
+║                                                                                  ║
+║   ╔═══════════════╗                                                              ║
+║   ║  POLYMORPHISM ║    NO          ────────►    YES                              ║
+║   ╚═══════════════╝                                                              ║
+║                                                                                  ║
+║   ╔═══════════════╗                                                              ║
+║   ║  EXAMPLES     ║    C, Pascal   ────────►    Java, C++, Python                ║
+║   ╚═══════════════╝                                                              ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
 ```

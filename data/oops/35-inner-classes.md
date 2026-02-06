@@ -564,40 +564,227 @@ Encapsulation, logical grouping, access to outer class members, implementation h
 - Logical grouping
 - Event handling
 
+---
+
+## Visual Summary
+
 ```
-╔═══════════════════════════════════════════════════════════════════════════════╗
-║                          INNER CLASSES                                        ║
-╠═══════════════════════════════════════════════════════════════════════════════╣
-║                                                                               ║
-║   class Outer {                                                               ║
-║       private int x = 10;                                                     ║
-║                                                                               ║
-║       // 1. Member Inner Class                                                ║
-║       class Inner {                                                           ║
-║           void show() {                                                       ║
-║               System.out.println(x);  // Can access outer x                  ║
-║           }                                                                   ║
-║       }                                                                       ║
-║                                                                               ║
-║       // 2. Static Nested Class                                              ║
-║       static class StaticNested {                                             ║
-║           void show() {                                                       ║
-║               // Cannot access x directly                                     ║
-║           }                                                                   ║
-║       }                                                                       ║
-║                                                                               ║
-║       // 3. Local Inner Class (in method)                                    ║
-║       void method() {                                                         ║
-║           class LocalInner {                                                  ║
-║               // ...                                                          ║
-║           }                                                                   ║
-║       }                                                                       ║
-║   }                                                                           ║
-║                                                                               ║
-║   // 4. Anonymous Inner Class                                                ║
-║   Interface obj = new Interface() {                                           ║
-║       // Implementation                                                       ║
-║   };                                                                          ║
-║                                                                               ║
-╚═══════════════════════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                          INNER CLASSES                                           ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+                              ╔═══════════════════╗
+                              ║  WHAT IS          ║
+                              ║  INNER CLASS?     ║
+                              ╚═════════╦═════════╝
+                                        ║
+                                        ▼
+                    ╔═══════════════════════════════════════╗
+                    ║  A CLASS defined INSIDE another class ║
+                    ║  Can access outer class members       ║
+                    ║  (including private)                  ║
+                    ╚═══════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                      4 TYPES OF INNER CLASSES                                    ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║                         ╔═══════════════════════╗                                ║
+║                         ║    INNER CLASSES      ║                                ║
+║                         ╚═══════════╦═══════════╝                                ║
+║                                     ║                                            ║
+║      ╔══════════════════╦═══════════╩═══════════╦══════════════════╗             ║
+║      ▼                  ▼                       ▼                  ▼             ║
+║ ╔════════════╗   ╔════════════╗         ╔════════════╗     ╔════════════╗        ║
+║ ║   MEMBER   ║   ║   STATIC   ║         ║   LOCAL    ║     ║ ANONYMOUS  ║        ║
+║ ║   INNER    ║   ║   NESTED   ║         ║   INNER    ║     ║   INNER    ║        ║
+║ ╠════════════╣   ╠════════════╣         ╠════════════╣     ╠════════════╣        ║
+║ ║            ║   ║            ║         ║            ║     ║            ║        ║
+║ ║ Non-static ║   ║ Static     ║         ║ Inside     ║     ║ No name    ║        ║
+║ ║ Has outer  ║   ║ No outer   ║         ║ method/    ║     ║ One-time   ║        ║
+║ ║ reference  ║   ║ reference  ║         ║ block      ║     ║ use        ║        ║
+║ ║            ║   ║            ║         ║            ║     ║            ║        ║
+║ ╚════════════╝   ╚════════════╝         ╚════════════╝     ╚════════════╝        ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                    1. MEMBER INNER CLASS                                         ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║   class Outer {                                                       ║      ║
+║   ║       private int x = 10;                                             ║      ║
+║   ║                                                                       ║      ║
+║   ║       class Inner {            ←── Member Inner Class                 ║      ║
+║   ║           void display() {                                            ║      ║
+║   ║               System.out.println(x);  ←── Can access private x!       ║      ║
+║   ║           }                                                           ║      ║
+║   ║       }                                                               ║      ║
+║   ║   }                                                                   ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+║   HOW TO CREATE:                                                                 ║
+║   ═══════════════                                                                ║
+║   Outer outer = new Outer();                                                     ║
+║   Outer.Inner inner = outer.new Inner();   ←── Needs outer instance!             ║
+║   inner.display();                                                               ║
+║                                                                                  ║
+║   CHARACTERISTICS:                                                               ║
+║   ─────────────────                                                              ║
+║   ✓ Has implicit reference to outer class instance                               ║
+║   ✓ Can access ALL outer members (including private)                             ║
+║   ✓ Cannot have static members (except static final constants)                   ║
+║   ✓ Outer.this refers to outer class instance                                    ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                    2. STATIC NESTED CLASS                                        ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║   class Outer {                                                       ║      ║
+║   ║       private int x = 10;                                             ║      ║
+║   ║       private static int y = 20;                                      ║      ║
+║   ║                                                                       ║      ║
+║   ║       static class StaticNested {   ←── Static Nested Class           ║      ║
+║   ║           void display() {                                            ║      ║
+║   ║               // System.out.println(x);  ←── CANNOT access non-static ║      ║
+║   ║               System.out.println(y);     ←── CAN access static only   ║      ║
+║   ║           }                                                           ║      ║
+║   ║       }                                                               ║      ║
+║   ║   }                                                                   ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+║   HOW TO CREATE:                                                                 ║
+║   ═══════════════                                                                ║
+║   Outer.StaticNested nested = new Outer.StaticNested();  ←── NO outer instance!  ║
+║   nested.display();                                                              ║
+║                                                                                  ║
+║   CHARACTERISTICS:                                                               ║
+║   ─────────────────                                                              ║
+║   ✓ NO implicit reference to outer class                                         ║
+║   ✓ Can only access STATIC members of outer class                                ║
+║   ✓ Can have static and non-static members                                       ║
+║   ✓ Behaves like a regular top-level class (just scoped inside)                  ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                    3. LOCAL INNER CLASS                                          ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║   class Outer {                                                       ║      ║
+║   ║       void myMethod() {                                               ║      ║
+║   ║           final int num = 100;   ←── Must be final/effectively final  ║      ║
+║   ║                                                                       ║      ║
+║   ║           class LocalInner {     ←── Local Inner Class (in method)    ║      ║
+║   ║               void display() {                                        ║      ║
+║   ║                   System.out.println(num);  ←── Can access local var  ║      ║
+║   ║               }                                                       ║      ║
+║   ║           }                                                           ║      ║
+║   ║                                                                       ║      ║
+║   ║           LocalInner local = new LocalInner();                        ║      ║
+║   ║           local.display();                                            ║      ║
+║   ║       }                                                               ║      ║
+║   ║   }                                                                   ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+║   CHARACTERISTICS:                                                               ║
+║   ─────────────────                                                              ║
+║   ✓ Defined inside a method or block                                             ║
+║   ✓ Scope limited to the method/block                                            ║
+║   ✓ Can access final or effectively final local variables                        ║
+║   ✓ Can access outer class members                                               ║
+║   ✓ Cannot have access modifiers (not public, private, etc.)                     ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                    4. ANONYMOUS INNER CLASS                                      ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
+║   ║   // Anonymous class implementing interface                           ║      ║
+║   ║   Runnable runnable = new Runnable() {   ←── No class name!           ║      ║
+║   ║       @Override                                                       ║      ║
+║   ║       public void run() {                                             ║      ║
+║   ║           System.out.println("Running!");                             ║      ║
+║   ║       }                                                               ║      ║
+║   ║   };                                        ←── Note the semicolon!   ║      ║
+║   ║                                                                       ║      ║
+║   ║   // Anonymous class extending a class                                ║      ║
+║   ║   Animal dog = new Animal() {                                         ║      ║
+║   ║       @Override                                                       ║      ║
+║   ║       void sound() {                                                  ║      ║
+║   ║           System.out.println("Woof!");                                ║      ║
+║   ║       }                                                               ║      ║
+║   ║   };                                                                  ║      ║
+║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
+║                                                                                  ║
+║   CHARACTERISTICS:                                                               ║
+║   ─────────────────                                                              ║
+║   ✓ No name - defined and instantiated in one place                              ║
+║   ✓ One-time use only                                                            ║
+║   ✓ Can implement ONE interface OR extend ONE class                              ║
+║   ✓ Cannot have explicit constructors (no name!)                                 ║
+║   ✓ Perfect for event listeners, callbacks                                       ║
+║   ✓ Replaced by lambdas for functional interfaces (Java 8+)                      ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                    COMPARISON TABLE                                              ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║ ┌──────────────┬─────────────┬─────────────┬─────────────┬─────────────────┐     ║
+║ │   FEATURE    │   MEMBER    │   STATIC    │    LOCAL    │   ANONYMOUS     │     ║
+║ │              │   INNER     │   NESTED    │    INNER    │   INNER         │     ║
+║ ├──────────────┼─────────────┼─────────────┼─────────────┼─────────────────┤     ║
+║ │ Has Name     │     ✓       │      ✓      │      ✓      │      ❌         │     ║
+║ ├──────────────┼─────────────┼─────────────┼─────────────┼─────────────────┤     ║
+║ │ Outer Ref    │     ✓       │      ❌     │      ✓      │      ✓          │     ║
+║ ├──────────────┼─────────────┼─────────────┼─────────────┼─────────────────┤     ║
+║ │ Access       │ All outer   │ Static      │ Final local │ Final local +   │     ║
+║ │              │ members     │ only        │ + outer     │ outer           │     ║
+║ ├──────────────┼─────────────┼─────────────┼─────────────┼─────────────────┤     ║
+║ │ Can have     │     ❌      │      ✓      │      ❌     │      ❌         │     ║
+║ │ static       │             │             │             │                 │     ║
+║ ├──────────────┼─────────────┼─────────────┼─────────────┼─────────────────┤     ║
+║ │ Creation     │outer.new    │new Outer.   │Inside       │ new Interface(){│     ║
+║ │              │Inner()      │Static()     │method       │ }               │     ║
+║ └──────────────┴─────────────┴─────────────┴─────────────┴─────────────────┘     ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                    USE CASES                                                     ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   ╔═══════════════════╗  Use for: Helper class tightly coupled with outer       ║
+║   ║   MEMBER INNER    ║  Example: Iterator inside Collection class               ║
+║   ╚═══════════════════╝                                                          ║
+║                                                                                  ║
+║   ╔═══════════════════╗  Use for: Utility class, no outer dependency             ║
+║   ║   STATIC NESTED   ║  Example: Builder pattern (Person.Builder)               ║
+║   ╚═══════════════════╝                                                          ║
+║                                                                                  ║
+║   ╔═══════════════════╗  Use for: Implementation needed only in one method       ║
+║   ║   LOCAL INNER     ║  Example: Temporary helper in complex algorithm          ║
+║   ╚═══════════════════╝                                                          ║
+║                                                                                  ║
+║   ╔═══════════════════╗  Use for: One-time implementations, callbacks            ║
+║   ║   ANONYMOUS       ║  Example: Event listeners, Comparators, Runnables        ║
+║   ╚═══════════════════╝                                                          ║
+║                                                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
 ```

@@ -421,26 +421,93 @@ Compile-time checking to ensure method actually overrides parent method. Catches
 
 **Rules**: Same or covariant return, same or wider access, cannot override private/final/static
 
+## Visual Summary
+
 ```
-╔═══════════════════════════════════════════════════════════════╗
-║               METHOD OVERRIDING                               ║
-╠═══════════════════════════════════════════════════════════════╣
-║                                                               ║
-║   class Animal {                                              ║
-║     void sound() {                                            ║
-║       println("Animal sound");                                ║
-║     }                                                          ║
-║   }                                                            ║
-║                                                               ║
-║   class Dog extends Animal {                                  ║
-║     @Override                                                 ║
-║     void sound() {                 ← Same signature          ║
-║       println("Dog barks");        ← Different behavior      ║
-║     }                                                          ║
-║   }                                                            ║
-║                                                               ║
-║   Animal a = new Dog();                                       ║
-║   a.sound();  → "Dog barks" (Runtime decision!)               ║
-║                                                               ║
-╚═══════════════════════════════════════════════════════════════╝
+╔═══════════════════════════════════════════════════════════════════════════════════╗
+║                            METHOD OVERRIDING                                      ║
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                   ║
+║   CONCEPT: Child class provides specific implementation of parent's method       ║
+║                                                                                   ║
+║   ╔════════════════════════════════╗       ╔════════════════════════════════╗    ║
+║   ║         PARENT CLASS           ║       ║         CHILD CLASS            ║    ║
+║   ╟────────────────────────────────╢       ╟────────────────────────────────╢    ║
+║   ║  class Animal {                ║       ║  class Dog extends Animal {    ║    ║
+║   ║                                ║       ║                                ║    ║
+║   ║    void sound() {              ║       ║    @Override                   ║    ║
+║   ║      print("Generic sound");   ║──────▶║    void sound() {              ║    ║
+║   ║    }                           ║       ║      print("Woof Woof!");      ║    ║
+║   ║  }                             ║       ║    }                           ║    ║
+║   ╚════════════════════════════════╝       ║  }                             ║    ║
+║                                            ╚════════════════════════════════╝    ║
+║                                                                                   ║
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║                         DYNAMIC METHOD DISPATCH                                   ║
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                   ║
+║   Animal a = new Dog();     // Parent reference, Child object                     ║
+║   a.sound();                // Which method is called?                            ║
+║                                                                                   ║
+║       ┌──────────────────┐                                                        ║
+║       │   COMPILE TIME   │──────▶ Checks: Does Animal have sound()? ✓            ║
+║       └──────────────────┘                                                        ║
+║                │                                                                  ║
+║                ▼                                                                  ║
+║       ┌──────────────────┐                                                        ║
+║       │    RUN TIME      │──────▶ Checks: What is actual object type?            ║
+║       └──────────────────┘                 Object is Dog → Call Dog.sound()      ║
+║                │                                                                  ║
+║                ▼                                                                  ║
+║       ┌──────────────────┐                                                        ║
+║       │ OUTPUT: "Woof!"  │        (Runtime Polymorphism!)                        ║
+║       └──────────────────┘                                                        ║
+║                                                                                   ║
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║                              OVERRIDING RULES                                     ║
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                   ║
+║   ┌────────────────────────────────────────────────────────────────────────┐     ║
+║   │                           MUST HAVE                                    │     ║
+║   │  ✓ Same method name                                                    │     ║
+║   │  ✓ Same parameters (number, type, order)                               │     ║
+║   │  ✓ Same or covariant return type                                       │     ║
+║   │  ✓ IS-A relationship (inheritance)                                     │     ║
+║   └────────────────────────────────────────────────────────────────────────┘     ║
+║                                                                                   ║
+║   ACCESS MODIFIER RULES:                                                          ║
+║   ══════════════════════                                                          ║
+║                                                                                   ║
+║   private ◀──── default ◀──── protected ◀──── public                             ║
+║                        (Can only WIDEN, not narrow)                               ║
+║                                                                                   ║
+║   Parent: protected void show()                                                   ║
+║   Child:  public void show()     ✓ OK (widened)                                  ║
+║   Child:  private void show()    ✗ ERROR (narrowed)                              ║
+║                                                                                   ║
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║                           CANNOT OVERRIDE                                         ║
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                   ║
+║   ╔══════════════════╗   ╔══════════════════╗   ╔══════════════════╗             ║
+║   ║  private methods ║   ║  final methods   ║   ║  static methods  ║             ║
+║   ╟──────────────────╢   ╟──────────────────╢   ╟──────────────────╢             ║
+║   ║  Not inherited   ║   ║  Cannot modify   ║   ║  Method Hiding   ║             ║
+║   ║  (not visible)   ║   ║  (locked)        ║   ║  (not override)  ║             ║
+║   ╚══════════════════╝   ╚══════════════════╝   ╚══════════════════╝             ║
+║                                                                                   ║
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║                    OVERLOADING vs OVERRIDING                                      ║
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                   ║
+║   ┌─────────────────────┬─────────────────────┬─────────────────────┐            ║
+║   │      Feature        │     Overloading     │     Overriding      │            ║
+║   ├─────────────────────┼─────────────────────┼─────────────────────┤            ║
+║   │ Parameters          │    Different        │    Same             │            ║
+║   │ Inheritance needed  │    No               │    Yes              │            ║
+║   │ Polymorphism        │    Compile-time     │    Runtime          │            ║
+║   │ Binding             │    Static (Early)   │    Dynamic (Late)   │            ║
+║   └─────────────────────┴─────────────────────┴─────────────────────┘            ║
+║                                                                                   ║
+╚═══════════════════════════════════════════════════════════════════════════════════╝
 ```

@@ -739,4 +739,46 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// Detect folder from hash before init
+function detectFolderFromHash() {
+  const hash = location.hash ? location.hash.slice(1) : '';
+  if (!hash) return 'java'; // Default to java
+  
+  // Check if hash belongs to OOPs structure
+  if (typeof getOopsStructure === 'function') {
+    const oopsStructure = getOopsStructure();
+    for (const group of oopsStructure) {
+      if (group.items && group.items.includes(hash)) {
+        return 'oops';
+      }
+    }
+  }
+  
+  // Check if hash belongs to Java structure
+  if (typeof getJavaStructure === 'function') {
+    const javaStructure = getJavaStructure();
+    for (const group of javaStructure) {
+      if (group.items && group.items.includes(hash)) {
+        return 'java';
+      }
+    }
+  }
+  
+  return 'java'; // Default to java
+}
+
+// Set initial folder based on URL hash
+currentFolder = detectFolderFromHash();
+
+// Update UI to match detected folder
+if (currentFolder === 'oops') {
+  if (folderOopsBtn) folderOopsBtn.classList.add('active');
+  if (folderJavaBtn) folderJavaBtn.classList.remove('active');
+  if (brandEl) brandEl.textContent = 'OOPs Notes';
+} else {
+  if (folderJavaBtn) folderJavaBtn.classList.add('active');
+  if (folderOopsBtn) folderOopsBtn.classList.remove('active');
+  if (brandEl) brandEl.textContent = 'Java Notes';
+}
+
 init();
