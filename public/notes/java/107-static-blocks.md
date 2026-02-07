@@ -1,0 +1,3 @@
+# static blocks
+
+Content coming soon...

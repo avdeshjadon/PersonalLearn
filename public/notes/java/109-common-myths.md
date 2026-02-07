@@ -1,0 +1,3 @@
+# common myths
+
+Content coming soon...

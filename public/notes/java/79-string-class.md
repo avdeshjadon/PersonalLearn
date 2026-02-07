@@ -1,0 +1,3 @@
+# string class
+
+Content coming soon...

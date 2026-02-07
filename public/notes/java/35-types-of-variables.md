@@ -1,0 +1,3 @@
+# types of variables
+
+Content coming soon...
