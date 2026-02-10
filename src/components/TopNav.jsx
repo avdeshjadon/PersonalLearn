@@ -26,6 +26,12 @@ const TopNav = memo(({
           >
             <span>OOPs</span>
           </button>
+          <button
+            className={`folder-btn ${currentFolder === 'interview' ? 'active' : ''}`}
+            onClick={() => onFolderSwitch('interview')}
+          >
+            <span>Interview</span>
+          </button>
         </div>
         <div className="nav-actions">
           <button

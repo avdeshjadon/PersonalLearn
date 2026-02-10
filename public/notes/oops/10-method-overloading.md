@@ -44,12 +44,12 @@ Method overloading is a compile-time polymorphism feature where multiple methods
 
 ## Rules for Method Overloading
 
-1. ✅ **Same method name**
-2. ✅ **Different parameters** (number/type/order)
-3. ✅ **Return type** can be same or different
-4. ✅ **Access modifiers** can be different
-5. ✅ **Can throw different exceptions**
-6. ❌ **Only return type different** - NOT allowed
+1.  **Same method name**
+2.  **Different parameters** (number/type/order)
+3.  **Return type** can be same or different
+4.  **Access modifiers** can be different
+5.  **Can throw different exceptions**
+6.  **Only return type different** - NOT allowed
 
 ---
 
@@ -140,7 +140,7 @@ public class Main {
 
 ## Valid vs Invalid Overloading
 
-### ✅ Valid Examples
+###  Valid Examples
 
 ```java
 // Different number of parameters
@@ -160,7 +160,7 @@ int method(int a)
 double method(double a)
 ```
 
-### ❌ Invalid Examples
+###  Invalid Examples
 
 ```java
 // Only return type different - NOT ALLOWED!
@@ -184,24 +184,24 @@ void method(int num2)  // ERROR! Same signature
 class WhatsApp {
     // Send text message
     void sendMessage(String message) {
-        System.out.println("📱 Sending text: " + message);
+        System.out.println(" Sending text: " + message);
     }
     
     // Send image with caption
     void sendMessage(String imagePath, String caption) {
-        System.out.println("📷 Sending image: " + imagePath);
+        System.out.println(" Sending image: " + imagePath);
         System.out.println("Caption: " + caption);
     }
     
     // Send video
     void sendMessage(String videoPath, int durationSeconds) {
-        System.out.println("🎥 Sending video: " + videoPath);
+        System.out.println(" Sending video: " + videoPath);
         System.out.println("Duration: " + durationSeconds + "s");
     }
     
     // Send document
     void sendMessage(String docPath, double sizeMB, String type) {
-        System.out.println("📄 Sending " + type + ": " + docPath);
+        System.out.println(" Sending " + type + ": " + docPath);
         System.out.println("Size: " + sizeMB + " MB");
     }
 }
@@ -334,21 +334,21 @@ Yes! But JVM calls only `public static void main(String[] args)`.
 ║    ╠═══════════════════════════════════════════════════════════════════════╣     ║
 ║    ║                                                                       ║     ║
 ║    ║   ┌───────────────────────────────────────────────────────────────┐   ║     ║
-║    ║   │  1. Different NUMBER of parameters                           │   ║     ║
-║    ║   │     void method(int a)                                       │   ║     ║
-║    ║   │     void method(int a, int b)         ✓ VALID                │   ║     ║
+║    ║   │  1. Different NUMBER of parameters                            │   ║     ║
+║    ║   │     void method(int a)                                        │   ║     ║
+║    ║   │     void method(int a, int b)         ✓ VALID                 │   ║     ║
 ║    ║   └───────────────────────────────────────────────────────────────┘   ║     ║
 ║    ║                                                                       ║     ║
 ║    ║   ┌───────────────────────────────────────────────────────────────┐   ║     ║
-║    ║   │  2. Different TYPES of parameters                            │   ║     ║
-║    ║   │     void method(int a)                                       │   ║     ║
-║    ║   │     void method(double a)             ✓ VALID                │   ║     ║
+║    ║   │  2. Different TYPES of parameters                             │   ║     ║
+║    ║   │     void method(int a)                                        │   ║     ║
+║    ║   │     void method(double a)             ✓ VALID                 │   ║     ║
 ║    ║   └───────────────────────────────────────────────────────────────┘   ║     ║
 ║    ║                                                                       ║     ║
 ║    ║   ┌───────────────────────────────────────────────────────────────┐   ║     ║
-║    ║   │  3. Different ORDER of parameters                            │   ║     ║
-║    ║   │     void method(int a, String b)                             │   ║     ║
-║    ║   │     void method(String a, int b)      ✓ VALID                │   ║     ║
+║    ║   │  3. Different ORDER of parameters                             │   ║     ║
+║    ║   │     void method(int a, String b)                              │   ║     ║
+║    ║   │     void method(String a, int b)      ✓ VALID                 │   ║     ║
 ║    ║   └───────────────────────────────────────────────────────────────┘   ║     ║
 ║    ║                                                                       ║     ║
 ║    ╚═══════════════════════════════════════════════════════════════════════╝     ║
@@ -358,15 +358,15 @@ Yes! But JVM calls only `public static void main(String[] args)`.
 ║    ╠═══════════════════════════════════════════════════════════════════════╣     ║
 ║    ║                                                                       ║     ║
 ║    ║   ┌───────────────────────────────────────────────────────────────┐   ║     ║
-║    ║   │  1. Only RETURN TYPE different                               │   ║     ║
-║    ║   │     int method(int a)                                        │   ║     ║
-║    ║   │     double method(int a)              ✗ ERROR!               │   ║     ║
+║    ║   │  1. Only RETURN TYPE different                                │   ║     ║
+║    ║   │     int method(int a)                                         │   ║     ║
+║    ║   │     double method(int a)              ✗ ERROR!                │   ║     ║
 ║    ║   └───────────────────────────────────────────────────────────────┘   ║     ║
 ║    ║                                                                       ║     ║
 ║    ║   ┌───────────────────────────────────────────────────────────────┐   ║     ║
-║    ║   │  2. Only PARAMETER NAME different                            │   ║     ║
-║    ║   │     void method(int num1)                                    │   ║     ║
-║    ║   │     void method(int num2)             ✗ ERROR!               │   ║     ║
+║    ║   │  2. Only PARAMETER NAME different                             │   ║     ║
+║    ║   │     void method(int num1)                                     │   ║     ║
+║    ║   │     void method(int num2)             ✗ ERROR!                │   ║     ║
 ║    ║   └───────────────────────────────────────────────────────────────┘   ║     ║
 ║    ║                                                                       ║     ║
 ║    ╚═══════════════════════════════════════════════════════════════════════╝     ║

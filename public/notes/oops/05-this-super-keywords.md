@@ -1,7 +1,7 @@
 # THIS AND SUPER KEYWORDS
 
 ## Concept Introduction
-**English:**
+**this** is a reference variable that refers to the current object and is used to differentiate between instance variables and parameters, call current class methods and constructors. **super** is a reference variable that refers to the immediate parent class object and is used to access parent class variables, methods, and constructors.
 
 - **this** refers to the current object — the instance whose code is running.
 - **super** refers to the immediate parent class's object — used to access members or constructors from the parent.
@@ -15,17 +15,6 @@ Why these keywords exist:
 Real-life example:
 
 - Imagine a family recipe where a child tweaks the parent's recipe. The child can say "I will make it this way" (`this`) but still refer to the parent's original recipe (`super`) to reuse steps.
-
-
-
-**Hinglish:**
-
-- **this** aur **super** Java ke do important keywords hain jo object references provide karte hain:
-  - **this** = Current object ka reference (apna instance)
-  - **super** = Parent class ka reference (parent/ancestor ka instance)
-
-Real-life example: **"Main yeh kar raha hoon" (this)** vs **"Mera baap yeh karta tha" (super)**
-
 
 ---
 
@@ -89,7 +78,11 @@ class Student {
 
 ## THIS Keyword
 
+The `this` keyword is a reference to the current object — the instance whose code is executing. Use `this` when you need to explicitly refer to instance fields or methods of that object, especially when local variables or parameters shadow instance names. `this` cannot be used in static contexts because static members belong to the class, not an instance.
+
 ### 1. Distinguish between Instance Variable and Parameter
+
+When a constructor or method has a parameter with the same name as an instance variable, the parameter shadows the field. Prefix the field with `this.` to refer to the instance variable and avoid ambiguity. This makes assignments like `this.name = name` unambiguous: the left side is the object's field, the right side is the parameter value.
 
 ```java
 class Student {
@@ -110,6 +103,8 @@ class Student {
 
 ### 2. Call Current Class Method
 
+`this.method()` invokes an instance method on the same object. It's equivalent to calling the method without `this`, but using `this` can improve readability and emphasize that the call is on the current instance. It also makes fluent APIs and callbacks clearer.
+
 ```java
 class Calculator {
     void add(int a, int b) {
@@ -124,6 +119,8 @@ class Calculator {
 ```
 
 ### 3. Constructor Chaining with this()
+
+`this(...)` calls another constructor of the same class. Use it to centralize initialization logic and avoid duplicate code. The call to `this(...)` must be the first statement in a constructor. Chaining constructors improves maintainability by routing construction through fewer entry points.
 
 ```java
 class Employee {
@@ -147,9 +144,11 @@ class Employee {
 }
 ```
 
-**Note**: `this()` must be first statement!
+**Note**: `this()` must be the first statement in a constructor.
 
 ### 4. Return Current Object
+
+Returning `this` from a method enables method chaining (a fluent API). This is useful when multiple setters or operations should be invoked in a single expression, improving readability for callers.
 
 ```java
 class Student {
@@ -175,6 +174,8 @@ public class Main {
 
 ### 5. Pass Current Object as Argument
 
+You can pass `this` to another method or constructor when the callee needs a reference to the current instance (for callbacks, registration, or delegation). This is a common pattern when objects register themselves with managers or listeners.
+
 ```java
 class A {
     void display(A obj) {
@@ -191,7 +192,11 @@ class A {
 
 ## SUPER Keyword
 
+The `super` keyword refers to the immediate parent class's instance. Use `super` to access hidden parent fields, call overridden parent methods, or invoke the parent constructor. Like `this`, `super` cannot be used in static contexts. When calling a parent constructor, `super()` must be the first statement in the child constructor.
+
 ### 1. Access Parent Class Variable
+
+When a child class declares a field with the same name as a parent field, the child field hides the parent field. Use `super.fieldName` to explicitly refer to the parent class's field. This is useful when you need both values or want to show that you're intentionally accessing the parent's copy.
 
 ```java
 class Parent {
@@ -209,6 +214,8 @@ class Child extends Parent {
 ```
 
 ### 2. Call Parent Class Method
+
+`super.method()` invokes the parent class implementation of an overridden method. This lets a subclass extend or reuse the parent's behavior while adding its own logic — for example, calling `super.eat()` inside `Dog.eat()` to perform the base action and then add more specialised steps.
 
 ```java
 class Animal {
@@ -237,6 +244,8 @@ public class Main {
 ```
 
 ### 3. Constructor Chaining with super()
+
+`super(...)` calls a constructor in the parent class and is used to initialize the inherited part of an object. Always place `super(...)` as the first statement in the child constructor. Using `super` ensures parent fields are set up before the child adds its own initialization.
 
 ```java
 class Vehicle {
@@ -271,7 +280,7 @@ Vehicle constructor
 Car constructor
 ```
 
-**Note**: `super()` must be first statement!
+**Note**: `super()` must be the first statement!
 
 ---
 

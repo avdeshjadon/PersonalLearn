@@ -8,26 +8,6 @@ Jab ek **child** apne **parent** se property inherit karta hai, to yeh **inherit
 
 ---
 
-## Why This Concept Exists
-
-### Problem Without Different Types
-
-Agar sirf ek tarah ki inheritance hoti:
-- **Complex relationships** represent nahi kar paate
-- **Real-world scenarios** model nahi kar paate (jaise ek animal se multiple types derive hona)
-- **Code organization** proper nahi hota
-- **Flexibility** kam hoti
-
-### Solution: Multiple Types of Inheritance
-
-Different types se:
-- **Flexible** hierarchies bana sakte hain
-- **Real-world relationships** accurately model kar sakte hain
-- **Code reuse** multiple ways mein ho sakta hai
-- **Complex systems** ko systematically organize kar sakte hain
-
----
-
 ## Definitions
 
 ### Very Simple Definition
@@ -240,7 +220,7 @@ class Parent2 {
 }
 
 // ERROR: Cannot extend multiple classes
-class Child extends Parent1, Parent2 {  // ❌ Compilation Error
+class Child extends Parent1, Parent2 {  //  Compilation Error
     // Which show() should be inherited?
 }
 ```
@@ -316,7 +296,7 @@ class C extends A {
 }
 
 // ERROR: Cannot inherit from both B and C
-// class D extends B, C { }  // ❌ Not allowed
+// class D extends B, C { }  //  Not allowed
 ```
 
 ### Solution: Use Interfaces
@@ -422,11 +402,11 @@ public class Main {
 
 | Type | Diagram | Classes Involved | Supported in Java | Example |
 |------|---------|------------------|-------------------|---------|
-| **Single** | A→B | 1 Parent, 1 Child | ✅ Yes | Animal → Dog |
-| **Multilevel** | A→B→C | Chain (3+ levels) | ✅ Yes | Animal → Mammal → Dog |
-| **Hierarchical** | A→B,C,D | 1 Parent, Multiple Children | ✅ Yes | Animal → Dog, Cat, Cow |
-| **Multiple** | A,B→C | Multiple Parents, 1 Child | ❌ No (Classes), ✅ Yes (Interfaces) | Flyable, Swimmable → Duck |
-| **Hybrid** | Combination | Mix of above | ❌ No (Classes), ✅ Yes (Interfaces) | Vehicle + Electric + Fuel → HybridCar |
+| **Single** | A→B | 1 Parent, 1 Child |  Yes | Animal → Dog |
+| **Multilevel** | A→B→C | Chain (3+ levels) |  Yes | Animal → Mammal → Dog |
+| **Hierarchical** | A→B,C,D | 1 Parent, Multiple Children |  Yes | Animal → Dog, Cat, Cow |
+| **Multiple** | A,B→C | Multiple Parents, 1 Child |  No (Classes),  Yes (Interfaces) | Flyable, Swimmable → Duck |
+| **Hybrid** | Combination | Mix of above |  No (Classes),  Yes (Interfaces) | Vehicle + Electric + Fuel → HybridCar |
 
 ---
 
@@ -465,7 +445,7 @@ class C extends A {
 }
 
 // D inherits from B and C - which show()?
-// class D extends B, C { }  // ❌ ERROR
+// class D extends B, C { }  //  ERROR
 ```
 
 **Solution:** Java doesn't allow multiple inheritance through classes. Use interfaces instead.
@@ -549,24 +529,24 @@ Java mein **3 types** ki inheritance support hoti hai:
 ║                                                                                   ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                   ║
-║   3. HIERARCHICAL INHERITANCE        4. MULTIPLE INHERITANCE                     ║
+║   3. HIERARCHICAL INHERITANCE        4. MULTIPLE INHERITANCE                      ║
 ║   ═══════════════════════════        ═══════════════════════                      ║
 ║                                                                                   ║
-║         ╔═══════════════╗            ╔═══════════╗   ╔═══════════╗               ║
-║         ║    Animal     ║            ║  Parent1  ║   ║  Parent2  ║               ║
-║         ╚═══════╤═══════╝            ╚═════╤═════╝   ╚═════╤═════╝               ║
+║         ╔═══════════════╗            ╔═══════════╗   ╔═══════════╗                ║
+║         ║    Animal     ║            ║  Parent1  ║   ║  Parent2  ║                ║
+║         ╚═══════╤═══════╝            ╚═════╤═════╝   ╚═════╤═════╝                ║
 ║       ┌─────────┼─────────┐                │               │                      ║
 ║       │         │         │                └───────┬───────┘                      ║
 ║       ▼         ▼         ▼                        ▼                              ║
-║   ╔═══════╗ ╔═══════╗ ╔═══════╗            ╔═══════════════╗                     ║
-║   ║  Dog  ║ ║  Cat  ║ ║  Cow  ║            ║     Child     ║  ❌ NOT SUPPORTED   ║
-║   ╚═══════╝ ╚═══════╝ ╚═══════╝            ╚═══════════════╝     (Classes)       ║
+║   ╔═══════╗ ╔═══════╗ ╔═══════╗            ╔═══════════════╗                      ║
+║   ║  Dog  ║ ║  Cat  ║ ║  Cow  ║            ║     Child     ║   NOT SUPPORTED      ║
+║   ╚═══════╝ ╚═══════╝ ╚═══════╝            ╚═══════════════╝     (Classes)        ║
 ║                                                                                   ║
-║   One Parent → Multiple Children          Solution: Use INTERFACES ✓             ║
+║   One Parent → Multiple Children          Solution: Use INTERFACES ✓              ║
 ║                                                                                   ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                   ║
-║   5. HYBRID INHERITANCE              ⚠️  DIAMOND PROBLEM                         ║
+║   5. HYBRID INHERITANCE                DIAMOND PROBLEM                            ║
 ║   ═════════════════════              ════════════════════                         ║
 ║                                                                                   ║
 ║         ╔═══════════╗                        ╔═════╗                              ║
@@ -580,22 +560,22 @@ Java mein **3 types** ki inheritance support hoti hai:
 ║   ╚═════════╝ ╚═════════╝                  └───┬───┘                              ║
 ║                                                ▼                                  ║
 ║   Use: class + interfaces                  ╔═════╗                                ║
-║   for hybrid behavior                      ║  D  ║  ❓ AMBIGUITY!                ║
+║   for hybrid behavior                      ║  D  ║   AMBIGUITY!                   ║
 ║                                            ╚═════╝                                ║
 ║                                                                                   ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
 ║                         JAVA SUPPORT SUMMARY                                      ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                   ║
-║   ┌───────────────────┬─────────────┬─────────────┐                              ║
-║   │   Type            │   Classes   │  Interfaces │                              ║
-║   ├───────────────────┼─────────────┼─────────────┤                              ║
-║   │ Single            │     ✓       │      ✓      │                              ║
-║   │ Multilevel        │     ✓       │      ✓      │                              ║
-║   │ Hierarchical      │     ✓       │      ✓      │                              ║
-║   │ Multiple          │     ✗       │      ✓      │                              ║
-║   │ Hybrid            │     ✗       │      ✓      │                              ║
-║   └───────────────────┴─────────────┴─────────────┘                              ║
+║   ┌───────────────────┬─────────────┬─────────────┐                               ║
+║   │   Type            │   Classes   │  Interfaces │                               ║
+║   ├───────────────────┼─────────────┼─────────────┤                               ║
+║   │ Single            │     ✓       │      ✓      │                               ║
+║   │ Multilevel        │     ✓       │      ✓      │                               ║
+║   │ Hierarchical      │     ✓       │      ✓      │                               ║
+║   │ Multiple          │     ✗       │      ✓      │                               ║
+║   │ Hybrid            │     ✗       │      ✓      │                               ║
+║   └───────────────────┴─────────────┴─────────────┘                               ║
 ║                                                                                   ║
 ╚═══════════════════════════════════════════════════════════════════════════════════╝
 ```

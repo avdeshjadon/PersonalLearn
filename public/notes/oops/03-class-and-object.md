@@ -2,8 +2,6 @@
 
 ## Concept Introduction
 
-A precise, detailed definition:
-
 - **Class:** A class is a user-defined blueprint or template that specifies the structure (attributes/properties) and behavior (methods/functions) that objects created from it will have. It defines the data types, access levels, constructors, and the operations that an object can perform. A class itself is a logical concept — it describes what an object should contain and do, but it does not allocate memory for instance data until an object is created.
 
 - **Object:** An object is a concrete instance of a class. It is a runtime entity that occupies memory, holds actual values for the attributes defined by the class, and can invoke the methods declared in the class. Objects have identity (distinct references), state (current values of attributes), and behavior (methods they can perform).
@@ -15,14 +13,48 @@ Why this matters:
 
 Simple analogy and real-life examples:
 
-- **House blueprint vs House:** A `House` class describes rooms, number of windows, and methods like `openDoor()` or `turnOnLights()`. Each built house (e.g., `house1`, `house2`) is an object with its own color, owner and state.
-- **Car class:** `Car` defines properties such as `brand`, `model`, `color`, `year` and methods like `start()`, `accelerate()`, `brake()`. `maruti800` and `hondaCity` are objects (instances) of `Car` with their own property values.
-- **Student class:** `Student` might have `name`, `rollNo`, `marks` and methods such as `study()` and `displayInfo()`. `Rahul` and `Priya` are distinct objects of the `Student` class.
+- **House (blueprint vs built house)**
 
-Key differences (quick):
+    The `House` class is a blueprint: it describes what a house should have (rooms, windows) and what it can do (methods like `openDoor()` or `turnOnLights()`). When you create actual houses, each one is an object with its own values:
 
-- **Class**: Template, no per-instance memory, defines attributes & methods, written once.
-- **Object**: Instance, allocated in memory (heap), has its own values, can call class methods.
+    ```java
+    House house1 = new House();
+    house1.color = "Blue";
+    house1.owner = "Amit";
+    house1.openDoor();
+
+    House house2 = new House();
+    house2.color = "White";
+    ```
+
+    Key idea: `House` = template, `house1`/`house2` = concrete instances with their own state.
+
+- **Car (class vs instances)**
+
+    `Car` defines properties like `brand`, `model`, `color`, `year` and behaviors like `start()` or `brake()`. Different cars are objects built from the same class:
+
+    ```java
+    Car maruti800 = new Car("Maruti", "800", 2005);
+    Car hondaCity = new Car("Honda", "City", 2020);
+    maruti800.start();
+    ```
+
+    Each object stores its own property values even though the class defines the common structure.
+
+- **Student (class and students as objects)**
+
+    `Student` may have `name`, `rollNo`, `marks` and methods like `study()` and `displayInfo()`.
+
+    ```java
+    Student rahul = new Student("Rahul", 101, 85);
+    Student priya = new Student("Priya", 102, 92);
+    rahul.study();
+    priya.displayInfo();
+    ```
+
+    Here `rahul` and `priya` are separate objects created from the same `Student` blueprint.
+
+Simple takeaway: Class = blueprint (defines structure + behavior). Object = built item (has actual values and can act).
 
 When to use which concept:
 

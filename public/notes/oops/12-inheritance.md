@@ -2,6 +2,8 @@
 
 ## Concept Introduction
 
+Inheritance is an OOPs concept that allows a class to inherit fields and methods from another class. The class that inherits is called the subclass (derived class/child class), and the class being inherited from is called the superclass (base class/parent class). It promotes code reusability and establishes an "IS-A" relationship between classes.
+
 Imagine **Family Inheritance** - Beta apne **Baap ki property** inherit karta hai. Code mein bhi same concept - **child class parent ki properties aur methods ko inherit kar sakti hai**. Isse **code reusability** milti hai aur **duplicate code** se bachte hain.
 
 **Inheritance = Parent ka code Child mein automatically aa jata hai**
@@ -87,117 +89,6 @@ class Child extends Parent {
 ```
 
 **Keyword**: `extends`
-
----
-
-## Basic Example
-
-```java
-// Parent Class (Superclass)
-class Animal {
-    String name;
-    
-    void eat() {
-        System.out.println(name + " is eating");
-    }
-    
-    void sleep() {
-        System.out.println(name + " is sleeping");
-    }
-}
-
-// Child Class (Subclass)
-class Dog extends Animal {
-    void bark() {
-        System.out.println(name + " is barking");
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Dog dog = new Dog();
-        dog.name = "Tommy";
-        
-        // Inherited methods from Animal
-        dog.eat();      // Tommy is eating
-        dog.sleep();    // Tommy is sleeping
-        
-        // Own method
-        dog.bark();     // Tommy is barking
-    }
-}
-```
-
-**Dog ne Animal ki methods inherit kar li!**
-
----
-
-## Detailed Example
-
-```java
-// Parent Class
-class Vehicle {
-    String brand;
-    int wheels;
-    
-    void start() {
-        System.out.println(brand + " is starting...");
-    }
-    
-    void stop() {
-        System.out.println(brand + " is stopping...");
-    }
-    
-    void displayInfo() {
-        System.out.println("Brand: " + brand);
-        System.out.println("Wheels: " + wheels);
-    }
-}
-
-// Child Class 1
-class Car extends Vehicle {
-    int doors;
-    
-    void playMusic() {
-        System.out.println("Playing music in " + brand);
-    }
-}
-
-// Child Class 2
-class Bike extends Vehicle {
-    boolean hasCarrier;
-    
-    void wheelie() {
-        System.out.println(brand + " is doing a wheelie!");
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        // Car object
-        Car car = new Car();
-        car.brand = "Honda";     // Inherited from Vehicle
-        car.wheels = 4;          // Inherited from Vehicle
-        car.doors = 4;           // Own property
-        
-        car.start();             // Inherited method
-        car.displayInfo();       // Inherited method
-        car.playMusic();         // Own method
-        
-        System.out.println();
-        
-        // Bike object
-        Bike bike = new Bike();
-        bike.brand = "Royal Enfield";  // Inherited
-        bike.wheels = 2;               // Inherited
-        bike.hasCarrier = true;        // Own property
-        
-        bike.start();            // Inherited method
-        bike.wheelie();          // Own method
-        bike.stop();             // Inherited method
-    }
-}
-```
 
 ---
 
@@ -333,7 +224,7 @@ public class Main {
 **One child, multiple parents - NOT ALLOWED in Java**
 
 ```java
-// ❌ This will give ERROR
+//  This will give ERROR
 class Father { }
 class Mother { }
 
@@ -365,121 +256,69 @@ Combination of multiple types - not directly supported
 
 ---
 
-## Important Keywords
-
-### 1. super keyword
-
-```java
-class Parent {
-    int x = 10;
-    
-    void display() {
-        System.out.println("Parent display");
-    }
-}
-
-class Child extends Parent {
-    int x = 20;
-    
-    void display() {
-        System.out.println("Child display");
-    }
-    
-    void show() {
-        System.out.println("Child x: " + x);          // 20
-        System.out.println("Parent x: " + super.x);   // 10
-        
-        display();        // Child display
-        super.display();  // Parent display
-    }
-}
-```
-
-**super** is used to access parent class members.
-
-### 2. Constructor Chaining
-
-```java
-class Parent {
-    Parent() {
-        System.out.println("Parent constructor");
-    }
-}
-
-class Child extends Parent {
-    Child() {
-        super();  // Calls parent constructor (automatic)
-        System.out.println("Child constructor");
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Child c = new Child();
-    }
-}
-```
-
-**Output**:
-```
-Parent constructor
-Child constructor
-```
-
----
-
-## Method Overriding in Inheritance
-
-```java
-class Animal {
-    void sound() {
-        System.out.println("Animal makes sound");
-    }
-}
-
-class Dog extends Animal {
-    @Override
-    void sound() {
-        System.out.println("Dog barks");
-    }
-}
-
-class Cat extends Animal {
-    @Override
-    void sound() {
-        System.out.println("Cat meows");
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Animal a1 = new Dog();
-        a1.sound();  // Dog barks
-        
-        Animal a2 = new Cat();
-        a2.sound();  // Cat meows
-    }
-}
-```
-
----
-
 ## IS-A Relationship
 
-Inheritance represents **IS-A** relationship:
+### Definition
+**IS-A relationship** describes a type-of relationship between classes where the child class is a **specialized type** of the parent class. When class B extends class A, we say "B IS-A A".
+
+**Simple Definition**: Agar `Dog extends Animal` hai, toh `Dog IS-A Animal` - matlab Dog ek type ka Animal hai.
+
+**Technical Definition**: IS-A relationship is a unidirectional inheritance relationship that establishes a subtype-supertype hierarchy, where the subclass is considered a specialized version of the superclass and can be used anywhere the superclass is expected (Liskov Substitution Principle).
+
+---
+
+### How IS-A Works
 
 ```java
 class Animal { }
 class Dog extends Animal { }
 
-// Dog IS-A Animal ✅
-// Animal IS-A Dog ❌
+//  Dog IS-A Animal (CORRECT - Dog is a type of Animal)
+//  Animal IS-A Dog (WRONG - Animal is NOT a type of Dog)
 ```
 
-**Examples**:
-- Car IS-A Vehicle ✅
-- Employee IS-A Person ✅
-- Circle IS-A Shape ✅
+**Direction matters!** IS-A relationship flows from **child → parent**, not parent → child.
+
+```
+    Animal (Superclass)
+       ▲
+       │ IS-A (Dog is a type of Animal)
+       │
+      Dog (Subclass)
+```
+
+---
+
+
+### Real-World Examples
+
+```java
+// Example 1: Vehicle Hierarchy
+class Vehicle { }
+class Car extends Vehicle { }
+class Bike extends Vehicle { }
+
+//  Car IS-A Vehicle
+//  Bike IS-A Vehicle
+//  Vehicle IS-A Car
+
+// Example 2: Employee Hierarchy
+class Person { }
+class Employee extends Person { }
+class Manager extends Employee { }
+
+//  Employee IS-A Person
+//  Manager IS-A Employee
+//  Manager IS-A Person (Transitive - through chain)
+
+// Example 3: Shape Hierarchy
+class Shape { }
+class Circle extends Shape { }
+class Rectangle extends Shape { }
+
+//  Circle IS-A Shape
+//  Rectangle IS-A Shape
+```
 
 ---
 
@@ -505,7 +344,7 @@ class Dog extends Animal { }
 
 ---
 
-## Access in Inheritance
+## Access Modifiers in Inheritance
 
 | Modifier | Inherited? | Accessible in Child? |
 |----------|-----------|---------------------|

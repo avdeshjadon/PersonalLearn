@@ -2,42 +2,11 @@
 
 ## Concept Introduction
 
+Abstract class is a class that is incomplete in nature. It can contain both abstract methods (methods without a body) and concrete methods (methods with a body). An object of an abstract class cannot be created, and when a class extends an abstract class, it must implement all the abstract methods of the abstract class.
+
 **Abstract class** ek aisi class hai jo **incomplete** hoti hai - isme **abstract methods** (bina body ke) ho sakte hain. Hum abstract class ka **object nahi bana sakte**, sirf usko **extend** karke use kar sakte hain.
 
 **Abstract Class = Incomplete class with abstract methods**
-
-Jaise ek **blueprint** jo pura complete nahi hai - child class ko complete karna padta hai.
-
----
-
-## Why This Concept Exists
-
-### Problem: Common Structure with Different Implementations
-
-```java
-class Animal {
-    void eat() {
-        // What to write here? Every animal eats differently
-    }
-}
-```
-
-**Issues:**
-- Cannot provide one implementation for all
-- Child class will override anyway
-- Dummy implementation needed
-
-### Solution: Abstract Class
-
-```java
-abstract class Animal {
-    abstract void eat();  // No body - child MUST implement
-    
-    void sleep() {  // Concrete method - common for all
-        System.out.println("Animal sleeping");
-    }
-}
-```
 
 ---
 
@@ -56,9 +25,32 @@ An abstract class is a class that is declared using the abstract keyword and can
 An abstract class is an incomplete class that serves as a base class in an inheritance hierarchy, declared with the abstract modifier. It can contain both abstract methods (declarations without implementations) and concrete methods (complete implementations), along with instance variables, constructors, and static members. Subclasses must provide implementations for all inherited abstract methods unless they are also declared abstract. Abstract classes support code reuse and establish contracts while allowing partial implementation.
 
 ### Interview Definition
-An abstract class is a class marked with the abstract keyword that cannot be instantiated. It can have: (1) Abstract methods - methods without body that must be implemented by subclasses, (2) Concrete methods - fully implemented methods, (3) Constructors (called via super()), (4) Instance variables, (5) Static members. Used when: (1) Classes share common behavior but have different implementations, (2) Want to provide partial implementation (0-100% abstract), (3) Need to maintain state through instance variables. Differences from interface: can have concrete methods, constructors, instance variables, and supports single inheritance only. Use abstract class for IS-A relationship with shared code.
 
----
+An **abstract class** is a class marked with the `abstract` keyword that **cannot be instantiated**. It can have:
+
+- **Abstract methods** – methods without a body that must be implemented by subclasses  
+- **Concrete methods** – fully implemented methods  
+- **Constructors** – called using `super()`  
+- **Instance variables**  
+- **Static members**
+
+**Used When**
+
+- Classes share **common behavior** but have **different implementations**  
+- You want to provide **partial implementation** (0–100% abstraction)  
+- You need to **maintain state** using instance variables  
+
+**Differences from Interface**
+
+- Can have **concrete methods**  
+- Can have **constructors**  
+- Can have **instance variables**  
+- Supports **single inheritance only**
+
+**When to Use**
+
+- Use an abstract class for an **IS-A relationship** where **code sharing** is required
+
 
 ## Creating Abstract Class
 
@@ -76,55 +68,6 @@ abstract class ClassName {
 }
 ```
 
-### Basic Example
-
-```java
-abstract class Animal {
-    // Abstract method
-    abstract void sound();
-    
-    // Concrete method
-    void sleep() {
-        System.out.println("Animal is sleeping");
-    }
-}
-
-class Dog extends Animal {
-    // Must implement abstract method
-    void sound() {
-        System.out.println("Dog barks: Woof Woof");
-    }
-}
-
-class Cat extends Animal {
-    void sound() {
-        System.out.println("Cat meows: Meow Meow");
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        // Animal animal = new Animal();  // ❌ Cannot instantiate
-        
-        Animal dog = new Dog();  // ✓ Can create Dog object
-        dog.sound();
-        dog.sleep();
-        
-        Animal cat = new Cat();
-        cat.sound();
-        cat.sleep();
-    }
-}
-```
-
-**Output:**
-```
-Dog barks: Woof Woof
-Animal is sleeping
-Cat meows: Meow Meow
-Animal is sleeping
-```
-
 ---
 
 ## Abstract Class Features
@@ -133,7 +76,7 @@ Animal is sleeping
 
 ```java
 abstract class Shape {
-    // Abstract methods - no implementation
+
     abstract double area();
     abstract double perimeter();
 }
@@ -145,7 +88,6 @@ class Circle extends Shape {
         this.radius = r;
     }
     
-    // Must implement all abstract methods
     double area() {
         return Math.PI * radius * radius;
     }
@@ -168,12 +110,10 @@ abstract class Vehicle {
         this.brand = brand;
     }
     
-    // Concrete method
     void displayBrand() {
         System.out.println("Brand: " + brand);
     }
     
-    // Abstract method
     abstract void start();
 }
 
@@ -196,7 +136,6 @@ class Car extends Vehicle {
 abstract class Animal {
     String name;
     
-    // Constructor in abstract class
     Animal(String name) {
         this.name = name;
         System.out.println("Animal constructor called");
@@ -207,7 +146,7 @@ abstract class Animal {
 
 class Dog extends Animal {
     Dog(String name) {
-        super(name);  // Calls abstract class constructor
+        super(name);  
         System.out.println("Dog constructor called");
     }
     
@@ -288,10 +227,8 @@ abstract class Employee {
         this.baseSalary = baseSalary;
     }
     
-    // Abstract method - different for each employee type
     abstract double calculateSalary();
     
-    // Concrete method - common for all
     void displayInfo() {
         System.out.println("ID: " + id);
         System.out.println("Name: " + name);
@@ -483,65 +420,8 @@ Use abstract class when:
 ## Visual Summary
 
 ```
+
 ╔══════════════════════════════════════════════════════════════════════════════════╗
-║                            ABSTRACT CLASS                                        ║
-╠══════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                  ║
-║                    ╔═══════════════════════════════════════════╗                 ║
-║                    ║        abstract class Animal {            ║                 ║
-║                    ║                                           ║                 ║
-║                    ║    // Instance variable                   ║                 ║
-║                    ║    String name;                           ║                 ║
-║                    ║                                           ║                 ║
-║                    ║    // Constructor                         ║                 ║
-║                    ║    Animal(String name) {                  ║                 ║
-║                    ║        this.name = name;                  ║                 ║
-║                    ║    }                                      ║                 ║
-║                    ║                                           ║                 ║
-║                    ║    // Abstract method (NO body)           ║                 ║
-║                    ║    abstract void sound();                 ║                 ║
-║                    ║                                           ║                 ║
-║                    ║    // Concrete method (HAS body)          ║                 ║
-║                    ║    void sleep() {                         ║                 ║
-║                    ║        System.out.println("Sleeping");    ║                 ║
-║                    ║    }                                      ║                 ║
-║                    ║        }                                  ║                 ║
-║                    ╚═══════════════════════════════════════════╝                 ║
-║                                       │                                          ║
-║                                       │                                          ║
-║               ╔═══════════════════════════════════════════════════╗              ║
-║               ║         new Animal() ──> ✗ COMPILE ERROR!         ║              ║
-║               ║       Cannot instantiate abstract class           ║              ║
-║               ╚═══════════════════════════════════════════════════╝              ║
-║                                       │                                          ║
-║                                       │ extends                                  ║
-║                                       ▼                                          ║
-║              ┌────────────────────────┴────────────────────────┐                 ║
-║              │                                                 │                 ║
-║              ▼                                                 ▼                 ║
-║   ╔═════════════════════════════╗           ╔═════════════════════════════╗      ║
-║   ║     class Dog extends       ║           ║     class Cat extends       ║      ║
-║   ║          Animal {           ║           ║          Animal {           ║      ║
-║   ║                             ║           ║                             ║      ║
-║   ║   Dog(String name) {        ║           ║   Cat(String name) {        ║      ║
-║   ║       super(name);          ║           ║       super(name);          ║      ║
-║   ║   }                         ║           ║   }                         ║      ║
-║   ║                             ║           ║                             ║      ║
-║   ║   // MUST implement         ║           ║   // MUST implement         ║      ║
-║   ║   void sound() {            ║           ║   void sound() {            ║      ║
-║   ║     print("Woof!");         ║           ║     print("Meow!");         ║      ║
-║   ║   }                         ║           ║   }                         ║      ║
-║   ║ }                           ║           ║ }                           ║      ║
-║   ╚═════════════════════════════╝           ╚═════════════════════════════╝      ║
-║              │                                                 │                 ║
-║              ▼                                                 ▼                 ║
-║   ╔═════════════════════════════╗           ╔═════════════════════════════╗      ║
-║   ║   new Dog("Buddy") ──> ✓    ║           ║   new Cat("Kitty") ──> ✓    ║      ║
-║   ╚═════════════════════════════╝           ╚═════════════════════════════╝      ║
-║                                                                                  ║
-╠══════════════════════════════════════════════════════════════════════════════════╣
-║                     ABSTRACT CLASS FEATURES                                      ║
-╠══════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                  ║
 ║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
 ║   ║                    WHAT ABSTRACT CLASS CAN HAVE                       ║      ║
@@ -573,38 +453,6 @@ Use abstract class when:
 ║   ║                                                                       ║      ║
 ║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
 ║                                                                                  ║
-╠══════════════════════════════════════════════════════════════════════════════════╣
-║                      ABSTRACTION LEVELS                                          ║
-╠══════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                  ║
-║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
-║   ║                                                                       ║      ║
-║   ║   0% ABSTRACT              50% ABSTRACT           100% ABSTRACT       ║      ║
-║   ║                                                                       ║      ║
-║   ║   abstract class A {       abstract class B {     abstract class C {  ║      ║
-║   ║       void m1() {}             void m1() {}           abstract m1();  ║      ║
-║   ║       void m2() {}             abstract m2();         abstract m2();  ║      ║
-║   ║   }                        }                      }                   ║      ║
-║   ║                                                                       ║      ║
-║   ║   All methods have         Mix of concrete        All methods are     ║      ║
-║   ║   implementation           and abstract           abstract            ║      ║
-║   ║                                                                       ║      ║
-║   ║   ────────────────────────────────────────────────────────────────    ║      ║
-║   ║   │▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓│░░░░░░░░░░│▓▓▓▓▓▓▓▓▓▓│░░░░░░░░░░░░░░░░░░░│   ║      ║
-║   ║   0%                      50%                    100%                 ║      ║
-║   ║   ▓ = Concrete methods    ░ = Abstract methods                        ║      ║
-║   ║                                                                       ║      ║
-║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
-║                                                                                  ║
-╠══════════════════════════════════════════════════════════════════════════════════╣
-║                    WHEN TO USE ABSTRACT CLASS                                    ║
-╠══════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                  ║
-║    ✓ Classes share common code (methods with implementation)                     ║
-║    ✓ Need to maintain state through instance variables                           ║
-║    ✓ Want to provide default behavior that can be overridden                     ║
-║    ✓ Have IS-A relationship with shared implementation                           ║
-║    ✓ Need constructors to initialize state                                       ║
-║                                                                                  ║
-╚══════════════════════════════════════════════════════════════════════════════════╝
+╚══════════════════════════════════════════════════════════════════════════════════╝ 
+
 ```

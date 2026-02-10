@@ -4,32 +4,27 @@
 
 **English definition**
 
-Procedural programming organizes a program as a sequence of steps and functions that operate on shared data. Object-Oriented Programming (OOP) models a program as a collection of interacting objects that bundle their own data and the operations on that data. Procedural focuses on "how" to perform tasks; OOP focuses on the entities (objects) that perform tasks.
+Procedural programming organizes a program as a sequence of steps and functions that operate on shared data. Object-Oriented Programming (OOP) models a program as a collection of interacting objects that bundle their own data and the operations on that data.
 
-**Real-life example (English)**
+**Real-life example**
 
-- Procedural: Think of a recipe. Step 1: chop vegetables. Step 2: add spices. Step 3: cook. You follow a list of instructions to get the result.
-- OOP: Think of a kitchen appliance (a smart cooker) that exposes a `makeBiryani()` command. You call that command and the appliance handles chopping, adding spices and cooking internally.
+- Procedural: Imagine following a recipe yourself — you do each step in order: chop vegetables, add spices, then cook. You tell the computer exactly how to do the job (step-by-step).
+- OOP: Imagine a smart cooker with a `makeBiryani()` button. You press it and the cooker does all the steps inside (chopping, adding spices, cooking). You only say what you want; the object handles how.
 
-**Hinglish / simple analogy**
+ **Hinglish / Simple Analogy**
 
-Socho tum khana banana chahte ho. Procedural tareeka yeh hai ki tum khud step-by-step instructions follow karte ho — pehle sabzi kaatna, phir masala dalna, phir pakaana. Har step ek alag function jaisa hai aur tum define kar rahe ho "kaise" karna hai (HOW).
+Socho tum khana banana chahte ho — do tarike hai:
 
-OOPs tareeka thoda alag hai: tumhare paas ek `Cook` object hai jisme methods hote hain (`chop()`, `addSpices()`, `cook()`), aur ek high-level command `makeBiryani()` call karte hi woh object andar ke saare steps khud manage kar leta hai. Yahan tum bata rahe ho "kya chahiye" (WHAT) — object implementation ke peechhe logic chhupa deta hai.
+- Procedural (step-by-step): Tum khud recipe follow karte ho. Example: "Sabzi kaato → Masala daalo → Pakaao." Yahan tum clearly bata rahe ho "kaise" karna hai. Har step ek function ki tarah hota hai.
 
-Benefits: OOPs mein code modular aur reusable hota hai — agar dusri recipe chahiye to naya object bana sakte ho ya existing `Cook` ko extend kar sakte ho. Procedural chote tasks ke liye seedha aur tez hota hai, par bade projects mein maintain karna mushkil ho sakta hai.
+- OOP (object-oriented): Tumhare paas ek `Cook` appliance hai jisme methods hain — `chop()`, `addSpices()`, `cook()`. Tum bas `makeBiryani()` call karte ho; appliance andar ke saare steps khud handle kar leta hai. Yahan tum sirf bolte ho "kya chahiye" aur object decide karta hai "kaise".
+
+Short Benefits:
+
+- OOP: Modular, reusable, aur maintainable — naye features (ya recipes) add karna aasan hai.
+- Procedural: Seedha aur fast for chhote tasks, lekin bade systems mein maintenance aur reuse mushkil ho sakta hai.
 
 **Procedural = Step-by-step instructions (HOW)  |  OOPs = Objects with behavior (WHAT)**
-
----
-
-## Why This Comparison Matters
-
-Understanding the difference helps you:
-- Choose the right paradigm for your project
-- Understand why Java is OOPs-based
-- Appreciate the evolution of programming
-- Write better, more maintainable code
 
 ---
 
@@ -179,23 +174,6 @@ public class Main {
 - Cannot directly corrupt data
 - Easy to reuse (create multiple accounts)
 - Easy to maintain and modify
-
----
-## Evolution: Why OOPs Emerged?
-
-### Problems with Procedural (Large Projects):
-1. **Global Data Corruption**: Any function could modify any data
-2. **No Data Hiding**: Everything accessible to everyone
-3. **Difficult to Maintain**: Changes in one function affect others
-4. **Limited Reusability**: Code duplication
-5. **No Natural Mapping**: Real-world entities hard to represent
-
-### OOPs Solutions:
-1. **Encapsulation**: Data protected, controlled access
-2. **Data Hiding**: Private members
-3. **Easy Maintenance**: Changes localized to classes
-4. **Inheritance**: Code reused through parent classes
-5. **Natural Modeling**: Objects represent real entities
 
 ---
 

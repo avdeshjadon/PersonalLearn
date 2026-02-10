@@ -14,7 +14,13 @@ import logger from '../utils/logger';
  * Custom hook for managing notes data and content
  */
 export const useNotes = (onGroupExpand) => {
-  const [currentFolder, setCurrentFolder] = useState('java');
+  // Restore folder from localStorage or default to 'java'
+  const [currentFolder, setCurrentFolder] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('currentFolder') || 'java';
+    }
+    return 'java';
+  });
   const [manifest, setManifest] = useState([]);
   const [ordered, setOrdered] = useState([]);
   const [structure, setStructure] = useState([]);
@@ -92,7 +98,11 @@ export const useNotes = (onGroupExpand) => {
       setOrdered(orderedData);
 
       const hash = window.location.hash.slice(1);
-      const initialSlug = hash || (orderedData.length > 0 ? orderedData[0].slug : '');
+      // Default to roadmap for each folder, fallback to first item
+      const defaultSlug = currentFolder === 'java' ? '00-java-roadmap' 
+                        : currentFolder === 'oops' ? '00-oops-roadmap'
+                        : (orderedData.length > 0 ? orderedData[0].slug : '');
+      const initialSlug = hash || defaultSlug;
 
       if (initialSlug) {
         setCurrentSlug(initialSlug);
@@ -175,6 +185,7 @@ export const useNotes = (onGroupExpand) => {
   const switchFolder = useCallback((folder) => {
     if (folder !== currentFolder) {
       setCurrentFolder(folder);
+      localStorage.setItem('currentFolder', folder);
       setCurrentSlug('');
       contentCache.current = {};
       window.location.hash = '';

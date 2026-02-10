@@ -290,7 +290,7 @@ public class Main {
         // Wrong PIN
         account.withdraw(1000, "9999");  // Incorrect PIN!
         
-        account.changePin("1234", "5678");
+        account.changePin("1234", "\5678");
         account.checkBalance("5678");
     }
 }
@@ -373,14 +373,14 @@ public double getBalance() {
 
 ```java
 class Person {
-    private String name;     // ✅ Private
-    private int age;         // ✅ Private
+    private String name;     //  Private
+    private int age;         //  Private
     
-    public String getName() { return name; }       // ✅ Getter
-    public void setName(String name) { this.name = name; }  // ✅ Setter
+    public String getName() { return name; }                //  Getter
+    public void setName(String name) { this.name = name; }  //  Setter
     
-    public int getAge() { return age; }            // ✅ Getter
-    public void setAge(int age) { this.age = age; }  // ✅ Setter
+    public int getAge() { return age; }              //  Getter
+    public void setAge(int age) { this.age = age; }  //  Setter
 }
 ```
 
@@ -415,7 +415,7 @@ class Student {
 
 ## Without vs With Encapsulation
 
-### ❌ Without Encapsulation:
+###  Without Encapsulation:
 ```java
 class Student {
     public String name;
@@ -427,7 +427,7 @@ s.name = "";           // Invalid but allowed
 s.age = -5;            // Invalid but allowed
 ```
 
-### ✅ With Encapsulation:
+### With Encapsulation:
 ```java
 class Student {
     private String name;
@@ -589,10 +589,10 @@ No! It's about:
 ║    ║                   PUBLIC METHOD (withdraw)                        ║         ║
 ║    ╠═══════════════════════════════════════════════════════════════════╣         ║
 ║    ║                                                                   ║         ║
-║    ║   if (amount > 0 && amount <= balance) {    ◄── VALIDATION       ║         ║
+║    ║   if (amount > 0 && amount <= balance) {    ◄── VALIDATION        ║         ║
 ║    ║       balance -= amount;                                          ║         ║
 ║    ║   } else {                                                        ║         ║
-║    ║       System.out.println("Invalid!");       ◄── PROTECTION       ║         ║
+║    ║       System.out.println("Invalid!");       ◄── PROTECTION        ║         ║
 ║    ║   }                                                               ║         ║
 ║    ║                                                                   ║         ║
 ║    ╚═══════════════════════════════════════════════════════════════════╝         ║

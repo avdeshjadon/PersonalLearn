@@ -1,16 +1,20 @@
 import { useState, useCallback, useRef } from 'react';
 import { useNotes, useTheme, useSidebar } from './hooks';
 import { 
-  Sidebar, 
+  Sidebar,
+  InterviewSidebar,
   TopNav, 
   Article, 
   FooterNav, 
   SiteFooter, 
-  Overlay 
+  Overlay,
+  TableOfContents 
 } from './components';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [interviewContent, setInterviewContent] = useState('');
+  const [interviewLoading, setInterviewLoading] = useState(false);
   const contentRef = useRef(null);
 
   // Custom hooks
@@ -46,32 +50,58 @@ function App() {
   }, [navigateTo, sidebar]);
 
   // Handle folder switch
-  const handleFolderSwitch = useCallback((folder) => {
+  const handleFolderSwitch = useCallback(async (folder) => {
+    if (folder === 'interview') {
+      setInterviewLoading(true);
+      try {
+        const response = await fetch('/notes/interview/00-interview-questions.md');
+        const text = await response.text();
+        const { marked } = await import('marked');
+        setInterviewContent(marked(text));
+      } catch (error) {
+        setInterviewContent('<p>Error loading interview content</p>');
+      }
+      setInterviewLoading(false);
+      sidebar.close();
+    }
     switchFolder(folder);
     sidebar.resetExpanded();
   }, [switchFolder, sidebar]);
 
   // Brand text based on current folder
-  const brandText = currentFolder === 'java' ? 'Java Notes' : 'OOPs Notes';
+  const brandText = currentFolder === 'java' ? 'Java Notes' : currentFolder === 'oops' ? 'OOPs Notes' : 'Interview Prep';
+
+  // Check if interview mode
+  const isInterviewMode = currentFolder === 'interview';
 
   return (
     <div className="app">
       {/* Overlay for mobile sidebar */}
       <Overlay isActive={sidebar.isOpen} onClick={sidebar.close} />
 
-      {/* Sidebar */}
-      <Sidebar
-        isOpen={sidebar.isOpen}
-        brandText={brandText}
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
-        structure={structure}
-        manifest={manifest}
-        expandedGroups={sidebar.expandedGroups}
-        currentSlug={currentSlug}
-        onGroupToggle={sidebar.toggleGroup}
-        onTopicClick={handleNavigate}
-      />
+      {/* Sidebar - hidden for interview */}
+      {!isInterviewMode && (
+        <Sidebar
+          isOpen={sidebar.isOpen}
+          brandText={brandText}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          structure={structure}
+          manifest={manifest}
+          expandedGroups={sidebar.expandedGroups}
+          currentSlug={currentSlug}
+          onGroupToggle={sidebar.toggleGroup}
+          onTopicClick={handleNavigate}
+        />
+      )}
+
+      {/* Interview Sidebar */}
+      {isInterviewMode && (
+        <InterviewSidebar
+          isOpen={sidebar.isOpen}
+          onClose={sidebar.close}
+        />
+      )}
 
       {/* Main Content */}
       <main className="content" ref={contentRef}>
@@ -85,18 +115,29 @@ function App() {
         />
 
         {/* Article Content */}
-        <Article content={articleContent} isLoading={isLoading} />
+        {isInterviewMode ? (
+          <Article content={interviewContent} isLoading={interviewLoading} />
+        ) : (
+          <Article content={articleContent} isLoading={isLoading} />
+        )}
 
-        {/* Footer Navigation */}
-        <FooterNav
-          prevItem={prevItem}
-          nextItem={nextItem}
-          onNavigate={handleNavigate}
-        />
+        {/* Footer Navigation - hidden for interview */}
+        {!isInterviewMode && (
+          <FooterNav
+            prevItem={prevItem}
+            nextItem={nextItem}
+            onNavigate={handleNavigate}
+          />
+        )}
 
         {/* Site Footer */}
         <SiteFooter />
       </main>
+
+      {/* Table of Contents - floating button (outside content for proper fixed positioning) */}
+      <TableOfContents 
+        content={isInterviewMode ? interviewContent : articleContent} 
+      />
     </div>
   );
 }

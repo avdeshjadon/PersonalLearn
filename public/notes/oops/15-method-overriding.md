@@ -2,6 +2,8 @@
 
 ## Concept Introduction
 
+Method overriding is a runtime polymorphism feature where a child class provides its own implementation of a method already defined in the parent class with the same signature (name, parameters, and return type). The overridden method is called based on the object type at runtime through dynamic method dispatch, enabling polymorphic behavior. It requires inheritance and uses the @Override annotation for clarity and compile-time checking.
+
 **Child class parent ki method ko apne tarike se implement karta hai**. Inheritance mein child parent ka method inherit karta hai, but agar child ko apna custom behavior chahiye, to wo **override** kar deta hai.
 
 **Method Overriding = Same Signature + Different Implementation = Runtime Polymorphism**
@@ -369,6 +371,20 @@ class Child extends Parent {
     static void method() { }  // Method hiding, not overriding!
 }
 ```
+
+## When to Use Method Overriding?
+
+When developing apps, if a functionality should have different implementations in different subclasses, we use method overriding. 
+
+Inheriting a method of the superclass and changing the implementation in the subclass is known as method overriding. To override a method, inheritance is required. When a subclass overrides the method of a superclass, the subclass must use the same method signature (return type or a covariant return type, method name, and parameters) and change the implementation. Using method overriding we can achieve runtime polymorphism.
+
+Hindi: "Jab application development mein kisi functionality ko alag implementation se likhna ho, tab method overriding ka use karte hain."
+
+The subclass can't override the below kinds of methods from the superclass:
+
+- **Static methods** — static methods are associated with the class and are not dynamically dispatched; declaring a static method with the same signature in a subclass hides the superclass method (method hiding), it does not override it.
+- **Final non-static methods** — a method declared `final` cannot be overridden because the keyword prevents changing the implementation, though it is inherited.
+- **Private non-static methods** — private methods are not visible to subclasses (they are not inherited in a way that allows overriding) because private access is restricted to the class where they are declared.
 
 ---
 

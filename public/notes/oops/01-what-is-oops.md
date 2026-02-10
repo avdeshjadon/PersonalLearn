@@ -4,7 +4,7 @@
 
 **Simple English definition**
 
-Object-Oriented Programming (OOP) is a style of programming where software is organized as a set of "objects." Each object groups related data (attributes/properties) and the functions that act on that data (methods). This structure improves clarity, reuse, and maintenance.
+Object-Oriented Programming is a programming paradigm based on the concept of objects which contain data (attributes) and code (methods). It emphasizes on data rather than functions and follows principles like encapsulation, inheritance, polymorphism, and abstraction.
 
 **Real-life example**
 
@@ -13,7 +13,7 @@ Object-Oriented Programming (OOP) is a style of programming where software is or
     - Behaviors (methods): `start()`, `accelerate()`, `brake()`.
     - In code: a `Car` class defines the blueprint; `myCar = new Car()` creates an instance (an object) with its own property values.
 
-**Hinglish explanation (simple)**
+**Hinglish explanation**
 
 Socho tum ek car bana rahe ho — car ke kuch parts jaise `engine`, `wheels`, aur `steering` hain (yeh data/properties hain) aur kuch kaam jaise `start karna` ya `break lagana` hain (yeh methods hain). OOPs mein in sab ko ek hi jagah (object) mein rakhte ho, jisse code samajhna, reuse karna aur maintain karna aasaan ho jaata hai.
 
@@ -46,9 +46,8 @@ public class BankProcedural {
 }
 ```
 
-### Solution: Object-Oriented Programming
+### Solution: Object-Oriented Programming (OOPs)
 
-OOPs mein:
 - Data aur functions **ek saath** bundle hote hain (objects mein)
 - Code **reusable** hai (inheritance)
 - Code **secure** hai (encapsulation)
@@ -112,7 +111,7 @@ Before we look at the side-by-side comparison, here's the core idea you should k
 - Procedural programming centers around procedures or routines (functions). Programs are built by writing sequences of instructions and organizing them into functions that operate on separate data.
 - Object-Oriented Programming (OOP) centers around objects that combine data and the operations that act on that data. OOP models problems as interacting entities (objects) which improves encapsulation, reuse, and maintainability in larger systems.
 
-In short: procedural code focuses on actions (what the program does), while OOP focuses on the things (objects) the program manipulates. Below table summarizes the practical differences and trade-offs.
+In short: procedural code focuses on actions (what the program does), while OOP focuses on the things (objects) the program manipulates.
 
 | Feature | Procedural | OOPs |
 |---------|-----------|------|
@@ -241,10 +240,10 @@ Procedural focuses on functions and procedures, while OOPs focuses on objects th
 ║     ╚══════╦═════╝          ╚══════╦═════╝           ╚══════╦═════╝              ║
 ║            ║                       ║                        ║                    ║
 ║            ▼                       ▼                        ▼                    ║
-║      Blueprint              Instance of               Encapsulation              ║
-║      Template               Class                     Inheritance                ║
-║      User-defined           Actual Entity             Polymorphism               ║
-║      Data Type              in Memory                 Abstraction                ║
+║         Blueprint              Instance of               Encapsulation           ║
+║         Template               Class                     Inheritance             ║
+║         User-defined           Actual Entity             Polymorphism            ║
+║         Data Type              in Memory                 Abstraction             ║
 ║                                                                                  ║
 ╚══════════════════════════════════════════════════════════════════════════════════╝
 ```
