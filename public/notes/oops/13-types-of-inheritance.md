@@ -19,12 +19,6 @@ Types of Inheritance refers to different ways in which a class can inherit prope
 ### College Exam Definition
 Types of Inheritance define the various patterns in which classes can inherit properties from parent classes. Java supports Single, Multilevel, and Hierarchical inheritance but does not support Multiple inheritance (through classes) to avoid ambiguity.
 
-### Technical Definition
-Inheritance types represent different structural patterns of class relationships in object-oriented programming. These include Single (one parent, one child), Multilevel (chain of inheritance), Hierarchical (one parent, multiple children), Multiple (multiple parents, one child - not supported in Java for classes), and Hybrid (combination of types).
-
-### Interview Definition
-Types of Inheritance describe the different ways classes can establish parent-child relationships. Java supports Single Inheritance (one parent class), Multilevel Inheritance (grandparent→parent→child), and Hierarchical Inheritance (one parent, many children). Multiple Inheritance through classes is not supported in Java to avoid the Diamond Problem, but can be achieved through interfaces. Hybrid is a combination of multiple types.
-
 ---
 
 ## 1. Single Inheritance

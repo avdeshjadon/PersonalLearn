@@ -2,12 +2,23 @@
 
 ## Concept Introduction
 
-Object-oriented programming mein **classes ke beech relationship** do tarah ki hoti hai: **IS-A** aur **HAS-A**. 
+Object-Oriented Programming (OOP) mein, jab hum classes design karte hain, to unke beech do tarah ke main relationships hote hain: **IS-A** aur **HAS-A**. Ye define karte hain ki ek class doosri class se kaise connected hai.
 
-**IS-A** = **Inheritance** (Dog **IS-A** Animal)
-**HAS-A** = **Composition/Aggregation** (Car **HAS-A** Engine)
+### 1. IS-A Relationship (Inheritance)
+**Definition:** It represents a parent-child relationship where one class inherits the properties and behaviors of another class.
+*   **Simple Meaning:** "Main wo hoon" (I am that).
+*   **Example:** Dog **IS-A** Animal. (Dog `extends` Animal).
+*   **Key:** Ye `extends` keyword se banta hai.
 
-Jab class **extend** karti hai to **IS-A**, aur jab class ke andar doosri class ka **object** hota hai to **HAS-A** relationship hoti hai.
+### 2. HAS-A Relationship (Association/Composition)
+**Definition:** It represents a usage relationship where one class contains an instance (object) of another class to use its functionality.
+*   **Simple Meaning:** "Mere paas wo hai" (I have that).
+*   **Example:** Car **HAS-A** Engine. (Car class ke andar `Engine` ka object hai).
+*   **Key:** Ye `new` keyword (object creation) se banta hai.
+
+> **Tricks to Remember:**
+> *   Agar "Child" aur "Parent" ka rishta ho -> **IS-A**
+> *   Agar "Owner" aur "Item" (ya Part) ka rishta ho -> **HAS-A**
 
 ---
 
@@ -59,9 +70,9 @@ IS-A relationship is implemented through inheritance (extends keyword) and repre
 **IS-A** = Child class **IS-A** type of Parent class
 
 ```
-Dog IS-A Animal  ✓
-Car IS-A Vehicle ✓
-Student IS-A Person ✓
+Dog IS-A Animal  
+Car IS-A Vehicle 
+Student IS-A Person 
 ```
 
 ### Implementation
@@ -120,9 +131,9 @@ public class Main {
 **HAS-A** = Class has an object of another class
 
 ```
-Car HAS-A Engine  ✓
-Student HAS-A Address ✓
-Book HAS-A Author ✓
+Car HAS-A Engine  
+Student HAS-A Address 
+Book HAS-A Author 
 ```
 
 ### Implementation
@@ -314,79 +325,6 @@ City: Mumbai, State: Maharashtra
 
 ---
 
-## Real-World Example 2: Vehicle System
-
-```java
-// Component classes for HAS-A
-class Engine {
-    void start() {
-        System.out.println("Engine started");
-    }
-}
-
-class Wheels {
-    int count;
-    
-    Wheels(int count) {
-        this.count = count;
-    }
-    
-    void rotate() {
-        System.out.println(count + " wheels rotating");
-    }
-}
-
-// Base class for IS-A
-class Vehicle {
-    String brand;
-    
-    Vehicle(String brand) {
-        this.brand = brand;
-    }
-    
-    void move() {
-        System.out.println(brand + " is moving");
-    }
-}
-
-// Car IS-A Vehicle, HAS-A Engine and Wheels
-class Car extends Vehicle {
-    Engine engine;    // HAS-A
-    Wheels wheels;    // HAS-A
-    
-    Car(String brand, Engine engine, Wheels wheels) {
-        super(brand);  // IS-A
-        this.engine = engine;
-        this.wheels = wheels;
-    }
-    
-    void start() {
-        engine.start();
-        wheels.rotate();
-        move();
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Engine e = new Engine();
-        Wheels w = new Wheels(4);
-        
-        Car car = new Car("Toyota", e, w);
-        car.start();
-    }
-}
-```
-
-**Output:**
-```
-Engine started
-4 wheels rotating
-Toyota is moving
-```
-
----
-
 ## When to Use What?
 
 ### Use IS-A (Inheritance) When:
@@ -399,10 +337,10 @@ Toyota is moving
 ```java
 // Good use of IS-A
 class Animal { }
-class Dog extends Animal { }  // ✓ Dog IS-A Animal
+class Dog extends Animal { }  //  Dog IS-A Animal
 
 class Shape { }
-class Circle extends Shape { }  // ✓ Circle IS-A Shape
+class Circle extends Shape { }  //  Circle IS-A Shape
 ```
 
 ### Use HAS-A (Composition) When:
@@ -415,47 +353,11 @@ class Circle extends Shape { }  // ✓ Circle IS-A Shape
 ```java
 // Good use of HAS-A
 class Car {
-    Engine engine;  // ✓ Car HAS-A Engine
+    Engine engine;  //  Car HAS-A Engine
 }
 
 class Student {
-    Address address;  // ✓ Student HAS-A Address
-}
-```
-
----
-
-## Common Mistakes
-
-### Mistake 1: Using IS-A When HAS-A is Needed
-
-```java
-// ❌ Wrong: Employee IS-A Address? No!
-class Employee extends Address {
-    String name;
-}
-
-// ✓ Correct: Employee HAS-A Address
-class Employee {
-    String name;
-    Address address;
-}
-```
-
-### Mistake 2: Using HAS-A When IS-A is Needed
-
-```java
-// ❌ Wrong: Missing polymorphism benefit
-class Zoo {
-    Dog dog;
-    Cat cat;
-    Cow cow;
-    // Need to add variable for each new animal
-}
-
-// ✓ Correct: Use IS-A for polymorphism
-class Zoo {
-    Animal[] animals;  // Can hold any Animal subtype
+    Address address;  //  Student HAS-A Address
 }
 ```
 
@@ -614,13 +516,13 @@ Composition provides loose coupling, better flexibility, runtime behavior change
 ║                                   ║                                              ║
 ║              ╔════════════════════╬════════════════════╗                         ║
 ║              ▼                    ▼                    ▼                         ║
-║    ╔══════════════════╗ ╔══════════════════╗ ╔══════════════════╗               ║
-║    ║       Dog        ║ ║       Cat        ║ ║      Bird        ║               ║
-║    ║   - breed        ║ ║   - color        ║ ║   - wingspan     ║               ║
-║    ║   + bark()       ║ ║   + meow()       ║ ║   + fly()        ║               ║
-║    ╚══════════════════╝ ╚══════════════════╝ ╚══════════════════╝               ║
+║    ╔══════════════════╗ ╔══════════════════╗ ╔══════════════════╗                ║
+║    ║       Dog        ║ ║       Cat        ║ ║      Bird        ║                ║
+║    ║   - breed        ║ ║   - color        ║ ║   - wingspan     ║                ║
+║    ║   + bark()       ║ ║   + meow()       ║ ║   + fly()        ║                ║
+║    ╚══════════════════╝ ╚══════════════════╝ ╚══════════════════╝                ║
 ║                                                                                  ║
-║      Dog IS-A Animal ✓       Cat IS-A Animal ✓       Bird IS-A Animal ✓          ║
+║      Dog IS-A Animal        Cat IS-A Animal        Bird IS-A Animal              ║
 ║                                                                                  ║
 ║   CODE:                                                                          ║
 ║   ═════                                                                          ║
@@ -635,12 +537,12 @@ Composition provides loose coupling, better flexibility, runtime behavior change
 ║                        HAS-A RELATIONSHIP (COMPOSITION)                          ║
 ╠══════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                  ║
-║    ╔══════════════════╗           ╔══════════════════╗                          ║
-║    ║      Engine      ║           ║      Wheel       ║                          ║
-║    ║  - horsepower    ║           ║  - size          ║                          ║
-║    ║  + start()       ║           ║  + rotate()      ║                          ║
-║    ║  + stop()        ║           ║  + brake()       ║                          ║
-║    ╚════════╦═════════╝           ╚═════════╦════════╝                          ║
+║    ╔══════════════════╗           ╔══════════════════╗                           ║
+║    ║      Engine      ║           ║      Wheel       ║                           ║
+║    ║  - horsepower    ║           ║  - size          ║                           ║
+║    ║  + start()       ║           ║  + rotate()      ║                           ║
+║    ║  + stop()        ║           ║  + brake()       ║                           ║
+║    ╚════════╦═════════╝           ╚═════════╦════════╝                           ║
 ║             │                               │                                    ║
 ║             │         contains (HAS-A)      │                                    ║
 ║             │                               │                                    ║
@@ -653,8 +555,8 @@ Composition provides loose coupling, better flexibility, runtime behavior change
 ║                   ║  + drive()       ║                                           ║
 ║                   ╚══════════════════╝                                           ║
 ║                                                                                  ║
-║      Car HAS-A Engine ✓               Car HAS-A Wheel ✓                          ║
-║      Car IS-NOT-A Engine ❌           Car IS-NOT-A Wheel ❌                       ║
+║      Car HAS-A Engine                Car HAS-A Wheel                             ║
+║      Car IS-NOT-A Engine            Car IS-NOT-A Wheel                           ║
 ║                                                                                  ║
 ║   CODE:                                                                          ║
 ║   ═════                                                                          ║
@@ -683,13 +585,13 @@ Composition provides loose coupling, better flexibility, runtime behavior change
 ║   ├────────────────────┼─────────────────────────┼─────────────────────────┤     ║
 ║   │  Coupling          │  Tight (inheritance)    │  Loose (composition)    │     ║
 ║   ├────────────────────┼─────────────────────────┼─────────────────────────┤     ║
-║   │  Polymorphism      │  ✓ Supports             │  ❌ No direct support   │     ║
+║   │  Polymorphism      │   Supports              │   No direct support     │     ║
 ║   ├────────────────────┼─────────────────────────┼─────────────────────────┤     ║
 ║   │  Flexibility       │  Less flexible          │  More flexible          │     ║
 ║   ├────────────────────┼─────────────────────────┼─────────────────────────┤     ║
 ║   │  Code Reuse        │  Through inheritance    │  Through delegation     │     ║
 ║   ├────────────────────┼─────────────────────────┼─────────────────────────┤     ║
-║   │  Runtime Change    │  ❌ Cannot change       │  ✓ Can change           │     ║
+║   │  Runtime Change    │   Cannot change         │   Can change            │     ║
 ║   ├────────────────────┼─────────────────────────┼─────────────────────────┤     ║
 ║   │  Example           │  Dog IS-A Animal        │  Car HAS-A Engine       │     ║
 ║   └────────────────────┴─────────────────────────┴─────────────────────────┘     ║
@@ -712,7 +614,7 @@ Composition provides loose coupling, better flexibility, runtime behavior change
 ║                                    │                                             ║
 ║                      ┌─────────────┴─────────────┐                               ║
 ║                      ▼                           ▼                               ║
-║                    YES                          NO                               ║
+║                     YES                          NO                              ║
 ║                      │                           │                               ║
 ║                      ▼                           ▼                               ║
 ║       ┌─────────────────────────┐   ┌─────────────────────────┐                  ║
@@ -725,10 +627,10 @@ Composition provides loose coupling, better flexibility, runtime behavior change
 ║         YES                 NO                                                   ║
 ║          │                   │                                                   ║
 ║          ▼                   ▼                                                   ║
-║   ╔══════════════╗   ╔══════════════╗                                           ║
-║   ║  USE IS-A    ║   ║  USE HAS-A   ║                                           ║
-║   ║ (Inheritance)║   ║(Composition) ║                                           ║
-║   ╚══════════════╝   ╚══════════════╝                                           ║
+║   ╔══════════════╗   ╔══════════════╗                                            ║
+║   ║  USE IS-A    ║   ║  USE HAS-A   ║                                            ║
+║   ║ (Inheritance)║   ║(Composition) ║                                            ║
+║   ╚══════════════╝   ╚══════════════╝                                            ║
 ║                                                                                  ║
 ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -738,29 +640,29 @@ Composition provides loose coupling, better flexibility, runtime behavior change
 ╠══════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                  ║
 ║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
-║   ║                     ✓ CORRECT                                         ║      ║
+║   ║                       CORRECT                                         ║      ║
 ║   ╠═══════════════════════════════════════════════════════════════════════╣      ║
 ║   ║                                                                       ║      ║
 ║   ║   IS-A (Inheritance):                                                 ║      ║
-║   ║   • Dog extends Animal        → Dog IS-A Animal ✓                     ║      ║
-║   ║   • Circle extends Shape      → Circle IS-A Shape ✓                   ║      ║
-║   ║   • Manager extends Employee  → Manager IS-A Employee ✓               ║      ║
+║   ║   • Dog extends Animal        → Dog IS-A Animal                       ║      ║
+║   ║   • Circle extends Shape      → Circle IS-A Shape                     ║      ║
+║   ║   • Manager extends Employee  → Manager IS-A Employee                 ║      ║
 ║   ║                                                                       ║      ║
 ║   ║   HAS-A (Composition):                                                ║      ║
-║   ║   • Car has Engine           → Car HAS-A Engine ✓                     ║      ║
-║   ║   • Computer has Processor   → Computer HAS-A Processor ✓             ║      ║
-║   ║   • Library has Book[]       → Library HAS-A Books ✓                  ║      ║
+║   ║   • Car has Engine           → Car HAS-A Engine                       ║      ║
+║   ║   • Computer has Processor   → Computer HAS-A Processor               ║      ║
+║   ║   • Library has Book[]       → Library HAS-A Books                    ║      ║
 ║   ║                                                                       ║      ║
 ║   ╚═══════════════════════════════════════════════════════════════════════╝      ║
 ║                                                                                  ║
 ║   ╔═══════════════════════════════════════════════════════════════════════╗      ║
-║   ║                     ❌ WRONG                                          ║      ║
+║   ║                             WRONG                                     ║      ║
 ║   ╠═══════════════════════════════════════════════════════════════════════╣      ║
 ║   ║                                                                       ║      ║
 ║   ║   Misusing IS-A:                                                      ║      ║
-║   ║   • Stack extends ArrayList   → Stack IS-NOT-A ArrayList ❌           ║      ║
-║   ║   • Car extends Engine        → Car IS-NOT-A Engine ❌                ║      ║
-║   ║   • Employee extends Address  → Employee IS-NOT-A Address ❌          ║      ║
+║   ║   • Stack extends ArrayList   → Stack IS-NOT-A ArrayList              ║      ║
+║   ║   • Car extends Engine        → Car IS-NOT-A Engine                   ║      ║
+║   ║   • Employee extends Address  → Employee IS-NOT-A Address             ║      ║
 ║   ║                                                                       ║      ║
 ║   ║   Should use HAS-A instead:                                           ║      ║
 ║   ║   • Stack HAS-A List (composition)                                    ║      ║

@@ -94,165 +94,22 @@ class Child extends Parent {
 
 ## Types of Inheritance in Java
 
+*For detailed explanations and code examples, see [`types-of-inheritance`](./13-types-of-inheritance.md).*
+
 ### 1. Single Inheritance
-**One parent, one child**
-
-```java
-class A {
-    void methodA() {
-        System.out.println("Method A");
-    }
-}
-
-class B extends A {
-    void methodB() {
-        System.out.println("Method B");
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        B obj = new B();
-        obj.methodA();  // From A
-        obj.methodB();  // From B
-    }
-}
-```
-
-```
-    A (Parent)
-    ↑
-    |
-    B (Child)
-```
+A single child class inherits from one parent class (Supported).
 
 ### 2. Multilevel Inheritance
-**Chain of inheritance**
-
-```java
-class GrandParent {
-    void grandParentMethod() {
-        System.out.println("GrandParent method");
-    }
-}
-
-class Parent extends GrandParent {
-    void parentMethod() {
-        System.out.println("Parent method");
-    }
-}
-
-class Child extends Parent {
-    void childMethod() {
-        System.out.println("Child method");
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Child obj = new Child();
-        obj.grandParentMethod();  // From GrandParent
-        obj.parentMethod();       // From Parent
-        obj.childMethod();        // From Child
-    }
-}
-```
-
-```
-    GrandParent
-        ↑
-        |
-      Parent
-        ↑
-        |
-      Child
-```
+A chain of inheritance where a child class becomes a parent for another class (Supported).
 
 ### 3. Hierarchical Inheritance
-**One parent, multiple children**
+Multiple child classes inherit from a single parent class (Supported).
 
-```java
-class Animal {
-    void eat() {
-        System.out.println("Animal is eating");
-    }
-}
+### 4. Multiple Inheritance (NOT Supported via Classes)
+A child inherits from multiple parents. Java avoids this due to ambiguity (Diamond Problem), but supports it via **Interfaces**.
 
-class Dog extends Animal {
-    void bark() {
-        System.out.println("Dog barks");
-    }
-}
-
-class Cat extends Animal {
-    void meow() {
-        System.out.println("Cat meows");
-    }
-}
-
-class Cow extends Animal {
-    void moo() {
-        System.out.println("Cow moos");
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Dog dog = new Dog();
-        dog.eat();   // Inherited
-        dog.bark();  // Own
-        
-        Cat cat = new Cat();
-        cat.eat();   // Inherited
-        cat.meow();  // Own
-        
-        Cow cow = new Cow();
-        cow.eat();   // Inherited
-        cow.moo();   // Own
-    }
-}
-```
-
-```
-       Animal
-      /  |  \
-     /   |   \
-   Dog  Cat  Cow
-```
-
-### 4. Multiple Inheritance (NOT SUPPORTED via classes)
-**One child, multiple parents - NOT ALLOWED in Java**
-
-```java
-//  This will give ERROR
-class Father { }
-class Mother { }
-
-class Child extends Father, Mother {  // ERROR!
-}
-```
-
-**Why not allowed?** Diamond Problem (ambiguity)
-
-**Solution**: Use Interfaces
-
-```java
-interface Father {
-    void fatherMethod();
-}
-
-interface Mother {
-    void motherMethod();
-}
-
-class Child implements Father, Mother {
-    public void fatherMethod() { }
-    public void motherMethod() { }
-}
-```
-
-### 5. Hybrid Inheritance (NOT SUPPORTED via classes)
-Combination of multiple types - not directly supported
+### 5. Hybrid Inheritance (NOT Supported via Classes)
+A combination of two or more types of inheritance. Since Java does not support multiple inheritance with classes, hybrid inheritance is also restricted.
 
 ---
 
@@ -499,7 +356,7 @@ No! Private methods are not inherited, so cannot be overridden.
 ║      ╔═════════╗                   ╔═════════╗   ╔═════════╗                     ║
 ║      ║    A    ║                   ║    A    ║   ║    B    ║                     ║
 ║      ╚════╦════╝                   ╚════╦════╝   ╚════╦════╝                     ║
-║     ╔═════╩═════╗                       ╚═════╦═════╝                            ║
+║     ╔═════╩═════╗                       ╚═════╦═══════╝                          ║
 ║     ║           ║                             ║                                  ║
 ║     ▼           ▼                             ▼                                  ║
 ║ ╔═════════╗ ╔═════════╗                  ╔═════════╗                             ║

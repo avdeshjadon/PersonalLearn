@@ -2,6 +2,8 @@
 
 ## Concept Introduction
 
+Method hiding occurs when a child class defines a static method with the same signature as a static method in the parent class. Unlike overriding, the method called depends on the reference type, not the object type.
+
 Java mein jab **child class** mein **parent class** ke **static method** ko same signature ke saath define karte hain, to ise **method hiding** kehte hain. Yeh **method overriding** se alag hai kyunki static methods **compile-time** par resolve hote hain, runtime par nahi.
 
 **Method Hiding = Static method ko child class mein redefine karna**
@@ -49,7 +51,11 @@ Method hiding is a mechanism where a subclass defines a static method with the s
 Method hiding is a compile-time binding mechanism in Java where a static method in a subclass has the same signature as a static method in the superclass. Since static methods belong to the class rather than instances, they cannot be overridden. The method invoked is determined by the reference type at compile-time, not the actual object type at runtime.
 
 ### Interview Definition
-Method hiding happens when a child class declares a static method with the same signature as a static method in the parent class. Key differences from overriding: (1) Only applies to static methods, (2) Resolved at compile-time (early binding) based on reference type, (3) Cannot use @Override annotation, (4) No polymorphic behavior. It's called "hiding" because the child class's static method hides the parent class's static method when accessed through child class reference.
+Method hiding happens when a child class declares a static method with the same signature as a static method in the parent class. Key differences from overriding:
+- (1) Only applies to static methods
+- (2) Resolved at compile-time (early binding) based on reference type
+- (3) Cannot use @Override annotation
+- (4) No polymorphic behavior. It's called "hiding" because the child class's static method hides the parent class's static method when accessed through child class reference.
 
 ---
 
@@ -182,6 +188,8 @@ Dog eats bones
 
 ## Why Reference Type Matters for Static Methods
 
+Static methods are resolved at compile time based on the **reference type** of the variable, not the actual object it refers to.
+
 ```java
 class Test {
     static void show() {
@@ -291,7 +299,7 @@ Bike - Two Wheeler
 ## Comparison Table
 
 | Feature | Method Overriding | Method Hiding |
-|---------|-------------------|---------------|
+| :--- | :--- | :--- |
 | **Method Type** | Instance methods | Static methods |
 | **Binding** | Runtime (Late binding) | Compile-time (Early binding) |
 | **Based On** | Object type | Reference type |
@@ -306,6 +314,7 @@ Bike - Two Wheeler
 ## Rules for Method Hiding
 
 ### Rule 1: Same Signature Required
+The static method in the child class must have the exact same name and parameter list as the static method in the parent class.
 
 ```java
 class Parent {
@@ -313,33 +322,37 @@ class Parent {
 }
 
 class Child extends Parent {
-    static void show() { }  // ✅ Method Hiding (same signature)
+    static void show() { }  // Valid: Method Hiding
 }
 ```
 
 ### Rule 2: Both Must Be Static
+Method hiding only works when **both** the parent and child class methods are `static`. If one is static and the other is instance (non-static), it results in a compilation error.
 
+**Scenario A: Instance trying to hide Static (Error)**
 ```java
 class Parent {
     static void show() { }
 }
 
 class Child extends Parent {
-    void show() { }  // ❌ Error: Instance method cannot override static
+    void show() { }  // Error: Instance method cannot override static method
 }
 ```
 
+**Scenario B: Static trying to override Instance (Error)**
 ```java
 class Parent {
     void show() { }
 }
 
 class Child extends Parent {
-    static void show() { }  // ❌ Error: Static cannot override instance
+    static void show() { }  // Error: Static method cannot hide instance method
 }
 ```
 
 ### Rule 3: Cannot Use @Override
+The `@Override` annotation effectively says "I am overriding an instance method". Since static methods are hidden (not overridden), using this annotation causes an error.
 
 ```java
 class Parent {
@@ -347,16 +360,18 @@ class Parent {
 }
 
 class Child extends Parent {
-    @Override  // ❌ Warning/Error
+    @Override  // Error: Static methods cannot be annotated with @Override
     static void show() { }
 }
 ```
 
 ---
 
-## Can We Access Parent's Hidden Static Method?
+## Accessing the Parent's Hidden Method
 
-**Yes, using class name or super keyword.**
+Even if a child class hides a static method, you can still access the parent's version. Since static methods belong to the class, you should access them using the **Parent Class Name**.
+
+**Note:** You cannot use the `super` keyword in a static context.
 
 ```java
 class Parent {
@@ -371,9 +386,8 @@ class Child extends Parent {
     }
     
     static void show() {
-        display();          // Calls Child's display
-        Parent.display();   // Calls Parent's display
-        // super.display(); // ❌ Error: super cannot be used in static context
+        display();          // Calls Child's display (default)
+        Parent.display();   // Calls Parent's display (explicit access)
     }
 }
 
@@ -392,7 +406,12 @@ Parent static method
 
 ---
 
-## Complex Example
+## Complex Example (Multi-Level Inheritance)
+
+This example demonstrates how Method Hiding (static) and Method Overriding (instance) behave differently in a multi-level inheritance hierarchy.
+
+*   **Static Methods:** Resolved by Reference Type.
+*   **Instance Methods:** Resolved by Object Type.
 
 ```java
 class A {
@@ -429,20 +448,24 @@ class C extends B {
 
 public class Main {
     public static void main(String[] args) {
+        // 1. Reference A, Object C
         A a = new C();
+        a.method1();  // Calls A.method1() (Reference is A)
+        a.method2();  // Calls C.method2() (Object is C)
         
-        a.method1();  // A's static method1 (Reference type: A)
-        a.method2();  // C's instance method2 (Object type: C)
-        
+        System.out.println("---");
+
+        // 2. Reference B, Object C
         B b = new C();
+        b.method1();  // Calls B.method1() (Reference is B)
+        b.method2();  // Calls C.method2() (Object is C)
         
-        b.method1();  // B's static method1 (Reference type: B)
-        b.method2();  // C's instance method2 (Object type: C)
-        
+        System.out.println("---");
+
+        // 3. Reference C, Object C
         C c = new C();
-        
-        c.method1();  // C's static method1 (Reference type: C)
-        c.method2();  // C's instance method2 (Object type: C)
+        c.method1();  // Calls C.method1() (Reference is C)
+        c.method2();  // Calls C.method2() (Object is C)
     }
 }
 ```
@@ -451,8 +474,10 @@ public class Main {
 ```
 A's static method1
 C's instance method2
+---
 B's static method1
 C's instance method2
+---
 C's static method1
 C's instance method2
 ```
@@ -462,46 +487,40 @@ C's instance method2
 ## Important Interview Questions
 
 **Q1: What is method hiding in Java?**
-
 Method hiding occurs when a child class declares a static method with the same signature as a static method in the parent class. The method called is determined by the reference type at compile-time, not the object type.
 
 **Q2: What is the difference between method hiding and method overriding?**
-
-- **Method Overriding**: Instance methods, runtime binding, based on object type
-- **Method Hiding**: Static methods, compile-time binding, based on reference type
+*   **Method Overriding**: Instance methods, runtime binding, based on object type.
+*   **Method Hiding**: Static methods, compile-time binding, based on reference type.
 
 **Q3: Can we use @Override annotation with static methods?**
-
-No, @Override annotation cannot be used with static methods as they are hidden, not overridden.
+No, `@Override` annotation cannot be used with static methods as they are hidden, not overridden.
 
 **Q4: Can an instance method hide a static method?**
-
-No, an instance method cannot hide a static method, and vice versa. This results in a compilation error.
+No, an instance method cannot hide a static method, and vice versa. This results in a compilation error. Both methods must be static for hiding to occur.
 
 **Q5: Why is method hiding based on reference type?**
-
-Because static methods belong to the class, not instances. They are resolved at compile-time based on the reference type, not at runtime based on the object type.
+Because static methods belong to the class, not instances. They are resolved at compile-time ("early binding") based on the declared type of the variable (reference type), not at runtime based on the actual object created.
 
 **Q6: Can we access parent's hidden static method?**
-
-Yes, using the parent class name: `ParentClass.methodName()`. We cannot use super in static context.
+Yes, using the parent class name: `ParentClass.methodName()`. **Note:** You cannot use `super` in a static context to access it.
 
 ---
 
 ## Short Recap
 
-**Method Hiding** = Child class mein parent ka static method same signature se define karna
+**Method Hiding**: Defining a static method in the child class with the same signature as one in the parent class.
 
-**Key Points:**
-- Sirf **static methods** ke liye
-- **Compile-time** par resolve (reference type dekh ke)
-- **Runtime polymorphism** nahi hai
-- **@Override** use nahi kar sakte
-- Parent ka method access karne ke liye **class name** use karo
+**Key Takeaways:**
+*   **Static Only:** Method hiding applies only to static methods.
+*   **Compile-Time Resolution:** Hidden methods are resolved based on the **reference type**, not the object type.
+*   **No Polymorphism:** Unlike overriding, hiding does not support runtime polymorphism.
+*   **No @Override:** The `@Override` annotation cannot be used with static methods.
+*   **Accessing Parent:** You can access the parent's hidden method using the class name (e.g., `Parent.method()`).
 
-**Remember:**
-- **Overriding** → Instance methods → Object type → Runtime
-- **Hiding** → Static methods → Reference type → Compile-time
+**Comparison Summary:**
+*   **Overriding** → Instance methods → Object type → Runtime
+*   **Hiding** → Static methods → Reference type → Compile-time
 
 ---
 
@@ -560,14 +579,14 @@ Yes, using the parent class name: `ParentClass.methodName()`. We cannot use supe
 ║                   │                                    │                         ║
 ║                   ▼                                    ▼                         ║
 ║   ╔══════════════════════════════════╗   ╔══════════════════════════════════╗    ║
-║   ║   Calls: Child.display() ✓       ║   ║   Calls: Parent.display() ✓      ║    ║
+║   ║   Calls: Child.display()         ║   ║   Calls: Parent.display()        ║    ║
 ║   ╚══════════════════════════════════╝   ╚══════════════════════════════════╝    ║
 ║                   │                                    │                         ║
 ║                   ▼                                    ▼                         ║
 ║   ╔══════════════════════════════════╗   ╔══════════════════════════════════╗    ║
 ║   ║      RUNTIME BINDING             ║   ║     COMPILE-TIME BINDING         ║    ║
 ║   ║      (Late Binding)              ║   ║     (Early Binding)              ║    ║
-║   ║      Polymorphic ✓               ║   ║     NOT Polymorphic ✗            ║    ║
+║   ║      Polymorphic (Yes)           ║   ║     Not Polymorphic (No)         ║    ║
 ║   ╚══════════════════════════════════╝   ╚══════════════════════════════════╝    ║
 ║                                                                                  ║
 ╠══════════════════════════════════════════════════════════════════════════════════╣
@@ -583,9 +602,9 @@ Yes, using the parent class name: `ParentClass.methodName()`. We cannot use supe
 ║   ├─────────────────────┼────────────────────┼────────────────────┤              ║
 ║   │ Based On            │ Object type        │ Reference type     │              ║
 ║   ├─────────────────────┼────────────────────┼────────────────────┤              ║
-║   │ @Override           │ ✓ Can use          │ ✗ Cannot use       │              ║
+║   │ @Override           │ Yes (Recommended)  │ No (Error)         │              ║
 ║   ├─────────────────────┼────────────────────┼────────────────────┤              ║
-║   │ Polymorphism        │ ✓ Yes              │ ✗ No               │              ║
+║   │ Polymorphism        │ Yes                │ No                 │              ║
 ║   ├─────────────────────┼────────────────────┼────────────────────┤              ║
 ║   │ Access Parent       │ super.method()     │ Parent.method()    │              ║
 ║   └─────────────────────┴────────────────────┴────────────────────┘              ║
@@ -620,3 +639,4 @@ Yes, using the parent class name: `ParentClass.methodName()`. We cannot use supe
 ║                                                                                  ║
 ╚══════════════════════════════════════════════════════════════════════════════════╝
 ```
+

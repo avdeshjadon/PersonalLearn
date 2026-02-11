@@ -130,7 +130,7 @@ const TableOfContents = memo(({ content }) => {
       {/* Panel */}
       <div className={`toc-panel ${isOpen ? 'toc-panel-open' : ''}`}>
         <div className="toc-header">
-          <h3>📑 Topics</h3>
+          <h3> Topics</h3>
           <button className="toc-close" onClick={closePanel}>
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
@@ -154,7 +154,7 @@ const TableOfContents = memo(({ content }) => {
               className={`toc-item toc-level-${heading.level}`}
               onClick={() => handleHeadingClick(heading)}
             >
-              {heading.level === 1 && '📌 '}
+              {heading.level === 1 && ' '}
               {heading.level === 2 && '▸ '}
               {heading.level === 3 && '• '}
               {heading.level === 4 && '◦ '}

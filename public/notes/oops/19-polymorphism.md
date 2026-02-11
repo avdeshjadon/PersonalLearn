@@ -2,13 +2,19 @@
 
 ## Concept Introduction
 
-**"Poly" = Many, "Morph" = Forms** → **Polymorphism = Many Forms**
+**Polymorphism** do Greek words se bana hai: **"Poly" (Many)** aur **"Morph" (Forms)**.
+Meaning: **"One thing, many forms"**.
 
-Imagine ek **insaan** - wo **student, son, brother, friend** sab kuch ho sakta hai - **same person, different roles**! Code mein bhi - **ek method, multiple behaviors**.
+### English Definition
+Polymorphism is the ability of an object to take many forms. It allows one interface to be used for different data types or one method to perform different tasks.
+*   **Core Idea:** "Same Interface, Different Implementation".
 
-Real Example: **Phone** - ek button press karo, context ke according different kaam hota hai (Home screen → Home, Game → Jump, Camera → Capture)
+### Hinglish Explanation
+Jab ek single method ya object alag-alag situations mein alag-alag tarah se behave karta hai, use hum Polymorphism kehte hain.
 
-**Polymorphism = Same Interface, Different Implementation**
+### Real Life Analogies
+1.  **Person Example:** Ek insaan alag-alag roles play karta hai. Office mein wo **Employee** hai, Ghar pe **Father** hai. (Same person, different behaviors).
+2.  **Phone Button Example:** Volume button Music app mein **Volume** control karta hai, Camera mein **Click** karta hai. (Same button, different functions).
 
 ---
 
@@ -405,23 +411,23 @@ public class Main {
 ## Important Rules
 
 ### Overloading Rules:
-✅ Different number of parameters  
-✅ Different types of parameters  
-✅ Different order of parameters  
-❌ Only return type different (NOT allowed)
+ Different number of parameters  
+ Different types of parameters  
+ Different order of parameters  
+ Only return type different (NOT allowed)
 
 ```java
-// ❌ WRONG - Only return type different
+//  WRONG - Only return type different
 int add(int a, int b) { }
 double add(int a, int b) { }  // ERROR!
 ```
 
 ### Overriding Rules:
-✅ Same method signature  
-✅ Same or covariant return type  
-✅ Same or wider access modifier  
-✅ Cannot throw broader checked exceptions  
-❌ Cannot override private/static/final methods
+ Same method signature  
+ Same or covariant return type  
+ Same or wider access modifier  
+ Cannot throw broader checked exceptions  
+ Cannot override private/static/final methods
 
 ---
 

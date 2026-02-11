@@ -2,20 +2,20 @@
 
 ## Concept Introduction
 
-Method overriding is a runtime polymorphism feature where a child class provides its own implementation of a method already defined in the parent class with the same signature (name, parameters, and return type). The overridden method is called based on the object type at runtime through dynamic method dispatch, enabling polymorphic behavior. It requires inheritance and uses the @Override annotation for clarity and compile-time checking.
+Method overriding occurs when a subclass provides a specific implementation for a method already defined in its parent class.
 
-**Child class parent ki method ko apne tarike se implement karta hai**. Inheritance mein child parent ka method inherit karta hai, but agar child ko apna custom behavior chahiye, to wo **override** kar deta hai.
+**Child class implements the parent's method in its own specific way.** In inheritance, a child inherits the parent's method, but if the child needs custom behavior, it **overrides** that method.
 
 **Method Overriding = Same Signature + Different Implementation = Runtime Polymorphism**
 
-Real Example: **Animal sound()** - Dog barks, Cat meows - same method, different behavior!
+**Real Example:** **Animal sound()** - Dog barks, Cat meows. Same method name, different behavior!
 
 ---
 
 ## Why Method Overriding Exists
 
 ### The Problem
-Parent class ka generic implementation child ke liye suitable nahi:
+The parent class often provides a generic implementation that isn't suitable for all child classes:
 
 ```java
 class Animal {
@@ -26,7 +26,7 @@ class Animal {
 ```
 
 ### The Solution
-Child class override karke specific implementation deta hai:
+The child class overrides the method to provide a specific implementation:
 
 ```java
 class Dog extends Animal {
@@ -42,30 +42,30 @@ class Dog extends Animal {
 ## Definitions
 
 ### Very Simple Definition
-Child class parent ki method ko apne tarike se phir se likhta hai.
+The child class rewrites the parent's method to suit its needs.
 
 ### Simple Definition
 Method overriding occurs when a subclass provides a specific implementation for a method already defined in its parent class.
 
 ### Interview Definition
-Method overriding is a runtime polymorphism feature where a child class provides its own implementation of a method already defined in the parent class with the same signature (name, parameters, and return type). The overridden method is called based on the object type at runtime through dynamic method dispatch, enabling polymorphic behavior. It requires inheritance and uses the @Override annotation for clarity and compile-time checking.
+Method overriding is a runtime polymorphism feature where a child class provides its own implementation of a method already defined in the parent class with the same signature (name, parameters, and return type). The overridden method is called based on the object type at runtime through dynamic method dispatch, enabling polymorphic behavior. It requires inheritance and is best implemented using the `@Override` annotation for compile-time checking.
 
 ---
 
 ## Rules for Method Overriding
 
-### ✅ Must Follow:
-1. **Inheritance required** (parent-child relationship)
-2. **Same method signature** (name + parameters)
-3. **Same or covariant return type**
-4. **Same or wider access modifier** (cannot reduce)
-5. **Cannot throw broader checked exceptions**
+### Mandatory Rules
+1.  **Inheritance Required**: There must be a parent-child relationship.
+2.  **Same Method Signature**: The method name and parameters must be exactly the same.
+3.  **Same or Covariant Return Type**: The return type must be the same or a subclass of the parent's return type.
+4.  **Access Modifier**: You cannot reduce the visibility (e.g., cannot make `public` to `private`). Use the same or wider access.
+5.  **Checked Exceptions**: The overriding method cannot throw new or broader checked exceptions.
 
-### ❌ Cannot Override:
-1. **private methods** (not inherited)
-2. **final methods** (explicitly prevented)
-3. **static methods** (hidden, not overridden)
-4. **constructors** (not inherited)
+### Cannot Override
+1.  **Private Methods**: They are not inherited.
+2.  **Final Methods**: They are explicitly designed to prevent overriding.
+3.  **Static Methods**: They are hidden (method hiding), not overridden.
+4.  **Constructors**: They are not methods and are not inherited.
 
 ---
 
@@ -120,7 +120,7 @@ public class Main {
 
 ## Dynamic Method Dispatch
 
-**Runtime mein decide hota hai ki konsi method call hogi** - object type ke basis pe, reference type ke basis pe nahi!
+**The decision of which method to call is made at runtime** based on the actual object type, not the reference type.
 
 ```java
 class Parent {
@@ -147,13 +147,15 @@ public class Main {
 }
 ```
 
-**Method call resolves at runtime based on actual object type!**
+**Key Takeaway:** Method calls resolve at runtime based on the actual object instance.
 
 ---
 
-## @Override Annotation
+## The @Override Annotation
 
-### Why Use?
+### Why Use It?
+
+The `@Override` annotation tells the compiler that you intend to override a method. If you make a mistake (like a typo in the method name or wrong arguments), the compiler will throw an error instead of treating it as a new method.
 
 ```java
 class Parent {
@@ -168,13 +170,12 @@ class Child extends Parent {
 }
 ```
 
-**@Override ensures you're actually overriding, catches typos!**
-
 ---
 
 ## Access Modifiers in Overriding
 
-### ✅ Can Widen
+### Allowed: Widening Access
+You can increase visibility (e.g., `protected` -> `public`).
 
 ```java
 class Parent {
@@ -183,11 +184,12 @@ class Parent {
 
 class Child extends Parent {
     @Override
-    public void method() { }  // OK! Widening (protected → public)
+    public void method() { }  // Valid (Widening)
 }
 ```
 
-### ❌ Cannot Narrow
+### Not Allowed: Narrowing Access
+You cannot decrease visibility (e.g., `public` -> `protected`).
 
 ```java
 class Parent {
@@ -196,17 +198,17 @@ class Parent {
 
 class Child extends Parent {
     @Override
-    protected void method() { }  // ERROR! Narrowing not allowed
+    protected void method() { }  // Error (Narrowing)
 }
 ```
 
-**Access Hierarchy**: private < default < protected < public
+**Access Hierarchy:** `private` < `default` < `protected` < `public`
 
 ---
 
 ## Covariant Return Types
 
-**Child can return subtype of parent's return type** (Java 5+)
+Since Java 5, an overriding method can return a subtype of the parent method's return type.
 
 ```java
 class Animal { }
@@ -220,7 +222,7 @@ class AnimalFactory {
 
 class DogFactory extends AnimalFactory {
     @Override
-    Dog getAnimal() {  // Covariant return type (Dog is subtype of Animal)
+    Dog getAnimal() {  // Valid: Dog is a subtype of Animal
         return new Dog();
     }
 }
@@ -302,7 +304,9 @@ public class Main {
 
 ---
 
-## super Keyword in Overriding
+## Using super in Overriding
+
+If you want to use the parent class logic and then add to it, use `super.method()`.
 
 ```java
 class Vehicle {
@@ -314,29 +318,19 @@ class Vehicle {
 class Car extends Vehicle {
     @Override
     void start() {
-        super.start();  // Call parent's version first
+        super.start();  // Run parent logic first
         System.out.println("Car engine started");
         System.out.println("AC turned on");
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Car car = new Car();
-        car.start();
-        // Output:
-        // Vehicle starting...
-        // Car engine started
-        // AC turned on
     }
 }
 ```
 
 ---
 
-## Cannot Override
+## Methods That Cannot Be Overridden
 
-### 1. private Methods
+### 1. Private Methods
+They are invisible to the child class, so they represent a new method in the child, not an override.
 
 ```java
 class Parent {
@@ -344,11 +338,12 @@ class Parent {
 }
 
 class Child extends Parent {
-    void method() { }  // Not overriding! New method
+    void method() { }  // New independent method
 }
 ```
 
-### 2. final Methods
+### 2. Final Methods
+Marking a method `final` explicitly forbids overriding.
 
 ```java
 class Parent {
@@ -356,11 +351,12 @@ class Parent {
 }
 
 class Child extends Parent {
-    void method() { }  // ERROR! Cannot override final
+    void method() { }  // Output: Compilation Error
 }
 ```
 
-### 3. static Methods
+### 3. Static Methods
+Redefining a static method in a child class is called **Method Hiding**, not overriding.
 
 ```java
 class Parent {
@@ -368,34 +364,33 @@ class Parent {
 }
 
 class Child extends Parent {
-    static void method() { }  // Method hiding, not overriding!
+    static void method() { }  // Hiding
 }
 ```
 
 ## When to Use Method Overriding?
 
-When developing apps, if a functionality should have different implementations in different subclasses, we use method overriding. 
+Use it when a specific subclass needs to modify the behavior of an inherited method.
 
-Inheriting a method of the superclass and changing the implementation in the subclass is known as method overriding. To override a method, inheritance is required. When a subclass overrides the method of a superclass, the subclass must use the same method signature (return type or a covariant return type, method name, and parameters) and change the implementation. Using method overriding we can achieve runtime polymorphism.
+Inheriting a method from a superclass and changing its implementation in the subclass is Method Overriding. It requires inheritance. The overriding method must have the same signature (name, parameter list) and compatible return type. It enables Runtime Polymorphism.
 
-Hindi: "Jab application development mein kisi functionality ko alag implementation se likhna ho, tab method overriding ka use karte hain."
+*   **Hindi**: "Jab application development mein kisi functionality ko alag implementation se likhna ho, tab method overriding ka use karte hain."
 
-The subclass can't override the below kinds of methods from the superclass:
-
-- **Static methods** — static methods are associated with the class and are not dynamically dispatched; declaring a static method with the same signature in a subclass hides the superclass method (method hiding), it does not override it.
-- **Final non-static methods** — a method declared `final` cannot be overridden because the keyword prevents changing the implementation, though it is inherited.
-- **Private non-static methods** — private methods are not visible to subclasses (they are not inherited in a way that allows overriding) because private access is restricted to the class where they are declared.
+### Why certain methods cannot be overridden:
+*   **Static methods**: Associated with the class, not the object. Redefining them hides the parent method.
+*   **Final methods**: `final` keyword explicitly prevents modification.
+*   **Private methods**: Not visible to the subclass, so they cannot be overridden.
 
 ---
 
 ## Method Overloading vs Overriding
 
 | Feature | Overloading | Overriding |
-|---------|------------|-----------|
+| :--- | :--- | :--- |
 | **Parameters** | Different | Same |
 | **Inheritance** | Not required | Required |
 | **Polymorphism** | Compile-time | Runtime |
-| **Binding** | Early (static) | Late (dynamic) |
+| **Binding** | Static (Early) | Dynamic (Late) |
 | **Return Type** | Can differ | Same or covariant |
 | **Access Modifier** | Any | Same or wider |
 | **@Override** | Not used | Recommended |
@@ -405,37 +400,35 @@ The subclass can't override the below kinds of methods from the superclass:
 ## Important Interview Questions
 
 **Q1: What is Method Overriding?**
-
-Child class provides specific implementation of parent's method with same signature. It's runtime polymorphism.
+It is a feature where a child class provides a specific implementation for a method already defined in its parent class, enabling runtime polymorphism.
 
 **Q2: Difference between Overloading and Overriding?**
-
-- **Overloading**: Same name, different parameters, compile-time
-- **Overriding**: Same signature, different implementation, runtime
+*   **Overloading:** Same name, different parameters (Compile-time).
+*   **Overriding:** Same signature, different implementation (Runtime).
 
 **Q3: Can we override static methods?**
-
-No! Static methods are hidden, not overridden. They belong to class, not object.
+No. Static methods belong to the class. Redefining them in a child class is called "Method Hiding".
 
 **Q4: Can we override private methods?**
-
-No! Private methods are not inherited, so cannot be overridden.
+No. Private methods are not inherited, so they cannot be overridden.
 
 **Q5: What is the purpose of @Override annotation?**
-
-Compile-time checking to ensure method actually overrides parent method. Catches typos and signature mismatches.
+It performs a compile-time check to ensure the method signature matches the parent class method, preventing typos and errors.
 
 ---
 
 ## Short Recap
 
 **Method Overriding**:
-- Same signature, different implementation
-- Runtime polymorphism (dynamic binding)
-- Requires inheritance
-- Enables polymorphic behavior
+*   Same signature, different implementation.
+*   Runtime polymorphism (dynamic binding).
+*   Requires inheritance.
 
-**Rules**: Same or covariant return, same or wider access, cannot override private/final/static
+**Rules**:
+*   Must have same name and parameters.
+*   Return type must be the same or covariant.
+*   Access modifier cannot be stricter (only wider).
+*   Cannot override `private`, `final`, or `static` methods.
 
 ## Visual Summary
 
@@ -444,19 +437,19 @@ Compile-time checking to ensure method actually overrides parent method. Catches
 ║                            METHOD OVERRIDING                                      ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                   ║
-║   CONCEPT: Child class provides specific implementation of parent's method       ║
+║   CONCEPT: Child class provides specific implementation of parent's method        ║
 ║                                                                                   ║
-║   ╔════════════════════════════════╗       ╔════════════════════════════════╗    ║
-║   ║         PARENT CLASS           ║       ║         CHILD CLASS            ║    ║
-║   ╟────────────────────────────────╢       ╟────────────────────────────────╢    ║
-║   ║  class Animal {                ║       ║  class Dog extends Animal {    ║    ║
-║   ║                                ║       ║                                ║    ║
-║   ║    void sound() {              ║       ║    @Override                   ║    ║
-║   ║      print("Generic sound");   ║──────▶║    void sound() {              ║    ║
-║   ║    }                           ║       ║      print("Woof Woof!");      ║    ║
-║   ║  }                             ║       ║    }                           ║    ║
-║   ╚════════════════════════════════╝       ║  }                             ║    ║
-║                                            ╚════════════════════════════════╝    ║
+║   ╔════════════════════════════════╗       ╔════════════════════════════════╗     ║
+║   ║         PARENT CLASS           ║       ║         CHILD CLASS            ║     ║
+║   ╟────────────────────────────────╢       ╟────────────────────────────────╢     ║
+║   ║  class Animal {                ║       ║  class Dog extends Animal {    ║     ║
+║   ║                                ║       ║                                ║     ║
+║   ║    void sound() {              ║       ║    @Override                   ║     ║
+║   ║      print("Generic sound");   ║──────▶║    void sound() {              ║     ║
+║   ║    }                           ║       ║      print("Woof Woof!");      ║     ║
+║   ║  }                             ║       ║    }                           ║     ║
+║   ╚════════════════════════════════╝       ║  }                             ║     ║
+║                                            ╚════════════════════════════════╝     ║ 
 ║                                                                                   ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
 ║                         DYNAMIC METHOD DISPATCH                                   ║
@@ -466,64 +459,64 @@ Compile-time checking to ensure method actually overrides parent method. Catches
 ║   a.sound();                // Which method is called?                            ║
 ║                                                                                   ║
 ║       ┌──────────────────┐                                                        ║
-║       │   COMPILE TIME   │──────▶ Checks: Does Animal have sound()? ✓            ║
+║       │   COMPILE TIME   │──────▶ Checks: Does Animal have sound()? ✓             ║
 ║       └──────────────────┘                                                        ║
 ║                │                                                                  ║
 ║                ▼                                                                  ║
 ║       ┌──────────────────┐                                                        ║
-║       │    RUN TIME      │──────▶ Checks: What is actual object type?            ║
-║       └──────────────────┘                 Object is Dog → Call Dog.sound()      ║
+║       │    RUN TIME      │──────▶ Checks: What is actual object type?             ║
+║       └──────────────────┘                 Object is Dog → Call Dog.sound()       ║
 ║                │                                                                  ║
 ║                ▼                                                                  ║
 ║       ┌──────────────────┐                                                        ║
-║       │ OUTPUT: "Woof!"  │        (Runtime Polymorphism!)                        ║
+║       │ OUTPUT: "Woof!"  │        (Runtime Polymorphism!)                         ║
 ║       └──────────────────┘                                                        ║
 ║                                                                                   ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
 ║                              OVERRIDING RULES                                     ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                   ║
-║   ┌────────────────────────────────────────────────────────────────────────┐     ║
-║   │                           MUST HAVE                                    │     ║
-║   │  ✓ Same method name                                                    │     ║
-║   │  ✓ Same parameters (number, type, order)                               │     ║
-║   │  ✓ Same or covariant return type                                       │     ║
-║   │  ✓ IS-A relationship (inheritance)                                     │     ║
-║   └────────────────────────────────────────────────────────────────────────┘     ║
+║   ┌────────────────────────────────────────────────────────────────────────┐      ║
+║   │                           MUST HAVE                                    │      ║
+║   │  ✓ Same method name                                                    │      ║
+║   │  ✓ Same parameters (number, type, order)                               │      ║
+║   │  ✓ Same or covariant return type                                       │      ║
+║   │  ✓ IS-A relationship (inheritance)                                     │      ║
+║   └────────────────────────────────────────────────────────────────────────┘      ║ 
 ║                                                                                   ║
 ║   ACCESS MODIFIER RULES:                                                          ║
 ║   ══════════════════════                                                          ║
 ║                                                                                   ║
-║   private ◀──── default ◀──── protected ◀──── public                             ║
+║   private ◀──── default ◀──── protected ◀──── public                              ║
 ║                        (Can only WIDEN, not narrow)                               ║
 ║                                                                                   ║
 ║   Parent: protected void show()                                                   ║
-║   Child:  public void show()     ✓ OK (widened)                                  ║
-║   Child:  private void show()    ✗ ERROR (narrowed)                              ║
+║   Child:  public void show()     ✓ OK (widened)                                   ║
+║   Child:  private void show()    ✗ ERROR (narrowed)                               ║
 ║                                                                                   ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
 ║                           CANNOT OVERRIDE                                         ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                   ║
-║   ╔══════════════════╗   ╔══════════════════╗   ╔══════════════════╗             ║
-║   ║  private methods ║   ║  final methods   ║   ║  static methods  ║             ║
-║   ╟──────────────────╢   ╟──────────────────╢   ╟──────────────────╢             ║
-║   ║  Not inherited   ║   ║  Cannot modify   ║   ║  Method Hiding   ║             ║
-║   ║  (not visible)   ║   ║  (locked)        ║   ║  (not override)  ║             ║
-║   ╚══════════════════╝   ╚══════════════════╝   ╚══════════════════╝             ║
+║   ╔══════════════════╗   ╔══════════════════╗   ╔══════════════════╗              ║
+║   ║  private methods ║   ║  final methods   ║   ║  static methods  ║              ║
+║   ╟──────────────────╢   ╟──────────────────╢   ╟──────────────────╢              ║
+║   ║  Not inherited   ║   ║  Cannot modify   ║   ║  Method Hiding   ║              ║
+║   ║  (not visible)   ║   ║  (locked)        ║   ║  (not override)  ║              ║
+║   ╚══════════════════╝   ╚══════════════════╝   ╚══════════════════╝              ║
 ║                                                                                   ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
 ║                    OVERLOADING vs OVERRIDING                                      ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                   ║
-║   ┌─────────────────────┬─────────────────────┬─────────────────────┐            ║
-║   │      Feature        │     Overloading     │     Overriding      │            ║
-║   ├─────────────────────┼─────────────────────┼─────────────────────┤            ║
-║   │ Parameters          │    Different        │    Same             │            ║
-║   │ Inheritance needed  │    No               │    Yes              │            ║
-║   │ Polymorphism        │    Compile-time     │    Runtime          │            ║
-║   │ Binding             │    Static (Early)   │    Dynamic (Late)   │            ║
-║   └─────────────────────┴─────────────────────┴─────────────────────┘            ║
+║   ┌─────────────────────┬─────────────────────┬─────────────────────┐             ║
+║   │      Feature        │     Overloading     │     Overriding      │             ║
+║   ├─────────────────────┼─────────────────────┼─────────────────────┤             ║
+║   │ Parameters          │    Different        │    Same             │             ║
+║   │ Inheritance needed  │    No               │    Yes              │             ║
+║   │ Polymorphism        │    Compile-time     │    Runtime          │             ║
+║   │ Binding             │    Static (Early)   │    Dynamic (Late)   │             ║
+║   └─────────────────────┴─────────────────────┴─────────────────────┘             ║
 ║                                                                                   ║
 ╚═══════════════════════════════════════════════════════════════════════════════════╝
 ```
