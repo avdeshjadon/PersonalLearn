@@ -8,9 +8,7 @@ Imagine ek **medicine capsule** - andar kai saare ingredients hain but wo **ek c
 
 Real-World Example: **ATM Machine** - Tum directly cash box ko nahi kholte, ATM interface use karke safely paise nikalte ho.
 
-
-
-Encapsulation is the object-oriented programming principle of bundling an object's data (fields) and the methods that operate on that data into a single unit (a class), while restricting direct access to some of the object's components. It is typically implemented by declaring fields as private and providing public methods (getters/setters) to read or modify them. Encapsulation enforces data hiding, enables validation and controlled access, helps maintain class invariants, and reduces coupling between components.
+Encapsulation is the mechanism of wrapping data (variables) and methods into a single unit (class), and restricting direct access to some of the object's components.
 
 ---
 
