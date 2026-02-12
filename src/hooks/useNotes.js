@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { marked } from 'marked';
 import { getJavaStructure } from '../data/javaStructure';
 import { getOopsStructure } from '../data/oopsStructure';
+import { getAdvancedJavaStructure } from '../data/advancedJavaStructure';
 import { 
   extractTitleFromMarkdown, 
   processAsciiDiagrams, 
@@ -52,7 +53,9 @@ export const useNotes = (onGroupExpand) => {
   const buildManifest = useCallback(async (folder) => {
     logger.time(`Build Manifest (${folder})`);
     
-    const structureData = folder === 'java' ? getJavaStructure() : getOopsStructure();
+    const structureData = folder === 'java' ? getJavaStructure() 
+                        : folder === 'oops' ? getOopsStructure()
+                        : getAdvancedJavaStructure();
     const fileList = [];
 
     structureData.forEach((group) => {
@@ -101,6 +104,7 @@ export const useNotes = (onGroupExpand) => {
       // Default to roadmap for each folder, fallback to first item
       const defaultSlug = currentFolder === 'java' ? '00-java-roadmap' 
                         : currentFolder === 'oops' ? '00-oops-roadmap'
+                        : currentFolder === 'advanced-java' ? '01-object-class'
                         : (orderedData.length > 0 ? orderedData[0].slug : '');
       const initialSlug = hash || defaultSlug;
 

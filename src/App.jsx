@@ -69,7 +69,10 @@ function App() {
   }, [switchFolder, sidebar]);
 
   // Brand text based on current folder
-  const brandText = currentFolder === 'java' ? 'Java Notes' : currentFolder === 'oops' ? 'OOPs Notes' : 'Interview Prep';
+  const brandText = currentFolder === 'java' ? 'Java Notes' 
+                  : currentFolder === 'oops' ? 'OOPs Notes' 
+                  : currentFolder === 'advanced-java' ? 'Advanced Java Notes'
+                  : 'Interview Prep';
 
   // Check if interview mode
   const isInterviewMode = currentFolder === 'interview';
