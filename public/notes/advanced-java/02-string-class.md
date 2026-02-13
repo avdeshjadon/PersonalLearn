@@ -7,7 +7,7 @@
 The String class implements three important interfaces:
 
 1.  **CharSequence**:
-    - **Reason**: To acquires the property and able to make sequence of characters into single unite. 
+    - **Reason**: To acquires the property and able to make sequence of characters into single unite.
     - **Result**: Allows String to be treated interchangeably with other character sequences like `StringBuilder` and `StringBuffer`.
 2.  **Comparable**:
     - **Reason**: To allow String objects to compare themselves with other String objects.
@@ -143,9 +143,14 @@ System.out.println(s2); // Output: Jspiders & Qspiders (New object)
 
 Since `String` is immutable, performing frequent modifications (like in a loop) creates too many temporary objects, wasting memory and performance. To solve this, Java provides `StringBuilder` and `StringBuffer`.
 
-### What are they?
+## What are they?
 
-They are **mutable** sequences of characters. Unlike `String`, when you modify a `StringBuilder` or `StringBuffer`, the modification happens on the **same object**.
+- They are mutable classes used to store and manipulate strings.
+- When performing frequent modifications (like inside a loop), `String` creates too many temporary objects.
+- This wastes memory and reduces performance.
+- To solve this problem, Java provides:
+  - `StringBuilder`
+  - `StringBuffer`
 
 ### Hierarchy & Properties
 
@@ -218,4 +223,34 @@ public class BufferBuilderDemo {
 
 1.  **`String`**: If data is constant and won't change (e.g., Database URL, Error Messages).
 2.  **`StringBuilder`**: If specific data changes frequently (e.g., inside a loop), and it is used by only one thread. **(Recommended for 90% of cases)**.
-3.  **`StringBuffer`**: If specific data changes frequentl, and multiple threads are modifying it.
+3.  **`StringBuffer`**: If specific data changes frequently, and multiple threads are modifying it.
+
+---
+
+## Important String Methods
+
+| Method                                 | Description                                                       | Return Type |
+| :------------------------------------- | :---------------------------------------------------------------- | :---------- |
+| **`charAt(int index)`**                | Returns the character at the specified index.                     | `char`      |
+| **`length()`**                         | Returns the length of the string.                                 | `int`       |
+| **`substring(int beginIndex)`**        | Returns a substring from the `beginIndex` to the end.             | `String`    |
+| **`substring(int begin, int end)`**    | Returns a substring from `begin`(inclusive) to `end`(exclusive).  | `String`    |
+| **`contains(CharSequence s)`**         | Checks if the string contains the specified sequence.             | `boolean`   |
+| **`equals(Object another)`**           | Compares the content of the string.                               | `boolean`   |
+| **`equalsIgnoreCase(String another)`** | Compares string content ignoring case.                            | `boolean`   |
+| **`isEmpty()`**                        | Checks if the string length is 0.                                 | `boolean`   |
+| **`concat(String str)`**               | Concatenates the specified string to the end.                     | `String`    |
+| **`replace(char old, char new)`**      | Replaces all occurrences of a character with a new one.           | `String`    |
+| **`split(String regex)`**              | Splits the string around matches of the given regular expression. | `String[]`  |
+| **`indexOf(String s)`**                | Returns the index of the first occurrence of the substring.       | `int`       |
+| **`toLowerCase()`**                    | Converts all characters to lower case.                            | `String`    |
+| **`toUpperCase()`**                    | Converts all characters to upper case.                            | `String`    |
+| **`trim()`**                           | Removes leading and trailing whitespace.                          | `String`    |
+| **`toCharArray()`**                    | Converts the string to a new character array.                     | `char[]`    |
+| **`valueOf(int i)`**                   | Returns the string representation of the int argument.            | `String`    |
+
+
+
+
+
+

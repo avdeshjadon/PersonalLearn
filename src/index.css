@@ -498,8 +498,7 @@ body.js-fadein {
   overflow:hidden;
   transition: 
     max-height var(--duration-slow) var(--ease-out-expo),
-    opacity var(--duration-normal) var(--ease-smooth); 
-             opacity var(--transition-medium),
+    opacity var(--duration-normal) var(--ease-smooth);
   opacity:0;
   transform:translateY(-8px);
 }
@@ -797,8 +796,14 @@ body.js-fadein {
 }
 
 /* Lists */
-.article ul,
+.article ul {
+  list-style-type: disc;
+  padding-left: 2rem;
+  margin: 1rem 0;
+}
+
 .article ol {
+  list-style-type: decimal;
   padding-left: 2rem;
   margin: 1rem 0;
 }
