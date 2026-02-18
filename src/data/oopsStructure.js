@@ -25,80 +25,79 @@ export function getOopsStructure() {
       group: 'Object Behavior',
       items: [
         '08-object-lifecycle',
-        '09-object-class-methods',
-        '10-method-overloading',
-        '11-package'
+        '09-method-overloading',
+        '10-package'
       ]
     },
     
     {
       group: 'Inheritance',
       items: [
-        '12-inheritance',
-        '13-types-of-inheritance',
-        '14-constructor-chaining',
-        '15-method-overriding',
-        '16-method-hiding',
-        '17-covariant-return-types',
-        '18-IS-A-HAS-A-relationship'
+        '11-inheritance',
+        '12-types-of-inheritance',
+        '13-constructor-chaining',
+        '14-method-overriding',
+        '15-method-hiding',
+        '16-upcasting-downcasting',
+        '17-IS-A-HAS-A-relationship'
       ]
     },
     
     {
       group: 'Polymorphism',
       items: [
-        '19-polymorphism',
-        '20-compile-time-polymorphism',
-        '21-runtime-polymorphism',
-        '22-upcasting-downcasting',
-        '23-instanceof-operator'
+        '18-polymorphism',
+        '19-compile-time-polymorphism',
+        '20-runtime-polymorphism',
+        '21-upcasting-downcasting',
+        '22-instanceof-operator'
       ]
     },
     
     {
       group: 'Abstraction',
       items: [
-        '24-abstraction',
-        '25-abstract-class',
-        '26-interface',
-        '27-abstract-vs-interface',
-        '28-default-methods',
-        '29-functional-interface'
+        '23-abstraction',
+        '24-abstract-class',
+        '25-interface',
+        '26-abstract-vs-interface',
+        '27-default-methods',
+        '28-functional-interface'
       ]
     },
     
     {
       group: 'Important Keywords',
       items: [
-        '30-static-keyword',
-        '31-final-keyword'
+        '29-static-keyword',
+        '30-final-keyword'
       ]
     },
     
     {
       group: 'Relationships & Advanced',
       items: [
-        '32-association',
-        '33-aggregation',
-        '34-composition',
-        '35-inner-classes'
+        '31-association',
+        '32-aggregation',
+        '33-composition',
+        '34-inner-classes'
       ]
     },
     
     {
       group: 'Best Practices',
       items: [
-        '36-design-principles',
-        '37-when-to-use-inheritance',
-        '38-when-to-use-composition',
-        '39-common-mistakes'
+        '35-design-principles',
+        '36-when-to-use-inheritance',
+        '37-when-to-use-composition',
+        '38-common-mistakes'
       ]
     },
     
     {
       group: 'Visual Guide',
       items: [
-        '40-oops-flowcharts'
+        '39-oops-flowcharts'
       ]
     }
   ];

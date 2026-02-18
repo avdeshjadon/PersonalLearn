@@ -2,28 +2,13 @@
 
 ## Concept Introduction
 
-Jab ek **child** apne **parent** se property inherit karta hai, to yeh **inheritance** kehlata hai. Par inheritance ke **different types** hote hain - jaise ek bachcha sirf ek parent se, do parents se (Java mein nahi), ya grandparent se. Java mein **5 types** ki inheritance hoti hai - **Single**, **Multilevel**, **Hierarchical**, **Multiple** (not supported), aur **Hybrid**.
-
-**Types of Inheritance = Alag-alag tareeke se parent-child relationship banana**
-
----
-
-## Definitions
-
-### Very Simple Definition
-Inheritance ke alag-alag types hote hain jaise ek class ek se inherit kare, multiple se kare, ya chain mein kare.
-
-### Simple Definition
 Types of Inheritance refers to different ways in which a class can inherit properties and methods from parent classes - single parent, multiple levels, multiple children, or combinations.
-
-### College Exam Definition
-Types of Inheritance define the various patterns in which classes can inherit properties from parent classes. Java supports Single, Multilevel, and Hierarchical inheritance but does not support Multiple inheritance (through classes) to avoid ambiguity.
 
 ---
 
 ## 1. Single Inheritance
 
-**Ek child class, ek parent class se inherit karta hai.**
+**Single Inheritance** is the simplest form of inheritance where a single child class inherits properties and behaviors from a single parent class. It creates a one-to-one relationship between the superclass and subclass.
 
 ```
     Parent
@@ -59,6 +44,7 @@ public class Main {
 ```
 
 **Output:**
+
 ```
 Animal eats food
 Dog barks
@@ -68,7 +54,7 @@ Dog barks
 
 ## 2. Multilevel Inheritance
 
-**Chain mein inheritance - Grandparent → Parent → Child**
+**Multilevel Inheritance** creates a chain of inheritance. A class is derived from another derived class, forming a hierarchy (Grandparent → Parent → Child). The child class inherits properties from all its ancestors.
 
 ```
   GrandParent
@@ -114,6 +100,7 @@ public class Main {
 ```
 
 **Output:**
+
 ```
 Animal eats
 Mammal breathes
@@ -124,7 +111,7 @@ Dog barks
 
 ## 3. Hierarchical Inheritance
 
-**Ek parent se multiple children inherit karte hain.**
+**Hierarchical Inheritance** occurs when multiple child classes inherit from a single parent class. This promotes code reusability as common features are defined in the parent class and shared across all children.
 
 ```
       Parent
@@ -170,11 +157,11 @@ public class Main {
         Dog dog = new Dog();
         dog.eat();  // Inherited from Animal
         dog.bark();
-        
+
         Cat cat = new Cat();
         cat.eat();  // Inherited from Animal
         cat.meow();
-        
+
         Cow cow = new Cow();
         cow.eat();  // Inherited from Animal
         cow.moo();
@@ -186,7 +173,7 @@ public class Main {
 
 ## 4. Multiple Inheritance (NOT SUPPORTED in Java for Classes)
 
-**Ek child, multiple parents se inherit karta hai.**
+**Multiple Inheritance** is a type of inheritance where a single child class tries to inherit from multiple parent classes. Java does not support this with classes to avoid ambiguity.
 
 ```
   Parent1   Parent2
@@ -197,7 +184,7 @@ public class Main {
 
 ### Why Not Supported?
 
-**Diamond Problem** ke wajah se - Ambiguity create hoti hai.
+**Ambiguity (Diamond Problem)** arises when multiple parent classes have methods with the same name, and the compiler doesn't know which one to pick.
 
 ```java
 // This DOES NOT work in Java
@@ -237,7 +224,7 @@ class Duck implements Flyable, Swimmable {
     public void fly() {
         System.out.println("Duck flies");
     }
-    
+
     public void swim() {
         System.out.println("Duck swims");
     }
@@ -257,7 +244,7 @@ public class Main {
 
 ## 5. Hybrid Inheritance
 
-**Combination of two or more types of inheritance.**
+**Hybrid Inheritance** is a combination of two or more types of inheritance (e.g., Multilevel + Hierarchical). Since Java doesn't support multiple inheritance with classes, hybrid inheritance involving classes is also restricted.
 
 ```
       A
@@ -318,7 +305,7 @@ class HybridCar extends Vehicle implements Electric, Fuel {
     public void charge() {
         System.out.println("Charging battery");
     }
-    
+
     public void refuel() {
         System.out.println("Refueling tank");
     }
@@ -337,70 +324,15 @@ public class Main {
 
 ---
 
-## Real-World Example
-
-```java
-// Hierarchical + Multilevel (Hybrid concept)
-
-// Base class
-class Employee {
-    String name;
-    int id;
-    
-    void work() {
-        System.out.println("Employee working");
-    }
-}
-
-// Manager (inherits from Employee)
-class Manager extends Employee {
-    void manage() {
-        System.out.println("Manager managing team");
-    }
-}
-
-// Developer (inherits from Employee)
-class Developer extends Employee {
-    void code() {
-        System.out.println("Developer coding");
-    }
-}
-
-// Senior Developer (Multilevel: inherits from Developer)
-class SeniorDeveloper extends Developer {
-    void mentor() {
-        System.out.println("Senior Developer mentoring juniors");
-    }
-}
-
-// Usage
-public class Main {
-    public static void main(String[] args) {
-        Manager mgr = new Manager();
-        mgr.name = "Rahul";
-        mgr.work();
-        mgr.manage();
-        
-        SeniorDeveloper sd = new SeniorDeveloper();
-        sd.name = "Priya";
-        sd.work();    // From Employee (GrandParent)
-        sd.code();    // From Developer (Parent)
-        sd.mentor();  // Own method
-    }
-}
-```
-
----
-
 ## Comparison Table
 
-| Type | Diagram | Classes Involved | Supported in Java | Example |
-|------|---------|------------------|-------------------|---------|
-| **Single** | A→B | 1 Parent, 1 Child |  Yes | Animal → Dog |
-| **Multilevel** | A→B→C | Chain (3+ levels) |  Yes | Animal → Mammal → Dog |
-| **Hierarchical** | A→B,C,D | 1 Parent, Multiple Children |  Yes | Animal → Dog, Cat, Cow |
-| **Multiple** | A,B→C | Multiple Parents, 1 Child |  No (Classes),  Yes (Interfaces) | Flyable, Swimmable → Duck |
-| **Hybrid** | Combination | Mix of above |  No (Classes),  Yes (Interfaces) | Vehicle + Electric + Fuel → HybridCar |
+| Type             | Diagram     | Classes Involved            | Supported in Java              | Example                               |
+| ---------------- | ----------- | --------------------------- | ------------------------------ | ------------------------------------- |
+| **Single**       | A→B         | 1 Parent, 1 Child           | Yes                            | Animal → Dog                          |
+| **Multilevel**   | A→B→C       | Chain (3+ levels)           | Yes                            | Animal → Mammal → Dog                 |
+| **Hierarchical** | A→B,C,D     | 1 Parent, Multiple Children | Yes                            | Animal → Dog, Cat, Cow                |
+| **Multiple**     | A,B→C       | Multiple Parents, 1 Child   | No (Classes), Yes (Interfaces) | Flyable, Swimmable → Duck             |
+| **Hybrid**       | Combination | Mix of above                | No (Classes), Yes (Interfaces) | Vehicle + Electric + Fuel → HybridCar |
 
 ---
 
@@ -415,26 +347,27 @@ public class Main {
 ```
 
 **Problem:**
+
 - If B and C both override a method from A
 - D inherits from both B and C
 - Which version should D inherit? Ambiguity!
 
 ```java
 class A {
-    void show() { 
-        System.out.println("A"); 
+    void show() {
+        System.out.println("A");
     }
 }
 
 class B extends A {
-    void show() { 
-        System.out.println("B"); 
+    void show() {
+        System.out.println("B");
     }
 }
 
 class C extends A {
-    void show() { 
-        System.out.println("C"); 
+    void show() {
+        System.out.println("C");
     }
 }
 
@@ -451,6 +384,7 @@ class C extends A {
 **Q1: What are the types of inheritance in Java?**
 
 Java supports three types of inheritance:
+
 1. **Single Inheritance** - One child from one parent
 2. **Multilevel Inheritance** - Chain of inheritance (A→B→C)
 3. **Hierarchical Inheritance** - Multiple children from one parent
@@ -464,6 +398,7 @@ Java doesn't support multiple inheritance through classes to avoid the **Diamond
 **Q3: Can we achieve Multiple Inheritance in Java?**
 
 Yes, through **interfaces**. A class can implement multiple interfaces. Example:
+
 ```java
 interface A { }
 interface B { }
@@ -483,13 +418,13 @@ The Diamond Problem occurs in multiple inheritance when a class inherits from tw
 
 ## Short Recap
 
-Java mein **3 types** ki inheritance support hoti hai:
+Java supports **3 main types** of inheritance using classes:
 
 1. **Single** - One parent → One child
 2. **Multilevel** - GrandParent → Parent → Child (chain)
 3. **Hierarchical** - One parent → Multiple children
 
-**Multiple Inheritance** (multiple parents → one child) classes ke liye support nahi hai kyunki **Diamond Problem** ho sakti hai. Lekin **interfaces** ke through achieve kar sakte hain.
+**Multiple Inheritance** (multiple parents → one child) is NOT supported for classes due to the **Diamond Problem** (ambiguity). However, it can be achieved using **Interfaces**.
 
 ## Visual Summary
 

@@ -2,79 +2,30 @@
 
 ## Concept Introduction
 
-Imagine ek **medicine capsule** - andar kai saare ingredients hain but wo **ek covering mein packed** hain. Tum directly ingredients ko touch nahi kar sakte, capsule ke through hi access hota hai. **Encapsulation** bhi aise hi hai - **data ko private rakh kar, controlled access through public methods**.
+Encapsulation is the mechanism of wrapping data (variables) and methods into a single unit (class), and restricting direct access to some of the object's components.
 
 **Encapsulation = Data Hiding + Controlled Access**
-
-Real-World Example: **ATM Machine** - Tum directly cash box ko nahi kholte, ATM interface use karke safely paise nikalte ho.
-
-Encapsulation is the mechanism of wrapping data (variables) and methods into a single unit (class), and restricting direct access to some of the object's components.
 
 ---
 
 ## Why Encapsulation Exists
 
-### The Problem
+### The Problem: Uncontrolled Data Access
 
-Agar class ka sara data public ho:
+If a class's data (fields) is made `public`, it means **anyone, anywhere** in the code can access and modify it directly. This leads to serious issues:
 
-- Koi bhi directly data change kar sakta hai
-- Invalid values set ho sakte hain
-- Data corruption possible
-- No validation control
+- **No Control**: External code can set the data to anything, bypassing any rules.
+- **Invalid Data**: For example, a bank account balance could be set to a negative number, or an age to -500. This corrupts the object's state.
+- **Tight Coupling**: If you change the variable name later, all external code using that variable will break.
 
-```java
-class BankAccount {
-    public int balance = 1000;
-}
+### The Solution: Private Data and Public Methods
 
-BankAccount acc = new BankAccount();
-acc.balance = -5000;  // Invalid but possible!
-```
+The core idea of encapsulation is to make the data **private** and provide **public methods** (like getters and setters) to access it.
 
-### The Solution
-
-Data ko **private** rakh kar, **public methods** through controlled access:
-
-- Data protected
-- Validation possible
-- Full control over how data is accessed/modified
-
-```java
-class BankAccount {
-    private int balance = 1000;
-
-    public void withdraw(int amount) {
-        if (amount > 0 && amount <= balance) {
-            balance -= amount;
-        }
-    }
-}
-```
-
----
-
-## Definitions
-
-### Very Simple Definition
-
-Data ko private rakhna aur public methods se access dena encapsulation hai.
-
-### Simple Definition
-
-Encapsulation is the mechanism of wrapping data (variables) and methods into a single unit (class), and restricting direct access to some of the object's components.
-
-### College Exam Definition
-
-Encapsulation is a fundamental OOPs principle that binds together data and functions that manipulate the data, and keeps both safe from outside interference and misuse. It is achieved by declaring instance variables as private and providing public getter and setter methods to access and modify them.
-
-### Interview Definition
-
-Encapsulation is the process of wrapping data (fields) and code (methods) together into a single unit called a class, while hiding the internal implementation details from the outside world. It is achieved by making data members private and providing public accessor (getter) and mutator (setter) methods. This provides data hiding, validation, and control over how data is accessed or modified, making code more maintainable and secure.
-
-### Deep Technical Definition
-
-Encapsulation is an OOPs principle that implements data hiding and abstraction by binding data members and member functions into a single unit (class) while controlling access through access modifiers (private, protected, public, default). It ensures that the internal representation of an object is hidden from the outside, exposing only necessary interfaces through public methods. This creates a protective barrier around data, prevents unauthorized access, enables validation before modification, maintains class invariants, reduces coupling, and provides flexibility to change internal implementation without affecting external code. In Java, it's implemented using private fields with public getter/setter methods (accessor/mutator methods), following the JavaBeans naming convention.
+- **Data Protection**: By making fields `private`, we hide them from the outside world. No one can touch them directly.
+- **Controlled Access**: We provide `public` methods to read (get) or write (set) the data.
+- **Validation**: Inside these methods, we can add logic to **check** the data before saving it. For example, we can ensure the deposit amount is positive before adding it to the balance.
+- **Flexibility**: We can change the internal implementation without affecting how other parts of the code use the class.
 
 ---
 
@@ -82,34 +33,14 @@ Encapsulation is an OOPs principle that implements data hiding and abstraction b
 
 ### 1. Data Hiding
 
-Make data members **private**
-
-```java
-class Student {
-    private String name;    // Can't access directly
-    private int age;        // Can't access directly
-}
-```
+Data hiding allows us to restrict direct access to an object's internal state. By declaring variables as **private**, we ensure that they cannot be accessed or modified directly from outside the class. This prevents unauthorized access and protects the integrity of the data.
 
 ### 2. Controlled Access
 
-Provide **public getter/setter** methods
+Instead of direct access, we provide **public getter and setter methods** to interact with the private data. This acts as a gateway or interface.
 
-```java
-class Student {
-    private String name;
-
-    // Getter method
-    public String getName() {
-        return name;
-    }
-
-    // Setter method
-    public void setName(String name) {
-        this.name = name;
-    }
-}
-```
+- **Getters (Accessors)**: Allow reading the value of a private variable.
+- **Setters (Mutators)**: Allow modifying the value, often with validation logic to ensure only correct data is saved.
 
 ---
 
@@ -135,260 +66,7 @@ Controlled access is the second pillar of encapsulation. Just hiding data isn't 
 
 ---
 
-## Complete Encapsulation Example
-
-```java
-class Employee {
-    // Private data members (Data Hiding)
-    private int empId;
-    private String empName;
-    private double salary;
-
-    // Public getter for empId
-    public int getEmpId() {
-        return empId;
-    }
-
-    // Public setter for empId
-    public void setEmpId(int empId) {
-        if (empId > 0) {  // Validation
-            this.empId = empId;
-        } else {
-            System.out.println("Invalid Employee ID");
-        }
-    }
-
-    // Public getter for empName
-    public String getEmpName() {
-        return empName;
-    }
-
-    // Public setter for empName
-    public void setEmpName(String empName) {
-        if (empName != null && !empName.isEmpty()) {
-            this.empName = empName;
-        } else {
-            System.out.println("Name cannot be empty");
-        }
-    }
-
-    // Public getter for salary
-    public double getSalary() {
-        return salary;
-    }
-
-    // Public setter for salary
-    public void setSalary(double salary) {
-        if (salary >= 10000) {  // Minimum salary validation
-            this.salary = salary;
-        } else {
-            System.out.println("Salary must be at least 10000");
-        }
-    }
-
-    // Additional method
-    public void displayInfo() {
-        System.out.println("ID: " + empId);
-        System.out.println("Name: " + empName);
-        System.out.println("Salary: " + salary);
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Employee emp = new Employee();
-
-        // Can't access directly (private)
-        // emp.empId = 101;     // ERROR!
-        // emp.empName = "Rahul";  // ERROR!
-
-        // Must use setter methods
-        emp.setEmpId(101);
-        emp.setEmpName("Rahul Kumar");
-        emp.setSalary(50000);
-
-        emp.displayInfo();
-
-        // Trying invalid values
-        emp.setEmpId(-5);        // Invalid Employee ID
-        emp.setSalary(5000);     // Salary must be at least 10000
-
-        // Getting values using getters
-        System.out.println("\nEmployee Name: " + emp.getEmpName());
-        System.out.println("Employee Salary: " + emp.getSalary());
-    }
-}
-```
-
-**Output**:
-
-```
-ID: 101
-Name: Rahul Kumar
-Salary: 50000.0
-Invalid Employee ID
-Salary must be at least 10000
-
-Employee Name: Rahul Kumar
-Employee Salary: 50000.0
-```
-
----
-
-## Real-World Example: Bank Account
-
-```java
-class BankAccount {
-    private String accountNumber;
-    private String accountHolder;
-    private double balance;
-    private String pin;
-
-    // Constructor
-    public BankAccount(String accountNumber, String accountHolder, String pin) {
-        this.accountNumber = accountNumber;
-        this.accountHolder = accountHolder;
-        this.pin = pin;
-        this.balance = 0;
-    }
-
-    // Deposit money
-    public void deposit(double amount) {
-        if (amount > 0) {
-            balance += amount;
-            System.out.println("Deposited: ₹" + amount);
-        } else {
-            System.out.println("Invalid amount");
-        }
-    }
-
-    // Withdraw money (with PIN validation)
-    public void withdraw(double amount, String inputPin) {
-        if (!inputPin.equals(pin)) {
-            System.out.println("Incorrect PIN!");
-            return;
-        }
-
-        if (amount > 0 && amount <= balance) {
-            balance -= amount;
-            System.out.println("Withdrawn: ₹" + amount);
-        } else if (amount > balance) {
-            System.out.println("Insufficient balance");
-        } else {
-            System.out.println("Invalid amount");
-        }
-    }
-
-    // Check balance (with PIN validation)
-    public void checkBalance(String inputPin) {
-        if (inputPin.equals(pin)) {
-            System.out.println("Balance: ₹" + balance);
-        } else {
-            System.out.println("Incorrect PIN!");
-        }
-    }
-
-    // Change PIN
-    public void changePin(String oldPin, String newPin) {
-        if (oldPin.equals(pin)) {
-            this.pin = newPin;
-            System.out.println("PIN changed successfully");
-        } else {
-            System.out.println("Incorrect old PIN!");
-        }
-    }
-
-    // Get account holder name (public info)
-    public String getAccountHolder() {
-        return accountHolder;
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        BankAccount account = new BankAccount("1234567890", "Rahul Kumar", "1234");
-
-        System.out.println("Account Holder: " + account.getAccountHolder());
-
-        // Can't directly access balance
-        // System.out.println(account.balance);  // ERROR! Private
-
-        account.deposit(10000);
-        account.checkBalance("1234");
-
-        account.withdraw(3000, "1234");
-        account.checkBalance("1234");
-
-        // Wrong PIN
-        account.withdraw(1000, "9999");  // Incorrect PIN!
-
-        account.changePin("1234", "\5678");
-        account.checkBalance("5678");
-    }
-}
-```
-
-**Perfect example of data security through encapsulation!**
-
----
-
 ## Advantages of Encapsulation
-
-### 1. Data Hiding
-
-```java
-private double salary;  // Hidden from outside
-```
-
-### 2. Data Validation
-
-```java
-public void setAge(int age) {
-    if (age > 0 && age < 120) {
-        this.age = age;
-    }
-}
-```
-
-### 3. Read-Only Class
-
-```java
-class Student {
-    private int rollNo;
-
-    public int getRollNo() {  // Only getter, no setter
-        return rollNo;
-    }
-}
-```
-
-### 4. Write-Only Class
-
-```java
-class Password {
-    private String password;
-
-    public void setPassword(String password) {  // Only setter, no getter
-        this.password = password;
-    }
-}
-```
-
-### 5. Flexibility
-
-```java
-// Can change internal implementation
-private double balance;
-
-// Without affecting outside code
-public double getBalance() {
-    return balance;  // Can add logic here
-}
-```
-
----
-
-## Benefits Summary
 
 | Benefit             | Description                                   | Example                      |
 | ------------------- | --------------------------------------------- | ---------------------------- |
@@ -401,96 +79,29 @@ public double getBalance() {
 
 ---
 
-## Encapsulation in Java
+## Getter and Setter Methods
 
-### Fully Encapsulated Class Requirements:
+### What are they?
 
-1. All data members must be **private**
-2. Provide **public getter/setter** methods
-3. No public variables
+- **Getters (Accessors)**: Public methods used to **read** or retrieve the value of a private variable.
+- **Setters (Mutators)**: Public methods used to **modify** or set the value of a private variable.
 
-```java
-class Person {
-    private String name;     //  Private
-    private int age;         //  Private
+### Why Do We Need Them?
 
-    public String getName() { return name; }                //  Getter
-    public void setName(String name) { this.name = name; }  //  Setter
+Using Getters and Setters is much better than accessing variables directly because:
 
-    public int getAge() { return age; }              //  Getter
-    public void setAge(int age) { this.age = age; }  //  Setter
-}
-```
+1.  **Validation**: A setter method allows us to check the data before saving it. For example, a setter for `age` can check if the value is positive. If we allowed direct access, anyone could set a negative age.
+2.  **Read-Only or Write-Only Access**: By providing only a getter or only a setter, we can control access levels.
+    - If we only provide a **Getter**, the variable becomes **Read-Only**.
+    - If we only provide a **Setter**, the variable becomes **Write-Only**.
+3.  **Flexibility**: We can change the internal implementation (e.g., rename a variable) without breaking the external code that uses the class, because the method name remains the same.
+4.  **Hiding Complexity**: A getter can return a calculated value (e.g., calculating age from date of birth) without exposing the logic or storing the value directly.
 
----
+### Naming Conventions
 
-## Getter and Setter Conventions
-
-### Naming Convention:
-
-- **Getter**: `get + FieldName` (capitalize first letter)
-- **Setter**: `set + FieldName` (capitalize first letter)
-- **Boolean**: `is + FieldName`
-
-```java
-class Student {
-    private String name;
-    private int age;
-    private boolean passed;
-
-    // Getter methods
-    public String getName() { return name; }
-    public int getAge() { return age; }
-    public boolean isPassed() { return passed; }  // For boolean
-
-    // Setter methods
-    public void setName(String name) { this.name = name; }
-    public void setAge(int age) { this.age = age; }
-    public void setPassed(boolean passed) { this.passed = passed; }
-}
-```
-
----
-
-## Without vs With Encapsulation
-
-### Without Encapsulation:
-
-```java
-class Student {
-    public String name;
-    public int age;
-}
-
-Student s = new Student();
-s.name = "";           // Invalid but allowed
-s.age = -5;            // Invalid but allowed
-```
-
-### With Encapsulation:
-
-```java
-class Student {
-    private String name;
-    private int age;
-
-    public void setName(String name) {
-        if (name != null && !name.isEmpty()) {
-            this.name = name;
-        }
-    }
-
-    public void setAge(int age) {
-        if (age > 0 && age < 100) {
-            this.age = age;
-        }
-    }
-}
-
-Student s = new Student();
-s.setName("");         // Validation applied
-s.setAge(-5);          // Validation applied
-```
+- **Getter**: Start with `get` followed by the variable name (e.g., `getName`, `getAge`).
+- **Setter**: Start with `set` followed by the variable name (e.g., `setName`, `setAge`).
+- **Boolean**: For boolean variables, use `is` instead of `get` (e.g., `isValid`, `isPassed`).
 
 ---
 
@@ -554,13 +165,9 @@ No! It's about:
 ## Visual Summary
 
 ```
-╔══════════════════════════════════════════════════════════════════════════════════╗
-║                            ENCAPSULATION                                         ║
-╚══════════════════════════════════════════════════════════════════════════════════╝
-
 
 ╔══════════════════════════════════════════════════════════════════════════════════╗
-║                       ENCAPSULATION CONCEPT                                      ║
+║                                ENCAPSULATION CONCEPT                             ║
 ╠══════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                  ║
 ║                           ╔═══════════════════════════════════╗                  ║
@@ -605,119 +212,5 @@ No! It's about:
 ╚══════════════════════════════════════════════════════════════════════════════════╝
 
 
-╔══════════════════════════════════════════════════════════════════════════════════╗
-║                      DATA HIDING FLOW                                            ║
-╠══════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                  ║
-║                         WITHOUT ENCAPSULATION                                    ║
-║                                                                                  ║
-║    ╔═══════════════╗                              ╔═══════════════════╗          ║
-║    ║  Outside Code ║ ────► acc.balance = -5000 ──►║  CORRUPTED DATA   ║          ║
-║    ╚═══════════════╝       Direct Access          ╚═══════════════════╝          ║
-║                                                                                  ║
-║    ════════════════════════════════════════════════════════════════════          ║
-║                                                                                  ║
-║                         WITH ENCAPSULATION                                       ║
-║                                                                                  ║
-║    ╔═══════════════╗                                                             ║
-║    ║  Outside Code ║                                                             ║
-║    ╚═══════╦═══════╝                                                             ║
-║            ║                                                                     ║
-║            ▼                                                                     ║
-║    ╔═══════════════════════╗                                                     ║
-║    ║  acc.withdraw(-5000)  ║                                                     ║
-║    ╚═══════════╦═══════════╝                                                     ║
-║                ║                                                                 ║
-║                ▼                                                                 ║
-║    ╔═══════════════════════════════════════════════════════════════════╗         ║
-║    ║                   PUBLIC METHOD (withdraw)                        ║         ║
-║    ╠═══════════════════════════════════════════════════════════════════╣         ║
-║    ║                                                                   ║         ║
-║    ║   if (amount > 0 && amount <= balance) {    ◄── VALIDATION        ║         ║
-║    ║       balance -= amount;                                          ║         ║
-║    ║   } else {                                                        ║         ║
-║    ║       System.out.println("Invalid!");       ◄── PROTECTION        ║         ║
-║    ║   }                                                               ║         ║
-║    ║                                                                   ║         ║
-║    ╚═══════════════════════════════════════════════════════════════════╝         ║
-║                ║                                                                 ║
-║                ▼                                                                 ║
-║    ╔═══════════════════════╗                                                     ║
-║    ║   DATA PROTECTED      ║                                                     ║
-║    ╚═══════════════════════╝                                                     ║
-║                                                                                  ║
-╚══════════════════════════════════════════════════════════════════════════════════╝
 
-
-╔══════════════════════════════════════════════════════════════════════════════════╗
-║                     GETTER & SETTER PATTERN                                      ║
-╠══════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                  ║
-║                     class Employee {                                             ║
-║                         private int salary;                                      ║
-║                     }                                                            ║
-║                                                                                  ║
-║    ╔═════════════════════════════════════════════════════════════════════════╗   ║
-║    ║                          GETTER                                         ║   ║
-║    ║                       (Read Access)                                     ║   ║
-║    ╠═════════════════════════════════════════════════════════════════════════╣   ║
-║    ║                                                                         ║   ║
-║    ║   public int getSalary() {                                              ║   ║
-║    ║       return salary;                                                    ║   ║
-║    ║   }                                                                     ║   ║
-║    ║                                                                         ║   ║
-║    ║   USAGE: int sal = emp.getSalary();                                     ║   ║
-║    ╚═════════════════════════════════════════════════════════════════════════╝   ║
-║                                                                                  ║
-║    ╔═════════════════════════════════════════════════════════════════════════╗   ║
-║    ║                          SETTER                                         ║   ║
-║    ║                       (Write Access)                                    ║   ║
-║    ╠═════════════════════════════════════════════════════════════════════════╣   ║
-║    ║                                                                         ║   ║
-║    ║   public void setSalary(int salary) {                                   ║   ║
-║    ║       if (salary > 0) {              // Validation                      ║   ║
-║    ║           this.salary = salary;                                         ║   ║
-║    ║       }                                                                 ║   ║
-║    ║   }                                                                     ║   ║
-║    ║                                                                         ║   ║
-║    ║   USAGE: emp.setSalary(50000);                                          ║   ║
-║    ╚═════════════════════════════════════════════════════════════════════════╝   ║
-║                                                                                  ║
-╚══════════════════════════════════════════════════════════════════════════════════╝
-
-
-╔══════════════════════════════════════════════════════════════════════════════════╗
-║                       REAL WORLD ANALOGY                                         ║
-╠══════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                  ║
-║                              ATM MACHINE                                         ║
-║                                                                                  ║
-║    ╔═══════════════════════════════════════════════════════════════════╗         ║
-║    ║                                                                   ║         ║
-║    ║    ╔═════════════════════════════════════════════════════════╗    ║         ║
-║    ║    ║              HIDDEN (Private)                           ║    ║         ║
-║    ║    ║                                                         ║    ║         ║
-║    ║    ║    - Cash Box                                           ║    ║         ║
-║    ║    ║    - Card Reader Mechanism                              ║    ║         ║
-║    ║    ║    - Internal Circuits                                  ║    ║         ║
-║    ║    ║    - Security Systems                                   ║    ║         ║
-║    ║    ║                                                         ║    ║         ║
-║    ║    ╚═════════════════════════════════════════════════════════╝    ║         ║
-║    ║                              │                                    ║         ║
-║    ║                              ▼                                    ║         ║
-║    ║    ╔═════════════════════════════════════════════════════════╗    ║         ║
-║    ║    ║              VISIBLE (Public Interface)                 ║    ║         ║
-║    ║    ║                                                         ║    ║         ║
-║    ║    ║    [  Withdraw  ]   [  Deposit  ]   [  Balance  ]       ║    ║         ║
-║    ║    ║                                                         ║    ║         ║
-║    ║    ║    Card Slot    PIN Keypad    Screen                    ║    ║         ║
-║    ║    ║                                                         ║    ║         ║
-║    ║    ╚═════════════════════════════════════════════════════════╝    ║         ║
-║    ║                                                                   ║         ║
-║    ╚═══════════════════════════════════════════════════════════════════╝         ║
-║                                                                                  ║
-║    User interacts with PUBLIC INTERFACE only                                     ║
-║    Internal workings are HIDDEN and PROTECTED                                    ║
-║                                                                                  ║
-╚══════════════════════════════════════════════════════════════════════════════════╝
 ```

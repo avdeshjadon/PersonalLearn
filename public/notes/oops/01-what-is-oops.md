@@ -6,18 +6,7 @@
 
 Object-Oriented Programming is a programming paradigm based on the concept of objects which contain data (attributes) and code (methods). It emphasizes on data rather than functions and follows principles like encapsulation, inheritance, polymorphism, and abstraction.
 
-**Real-life example**
-
-- Imagine a `Car` as an object.
-    - Properties: `color`, `make`, `speed`.
-    - Behaviors (methods): `start()`, `accelerate()`, `brake()`.
-    - In code: a `Car` class defines the blueprint; `myCar = new Car()` creates an instance (an object) with its own property values.
-
-**Hinglish explanation**
-
-Socho tum ek car bana rahe ho — car ke kuch parts jaise `engine`, `wheels`, aur `steering` hain (yeh data/properties hain) aur kuch kaam jaise `start karna` ya `break lagana` hain (yeh methods hain). OOPs mein in sab ko ek hi jagah (object) mein rakhte ho, jisse code samajhna, reuse karna aur maintain karna aasaan ho jaata hai.
-
-**One-line summary:** OOPs = Real-world entities ko code mein objects ki form mein represent karna.
+**One-line summary:** OOPs = Representing real-world entities in the form of objects in code.
 
 ---
 
@@ -25,82 +14,36 @@ Socho tum ek car bana rahe ho — car ke kuch parts jaise `engine`, `wheels`, au
 
 ### Problem with Procedural Programming
 
-Pehle programmers **procedural programming** use karte the jahan:
-- Sab kuch **functions** mein divide hota tha
-- Data aur functions **separate** the
-- Code **reuse** karna mushkil tha
-- Large projects **manage** karna tough tha
-- **Security** kam thi (koi bhi data access kar sakta tha)
+Previously, programmers used **Procedural Programming** (like C programming), but it had several limitations:
 
-```java
-public class BankProcedural {
-    public static int balance = 1000;               // global-like data
-
-    public static void withdraw(int amount) {
-        balance = balance - amount;                 // Anyone can modify balance
-    }
-
-    public static void deposit(int amount) {
-        balance = balance + amount;
-    }
-}
-```
+- **Data Security Issue:** Data and functions were separate. Any function could modify the data, leading to security issues (Global Data problems).
+- **Maintenance Problem:** As projects grew larger, managing the code became increasingly difficult.
+- **No Reusability:** Resuing code was difficult; programmers often had to write the same code repeatedly.
+- **Real World Modeling:** It was hard to represent real-world entities (like Car, BankAccount) in a procedural way.
 
 ### Solution: Object-Oriented Programming (OOPs)
 
-- Data aur functions **ek saath** bundle hote hain (objects mein)
-- Code **reusable** hai (inheritance)
-- Code **secure** hai (encapsulation)
-- **Maintenance** easy hai
-- **Real-world** problems ko naturally represent kar sakte hain
+OOPs provided a solution to all these problems:
 
-```java
-class BankAccount {
-    private int balance = 1000;                     // Protected data
-    
-    public void withdraw(int amount) {
-        if (amount <= balance) {
-            balance -= amount;
-        }
-    }
-    
-    public void deposit(int amount) {
-        balance += amount;
-    }
-}
-```
+- **Better Data Security:** Data and functions are bundled together into an **Object** (Encapsulation), making data more secure.
+- **Code Reusability:** Old code can be reused using **Inheritance**.
+- **Easy Maintenance:** Projects are broken down into smaller objects, making them easier to manage.
+- **Real World Mapping:** We can represent real-world entities directly in code.
 
----
-
-## Definitions
-
-### Very Simple Definition
-OOPs ek programming style hai jahan hum real-world ki cheezein (objects) banate hain aur unhe code mein use karte hain.
-
-### Simple Definition
-Object-Oriented Programming ek tarika hai programming ka jahan hum data aur functions ko ek saath objects mein bundle karte hain, real-world entities ki tarah.
-
-### College Exam Definition
-Object-Oriented Programming is a programming paradigm based on the concept of objects which contain data (attributes) and code (methods). It emphasizes on data rather than functions and follows principles like encapsulation, inheritance, polymorphism, and abstraction.
-
-### Technical Definition
-Object-Oriented Programming is a methodology that organizes software design around data (objects) rather than functions and logic. Objects are instances of classes that bundle data (attributes/properties) with methods (behaviors/functions) that operate on that data, promoting code reusability, modularity, and maintainability.
-
-### Interview Definition
-OOPs is a programming paradigm centered around objects which are instances of classes. It focuses on four main pillars: Encapsulation (data hiding), Inheritance (code reusability), Polymorphism (multiple forms), and Abstraction (hiding complexity). OOPs makes code more modular, reusable, scalable, and easier to maintain by modeling real-world entities as objects with properties and behaviors.
+**In Simple Words:** Procedural programming focused on "how to do the task" (functions), whereas OOPs focuses on "what to do the task on" (objects).
 
 ---
 
 ## Benefits of OOPs
 
-| Benefit | Description | Example |
-|---------|-------------|---------|
-| **Modularity** | Code ko logical units mein divide karna | Separate classes for Car, Engine, Wheel |
-| **Reusability** | Code ko reuse karna | Inheritance through parent classes |
-| **Flexibility** | Code ko easily modify karna | Polymorphism allows different implementations |
-| **Security** | Data ko protect karna | Private variables, public methods |
-| **Maintenance** | Code maintain karna easy | Changes in one class don't affect others |
-| **Problem Solving** | Real-world problems naturally model karna | Student, Teacher, Course as classes |
+| Benefit             | Description                              | Example                                       |
+| ------------------- | ---------------------------------------- | --------------------------------------------- |
+| **Modularity**      | Dividing code into logical units         | Separate classes for Car, Engine, Wheel       |
+| **Reusability**     | Reusing existing code                    | Inheritance through parent classes            |
+| **Flexibility**     | Modifying code easily                    | Polymorphism allows different implementations |
+| **Security**        | Protecting data from unauthorized access | Private variables, public methods             |
+| **Maintenance**     | Easier code maintenance                  | Changes in one class don't affect others      |
+| **Problem Solving** | Modeling real-world problems naturally   | Student, Teacher, Course as classes           |
 
 ---
 
@@ -113,14 +56,14 @@ Before we look at the side-by-side comparison, here's the core idea you should k
 
 In short: procedural code focuses on actions (what the program does), while OOP focuses on the things (objects) the program manipulates.
 
-| Feature | Procedural | OOPs |
-|---------|-----------|------|
-| **Focus** | Functions | Objects |
-| **Data & Functions** | Separate | Together (encapsulated) |
-| **Access** | Global data | Controlled access |
-| **Reusability** | Limited | High (inheritance) |
-| **Security** | Low | High (encapsulation) |
-| **Examples** | C, Pascal | Java, C++, Python |
+| Feature              | Procedural  | OOPs                    |
+| -------------------- | ----------- | ----------------------- |
+| **Focus**            | Functions   | Objects                 |
+| **Data & Functions** | Separate    | Together (encapsulated) |
+| **Access**           | Global data | Controlled access       |
+| **Reusability**      | Limited     | High (inheritance)      |
+| **Security**         | Low         | High (encapsulation)    |
+| **Examples**         | C, Pascal   | Java, C++, Python       |
 
 ---
 
@@ -133,6 +76,7 @@ Object-Oriented Programming is a programming paradigm based on objects which con
 **Q2: What are the main principles of OOPs?**
 
 The four main pillars are:
+
 1. **Encapsulation** - Data hiding
 2. **Inheritance** - Code reusability
 3. **Polymorphism** - Multiple forms
@@ -154,7 +98,7 @@ Procedural focuses on functions and procedures, while OOPs focuses on objects th
 
 ## Short Recap
 
-**OOPs** ek programming style hai jahan hum **real-world entities** ko **objects** ki form mein represent karte hain. Objects mein **data** (attributes) aur **methods** (behaviors) hote hain.
+**OOPs** is a programming style where we represent **real-world entities** in the form of **objects**. Objects contain **data** (attributes) and **methods** (behaviors).
 
 **4 Pillars**: Encapsulation, Inheritance, Polymorphism, Abstraction
 
@@ -165,44 +109,6 @@ Procedural focuses on functions and procedures, while OOPs focuses on objects th
 ## Visual Summary
 
 ```
-╔══════════════════════════════════════════════════════════════════════════════════╗
-║                                  WHAT IS OOPs?                                   ║
-╚══════════════════════════════════════════════════════════════════════════════════╝
-
-                              ╔═══════════════════╗
-                              ║    REAL WORLD     ║
-                              ╚═════════╦═════════╝
-                                        ║
-                                        ▼
-                              ╔═══════════════════╗
-                              ║   Identify Entity ║
-                              ║    (Car, Student) ║
-                              ╚═════════╦═════════╝
-                                        ║
-                    ╔═══════════════════╩═══════════════════╗
-                    ▼                                       ▼
-          ╔═════════════════════╗              ╔═════════════════════╗
-          ║    ATTRIBUTES       ║              ║     BEHAVIORS       ║
-          ║    (Properties)     ║              ║     (Methods)       ║
-          ╠═════════════════════╣              ╠═════════════════════╣
-          ║  - brand            ║              ║  - start()          ║
-          ║  - color            ║              ║  - accelerate()     ║
-          ║  - speed            ║              ║  - brake()          ║
-          ╚═════════╦═══════════╝              ╚═══════════╦═════════╝
-                    ║                                      ║
-                    ╚══════════════════╦═══════════════════╝
-                                       ▼
-                              ╔═══════════════════╗
-                              ║      CLASS        ║
-                              ║   (Blueprint)     ║
-                              ╚═════════╦═════════╝
-                                        ║
-                                        ▼
-                              ╔═══════════════════╗
-                              ║      OBJECT       ║
-                              ║  (Real Instance)  ║
-                              ╚═══════════════════╝
-
 
 ╔══════════════════════════════════════════════════════════════════════════════════╗
 ║                             THE 4 PILLARS OF OOPs                                ║
