@@ -5,4 +5,3 @@ export { default as Article } from "./Article";
 export { default as FooterNav, SiteFooter } from "./FooterNav";
 export { default as Overlay } from "./Overlay";
 export { default as TableOfContents } from "./TableOfContents";
-export { default as HighlighterTool } from "./HighlighterTool";

@@ -1,5 +1,5 @@
-import { useState, useCallback, useRef } from 'react';
-import { useNotes, useTheme, useSidebar, useHighlighter } from './hooks';
+import { useState, useCallback, useRef, useEffect } from 'react';
+import { useNotes, useTheme, useSidebar } from './hooks';
 import { 
   Sidebar,
   InterviewSidebar,
@@ -34,8 +34,23 @@ function App() {
     switchFolder,
   } = useNotes(sidebar.expandGroup);
 
-  // Highlighter hook
-  const highlighter = useHighlighter(currentSlug);
+  // Load interview content on mount if currentFolder is already 'interview' (e.g., after hard refresh)
+  useEffect(() => {
+    if (currentFolder === 'interview' && !interviewContent && !interviewLoading) {
+      (async () => {
+        setInterviewLoading(true);
+        try {
+          const response = await fetch('/notes/interview/00-interview-questions.md');
+          const text = await response.text();
+          const { marked } = await import('marked');
+          setInterviewContent(marked(text));
+        } catch (error) {
+          setInterviewContent('<p>Error loading interview content</p>');
+        }
+        setInterviewLoading(false);
+      })();
+    }
+  }, [currentFolder]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Handle navigation with scroll to top
   const handleNavigate = useCallback((slug) => {
@@ -118,7 +133,6 @@ function App() {
           onMenuToggle={sidebar.toggle}
           onDarkToggle={toggleDark}
           isDark={isDark}
-          highlighter={highlighter}
         />
 
         {/* Article Content */}
@@ -126,23 +140,11 @@ function App() {
           <Article 
             content={interviewContent} 
             isLoading={interviewLoading}
-            highlighterActive={highlighter.isActive}
-            highlighterColor={highlighter.activeColor}
-            isEraser={highlighter.isEraser}
-            onMouseUp={highlighter.handleMouseUp}
-            onEraserClick={highlighter.handleEraserClick}
-            containerRef={highlighter.containerRef}
           />
         ) : (
           <Article 
             content={articleContent} 
             isLoading={isLoading}
-            highlighterActive={highlighter.isActive}
-            highlighterColor={highlighter.activeColor}
-            isEraser={highlighter.isEraser}
-            onMouseUp={highlighter.handleMouseUp}
-            onEraserClick={highlighter.handleEraserClick}
-            containerRef={highlighter.containerRef}
           />
         )}
 

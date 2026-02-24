@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import HighlighterTool from './HighlighterTool';
 
 /**
  * Top navigation bar with folder tabs and toggles
@@ -10,8 +9,6 @@ const TopNav = memo(({
   onMenuToggle,
   onDarkToggle,
   isDark,
-  // Highlighter props
-  highlighter,
 }) => {
   return (
     <div className="folder-nav-top">
@@ -43,21 +40,6 @@ const TopNav = memo(({
           </button>
         </div>
         <div className="nav-actions">
-          {/* Highlighter Tool */}
-          {highlighter && (
-            <HighlighterTool
-              isOpen={highlighter.isToolOpen}
-              isActive={highlighter.isActive}
-              activeColor={highlighter.activeColor}
-              isEraser={highlighter.isEraser}
-              colors={highlighter.colors}
-              onToggle={highlighter.toggleTool}
-              onClose={highlighter.closeTool}
-              onSelectColor={highlighter.selectColor}
-              onToggleEraser={highlighter.toggleEraser}
-              onDeactivate={highlighter.deactivate}
-            />
-          )}
           <button
             className="menu-toggle"
             title="Toggle menu"

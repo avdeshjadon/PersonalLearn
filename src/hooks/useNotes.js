@@ -1,15 +1,15 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { marked } from 'marked';
-import { getJavaStructure } from '../data/javaStructure';
-import { getOopsStructure } from '../data/oopsStructure';
-import { getAdvancedJavaStructure } from '../data/advancedJavaStructure';
-import { 
-  extractTitleFromMarkdown, 
-  processAsciiDiagrams, 
+import { useState, useEffect, useCallback, useRef } from "react";
+import { marked } from "marked";
+import { getJavaStructure } from "../data/javaStructure";
+import { getOopsStructure } from "../data/oopsStructure";
+import { getAdvancedJavaStructure } from "../data/advancedJavaStructure";
+import {
+  extractTitleFromMarkdown,
+  processAsciiDiagrams,
   sortByNumber,
-  getNumberFromSlug 
-} from '../utils/helpers';
-import logger from '../utils/logger';
+  getNumberFromSlug,
+} from "../utils/helpers";
+import logger from "../utils/logger";
 
 /**
  * Custom hook for managing notes data and content
@@ -17,26 +17,26 @@ import logger from '../utils/logger';
 export const useNotes = (onGroupExpand) => {
   // Restore folder from localStorage or default to 'java'
   const [currentFolder, setCurrentFolder] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('currentFolder') || 'java';
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("currentFolder") || "java";
     }
-    return 'java';
+    return "java";
   });
   const [manifest, setManifest] = useState([]);
   const [ordered, setOrdered] = useState([]);
   const [structure, setStructure] = useState([]);
-  const [currentSlug, setCurrentSlug] = useState('');
+  const [currentSlug, setCurrentSlug] = useState("");
   const [currentIndex, setCurrentIndex] = useState(-1);
-  const [articleContent, setArticleContent] = useState('');
+  const [articleContent, setArticleContent] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  
+
   const contentCache = useRef({});
 
   // Fetch markdown content
   const fetchMarkdownContent = useCallback(async (path, folder) => {
     const cacheKey = `${folder}/${path}`;
     if (contentCache.current[cacheKey]) {
-      logger.debug('Cache Hit', cacheKey);
+      logger.debug("Cache Hit", cacheKey);
       return contentCache.current[cacheKey];
     }
 
@@ -50,50 +50,63 @@ export const useNotes = (onGroupExpand) => {
   }, []);
 
   // Build manifest from structure
-  const buildManifest = useCallback(async (folder) => {
-    logger.time(`Build Manifest (${folder})`);
-    
-    const structureData = folder === 'java' ? getJavaStructure() 
-                        : folder === 'oops' ? getOopsStructure()
-                        : getAdvancedJavaStructure();
-    const fileList = [];
+  const buildManifest = useCallback(
+    async (folder) => {
+      logger.time(`Build Manifest (${folder})`);
 
-    structureData.forEach((group) => {
-      if (group.items?.length) {
-        group.items.forEach((slug) => fileList.push(`${slug}.md`));
-      }
-    });
+      const structureData =
+        folder === "java"
+          ? getJavaStructure()
+          : folder === "oops"
+            ? getOopsStructure()
+            : getAdvancedJavaStructure();
+      const fileList = [];
 
-    const manifestData = fileList.map((filename) => ({
-      slug: filename.replace('.md', ''),
-      title: filename.replace('.md', '').replace(/-/g, ' ').toUpperCase(),
-      path: filename,
-    }));
-
-    // Load titles in parallel
-    await Promise.all(
-      manifestData.map(async (item) => {
-        try {
-          const content = await fetchMarkdownContent(item.path, folder);
-          item.title = extractTitleFromMarkdown(content);
-        } catch (e) {
-          // Silent fail for title loading
+      structureData.forEach((group) => {
+        if (group.items?.length) {
+          group.items.forEach((slug) => fileList.push(`${slug}.md`));
         }
-      })
-    );
+      });
 
-    logger.timeEnd(`Build Manifest (${folder})`);
-    logger.success('Manifest Built', `${manifestData.length} topics loaded`);
+      const manifestData = fileList.map((filename) => ({
+        slug: filename.replace(".md", ""),
+        title: filename.replace(".md", "").replace(/-/g, " ").toUpperCase(),
+        path: filename,
+      }));
 
-    return { manifestData, structureData };
-  }, [fetchMarkdownContent]);
+      // Load titles in parallel
+      await Promise.all(
+        manifestData.map(async (item) => {
+          try {
+            const content = await fetchMarkdownContent(item.path, folder);
+            item.title = extractTitleFromMarkdown(content);
+          } catch (e) {
+            // Silent fail for title loading
+          }
+        }),
+      );
+
+      logger.timeEnd(`Build Manifest (${folder})`);
+      logger.success("Manifest Built", `${manifestData.length} topics loaded`);
+
+      return { manifestData, structureData };
+    },
+    [fetchMarkdownContent],
+  );
 
   // Initialize
   useEffect(() => {
     const init = async () => {
+      // Interview mode doesn't use the manifest system — content is loaded separately in App.jsx
+      if (currentFolder === "interview") {
+        setIsLoading(false);
+        return;
+      }
+
       setIsLoading(true);
 
-      const { manifestData, structureData } = await buildManifest(currentFolder);
+      const { manifestData, structureData } =
+        await buildManifest(currentFolder);
       setManifest(manifestData);
       setStructure(structureData);
 
@@ -102,15 +115,21 @@ export const useNotes = (onGroupExpand) => {
 
       const hash = window.location.hash.slice(1);
       // Default to roadmap for each folder, fallback to first item
-      const defaultSlug = currentFolder === 'java' ? '00-java-roadmap' 
-                        : currentFolder === 'oops' ? '00-oops-roadmap'
-                        : currentFolder === 'advanced-java' ? '01-object-class'
-                        : (orderedData.length > 0 ? orderedData[0].slug : '');
+      const defaultSlug =
+        currentFolder === "java"
+          ? "00-java-roadmap"
+          : currentFolder === "oops"
+            ? "00-oops-roadmap"
+            : currentFolder === "advanced-java"
+              ? "01-object-class"
+              : orderedData.length > 0
+                ? orderedData[0].slug
+                : "";
       const initialSlug = hash || defaultSlug;
 
       if (initialSlug) {
         setCurrentSlug(initialSlug);
-        logger.info('Initial Topic', initialSlug);
+        logger.info("Initial Topic", initialSlug);
       }
 
       setIsLoading(false);
@@ -153,7 +172,7 @@ export const useNotes = (onGroupExpand) => {
           }
         }
       } catch (error) {
-        logger.error('Content Load Failed', error.message);
+        logger.error("Content Load Failed", error.message);
         setArticleContent(`
           <div style="padding: 40px; text-align: center; color: #d32f2f;">
             <h2>Error Loading Content</h2>
@@ -166,7 +185,15 @@ export const useNotes = (onGroupExpand) => {
     };
 
     loadContent();
-  }, [currentSlug, manifest, currentFolder, fetchMarkdownContent, ordered, structure, onGroupExpand]);
+  }, [
+    currentSlug,
+    manifest,
+    currentFolder,
+    fetchMarkdownContent,
+    ordered,
+    structure,
+    onGroupExpand,
+  ]);
 
   // Handle popstate
   useEffect(() => {
@@ -175,30 +202,34 @@ export const useNotes = (onGroupExpand) => {
       if (hash) setCurrentSlug(hash);
     };
 
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
   // Navigate to slug
   const navigateTo = useCallback((slug) => {
     setCurrentSlug(slug);
-    window.history.pushState({ slug }, '', `#${slug}`);
+    window.history.pushState({ slug }, "", `#${slug}`);
   }, []);
 
   // Switch folder
-  const switchFolder = useCallback((folder) => {
-    if (folder !== currentFolder) {
-      setCurrentFolder(folder);
-      localStorage.setItem('currentFolder', folder);
-      setCurrentSlug('');
-      contentCache.current = {};
-      window.location.hash = '';
-    }
-  }, [currentFolder]);
+  const switchFolder = useCallback(
+    (folder) => {
+      if (folder !== currentFolder) {
+        setCurrentFolder(folder);
+        localStorage.setItem("currentFolder", folder);
+        setCurrentSlug("");
+        contentCache.current = {};
+        window.location.hash = "";
+      }
+    },
+    [currentFolder],
+  );
 
   // Prev/next items
   const prevItem = currentIndex > 0 ? ordered[currentIndex - 1] : null;
-  const nextItem = currentIndex < ordered.length - 1 ? ordered[currentIndex + 1] : null;
+  const nextItem =
+    currentIndex < ordered.length - 1 ? ordered[currentIndex + 1] : null;
 
   return {
     currentFolder,
