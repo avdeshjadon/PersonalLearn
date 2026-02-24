@@ -4,13 +4,11 @@
 
 My name is **Avdesh Jadon**, and I'm currently pursuing my B.Tech in Computer Science with a minor specialization in software testing. I'm originally from Agra, and I completed my schooling from **Saraswati Shiksha Sansthan Senior Secondary School, Sonepat**.
 
-I work as a **full-stack developer**, and I also enjoy **software testing**, because I believe software is not just about building features—it's about ensuring those features work smoothly in real-world conditions. My core stack includes React, Node.js, MongoDB, and Firebase. Along with development, my specialization also lies in Software Testing and I've also worked with tools like JMeter for performance and load testing.
+I work as a **full-stack developer**, and I also enjoy **software testing**, because I believe software is not just about building features—it's about ensuring those features work smoothly in real-world conditions. My core stack includes React, Node.js, MongoDB, and Firebase. Along with development, my specialization also lies in Software Testing and I've also worked with tools like JMeter for performance.
 
 One of the most meaningful experiences I had was building a **Finance Management Website** for a real client. where I designed the backend, authentication system, and database logic, and I also load-tested it to make sure it handled real usage well. That experience taught me how real product development requires both **technical understanding and logical decision-making**.
 
-As a person, I am calm, analytical, and curious. When something breaks, I don't panic—I slow down and solve it step by step. Outside of work, I enjoy playing cards, exploring new tech ideas, and working on small side projects just for fun and learning.
-
-I'm always excited to connect and collaborate on innovative software ideas!
+As a person, I am calm, analytical, and curious. When something breaks, I don't panic—I slow down and solve it step by step. Outside of work, I enjoy playing cards, exploring new tech ideas, and working on small side projects just for fun and learning. and I'm always excited to connect and collaborate on innovative software ideas!
 
 ---
 

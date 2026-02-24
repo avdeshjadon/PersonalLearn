@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
-import { useNotes, useTheme, useSidebar } from './hooks';
+import { useNotes, useTheme, useSidebar, useHighlighter } from './hooks';
 import { 
   Sidebar,
   InterviewSidebar,
@@ -33,6 +33,9 @@ function App() {
     navigateTo,
     switchFolder,
   } = useNotes(sidebar.expandGroup);
+
+  // Highlighter hook
+  const highlighter = useHighlighter(currentSlug);
 
   // Handle navigation with scroll to top
   const handleNavigate = useCallback((slug) => {
@@ -115,13 +118,32 @@ function App() {
           onMenuToggle={sidebar.toggle}
           onDarkToggle={toggleDark}
           isDark={isDark}
+          highlighter={highlighter}
         />
 
         {/* Article Content */}
         {isInterviewMode ? (
-          <Article content={interviewContent} isLoading={interviewLoading} />
+          <Article 
+            content={interviewContent} 
+            isLoading={interviewLoading}
+            highlighterActive={highlighter.isActive}
+            highlighterColor={highlighter.activeColor}
+            isEraser={highlighter.isEraser}
+            onMouseUp={highlighter.handleMouseUp}
+            onEraserClick={highlighter.handleEraserClick}
+            containerRef={highlighter.containerRef}
+          />
         ) : (
-          <Article content={articleContent} isLoading={isLoading} />
+          <Article 
+            content={articleContent} 
+            isLoading={isLoading}
+            highlighterActive={highlighter.isActive}
+            highlighterColor={highlighter.activeColor}
+            isEraser={highlighter.isEraser}
+            onMouseUp={highlighter.handleMouseUp}
+            onEraserClick={highlighter.handleEraserClick}
+            containerRef={highlighter.containerRef}
+          />
         )}
 
         {/* Footer Navigation - hidden for interview */}
