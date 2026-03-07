@@ -1,26 +1,26 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
-import { useNotes, useTheme, useSidebar } from './hooks';
-import { 
+import { useState, useCallback, useRef, useEffect } from "react";
+import { useNotes, useTheme, useSidebar } from "./hooks";
+import {
   Sidebar,
   InterviewSidebar,
-  TopNav, 
-  Article, 
-  FooterNav, 
-  SiteFooter, 
+  TopNav,
+  Article,
+  FooterNav,
+  SiteFooter,
   Overlay,
-  TableOfContents 
-} from './components';
+  TableOfContents,
+} from "./components";
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [interviewContent, setInterviewContent] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [interviewContent, setInterviewContent] = useState("");
   const [interviewLoading, setInterviewLoading] = useState(false);
   const contentRef = useRef(null);
 
   // Custom hooks
   const { isDark, toggleDark } = useTheme();
   const sidebar = useSidebar();
-  
+
   const {
     currentFolder,
     manifest,
@@ -36,16 +36,22 @@ function App() {
 
   // Load interview content on mount if currentFolder is already 'interview' (e.g., after hard refresh)
   useEffect(() => {
-    if (currentFolder === 'interview' && !interviewContent && !interviewLoading) {
+    if (
+      currentFolder === "interview" &&
+      !interviewContent &&
+      !interviewLoading
+    ) {
       (async () => {
         setInterviewLoading(true);
         try {
-          const response = await fetch('/notes/interview/00-interview-questions.md');
+          const response = await fetch(
+            "/notes/interview/00-interview-questions.md",
+          );
           const text = await response.text();
-          const { marked } = await import('marked');
+          const { marked } = await import("marked");
           setInterviewContent(marked(text));
         } catch (error) {
-          setInterviewContent('<p>Error loading interview content</p>');
+          setInterviewContent("<p>Error loading interview content</p>");
         }
         setInterviewLoading(false);
       })();
@@ -53,47 +59,59 @@ function App() {
   }, [currentFolder]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Handle navigation with scroll to top
-  const handleNavigate = useCallback((slug) => {
-    navigateTo(slug);
-    
-    // Smooth scroll to top
-    if (contentRef.current) {
-      contentRef.current.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    
-    // Close sidebar on mobile
-    if (window.innerWidth <= 800) {
-      sidebar.close();
-    }
-  }, [navigateTo, sidebar]);
+  const handleNavigate = useCallback(
+    (slug) => {
+      navigateTo(slug);
+
+      // Smooth scroll to top
+      if (contentRef.current) {
+        contentRef.current.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // Close sidebar on mobile
+      if (window.innerWidth <= 800) {
+        sidebar.close();
+      }
+    },
+    [navigateTo, sidebar],
+  );
 
   // Handle folder switch
-  const handleFolderSwitch = useCallback(async (folder) => {
-    if (folder === 'interview') {
-      setInterviewLoading(true);
-      try {
-        const response = await fetch('/notes/interview/00-interview-questions.md');
-        const text = await response.text();
-        const { marked } = await import('marked');
-        setInterviewContent(marked(text));
-      } catch (error) {
-        setInterviewContent('<p>Error loading interview content</p>');
+  const handleFolderSwitch = useCallback(
+    async (folder) => {
+      if (folder === "interview") {
+        setInterviewLoading(true);
+        try {
+          const response = await fetch(
+            "/notes/interview/00-interview-questions.md",
+          );
+          const text = await response.text();
+          const { marked } = await import("marked");
+          setInterviewContent(marked(text));
+        } catch (error) {
+          setInterviewContent("<p>Error loading interview content</p>");
+        }
+        setInterviewLoading(false);
+        sidebar.close();
       }
-      setInterviewLoading(false);
-      sidebar.close();
-    }
-    switchFolder(folder);
-    sidebar.resetExpanded();
-  }, [switchFolder, sidebar]);
+      switchFolder(folder);
+      sidebar.resetExpanded();
+    },
+    [switchFolder, sidebar],
+  );
 
   // Brand text based on current folder
-  const brandText = currentFolder === 'java' ? 'Java Notes' 
-                  : currentFolder === 'oops' ? 'OOPs Notes' 
-                  : currentFolder === 'advanced-java' ? 'Advanced Java Notes'
-                  : 'Interview Prep';
+  const brandText =
+    currentFolder === "java"
+      ? "Java Notes"
+      : currentFolder === "oops"
+        ? "OOPs Notes"
+        : currentFolder === "advanced-java"
+          ? "Advanced Java Notes"
+          : "Interview Prep";
 
   // Check if interview mode
-  const isInterviewMode = currentFolder === 'interview';
+  const isInterviewMode = currentFolder === "interview";
 
   return (
     <div className="app">
@@ -118,10 +136,7 @@ function App() {
 
       {/* Interview Sidebar */}
       {isInterviewMode && (
-        <InterviewSidebar
-          isOpen={sidebar.isOpen}
-          onClose={sidebar.close}
-        />
+        <InterviewSidebar isOpen={sidebar.isOpen} onClose={sidebar.close} />
       )}
 
       {/* Main Content */}
@@ -137,15 +152,9 @@ function App() {
 
         {/* Article Content */}
         {isInterviewMode ? (
-          <Article 
-            content={interviewContent} 
-            isLoading={interviewLoading}
-          />
+          <Article content={interviewContent} isLoading={interviewLoading} />
         ) : (
-          <Article 
-            content={articleContent} 
-            isLoading={isLoading}
-          />
+          <Article content={articleContent} isLoading={isLoading} />
         )}
 
         {/* Footer Navigation - hidden for interview */}
@@ -162,8 +171,8 @@ function App() {
       </main>
 
       {/* Table of Contents - floating button (outside content for proper fixed positioning) */}
-      <TableOfContents 
-        content={isInterviewMode ? interviewContent : articleContent} 
+      <TableOfContents
+        content={isInterviewMode ? interviewContent : articleContent}
       />
     </div>
   );

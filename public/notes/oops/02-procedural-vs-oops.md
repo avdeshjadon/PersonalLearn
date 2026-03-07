@@ -4,7 +4,9 @@
 
 Procedural programming organizes a program as a sequence of steps and functions that operate on shared data. Object-Oriented Programming (OOP) models a program as a collection of interacting objects that bundle their own data and the operations on that data.
 
-**Procedural = Step-by-step instructions (HOW)  |  OOPs = Objects with behavior (WHAT)**
+**Procedural = Step-by-step instructions (HOW)**
+
+**OOPs = Objects with behavior (WHAT)**
 
 ---
 

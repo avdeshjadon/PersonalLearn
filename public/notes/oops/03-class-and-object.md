@@ -2,7 +2,7 @@
 
 ## Concept Introduction
 
-- **Class:** A class is a user-defined blueprint or template that specifies the structure (attributes/properties) and behavior (methods/functions) that objects created from it will have. It defines the data types, access levels, constructors, and the operations that an object can perform. A class itself is a logical concept — it describes what an object should contain and do, but it does not allocate memory for instance data until an object is created.
+- **Class:** A class is a user-defined blueprint or template that specifies the structure (attributes/properties) and behavior (methods/functions) that objects created from it will have. It defines the data types, access levels, constructors, and the operations that an object can perform.
 
 - **Object:** An object is a concrete instance of a class. It is a runtime entity that occupies memory, holds actual values for the attributes defined by the class, and can invoke the methods declared in the class. Objects have identity (distinct references), state (current values of attributes), and behavior (methods they can perform).
 

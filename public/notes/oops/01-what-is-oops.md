@@ -2,11 +2,7 @@
 
 ## Concept Introduction
 
-**Simple English definition**
-
 Object-Oriented Programming is a programming paradigm based on the concept of objects which contain data (attributes) and code (methods). It emphasizes on data rather than functions and follows principles like encapsulation, inheritance, polymorphism, and abstraction.
-
-**One-line summary:** OOPs = Representing real-world entities in the form of objects in code.
 
 ---
 
