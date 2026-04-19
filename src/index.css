@@ -2298,3 +2298,89 @@ body,
 .dark .toc-close:hover {
   background: rgba(255, 255, 255, 0.1);
 }
+
+/* ============================================
+   PRESENTATION / FOCUS MODE
+   ============================================ */
+
+/* Button inside TopNav nav-actions */
+.presentation-nav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink);
+  font-size: 15px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.65;
+  transition:
+    opacity var(--duration-fast) var(--ease-smooth),
+    background var(--duration-fast) var(--ease-smooth);
+}
+
+.presentation-nav-btn:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+body.dark .presentation-nav-btn {
+  color: #e8dcc8;
+}
+
+body.dark .presentation-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Presentation mode: content takes full screen */
+.app.presentation-mode {
+  padding-left: 0;
+}
+
+.app.presentation-mode .content {
+  padding: 40px clamp(20px, 5vw, 80px);
+  max-width: 100%;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.app.presentation-mode .article {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px clamp(24px, 4vw, 72px);
+  border-radius: 16px;
+}
+
+/* Tiny exit button shown in bottom-right during presentation mode */
+.presentation-exit-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s var(--ease-smooth);
+}
+
+.presentation-exit-btn.visible {
+  opacity: 0.4;
+  pointer-events: auto;
+}
+
+.presentation-exit-btn.visible:hover {
+  opacity: 1;
+}

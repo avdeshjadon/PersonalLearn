@@ -9,6 +9,8 @@ const TopNav = memo(({
   onMenuToggle,
   onDarkToggle,
   isDark,
+  isPresentationMode,
+  onPresentationToggle,
 }) => {
   return (
     <div className="folder-nav-top">
@@ -55,6 +57,14 @@ const TopNav = memo(({
             onClick={onDarkToggle}
           >
             <i className={isDark ? 'fa-solid fa-sun' : 'fa-regular fa-moon'}></i>
+          </button>
+          <button
+            className={`presentation-nav-btn${isPresentationMode ? ' active' : ''}`}
+            title={isPresentationMode ? 'Exit focus mode (Esc)' : 'Focus mode — hide everything'}
+            aria-label={isPresentationMode ? 'Exit focus mode' : 'Enter focus mode'}
+            onClick={onPresentationToggle}
+          >
+            <i className={isPresentationMode ? 'fa-solid fa-compress' : 'fa-solid fa-expand'}></i>
           </button>
         </div>
       </div>

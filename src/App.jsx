@@ -15,7 +15,33 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [interviewContent, setInterviewContent] = useState("");
   const [interviewLoading, setInterviewLoading] = useState(false);
+  const [isPresentationMode, setIsPresentationMode] = useState(false);
   const contentRef = useRef(null);
+
+  // Sync state when user exits fullscreen via Esc / browser UI
+  useEffect(() => {
+    const handleFsChange = () => {
+      if (!document.fullscreenElement) {
+        setIsPresentationMode(false);
+      }
+    };
+    document.addEventListener('fullscreenchange', handleFsChange);
+    return () => document.removeEventListener('fullscreenchange', handleFsChange);
+  }, []);
+
+  const handlePresentationToggle = useCallback(() => {
+    if (!isPresentationMode) {
+      // Enter fullscreen
+      document.documentElement.requestFullscreen?.().catch(() => {});
+      setIsPresentationMode(true);
+    } else {
+      // Exit fullscreen
+      if (document.fullscreenElement) {
+        document.exitFullscreen?.().catch(() => {});
+      }
+      setIsPresentationMode(false);
+    }
+  }, [isPresentationMode]);
 
   // Custom hooks
   const { isDark, toggleDark } = useTheme();
@@ -114,12 +140,12 @@ function App() {
   const isInterviewMode = currentFolder === "interview";
 
   return (
-    <div className="app">
+    <div className={`app${isPresentationMode ? ' presentation-mode' : ''}`}>
       {/* Overlay for mobile sidebar */}
       <Overlay isActive={sidebar.isOpen} onClick={sidebar.close} />
 
-      {/* Sidebar - hidden for interview */}
-      {!isInterviewMode && (
+      {/* Sidebar - hidden for interview or presentation mode */}
+      {!isInterviewMode && !isPresentationMode && (
         <Sidebar
           isOpen={sidebar.isOpen}
           brandText={brandText}
@@ -135,20 +161,24 @@ function App() {
       )}
 
       {/* Interview Sidebar */}
-      {isInterviewMode && (
+      {isInterviewMode && !isPresentationMode && (
         <InterviewSidebar isOpen={sidebar.isOpen} onClose={sidebar.close} />
       )}
 
       {/* Main Content */}
       <main className="content" ref={contentRef}>
         {/* Top Navigation */}
-        <TopNav
-          currentFolder={currentFolder}
-          onFolderSwitch={handleFolderSwitch}
-          onMenuToggle={sidebar.toggle}
-          onDarkToggle={toggleDark}
-          isDark={isDark}
-        />
+        {!isPresentationMode && (
+          <TopNav
+            currentFolder={currentFolder}
+            onFolderSwitch={handleFolderSwitch}
+            onMenuToggle={sidebar.toggle}
+            onDarkToggle={toggleDark}
+            isDark={isDark}
+            isPresentationMode={isPresentationMode}
+            onPresentationToggle={handlePresentationToggle}
+          />
+        )}
 
         {/* Article Content */}
         {isInterviewMode ? (
@@ -157,8 +187,8 @@ function App() {
           <Article content={articleContent} isLoading={isLoading} />
         )}
 
-        {/* Footer Navigation - hidden for interview */}
-        {!isInterviewMode && (
+        {/* Footer Navigation - hidden for interview or presentation mode */}
+        {!isInterviewMode && !isPresentationMode && (
           <FooterNav
             prevItem={prevItem}
             nextItem={nextItem}
@@ -167,13 +197,25 @@ function App() {
         )}
 
         {/* Site Footer */}
-        <SiteFooter />
+        {!isPresentationMode && <SiteFooter />}
       </main>
 
       {/* Table of Contents - floating button (outside content for proper fixed positioning) */}
-      <TableOfContents
-        content={isInterviewMode ? interviewContent : articleContent}
-      />
+      {!isPresentationMode && (
+        <TableOfContents
+          content={isInterviewMode ? interviewContent : articleContent}
+        />
+      )}
+
+      {/* Presentation Mode exit button (shown only in presentation mode, since TopNav is hidden) */}
+      <button
+        className={`presentation-exit-btn${isPresentationMode ? ' visible' : ''}`}
+        title="Exit focus mode (Esc)"
+        aria-label="Exit focus mode"
+        onClick={handlePresentationToggle}
+      >
+        <i className="fa-solid fa-compress"></i>
+      </button>
     </div>
   );
 }
