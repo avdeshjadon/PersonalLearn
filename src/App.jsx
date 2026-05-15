@@ -18,6 +18,42 @@ function App() {
   const [isPresentationMode, setIsPresentationMode] = useState(false);
   const contentRef = useRef(null);
 
+  // Global click sound effect using Web Audio API for zero latency
+  useEffect(() => {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return; // Browser doesn't support Web Audio API
+    
+    const audioCtx = new AudioContext();
+    let audioBuffer = null;
+
+    // Fetch and decode the audio file once on mount
+    fetch('/sound/click.wav')
+      .then(response => response.arrayBuffer())
+      .then(arrayBuffer => audioCtx.decodeAudioData(arrayBuffer))
+      .then(decodedAudio => {
+        audioBuffer = decodedAudio;
+      })
+      .catch(e => console.debug('Error loading click sound:', e));
+
+    const playClickSound = () => {
+      if (!audioBuffer) return;
+      
+      // Browsers often suspend audio context until first user interaction
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      
+      // Create a new source node for each click (extremely lightweight and zero-latency)
+      const source = audioCtx.createBufferSource();
+      source.buffer = audioBuffer;
+      source.connect(audioCtx.destination);
+      source.start(0);
+    };
+    
+    document.addEventListener('mousedown', playClickSound);
+    return () => document.removeEventListener('mousedown', playClickSound);
+  }, []);
+
   // Sync state when user exits fullscreen via Esc / browser UI
   useEffect(() => {
     const handleFsChange = () => {

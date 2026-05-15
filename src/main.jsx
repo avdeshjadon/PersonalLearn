@@ -8,6 +8,15 @@ import logger from './utils/logger'
 logger.brand();
 logger.info('App', 'Starting React application...');
 
+// Global click sound effect
+const clickSound = new Audio('/sound/click.wav');
+window.addEventListener('click', () => {
+  clickSound.currentTime = 0;
+  clickSound.play().catch(e => {
+    console.debug('Could not play click sound:', e);
+  });
+});
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
