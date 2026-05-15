@@ -62,10 +62,13 @@ body,
 .folder-btn,
 .topic-link,
 .nav-foot,
-.group h4 {
+.group h4,
+.menu-toggle,
+.dark-toggle,
+.presentation-nav-btn {
   transform: translateZ(0);
   backface-visibility: hidden;
-  will-change: auto;
+  will-change: transform, opacity;
 }
 
 body {
@@ -177,7 +180,7 @@ body.js-fadein {
   font-family: "DM Sans", sans-serif;
   cursor: pointer;
   transition:
-    transform var(--duration-fast) var(--ease-out-quint),
+    transform var(--duration-normal) var(--ease-spring),
     background var(--duration-normal) var(--ease-smooth),
     border-color var(--duration-normal) var(--ease-smooth),
     color var(--duration-normal) var(--ease-smooth),
@@ -188,12 +191,12 @@ body.js-fadein {
   background: #f8f8f8;
   border-color: #bbb;
   color: #333;
-  transform: translateY(-1px);
+  transform: translateY(-2px) scale(1.02);
   box-shadow: var(--shadow-sm);
 }
 
 .folder-btn:active {
-  transform: translateY(0) scale(0.98);
+  transform: translateY(0) scale(0.95);
   transition-duration: 0.1s;
 }
 
@@ -223,7 +226,7 @@ body.js-fadein {
   width: 36px;
   height: 36px;
   transition:
-    transform var(--duration-fast) var(--ease-out-quint),
+    transform var(--duration-normal) var(--ease-spring),
     background var(--duration-normal) var(--ease-smooth),
     border-color var(--duration-normal) var(--ease-smooth),
     color var(--duration-normal) var(--ease-smooth),
@@ -235,7 +238,7 @@ body.js-fadein {
   background: #f8f8f8;
   border-color: #bbb;
   color: #333;
-  transform: translateY(-1px);
+  transform: translateY(-2px) scale(1.05);
   box-shadow: var(--shadow-sm);
 }
 
@@ -391,20 +394,20 @@ body.js-fadein {
   line-height: 1.2;
   transition:
     background var(--duration-normal) var(--ease-smooth),
-    transform var(--duration-fast) var(--ease-out-quint),
+    transform var(--duration-normal) var(--ease-spring),
     box-shadow var(--duration-normal) var(--ease-smooth),
     color var(--duration-normal) var(--ease-smooth);
 }
 
 .group h4:hover {
   background: rgba(43, 111, 111, 0.12);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.01);
   box-shadow: var(--shadow-md);
   color: #0f3a3a;
 }
 
 .group h4:active {
-  transform: translateY(0) scale(0.99);
+  transform: translateY(0) scale(0.98);
   transition-duration: 0.1s;
 }
 
@@ -456,13 +459,13 @@ body.js-fadein {
   cursor: pointer;
   transition:
     opacity var(--duration-fast) var(--ease-smooth),
-    transform var(--duration-fast) var(--ease-out-quint),
+    transform var(--duration-normal) var(--ease-spring),
     background var(--duration-fast) var(--ease-smooth);
 }
 
 .topic-link:hover {
   opacity: 1;
-  transform: translateX(4px);
+  transform: translateX(6px) scale(1.01);
   background: rgba(43, 111, 111, 0.04);
 }
 
@@ -602,19 +605,19 @@ body.js-fadein {
   cursor: pointer;
   transition:
     opacity var(--duration-fast) var(--ease-smooth),
-    transform var(--duration-fast) var(--ease-out-quint),
+    transform var(--duration-normal) var(--ease-spring),
     background var(--duration-normal) var(--ease-smooth);
 }
 
 .nav-foot:hover {
   opacity: 1;
-  transform: translateY(-2px);
+  transform: translateY(-4px) scale(1.02);
   background: rgba(43, 111, 111, 0.06);
 }
 
 .nav-foot:active {
   opacity: 0.7;
-  transform: translateY(0) scale(0.98);
+  transform: translateY(0) scale(0.97);
   transition-duration: 0.1s;
 }
 
@@ -705,30 +708,32 @@ body.js-fadein {
   box-sizing: border-box;
   color: var(--md-text);
   line-height: 1.8;
-  animation: articleFadeIn var(--duration-normal) var(--ease-out-quint);
+  animation: articleFadeIn 0.6s var(--ease-spring);
 }
 
 @keyframes articleFadeIn {
-  from {
+  0% {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(20px) scale(0.98);
   }
-  to {
+  100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 .article-content {
-  animation: contentFadeIn var(--duration-slow) var(--ease-out-quint);
+  animation: contentFadeIn 0.8s var(--ease-spring);
 }
 
 @keyframes contentFadeIn {
-  from {
+  0% {
     opacity: 0;
+    transform: translateY(10px);
   }
-  to {
+  100% {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
