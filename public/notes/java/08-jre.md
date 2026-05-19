@@ -4,53 +4,9 @@
 
 JRE (Java Runtime Environment) wo complete package hai jo Java programs ko run karne ke liye chahiye. Isme JVM (execution engine), Java class libraries (ready-made code), aur supporting files (configuration, security) sab kuch included hai. Agar tum developer nahi ho aur sirf Java applications use karte ho jaise Eclipse, IntelliJ, Minecraft, toh tumhe sirf JRE install karna kaafi hai. JRE, JDK ka subset hai — JDK mein development tools bhi hote hain, but JRE mein sirf runtime components hote hain.
 
-## Why This Concept Exists
+## Definition
 
-### Problem (Without JRE):
-
-Before Java Runtime Environment was introduced, running Java programs required manual setup and configuration. Bytecode was compiled but execution engine missing making programs unrunnable. Java libraries like String, ArrayList, File handling needed separate installation and configuration. Platform-specific native code required manual integration. Security, networking, input/output handling needed custom implementation. Every user had to manually configure execution environment. Missing or incompatible runtime components caused application failures. Version conflicts between JVM and libraries created runtime errors. Distribution required bundling all dependencies separately.
-
-- Bytecode compile ho gaya but execute kaun karega
-- Java libraries manually install karni padti
-- Platform-specific code alag configure karna padta
-- Security aur networking manually handle karna padta
-- Har user ko setup karna padta individually
-- Version conflicts aur missing components
-
-### Solution (JRE as complete runtime package):
-
-JRE provides complete integrated runtime environment solving execution challenges. Pre-packaged JVM executes bytecode efficiently without manual configuration. Comprehensive class libraries included providing all standard Java APIs. Supporting files handle security policies, timezone data, and native integration. Single installation gives complete execution environment. Automatic memory management through garbage collection. Built-in security through bytecode verification. Consistent runtime behavior across different installations. Updates and patches centrally managed. Platform-specific implementations while maintaining standard interface.
-
-- Complete runtime package ek installation mein
-- JVM + Libraries + Supporting files sab included
-- Automatic execution environment setup
-- Memory management aur security built-in
-- Platform-specific but standardized
-- Easy updates aur maintenance
-
----
-
-## Definitions
-
-### Very Simple Definition
-JRE wo software package hai jo Java programs ko run karne ke liye chahiye — JVM plus libraries plus supporting files.
-
-### College Exam Definition
-JRE (Java Runtime Environment) is a software package that provides the Java Virtual Machine (JVM), core class libraries, and supporting files required to execute Java applications. It does not include development tools like compiler (javac) or debugger, making it suitable for end users who only need to run Java programs.
-
-### Viva Definition
-The Java Runtime Environment (JRE) consists of JVM for bytecode execution, Java class libraries (java.lang, java.util, java.io, java.net) providing pre-compiled standard APIs, and runtime components including properties files, security policies, timezone data, and native libraries. JRE provides the complete environment for running compiled Java applications but excludes development tools, making it lighter than JDK.
-
-### Interview Definition
-JRE is the runtime implementation of Java platform comprising three components: JVM (execution engine with class loader, bytecode verifier, interpreter, JIT compiler, garbage collector), Java class libraries (pre-compiled classes in rt.jar for Java 8, modules for Java 9+) offering core functionality like collections, I/O, networking, concurrency, and supporting files (configuration, security policies, timezone data, font libraries, native libraries). JRE is the subset of JDK focused on execution without development capabilities.
-
-### Technical Definition
-JRE provides complete runtime infrastructure including: JVM implementation with runtime data areas (heap, stack, method area/metaspace, PC registers, native stacks), execution engine (interpreter, tiered JIT compilation with C1/C2 compilers, garbage collection with various algorithms), bootstrap/extension/application class loaders for hierarchical class loading, Java standard library modules (java.base, java.sql, java.xml) with thousands of pre-compiled classes, JNI (Java Native Interface) for native code integration, security manager and cryptography providers, internationalization support (locales, resource bundles), and platform-specific native libraries for OS integration.
-
-### One-line Crisp Definition
-**JRE = JVM + Class Libraries + Supporting Files (Execution only, no development tools)**
-
----
+**JRE (Java Runtime Environment) is a software package that provides the Java Virtual Machine (JVM), core class libraries, and supporting files required to execute Java applications. It does not include development tools like compiler (javac) or debugger, making it suitable for end users who only need to run Java programs.**
 
 ## JRE Structure
 
@@ -70,7 +26,7 @@ JRE provides complete runtime infrastructure including: JVM implementation with 
 ║   ╔══════════════════════════════════════════════════════════════════╗             ║
 ║   ║  Class Loader Subsystem:                                         ║             ║
 ║   ║  • Bootstrap ClassLoader (Core Java classes)                     ║             ║
-║   ║  • Extension ClassLoader (Extension libraries)                   ║             ║
+║   ║  • Platform ClassLoader (Platform modules/extensions)            ║             ║
 ║   ║  • Application ClassLoader (Application classes)                 ║             ║
 ║   ║                                                                  ║             ║
 ║   ║  Runtime Data Areas:                                             ║             ║
@@ -104,8 +60,8 @@ JRE provides complete runtime infrastructure including: JVM implementation with 
 ║   ║  • java.text (Formatting, Parsing)                               ║             ║
 ║   ║                                                                  ║             ║
 ║   ║  Storage:                                                        ║             ║
-║   ║  • Java 8: rt.jar (Runtime jar archive)                          ║             ║
-║   ║  • Java 9+: Module system (java.base, etc.)                      ║             ║
+║   ║  • Module system (java.base, etc.)                               ║             ║
+║   ║  • jrt-fs.jar (File system provider)                             ║             ║
 ║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
 ║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
@@ -198,7 +154,7 @@ To understand how the JRE works, it's important to look at its three main compon
 **1. JVM (Core Execution Engine):**
 
 The JVM is responsible for running Java programs. It includes:
-- **Class Loader Subsystem:** Loads classes into memory. The Bootstrap ClassLoader loads core Java classes (like those in `java.lang`), the Extension ClassLoader loads extension libraries from `jre/lib/ext`, and the Application ClassLoader loads application classes from the CLASSPATH.
+- **Class Loader Subsystem:** Loads classes into memory. The Bootstrap ClassLoader loads core Java classes (like those in `java.lang`), the Platform ClassLoader (formerly Extension ClassLoader) loads platform modules, and the Application ClassLoader loads application classes from the CLASSPATH or module path.
 - **Memory Areas:** The Heap stores objects and is managed by the garbage collector. Each thread has its own Stack for method frames. The Method Area (or Metaspace) stores class metadata. PC Registers keep track of the current instruction for each thread. Native Method Stacks are used for JNI (Java Native Interface) calls to native code.
 - **Execution Engine:** Executes bytecode. The Interpreter runs bytecode line by line for fast startup. The JIT (Just-In-Time) Compiler compiles frequently used code into native machine code for better performance. The Garbage Collector automatically manages memory by removing unused objects.
 
@@ -212,7 +168,7 @@ These libraries provide a wide range of functionality:
 - `java.sql`: Database connectivity (Connection, Statement, ResultSet via JDBC).
 - Additional packages: `java.math` (big number operations), `java.nio` (new I/O with buffers and channels), `java.time` (modern date/time API), `java.security` (cryptography and security), `java.text` (formatting and parsing).
 
-In Java 8, all libraries were stored in the `rt.jar` file. From Java 9 onwards, a modular system is used with separate modules like `java.base`, `java.sql`, and `java.xml`.
+Libraries are stored using a modular system with separate modules like `java.base`, `java.sql`, and `java.xml` (introduced in Java 9, replacing the older `rt.jar` architecture).
 
 **3. Supporting Files:**
 
@@ -263,26 +219,25 @@ java MyProgram
 
 Internal process: JRE pehle MyProgram.class file CLASSPATH mein locate karta hai. Class Loader class ko memory mein load karta hai. Bytecode Verifier security check perform karta hai. JVM main method find karta hai. Execution Engine program execute karta hai. Garbage Collector memory manage karta hai automatically. Program terminate hone par JVM cleanup karke exit karta hai.
 
-**JRE Directory Structure:**
+**JRE Directory Structure (Post Java 9 representation):**
 
 ```
-jre/
+java-runtime/
 ╠══ bin/
 ║   ╠══ java (JVM launcher executable)
 ║   ╠══ javaw (Windows GUI launcher)
 ║   ╚══ keytool (Security key management tool)
 ╠══ lib/
-║   ╠══ rt.jar (Runtime classes - Java 8)
-║   ╠══ modules (Java 9+ modular system)
+║   ╠══ modules (Java modular runtime image)
+║   ╠══ jrt-fs.jar (File system provider)
 ║   ╠══ security/
 ║   ║   ╠══ java.policy (Security policies)
 ║   ║   ╚══ cacerts (SSL certificates)
-║   ╠══ ext/ (Extension libraries directory)
 ║   ╚══ jvm.cfg (JVM configuration)
 ╚══ legal/ (License and legal files)
 ```
 
-bin directory mein executable files hoti hain jo programs run karti hain. lib directory mein libraries aur configuration files hoti hain. security subdirectory security-related files store karti hai. Java 8 mein rt.jar main runtime library thi, Java 9+ mein modular system use hota hai.
+`bin` directory mein executable files hoti hain jo programs run karti hain. `lib` directory mein libraries aur configuration files hoti hain, jisme modular runtime (`modules`) core classes store karta hai. `security` subdirectory security-related files store karti hai.
 
 **Memory Configuration:**
 

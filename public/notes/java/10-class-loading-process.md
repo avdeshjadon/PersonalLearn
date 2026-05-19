@@ -30,27 +30,9 @@ Java introduced systematic three-phase class loading process solving execution c
 
 ---
 
-## Definitions
+## Definition
 
-### Very Simple Definition
-Class Loading Process wo tarika hai jisse JVM .class files ko memory mein load karta hai, verify karta hai, aur execute karne ke liye ready karta hai.
-
-### College Exam Definition
-Class Loading Process is the mechanism by which JVM loads .class files into memory through three phases: Loading (finding and loading bytecode), Linking (verification, preparation, resolution), and Initialization (executing static initializers). It uses a parent delegation model where child class loaders delegate to parent before attempting to load themselves.
-
-### Viva Definition
-Class Loading Process consists of three phases: (1) Loading - class loaders (bootstrap, extension, application) locate and load .class files into method area using parent delegation model, (2) Linking - verification validates bytecode format and security, preparation allocates memory for static variables with default values, resolution converts symbolic references to direct references, (3) Initialization - executes static initializers and static blocks in top-down order. The process is lazy (on-demand), thread-safe, and ensures each class is loaded only once.
-
-### Interview Definition
-Class Loading Process implements dynamic class loading with three phases: (1) Loading - hierarchical class loaders (bootstrap for rt.jar/java.base, extension for jre/lib/ext, application for CLASSPATH) use parent delegation (child delegates to parent first, loads only if parent fails), locate .class file, create Class object in heap, store metadata in method area, (2) Linking - verification (bytecode format validation, type checking, control flow analysis, stack verification using dataflow analysis), preparation (allocate memory for static variables in method area, assign default values like 0/null/false, no initialization yet), resolution (symbolic references in constant pool converted to direct memory references, lazy or eager based on JVM), (3) Initialization - execute static initializers in source order, execute static blocks, assign actual values to static variables, thread-safe with initialization lock, happens once per class. ClassNotFoundException if loading fails, NoClassDefFoundError if linking fails, ExceptionInInitializerError if initialization fails.
-
-### Technical Definition
-Class Loading Process implements JVM specification for dynamic class loading: (1) Loading phase - ClassLoader.loadClass() with parent delegation (prevents core class spoofing), defineClass() creates Class object from bytecode array, resolveClass() for linking, findLoadedClass() prevents duplicates, custom class loaders via ClassLoader subclassing, (2) Linking phase - verification uses type inference and dataflow analysis (4-pass verification: format, metadata, bytecode, symbolic references), preparation allocates static storage in method area with type-specific defaults, resolution can be lazy (on first use) or eager (at link time) based on -XX:+EagerInitialization, (3) Initialization phase - clinit method synthesized from static initializers, synchronized on Class object for thread safety, initialization lock prevents deadlock, happens-before relationship ensures visibility, recursive initialization for superclasses. ClassCircularityError for circular dependencies, LinkageError hierarchy for linking failures.
-
-### One-line Crisp Definition
-**Class Loading = Load (find bytecode) → Link (verify + prepare + resolve) → Initialize (execute static)**
-
----
+**Class Loading Process is the mechanism by which JVM loads .class files into memory through three phases: Loading (finding and loading bytecode), Linking (verification, preparation, resolution), and Initialization (executing static initializers). It uses a parent delegation model where child class loaders delegate to parent before attempting to load themselves.**
 
 ## Class Loading Process Architecture
 
@@ -567,109 +549,6 @@ Main method
 **Memory State After Loading:**
 
 After the class loading process completes, the method area contains class metadata for both Parent and Child, including their static variables (parentStatic = 10, childStatic = 20) and method bytecode. The heap contains Class objects for both classes, used for reflection. The classes are now ready for instantiation and method invocation.
-
----
-
-## Syntax Explanation
-
-### Viewing Class Loading:
-
-**Enable verbose class loading:**
-
-```bash
-$ java -verbose:class MyProgram
-
-[Opened /Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home/lib/modules]
-[Loaded java.lang.Object from java.base]
-[Loaded java.io.Serializable from java.base]
-[Loaded java.lang.Comparable from java.base]
-[Loaded java.lang.CharSequence from java.base]
-[Loaded java.lang.String from java.base]
-[Loaded java.lang.reflect.AnnotatedElement from java.base]
-...
-[Loaded MyProgram from file:/path/to/classes/]
-```
-
-This shows every class being loaded during program execution.
-
-### Custom ClassLoader Example:
-
-```java
-public class CustomClassLoader extends ClassLoader {
-    @Override
-    protected Class<?> findClass(String name) throws ClassNotFoundException {
-        // Load .class file
-        byte[] classData = loadClassData(name);
-        
-        // Define class from bytecode
-        return defineClass(name, classData, 0, classData.length);
-    }
-    
-    private byte[] loadClassData(String name) {
-        // Read .class file into byte array
-        String fileName = name.replace('.', '/') + ".class";
-        // ... read file ...
-        return bytecode;
-    }
-}
-
-// Usage:
-CustomClassLoader loader = new CustomClassLoader();
-Class<?> clazz = loader.loadClass("com.myapp.MyClass");
-Object obj = clazz.newInstance();
-```
-
-Use cases: Load classes from network, database, encrypted files, hot deployment, plugin systems.
-
-### Check if Class is Loaded:
-
-```java
-ClassLoader loader = MyClass.class.getClassLoader();
-System.out.println("Loaded by: " + loader);
-
-// Output:
-// Loaded by: jdk.internal.loader.ClassLoaders$AppClassLoader@...
-```
-
-### Force Class Initialization:
-
-```java
-// Load but don't initialize:
-Class<?> clazz = ClassLoader.getSystemClassLoader()
-                            .loadClass("MyClass");
-
-// Force initialization:
-Class.forName("MyClass");  // Loads and initializes
-```
-
-### Initialization Order Example:
-
-```java
-class Demo {
-    static int a = 10;           // 1. First
-    static int b = method();     // 2. Second
-    
-    static {                     // 3. Third
-        System.out.println("Static block");
-        a = 20;
-    }
-    
-    static int c = 30;           // 4. Fourth
-    
-    static int method() {
-        System.out.println("Static method");
-        return 15;
-    }
-}
-
-// Output when Demo is loaded:
-// Static method
-// Static block
-```
-
-Static initializers execute in source order (top to bottom).
-
----
 
 ## Memory Behavior
 

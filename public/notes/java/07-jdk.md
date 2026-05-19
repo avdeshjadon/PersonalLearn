@@ -2,55 +2,11 @@
 
 ## Concept Introduction
 
-JDK (Java Development Kit) Java development ke liye complete toolkit hai. Isme sab kuch hai jo tumhe Java programs likhne, compile karne, aur run karne ke liye chahiye — compiler (javac), runtime (JRE), debugger, documentation tool (javadoc), aur bahut saare utilities. JDK developers ke liye hai. Agar tumhe Java code likhna hai toh JDK install karna padega. JRE sirf run karne ke liye hai, but JDK mein JRE bhi included hota hai.
+JDK (Java Development Kit) Java development ke liye complete toolkit hai. Isme sab kuch hai jo tumhe Java programs likhne, compile karne, aur run karne ke liye chahiye — **compiler (javac)**, **runtime (JRE)**, **debugger**, **documentation tool (javadoc)**, aur bahut saare utilities. JDK developers ke liye hai. Agar tumhe Java code likhna hai toh JDK install karna padega. JRE sirf run karne ke liye hai, but JDK mein JRE bhi included hota hai.
 
-## Why This Concept Exists
+## Definition
 
-### Problem (Without JDK):
-
-Before Java Development Kit was introduced, developers faced fragmented development environment challenges. Compiler, runtime, debugger, and documentation tools were separate installations requiring manual configuration and integration. Different platforms had incompatible toolchains creating portability issues during development phase. Missing or outdated tools caused compilation failures and runtime errors. Dependency management was manual and error-prone. Setting up complete development environment took significant time and expertise. Version mismatches between tools created compatibility problems. No standardized build and deployment process existed.
-
-- Compiler alag se install karni padti
-- Runtime environment alag configure karna padta
-- Debugger aur tools separately manage karne padte
-- Tool versions mismatch se problems aate
-- Development environment setup complex tha
-- No standardization across platforms
-
-### Solution (JDK as integrated toolkit):
-
-JDK provides complete integrated development environment in single package solving fragmentation problems. All essential tools bundled together ensuring version compatibility and seamless integration. Compiler (javac), runtime (JRE with JVM), debugger (jdb), documentation generator (javadoc), archive tool (jar), and monitoring utilities included in one installation. Standardized across platforms providing consistent development experience. Environment variables (JAVA_HOME) simplify configuration. Single download and installation process. Regular updates ensure all tools stay synchronized. Development workflow streamlined from coding to deployment.
-
-- Complete development environment ek package mein
-- All tools pre-integrated aur compatible
-- Compiler, runtime, debugger sab ek saath
-- Standardized across platforms
-- Simple installation aur configuration
-- Regular synchronized updates
-
----
-
-## Definitions
-
-### Very Simple Definition
-JDK ek software package hai jisme Java programs likhne aur compile karne ke liye saare tools hote hain.
-
-### College Exam Definition
-JDK (Java Development Kit) is a software development environment that provides tools for developing, compiling, debugging, and running Java applications. It includes the Java compiler (javac), Java Runtime Environment (JRE), debugger, documentation generator (javadoc), and various utility tools.
-
-### Viva Definition
-The Java Development Kit (JDK) is Oracle's official development platform for Java, containing the complete set of tools required for Java application development. It includes the Java compiler (javac) for converting source code to bytecode, JRE for executing Java programs, development tools (jar, javadoc, jdb), and the Java API documentation. JDK is platform-specific but produces platform-independent bytecode.
-
-### Interview Definition
-JDK is the superset containing JRE plus development tools. It provides: javac compiler for source-to-bytecode compilation, JRE (JVM plus core libraries) for execution, development utilities (jar for archiving, javadoc for documentation, jdb for debugging, javap for disassembly), monitoring tools (jconsole, jvisualvm), Java API source code, and C header files for JNI. JDK versions correspond to Java SE versions (JDK 8, 11, 17, 21), with Oracle JDK (commercial) and OpenJDK (open-source) implementations available.
-
-### Technical Definition
-JDK comprises: Development tools including javac (compiler with lexer, parser, type checker, bytecode generator), jar (archive tool), javadoc (documentation generator), jdb (debugger with JDWP support), javap (class file disassembler), jdeps (dependency analyzer); JRE containing JVM implementation (HotSpot with C1/C2 JIT compilers, garbage collectors), core class libraries (rt.jar in Java 8, modules in Java 9+), extension libraries; Additional tools including keytool (keystore management), jarsigner (JAR signing), native2ascii (encoding converter); Include files for JNI development; Source code (src.zip). JDK installation sets JAVA_HOME environment variable pointing to JDK root directory.
-
-### One-line Crisp Definition
-**JDK = JRE + Development Tools (Compiler, Debugger, Documentation, etc.)**
-
----
+**JDK (Java Development Kit) is a software development environment that provides tools for developing, compiling, debugging, and running Java applications. It includes the Java compiler (javac), Java Runtime Environment (JRE), debugger, documentation generator (javadoc), and various utility tools.**
 
 ## JDK Structure
 
@@ -127,8 +83,6 @@ JDK comprises: Development tools including javac (compiler with lexer, parser, t
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 ```
-
----
 
 ## JDK vs JRE vs JVM
 
@@ -208,15 +162,13 @@ JDK comprises: Development tools including javac (compiler with lexer, parser, t
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 ```
 
----
-
 ## JDK Directory Structure
 
 ```
 ╔════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                    ║
 ║              ╔═══════════════════════════════════════════════════════╗             ║
-║              ║         JDK DIRECTORY STRUCTURE                       ║             ║
+║              ║         JDK DIRECTORY STRUCTURE (Java 9+)             ║             ║
 ║              ╚═══════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
@@ -241,24 +193,16 @@ JDK comprises: Development tools including javac (compiler with lexer, parser, t
 ║                                                                                    ║
 ║   ╔══════════════════════════════════════════════════════════════════╗             ║
 ║   ║  lib/                    (Libraries)                             ║             ║
-║   ║  • modules               Java 9+ modular JARs                    ║             ║
-║   ║  • jrt-fs.jar            Runtime image                           ║             ║
-║   ║  • tools.jar             Development tools (Java 8)              ║             ║
+║   ║  • modules               Java modular runtime image              ║             ║
+║   ║  • jrt-fs.jar            File system provider                    ║             ║
 ║   ║  • Platform-specific libraries                                   ║             ║
 ║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
 ║   ╔══════════════════════════════════════════════════════════════════╗             ║
-║   ║  jre/                    (Java Runtime - Java 8)                 ║             ║
-║   ║  ╔════════════════════════════════════════════════════════════╗  ║             ║
-║   ║  ║  bin/                                                      ║  ║             ║
-║   ║  ║  • java               JVM launcher                         ║  ║             ║
-║   ║  ╚════════════════════════════════════════════════════════════╝  ║             ║
-║   ║  ╔════════════════════════════════════════════════════════════╗  ║             ║
-║   ║  ║  lib/                                                      ║  ║             ║
-║   ║  ║  • rt.jar             Runtime classes                      ║  ║             ║
-║   ║  ║  • charsets.jar       Character sets                       ║  ║             ║
-║   ║  ║  • Runtime libraries                                       ║  ║             ║
-║   ║  ╚════════════════════════════════════════════════════════════╝  ║             ║
+║   ║  jmods/                  (Compiled Modules)                      ║             ║
+║   ║  • java.base.jmod        Base module                             ║             ║
+║   ║  • java.desktop.jmod     Desktop module                          ║             ║
+║   ║  • Other standard modules                                        ║             ║
 ║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
 ║   ╔══════════════════════════════════════════════════════════════════╗             ║
@@ -279,177 +223,17 @@ JDK comprises: Development tools including javac (compiler with lexer, parser, t
 ║   ╔══════════════════════════════════════════════════════════════════╗             ║
 ║   ║  conf/                   (Configuration Files)                   ║             ║
 ║   ║  • security/             Security policies                       ║             ║
-║   ║  • Properties files      Various configurations                  ║             ║
+║   ║  • logging.properties    Logging configuration                   ║             ║
+║   ║  • net.properties        Networking configuration                ║             ║
 ║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
 ║   Note:                                                                            ║
-║   • Structure varies between Java 8 and Java 9+                                    ║
-║   • Java 9+ uses modular structure (no rt.jar, no separate jre/)                   ║
-║   • Java 8 has separate jre/ directory                                             ║
+║   • Starting with Java 9, JDK uses a modular structure.                            ║
+║   • There is no separate jre/ directory anymore.                                   ║
+║   • rt.jar and tools.jar were removed in favor of modules.                         ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 ```
-
----
-
-## Development Workflow with JDK
-
-```
-╔════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                    ║
-║              ╔═══════════════════════════════════════════════════════╗             ║
-║              ║         JDK DEVELOPMENT WORKFLOW                      ║             ║
-║              ╚═══════════════════════════════════════════════════════╝             ║
-║                                                                                    ║
-╠════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                    ║
-║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
-║   ║  STEP 1: WRITE CODE                                                      ║     ║
-║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
-║                                                                                    ║
-║   Use text editor or IDE to create .java files                                     ║
-║   Follow Java syntax and conventions                                               ║
-║                                                                                    ║
-║                              ↓                                                     ║
-║                                                                                    ║
-║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
-║   ║  STEP 2: COMPILE (javac)                                                 ║     ║
-║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
-║                                                                                    ║
-║   $ javac Program.java                                                             ║
-║   • Reads source code                                                              ║
-║   • Performs lexical analysis                                                      ║
-║   • Checks syntax                                                                  ║
-║   • Performs type checking                                                         ║
-║   • Generates bytecode                                                             ║
-║   • Creates .class file                                                            ║
-║                                                                                    ║
-║                              ↓                                                     ║
-║                                                                                    ║
-║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
-║   ║  STEP 3: PACKAGE (jar)                                                   ║     ║
-║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
-║                                                                                    ║
-║   $ jar cvf myapp.jar *.class                                                      ║
-║   • Bundles .class files together                                                  ║
-║   • Adds manifest file                                                             ║
-║   • Creates distributable .jar archive                                             ║
-║   • Compresses for smaller size                                                    ║
-║                                                                                    ║
-║                              ↓                                                     ║
-║                                                                                    ║
-║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
-║   ║  STEP 4: DOCUMENT (javadoc)                                              ║     ║
-║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
-║                                                                                    ║
-║   $ javadoc -d docs *.java                                                         ║
-║   • Parses source code                                                             ║
-║   • Extracts /** */ comments                                                       ║
-║   • Generates HTML documentation                                                   ║
-║   • Creates API reference                                                          ║
-║                                                                                    ║
-║                              ↓                                                     ║
-║                                                                                    ║
-║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
-║   ║  STEP 5: DEBUG (jdb)                                                     ║     ║
-║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
-║                                                                                    ║
-║   $ jdb Program                                                                    ║
-║   • Starts debugger                                                                ║
-║   • Set breakpoints                                                                ║
-║   • Step through code execution                                                    ║
-║   • Inspect variable values                                                        ║
-║   • Find and fix bugs                                                              ║
-║                                                                                    ║
-║                              ↓                                                     ║
-║                                                                                    ║
-║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
-║   ║  STEP 6: RUN (java)                                                      ║     ║
-║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
-║                                                                                    ║
-║   $ java Program                                                                   ║
-║   • JVM loads .class file                                                          ║
-║   • Verifies bytecode                                                              ║
-║   • Executes program                                                               ║
-║   • Produces output                                                                ║
-║                                                                                    ║
-╚════════════════════════════════════════════════════════════════════════════════════╝
-```
-
----
-
-## Installation and Configuration
-
-### Installing JDK
-
-**Download Options:**
-- Oracle JDK: https://www.oracle.com/java/technologies/downloads/
-- OpenJDK: https://adoptium.net/ (free, recommended)
-
-**Environment Variables Setup:**
-
-**Windows:**
-```bash
-set JAVA_HOME=C:\Program Files\Java\jdk-17
-set PATH=%JAVA_HOME%\bin;%PATH%
-```
-
-**Linux/Mac:**
-```bash
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
-export PATH=$JAVA_HOME/bin:$PATH
-```
-
-**Verify Installation:**
-```bash
-java -version
-javac -version
-echo $JAVA_HOME
-```
-
-### Using JDK Tools
-
-**Compilation:**
-```bash
-javac Hello.java
-# Creates Hello.class
-```
-
-**Execution:**
-```bash
-java Hello
-# Output: Hello, World!
-```
-
-**Creating JAR:**
-```bash
-jar cvf myapp.jar *.class
-# Creates myapp.jar archive
-```
-
-**Generating Documentation:**
-```bash
-javadoc -d docs Hello.java
-# Creates HTML docs in docs/ directory
-```
-
-**Disassembling:**
-```bash
-javap -c Hello
-# Shows bytecode instructions
-```
-
-**Debugging:**
-```bash
-jdb Hello
-> stop at Hello:5
-> run
-> print variable
-> cont
-```
-
----
-
 
 ## Advantages and Limitations
 
@@ -553,32 +337,6 @@ JDK (Java Development Kit) is complete software development environment for Java
 **Recommendation**: Use OpenJDK for most cases as it's free and functionally equivalent to Oracle JDK.
 
 **Differences**: Minimal functional differences. Oracle JDK may have some proprietary monitoring tools and different support options.
-
----
-
-**Q6: How to check installed JDK version?**
-
-**Check Java Runtime version:**
-```bash
-java -version
-```
-
-**Check Compiler version:**
-```bash
-javac -version
-```
-
-**Check JDK installation path:**
-```bash
-echo $JAVA_HOME        # Linux/Mac
-echo %JAVA_HOME%       # Windows
-```
-
-**Verify all tools available:**
-```bash
-which javac            # Linux/Mac
-where javac            # Windows
-```
 
 ---
 
