@@ -170,7 +170,9 @@ function App() {
         ? "OOPs Notes"
         : currentFolder === "advanced-java"
           ? "Advanced Java Notes"
-          : "Interview Prep";
+          : currentFolder === "postman"
+            ? "Postman API"
+            : "Interview Prep";
 
   // Check if interview mode
   const isInterviewMode = currentFolder === "interview";

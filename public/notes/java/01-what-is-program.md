@@ -4,6 +4,8 @@
 
 Jab tum apne phone pe WhatsApp chalate ho, ya laptop pe game khelte ho, ya calculator use karte ho — yeh sab **programs** hain. Program ek set of instructions hai jo computer ko batata hai ki kya karna hai. Bilkul jaise recipe mein steps hote hain khana banane ke liye, waise hi program mein steps hote hain computer ko kaam karne ke liye.
 
+**A program is a set of instructions that tells the computer what to do**
+
 ## Why This Concept Exists
 
 ### Problem before programs:
@@ -23,55 +25,31 @@ Programs were created to give instructions to computers automatically. A program
 - Ek baar program likh do, baar baar use kar sakte ho
 - Complex tasks ko simple bana diya
 
----
+## Definition
 
-## Definitions
-
-### Very Simple Definition
-Program ek list of instructions hai jo computer ko step-by-step batata hai ki kya karna hai.
-
-### College Exam Definition
-A program is a sequence of instructions written in a programming language that directs a computer to perform specific tasks or solve particular problems.
-
-### Viva Definition
-A program is a set of logically organized instructions that are executed by a computer's processor to achieve a desired output or perform a specific operation. It acts as an intermediary between the user's intent and the machine's execution.
-
-### Interview Definition
-A program is an executable set of coded instructions written in a programming language, which when compiled or interpreted, directs the computer hardware to perform specific computational tasks, process data, and produce desired results. It represents the implementation of an algorithm.
-
-### Technical Definition
-A program is a formal specification of a computational process, expressed in a programming language syntax, consisting of data structures and control flow logic, which is translated into machine-executable instructions (machine code or bytecode) to manipulate hardware resources and achieve defined objectives.
-
-### One-line Crisp Definition
-**Program = Instructions + Data + Logic → Output**
-
----
+**A program is a set of instructions written in a programming language that directs a computer to perform specific tasks. It includes input, processing logic, and output, similar to a recipe that guides a computer step by step.**
 
 ## Advantages
 
 | Advantage | Description |
 |-----------|-------------|
-| **Automation** | Ek baar likh do, baar baar use karo |
-| **Speed** | Computer manually karne se 1000x fast hai |
-| **Accuracy** | Galti nahi hoti (agar program sahi hai) |
-| **Reusability** | Same program different data ke saath use kar sakte ho |
-| **Scalability** | Chhote ya bade tasks easily handle kar sakte ho |
-| **Consistency** | Har baar same result milega |
+| **Automation** | Write once, use multiple times automatically |
+| **Speed** | Executes tasks significantly faster than manual processing |
+| **Accuracy** | Delivers error-free results (provided the program logic is correct) |
+| **Reusability** | The same program can be used repeatedly with different data inputs |
+| **Scalability** | Capable of handling both small and massive workloads easily |
+| **Consistency** | Produces the exact same output every time it is executed |
 
----
 
 ## Limitations
 
 | Limitation | Description |
 |------------|-------------|
-| **Garbage In, Garbage Out** | Agar program galat hai, output bhi galat hoga |
-| **No Intelligence** | Program sirf wahi karega jo likha hai, khud se nahi sochega |
-| **Bugs** | Errors ho sakte hain code mein |
-| **Maintenance** | Update aur fix karna padta hai |
-| **Hardware Dependent** | Bina computer ke program kuch nahi kar sakta |
-
----
-
+| **Garbage In, Garbage Out** | Incorrect or flawed logic will produce incorrect output |
+| **No Intelligence** | A program strictly follows instructions and cannot think independently |
+| **Bugs** | Code may contain logical or syntax errors that cause unexpected behavior |
+| **Maintenance** | Requires continuous updates and bug fixes to keep running smoothly |
+| **Hardware Dependent** | A program cannot function without the underlying computer hardware |
 
 ## Common Beginner Mistakes
 
@@ -96,6 +74,7 @@ Kai baar program sahi tarah se run toh ho jata hai, lekin output galat aata hai.
 A program is a set of instructions written in a programming language that directs a computer to perform specific tasks. It includes input, processing logic, and output, similar to a recipe that guides a computer step by step.
 
 ---
+
 **Q2: Difference between Program and Process**
 
 | Aspect      | Program (Static)                | Process (Dynamic)                |
@@ -132,44 +111,35 @@ Process ek **dynamic entity** hoti hai jo **RAM me chalti hai** aur CPU, memory 
 ---
 
 **Q3: What are the main components of a program?**
-The main components are:
-1. **Input** (data from user, files, or devices)
-2. Processing (logic, calculations, manipulations)
-3. Output (results displayed or stored)
-4. Control Flow (if/else, loops, switches)
-5. Data Structures (variables, arrays, objects)
+
+A typical program is built using the following core components:
+
+1. **Input:** The data provided to the program from external sources (e.g., keyboard, files, or APIs).
+2. **Data Structures:** The structured way data is stored and organized in memory (e.g., variables, arrays, objects).
+3. **Control Flow:** The logical rules that dictate the execution sequence (e.g., `if-else` conditions, `for`/`while` loops).
+4. **Processing Logic:** The core mathematical or logical operations that transform the input data.
+5. **Output:** The final result produced by the program, displayed on a screen, saved to a database, or sent over a network.
 
 ---
 
 **Q4: How does a computer execute a program?**
+
 The execution of a program involves these five steps:
-1. Load: The program is loaded from disk to RAM.
-2. Fetch: The CPU fetches instructions one by one.
-3. Decode: The CPU decodes each instruction.
-4. Execute: The CPU executes the instruction.
-5. Store: Results are stored or displayed as output.
+1. **Load:** The program is loaded from disk to RAM.
+2. **Fetch:** The CPU fetches instructions one by one.
+3. **Decode:** The CPU decodes each instruction.
+4. **Execute:** The CPU executes the instruction.
+5. **Store:** Results are stored or displayed as output.
 
 ---
 
-**Q5: What is the difference between source code and executable?**
-
-| Aspect        | Source Code                | Executable                |
-|-------------- |----------------------------|---------------------------|
-| Format        | Human-readable             | Machine-readable          |
-| Extension     | .java, .c, .py             | .class, .exe, .out        |
-| Purpose       | Written by programmer      | Run by computer           |
-| Modification  | Can be edited              | Cannot be easily edited   |
-| Example       | HelloWorld.java            | HelloWorld.class          |
-
----
-
-**Q6: What happens when a program crashes?**
+**Q5: What happens when a program crashes?**
 
 When a program crashes, it means it has encountered an error it cannot handle (such as division by zero, null pointer access, or running out of memory). The operating system detects the error, stops the program, displays an error message, releases memory, and exits the program.
 
 ---
 
-**Q7: Can a program run without an operating system?**
+**Q6: Can a program run without an operating system?**
 
 Yes, but with limitations. Most applications require an operating system to run. However, some standalone programs (like firmware or bootloaders) can run directly on hardware without an OS, but they have limited functionality compared to OS-dependent programs.
 
@@ -191,11 +161,11 @@ Programs **automation**, **speed**, aur **accuracy** provide karte hain. Har pro
 ╠═══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                               ║
 ║                                                                               ║
-║                     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓                       ║
-║                     ┃                                 ┃                       ║
-║                     ┃  Program = Recipe for Computer  ┃                       ║
-║                     ┃                                 ┃                       ║
-║                     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛                       ║
+║                     ╔═════════════════════════════════╗                       ║
+║                     ║                                 ║                       ║
+║                     ║  Program = Recipe for Computer  ║                       ║
+║                     ║                                 ║                       ║
+║                     ╚═════════════════════════════════╝                       ║
 ║                                                                               ║
 ║                                                                               ║
 ║                                                                               ║

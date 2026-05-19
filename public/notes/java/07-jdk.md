@@ -63,63 +63,63 @@ JDK comprises: Development tools including javac (compiler with lexer, parser, t
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  DEVELOPMENT TOOLS                                                       ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  DEVELOPMENT TOOLS                                                       ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  Compilation and Build:                                          │             ║
-║   │  • javac    - Java Compiler                                      │             ║
-║   │  • jar      - Java Archive Tool                                  │             ║
-║   │                                                                  │             ║
-║   │  Documentation:                                                  │             ║
-║   │  • javadoc  - API Documentation Generator                        │             ║
-║   │                                                                  │             ║
-║   │  Debugging:                                                      │             ║
-║   │  • jdb      - Java Debugger                                      │             ║
-║   │                                                                  │             ║
-║   │  Analysis:                                                       │             ║
-║   │  • javap    - Class File Disassembler                            │             ║
-║   │  • jdeps    - Dependency Analyzer                                │             ║
-║   │                                                                  │             ║
-║   │  Monitoring and Profiling:                                       │             ║
-║   │  • jconsole - JMX Monitoring Tool                                │             ║
-║   │  • jvisualvm- All-in-One Profiling Tool                          │             ║
-║   │                                                                  │             ║
-║   │  Security:                                                       │             ║
-║   │  • keytool  - Key and Certificate Management                     │             ║
-║   │  • jarsigner- JAR Signing Tool                                   │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  Compilation and Build:                                          ║             ║
+║   ║  • javac    - Java Compiler                                      ║             ║
+║   ║  • jar      - Java Archive Tool                                  ║             ║
+║   ║                                                                  ║             ║
+║   ║  Documentation:                                                  ║             ║
+║   ║  • javadoc  - API Documentation Generator                        ║             ║
+║   ║                                                                  ║             ║
+║   ║  Debugging:                                                      ║             ║
+║   ║  • jdb      - Java Debugger                                      ║             ║
+║   ║                                                                  ║             ║
+║   ║  Analysis:                                                       ║             ║
+║   ║  • javap    - Class File Disassembler                            ║             ║
+║   ║  • jdeps    - Dependency Analyzer                                ║             ║
+║   ║                                                                  ║             ║
+║   ║  Monitoring and Profiling:                                       ║             ║
+║   ║  • jconsole - JMX Monitoring Tool                                ║             ║
+║   ║  • jvisualvm- All-in-One Profiling Tool                          ║             ║
+║   ║                                                                  ║             ║
+║   ║  Security:                                                       ║             ║
+║   ║  • keytool  - Key and Certificate Management                     ║             ║
+║   ║  • jarsigner- JAR Signing Tool                                   ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  JRE (JAVA RUNTIME ENVIRONMENT) - INCLUDED                               ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  JRE (JAVA RUNTIME ENVIRONMENT) - INCLUDED                               ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  JVM (Java Virtual Machine):                                     │             ║
-║   │  • Class Loader Subsystem                                        │             ║
-║   │  • Runtime Data Areas (Heap, Stack, Metaspace)                   │             ║
-║   │  • Execution Engine (Interpreter, JIT, GC)                       │             ║
-║   │                                                                  │             ║
-║   │  Java Class Libraries:                                           │             ║
-║   │  • java.lang (String, Object, System)                            │             ║
-║   │  • java.util (Collections, Date)                                 │             ║
-║   │  • java.io (File I/O, Streams)                                   │             ║
-║   │  • java.net (Networking)                                         │             ║
-║   │  • java.sql (Database connectivity)                              │             ║
-║   │  • Many more packages                                            │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  JVM (Java Virtual Machine):                                     ║             ║
+║   ║  • Class Loader Subsystem                                        ║             ║
+║   ║  • Runtime Data Areas (Heap, Stack, Metaspace)                   ║             ║
+║   ║  • Execution Engine (Interpreter, JIT, GC)                       ║             ║
+║   ║                                                                  ║             ║
+║   ║  Java Class Libraries:                                           ║             ║
+║   ║  • java.lang (String, Object, System)                            ║             ║
+║   ║  • java.util (Collections, Date)                                 ║             ║
+║   ║  • java.io (File I/O, Streams)                                   ║             ║
+║   ║  • java.net (Networking)                                         ║             ║
+║   ║  • java.sql (Database connectivity)                              ║             ║
+║   ║  • Many more packages                                            ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  ADDITIONAL COMPONENTS                                                   ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  ADDITIONAL COMPONENTS                                                   ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  • Source code (src.zip)                                         │             ║
-║   │  • C header files (for JNI development)                          │             ║
-║   │  • Demo programs and samples                                     │             ║
-║   │  • Documentation                                                 │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  • Source code (src.zip)                                         ║             ║
+║   ║  • C header files (for JNI development)                          ║             ║
+║   ║  • Demo programs and samples                                     ║             ║
+║   ║  • Documentation                                                 ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
 ║   Usage:                                                                           ║
 ║   • Developers: Need JDK (development + execution)                                 ║
@@ -141,69 +141,69 @@ JDK comprises: Development tools including javac (compiler with lexer, parser, t
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────────────┐     ║
-║   │                          JDK (LARGEST)                                   │     ║
-║   │                      Java Development Kit                                │     ║
-║   │                                                                          │     ║
-║   │  ┌────────────────────────────────────────────────────────────────────┐  │     ║
-║   │  │  DEVELOPMENT TOOLS                                                 │  │     ║
-║   │  │  • javac (compiler)                                                │  │     ║
-║   │  │  • javadoc (documentation generator)                               │  │     ║
-║   │  │  • jar (archive tool)                                              │  │     ║
-║   │  │  • jdb (debugger)                                                  │  │     ║
-║   │  │  • javap (disassembler)                                            │  │     ║
-║   │  │  • jdeps (dependency analyzer)                                     │  │     ║
-║   │  │  • jconsole, jvisualvm (monitoring)                                │  │     ║
-║   │  │  • keytool, jarsigner (security)                                   │  │     ║
-║   │  └────────────────────────────────────────────────────────────────────┘  │     ║
-║   │                                                                          │     ║
-║   │  ┌────────────────────────────────────────────────────────────────────┐  │     ║
-║   │  │                    JRE (MEDIUM)                                    │  │     ║
-║   │  │              Java Runtime Environment                              │  │     ║
-║   │  │                                                                    │  │     ║
-║   │  │  ┌──────────────────────────────────────────────────────────────┐  │  │     ║
-║   │  │  │  JAVA CLASS LIBRARIES                                        │  │  │     ║
-║   │  │  │  • java.lang, java.util, java.io                             │  │  │     ║
-║   │  │  │  • java.net, java.sql, java.math                             │  │  │     ║
-║   │  │  │  • Thousands of pre-compiled classes                         │  │  │     ║
-║   │  │  └──────────────────────────────────────────────────────────────┘  │  │     ║
-║   │  │                                                                    │  │     ║
-║   │  │  ┌──────────────────────────────────────────────────────────────┐  │  │     ║
-║   │  │  │               JVM (SMALLEST)                                 │  │  │     ║
-║   │  │  │          Java Virtual Machine                                │  │  │     ║
-║   │  │  │  • Class Loader                                              │  │  │     ║
-║   │  │  │  • Runtime Data Areas                                        │  │  │     ║
-║   │  │  │  • Execution Engine                                          │  │  │     ║
-║   │  │  │  • Garbage Collector                                         │  │  │     ║
-║   │  │  └──────────────────────────────────────────────────────────────┘  │  │     ║
-║   │  │                                                                    │  │     ║
-║   │  │  ┌──────────────────────────────────────────────────────────────┐  │  │     ║
-║   │  │  │  SUPPORTING FILES                                            │  │  │     ║
-║   │  │  │  • Properties, Security, Timezone                            │  │  │     ║
-║   │  │  │  • Native libraries                                          │  │  │     ║
-║   │  │  └──────────────────────────────────────────────────────────────┘  │  │     ║
-║   │  └────────────────────────────────────────────────────────────────────┘  │     ║
-║   └──────────────────────────────────────────────────────────────────────────┘     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║                          JDK (LARGEST)                                   ║     ║
+║   ║                      Java Development Kit                                ║     ║
+║   ║                                                                          ║     ║
+║   ║  ╔════════════════════════════════════════════════════════════════════╗  ║     ║
+║   ║  ║  DEVELOPMENT TOOLS                                                 ║  ║     ║
+║   ║  ║  • javac (compiler)                                                ║  ║     ║
+║   ║  ║  • javadoc (documentation generator)                               ║  ║     ║
+║   ║  ║  • jar (archive tool)                                              ║  ║     ║
+║   ║  ║  • jdb (debugger)                                                  ║  ║     ║
+║   ║  ║  • javap (disassembler)                                            ║  ║     ║
+║   ║  ║  • jdeps (dependency analyzer)                                     ║  ║     ║
+║   ║  ║  • jconsole, jvisualvm (monitoring)                                ║  ║     ║
+║   ║  ║  • keytool, jarsigner (security)                                   ║  ║     ║
+║   ║  ╚════════════════════════════════════════════════════════════════════╝  ║     ║
+║   ║                                                                          ║     ║
+║   ║  ╔════════════════════════════════════════════════════════════════════╗  ║     ║
+║   ║  ║                    JRE (MEDIUM)                                    ║  ║     ║
+║   ║  ║              Java Runtime Environment                              ║  ║     ║
+║   ║  ║                                                                    ║  ║     ║
+║   ║  ║  ╔══════════════════════════════════════════════════════════════╗  ║  ║     ║
+║   ║  ║  ║  JAVA CLASS LIBRARIES                                        ║  ║  ║     ║
+║   ║  ║  ║  • java.lang, java.util, java.io                             ║  ║  ║     ║
+║   ║  ║  ║  • java.net, java.sql, java.math                             ║  ║  ║     ║
+║   ║  ║  ║  • Thousands of pre-compiled classes                         ║  ║  ║     ║
+║   ║  ║  ╚══════════════════════════════════════════════════════════════╝  ║  ║     ║
+║   ║  ║                                                                    ║  ║     ║
+║   ║  ║  ╔══════════════════════════════════════════════════════════════╗  ║  ║     ║
+║   ║  ║  ║               JVM (SMALLEST)                                 ║  ║  ║     ║
+║   ║  ║  ║          Java Virtual Machine                                ║  ║  ║     ║
+║   ║  ║  ║  • Class Loader                                              ║  ║  ║     ║
+║   ║  ║  ║  • Runtime Data Areas                                        ║  ║  ║     ║
+║   ║  ║  ║  • Execution Engine                                          ║  ║  ║     ║
+║   ║  ║  ║  • Garbage Collector                                         ║  ║  ║     ║
+║   ║  ║  ╚══════════════════════════════════════════════════════════════╝  ║  ║     ║
+║   ║  ║                                                                    ║  ║     ║
+║   ║  ║  ╔══════════════════════════════════════════════════════════════╗  ║  ║     ║
+║   ║  ║  ║  SUPPORTING FILES                                            ║  ║  ║     ║
+║   ║  ║  ║  • Properties, Security, Timezone                            ║  ║  ║     ║
+║   ║  ║  ║  • Native libraries                                          ║  ║  ║     ║
+║   ║  ║  ╚══════════════════════════════════════════════════════════════╝  ║  ║     ║
+║   ║  ╚════════════════════════════════════════════════════════════════════╝  ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║   Relationship:                                                                    ║
 ║   JDK ⊃ JRE ⊃ JVM                                                                  ║
 ║   (JDK contains JRE, JRE contains JVM)                                             ║
 ║                                                                                    ║
 ║   Who Needs What:                                                                  ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  Developers → JDK                                                │             ║
-║   │  (Need to write, compile, debug code)                            │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  Developers → JDK                                                ║             ║
+║   ║  (Need to write, compile, debug code)                            ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  End Users → JRE                                                 │             ║
-║   │  (Only need to run Java applications)                            │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  End Users → JRE                                                 ║             ║
+║   ║  (Only need to run Java applications)                            ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  JVM → Core execution engine                                     │             ║
-║   │  (Part of JRE, not standalone installation)                      │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  JVM → Core execution engine                                     ║             ║
+║   ║  (Part of JRE, not standalone installation)                      ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 ```
@@ -223,64 +223,64 @@ JDK comprises: Development tools including javac (compiler with lexer, parser, t
 ║                                                                                    ║
 ║   JAVA_HOME/                                                                       ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  bin/                    (Executable Tools)                      │             ║
-║   │  • javac                 Java Compiler                           │             ║
-║   │  • java                  JVM Launcher                            │             ║
-║   │  • jar                   Archive Tool                            │             ║
-║   │  • javadoc               Documentation Generator                 │             ║
-║   │  • jdb                   Debugger                                │             ║
-║   │  • javap                 Disassembler                            │             ║
-║   │  • jconsole              Monitoring Console                      │             ║
-║   │  • jvisualvm             Profiling Tool                          │             ║
-║   │  • keytool               Key Management                          │             ║
-║   │  • jarsigner             JAR Signing                             │             ║
-║   │  • jdeps                 Dependency Analyzer                     │             ║
-║   │  • Many more tools                                               │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  bin/                    (Executable Tools)                      ║             ║
+║   ║  • javac                 Java Compiler                           ║             ║
+║   ║  • java                  JVM Launcher                            ║             ║
+║   ║  • jar                   Archive Tool                            ║             ║
+║   ║  • javadoc               Documentation Generator                 ║             ║
+║   ║  • jdb                   Debugger                                ║             ║
+║   ║  • javap                 Disassembler                            ║             ║
+║   ║  • jconsole              Monitoring Console                      ║             ║
+║   ║  • jvisualvm             Profiling Tool                          ║             ║
+║   ║  • keytool               Key Management                          ║             ║
+║   ║  • jarsigner             JAR Signing                             ║             ║
+║   ║  • jdeps                 Dependency Analyzer                     ║             ║
+║   ║  • Many more tools                                               ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  lib/                    (Libraries)                             │             ║
-║   │  • modules               Java 9+ modular JARs                    │             ║
-║   │  • jrt-fs.jar            Runtime image                           │             ║
-║   │  • tools.jar             Development tools (Java 8)              │             ║
-║   │  • Platform-specific libraries                                   │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  lib/                    (Libraries)                             ║             ║
+║   ║  • modules               Java 9+ modular JARs                    ║             ║
+║   ║  • jrt-fs.jar            Runtime image                           ║             ║
+║   ║  • tools.jar             Development tools (Java 8)              ║             ║
+║   ║  • Platform-specific libraries                                   ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  jre/                    (Java Runtime - Java 8)                 │             ║
-║   │  ┌────────────────────────────────────────────────────────────┐  │             ║
-║   │  │  bin/                                                      │  │             ║
-║   │  │  • java               JVM launcher                         │  │             ║
-║   │  └────────────────────────────────────────────────────────────┘  │             ║
-║   │  ┌────────────────────────────────────────────────────────────┐  │             ║
-║   │  │  lib/                                                      │  │             ║
-║   │  │  • rt.jar             Runtime classes                      │  │             ║
-║   │  │  • charsets.jar       Character sets                       │  │             ║
-║   │  │  • Runtime libraries                                       │  │             ║
-║   │  └────────────────────────────────────────────────────────────┘  │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  jre/                    (Java Runtime - Java 8)                 ║             ║
+║   ║  ╔════════════════════════════════════════════════════════════╗  ║             ║
+║   ║  ║  bin/                                                      ║  ║             ║
+║   ║  ║  • java               JVM launcher                         ║  ║             ║
+║   ║  ╚════════════════════════════════════════════════════════════╝  ║             ║
+║   ║  ╔════════════════════════════════════════════════════════════╗  ║             ║
+║   ║  ║  lib/                                                      ║  ║             ║
+║   ║  ║  • rt.jar             Runtime classes                      ║  ║             ║
+║   ║  ║  • charsets.jar       Character sets                       ║  ║             ║
+║   ║  ║  • Runtime libraries                                       ║  ║             ║
+║   ║  ╚════════════════════════════════════════════════════════════╝  ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  include/                (C Header Files for JNI)                │             ║
-║   │  • jni.h                 JNI header                              │             ║
-║   │  • jvmti.h               JVM Tool Interface                      │             ║
-║   │  • Platform-specific headers                                     │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  include/                (C Header Files for JNI)                ║             ║
+║   ║  • jni.h                 JNI header                              ║             ║
+║   ║  • jvmti.h               JVM Tool Interface                      ║             ║
+║   ║  • Platform-specific headers                                     ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  src.zip                 (Java Source Code)                      │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  src.zip                 (Java Source Code)                      ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  legal/                  (License Files)                         │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  legal/                  (License Files)                         ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  conf/                   (Configuration Files)                   │             ║
-║   │  • security/             Security policies                       │             ║
-║   │  • Properties files      Various configurations                  │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  conf/                   (Configuration Files)                   ║             ║
+║   ║  • security/             Security policies                       ║             ║
+║   ║  • Properties files      Various configurations                  ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
 ║   Note:                                                                            ║
 ║   • Structure varies between Java 8 and Java 9+                                    ║
@@ -303,18 +303,18 @@ JDK comprises: Development tools including javac (compiler with lexer, parser, t
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  STEP 1: WRITE CODE                                                      ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  STEP 1: WRITE CODE                                                      ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║   Use text editor or IDE to create .java files                                     ║
 ║   Follow Java syntax and conventions                                               ║
 ║                                                                                    ║
 ║                              ↓                                                     ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  STEP 2: COMPILE (javac)                                                 ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  STEP 2: COMPILE (javac)                                                 ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║   $ javac Program.java                                                             ║
 ║   • Reads source code                                                              ║
@@ -326,9 +326,9 @@ JDK comprises: Development tools including javac (compiler with lexer, parser, t
 ║                                                                                    ║
 ║                              ↓                                                     ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  STEP 3: PACKAGE (jar)                                                   ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  STEP 3: PACKAGE (jar)                                                   ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║   $ jar cvf myapp.jar *.class                                                      ║
 ║   • Bundles .class files together                                                  ║
@@ -338,9 +338,9 @@ JDK comprises: Development tools including javac (compiler with lexer, parser, t
 ║                                                                                    ║
 ║                              ↓                                                     ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  STEP 4: DOCUMENT (javadoc)                                              ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  STEP 4: DOCUMENT (javadoc)                                              ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║   $ javadoc -d docs *.java                                                         ║
 ║   • Parses source code                                                             ║
@@ -350,9 +350,9 @@ JDK comprises: Development tools including javac (compiler with lexer, parser, t
 ║                                                                                    ║
 ║                              ↓                                                     ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  STEP 5: DEBUG (jdb)                                                     ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  STEP 5: DEBUG (jdb)                                                     ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║   $ jdb Program                                                                    ║
 ║   • Starts debugger                                                                ║
@@ -363,9 +363,9 @@ JDK comprises: Development tools including javac (compiler with lexer, parser, t
 ║                                                                                    ║
 ║                              ↓                                                     ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  STEP 6: RUN (java)                                                      ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  STEP 6: RUN (java)                                                      ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║   $ java Program                                                                   ║
 ║   • JVM loads .class file                                                          ║
@@ -621,18 +621,18 @@ Interview ke liye yaad rakho: JDK = JRE + Development Tools. Developers ko JDK c
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║                     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  JDK = Complete Development Kit       ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  JDK = JRE + Development Tools        ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  Tools: javac, jar, javadoc,          ┃                      ║
-║                     ┃         jdb, javap, jconsole          ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  For: Software Developers             ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛                      ║
+║                     ╔═══════════════════════════════════════╗                      ║
+║                     ║                                       ║                      ║
+║                     ║  JDK = Complete Development Kit       ║                      ║
+║                     ║                                       ║                      ║
+║                     ║  JDK = JRE + Development Tools        ║                      ║
+║                     ║                                       ║                      ║
+║                     ║  Tools: javac, jar, javadoc,          ║                      ║
+║                     ║         jdb, javap, jconsole          ║                      ║
+║                     ║                                       ║                      ║
+║                     ║  For: Software Developers             ║                      ║
+║                     ║                                       ║                      ║
+║                     ╚═══════════════════════════════════════╝                      ║
 ║                                                                                    ║
 ║                                                                                    ║
 ║    ╔═══════════════╗         ╔═══════════════╗         ╔═══════════════╗           ║

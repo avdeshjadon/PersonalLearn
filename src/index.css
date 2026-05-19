@@ -53,22 +53,18 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* GPU acceleration for smooth animations */
-body,
-.app,
-.content,
+/* GPU compositing — only elements that animate transform get promoted */
 .sidebar,
-.article,
-.folder-btn,
-.topic-link,
-.nav-foot,
-.group h4,
-.menu-toggle,
-.dark-toggle,
-.presentation-nav-btn {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  will-change: transform, opacity;
+.toc-panel,
+.toc-fab {
+  will-change: transform;
+}
+
+/* Smooth scrolling containers */
+.content,
+.sidebar-list {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 body {
@@ -179,25 +175,29 @@ body.js-fadein {
   font-weight: 500;
   font-family: "DM Sans", sans-serif;
   cursor: pointer;
+  /* Spring: lift on hover, instant snap on press */
   transition:
-    transform var(--duration-normal) var(--ease-spring),
-    background var(--duration-normal) var(--ease-smooth),
-    border-color var(--duration-normal) var(--ease-smooth),
-    color var(--duration-normal) var(--ease-smooth),
-    box-shadow var(--duration-normal) var(--ease-smooth);
+    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .folder-btn:hover {
   background: #f8f8f8;
   border-color: #bbb;
   color: #333;
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
 }
 
 .folder-btn:active {
-  transform: translateY(0) scale(0.95);
-  transition-duration: 0.1s;
+  transform: translateY(1px) scale(0.96);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  transition:
+    transform 0.08s cubic-bezier(0.4, 0, 1, 1),
+    box-shadow 0.08s cubic-bezier(0.4, 0, 1, 1);
 }
 
 .folder-btn.active {
@@ -226,11 +226,11 @@ body.js-fadein {
   width: 36px;
   height: 36px;
   transition:
-    transform var(--duration-normal) var(--ease-spring),
-    background var(--duration-normal) var(--ease-smooth),
-    border-color var(--duration-normal) var(--ease-smooth),
-    color var(--duration-normal) var(--ease-smooth),
-    box-shadow var(--duration-normal) var(--ease-smooth);
+    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .menu-toggle:hover,
@@ -238,22 +238,24 @@ body.js-fadein {
   background: #f8f8f8;
   border-color: #bbb;
   color: #333;
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
 }
 
 .menu-toggle:active,
 .dark-toggle:active {
-  transform: translateY(0) scale(0.92);
-  transition-duration: 0.1s;
+  transform: translateY(1px) scale(0.91);
+  transition:
+    transform 0.08s cubic-bezier(0.4, 0, 1, 1),
+    box-shadow 0.08s cubic-bezier(0.4, 0, 1, 1);
 }
 
 .dark-toggle i {
-  transition: transform var(--duration-normal) var(--ease-spring);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .dark-toggle:hover i {
-  transform: rotate(15deg);
+  transform: rotate(20deg) scale(1.15);
 }
 
 .menu-toggle {
@@ -277,7 +279,11 @@ body.js-fadein {
   top: 0;
   height: 100vh;
   align-self: flex-start;
-  transition: transform var(--duration-normal) var(--ease-out-quint);
+  /* Sidebar slide: expo-out for open, ease-in-quint for close */
+  transition:
+    transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .brand {
@@ -393,22 +399,24 @@ body.js-fadein {
   text-overflow: ellipsis;
   line-height: 1.2;
   transition:
-    background var(--duration-normal) var(--ease-smooth),
-    transform var(--duration-normal) var(--ease-spring),
-    box-shadow var(--duration-normal) var(--ease-smooth),
-    color var(--duration-normal) var(--ease-smooth);
+    background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .group h4:hover {
   background: rgba(43, 111, 111, 0.12);
   transform: translateY(-2px) scale(1.01);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 16px rgba(43, 111, 111, 0.10);
   color: #0f3a3a;
 }
 
 .group h4:active {
-  transform: translateY(0) scale(0.98);
-  transition-duration: 0.1s;
+  transform: translateY(1px) scale(0.98);
+  transition:
+    transform 0.08s cubic-bezier(0.4, 0, 1, 1),
+    box-shadow 0.08s cubic-bezier(0.4, 0, 1, 1);
 }
 
 .group h4.expanded {
@@ -457,22 +465,26 @@ body.js-fadein {
   border-radius: 6px;
   margin: 2px 8px;
   cursor: pointer;
+  /* Separate transitions so colour doesn't fight the spring transform */
   transition:
-    opacity var(--duration-fast) var(--ease-smooth),
-    transform var(--duration-normal) var(--ease-spring),
-    background var(--duration-fast) var(--ease-smooth);
+    opacity 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .topic-link:hover {
   opacity: 1;
-  transform: translateX(6px) scale(1.01);
-  background: rgba(43, 111, 111, 0.04);
+  transform: translateX(8px);
+  background: rgba(43, 111, 111, 0.05);
 }
 
 .topic-link:active {
-  opacity: 0.7;
-  transform: translateX(2px) scale(0.98);
-  transition-duration: 0.1s;
+  opacity: 0.8;
+  transform: translateX(3px) scale(0.98);
+  transition:
+    transform 0.08s cubic-bezier(0.4, 0, 1, 1),
+    opacity 0.08s cubic-bezier(0.4, 0, 1, 1);
 }
 
 .topic-link.active {
@@ -508,17 +520,18 @@ body.js-fadein {
 .group-list {
   max-height: 0;
   overflow: hidden;
-  transition:
-    max-height var(--duration-slow) var(--ease-out-expo),
-    opacity var(--duration-normal) var(--ease-smooth);
   opacity: 0;
-  transform: translateY(-8px);
+  transform: translateY(-6px);
+  transition:
+    max-height 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .group-list.collapsed {
   max-height: 0;
   opacity: 0;
-  transform: translateY(-8px);
+  transform: translateY(-6px);
 }
 
 .group-list:not(.collapsed) {
@@ -604,21 +617,23 @@ body.js-fadein {
   opacity: 0.75;
   cursor: pointer;
   transition:
-    opacity var(--duration-fast) var(--ease-smooth),
-    transform var(--duration-normal) var(--ease-spring),
-    background var(--duration-normal) var(--ease-smooth);
+    opacity 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-foot:hover {
   opacity: 1;
-  transform: translateY(-4px) scale(1.02);
+  transform: translateY(-5px) scale(1.03);
   background: rgba(43, 111, 111, 0.06);
 }
 
 .nav-foot:active {
-  opacity: 0.7;
-  transform: translateY(0) scale(0.97);
-  transition-duration: 0.1s;
+  opacity: 0.8;
+  transform: translateY(1px) scale(0.97);
+  transition:
+    transform 0.08s cubic-bezier(0.4, 0, 1, 1),
+    opacity 0.08s cubic-bezier(0.4, 0, 1, 1);
 }
 
 .nav-foot:disabled,
@@ -708,29 +723,31 @@ body.js-fadein {
   box-sizing: border-box;
   color: var(--md-text);
   line-height: 1.8;
-  animation: articleFadeIn 0.6s var(--ease-spring);
+  /* No animation here — article-content handles it per navigation */
 }
 
 @keyframes articleFadeIn {
   0% {
     opacity: 0;
-    transform: translateY(20px) scale(0.98);
+    transform: translateY(12px);
   }
+
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
 .article-content {
-  animation: contentFadeIn 0.8s var(--ease-spring);
+  animation: contentFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes contentFadeIn {
   0% {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(14px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -920,7 +937,7 @@ body.js-fadein {
    DARK MODE - Premium Dark Theme
    ============================================ */
 
-/* Apply smooth transitions to all theme-affected elements */
+/* Theme-switch transitions: only colour properties, don't stomp transform transitions */
 .sidebar,
 .article,
 .nav-container,
@@ -932,10 +949,9 @@ body.js-fadein {
 .search-input,
 .site-footer,
 .nav-foot {
-  transition-property:
-    background, background-color, color, border-color, box-shadow;
-  transition-duration: 0.4s;
-  transition-timing-function: var(--ease-smooth);
+  transition-property: background-color, color, border-color, box-shadow;
+  transition-duration: 0.35s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Premium Warm Dark Theme */
@@ -1190,8 +1206,10 @@ body.dark .article pre::-webkit-scrollbar-thumb {
     max-width: 320px;
     min-width: 280px;
     transform: translateX(-105%);
-    /* Ultra-smooth iOS-style spring animation */
-    transition: transform 0.45s cubic-bezier(0.32, 0.72, 0, 1);
+    /* iOS-style close: ease-in for a snapping-shut feel */
+    transition:
+      transform 0.32s cubic-bezier(0.4, 0, 1, 1),
+      box-shadow 0.32s cubic-bezier(0.4, 0, 1, 1);
     box-shadow: 24px 0 80px rgba(0, 0, 0, 0.2);
     background: var(--paper) !important;
     height: 100vh;
@@ -1206,7 +1224,10 @@ body.dark .article pre::-webkit-scrollbar-thumb {
 
   .sidebar.open {
     transform: translateX(0);
-    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    /* iOS-style open: expo-out spring so it feels like pulling a drawer */
+    transition:
+      transform 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.42s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   /* Sidebar overlay with smooth fade */
@@ -1642,6 +1663,7 @@ body.dark .article pre::-webkit-scrollbar-thumb {
    MOBILE TOUCH FEEDBACK
    ============================================ */
 @media (max-width: 800px) {
+
   /* Active/touch states for buttons */
   .folder-btn:active {
     transform: scale(0.96);
@@ -1754,6 +1776,7 @@ body.sidebar-open {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -1765,6 +1788,7 @@ body.sidebar-open {
     opacity: 0;
     transform: translateY(8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1777,6 +1801,7 @@ body.sidebar-open {
     opacity: 0;
     transform: translateX(-16px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -1789,6 +1814,7 @@ body.sidebar-open {
     opacity: 0;
     transform: scale(0.96);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -1797,11 +1823,13 @@ body.sidebar-open {
 
 /* Smooth pulse */
 @keyframes pulse {
+
   0%,
   100% {
     opacity: 1;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.6;
     transform: scale(0.98);
@@ -1813,6 +1841,7 @@ body.sidebar-open {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -1874,52 +1903,54 @@ body.dark .loading-container .loading-text {
 .group:nth-child(1) {
   animation-delay: 0ms;
 }
+
 .group:nth-child(2) {
   animation-delay: 40ms;
 }
+
 .group:nth-child(3) {
   animation-delay: 80ms;
 }
+
 .group:nth-child(4) {
   animation-delay: 120ms;
 }
+
 .group:nth-child(5) {
   animation-delay: 160ms;
 }
+
 .group:nth-child(6) {
   animation-delay: 200ms;
 }
+
 .group:nth-child(7) {
   animation-delay: 240ms;
 }
+
 .group:nth-child(8) {
   animation-delay: 280ms;
 }
+
 .group:nth-child(9) {
   animation-delay: 320ms;
 }
+
 .group:nth-child(10) {
   animation-delay: 360ms;
 }
+
 .group:nth-child(n + 11) {
   animation-delay: 400ms;
 }
 
-/* Smooth group list expansion */
-.group-list {
-  transition:
-    max-height 0.45s var(--ease-out-expo),
-    opacity 0.3s var(--ease-smooth),
-    transform 0.3s var(--ease-out-quint);
-}
-
-/* Topic link hover with smooth spring */
+/* Topic link hover with smooth spring — full transition declaration lives here */
 .topic-link {
   transition:
-    opacity 0.2s var(--ease-smooth),
-    transform 0.25s var(--ease-out-quint),
-    background-color 0.2s ease,
-    padding-left 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Active topic with subtle glow */
@@ -1945,50 +1976,9 @@ body.dark .topic-link.active::before {
   box-shadow: 0 0 8px rgba(125, 211, 252, 0.4);
 }
 
-/* Button hover effects */
-.folder-btn,
-.menu-toggle,
-.dark-toggle {
-  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
+/* These transitions are already defined on each element above.
+   Keeping this block empty prevents accidental overrides. */
 
-.folder-btn:active,
-.menu-toggle:active,
-.dark-toggle:active {
-  transform: scale(0.95);
-}
-
-/* Nav footer buttons */
-.nav-foot {
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-    color 0.2s ease;
-}
-
-/* Article smooth transitions */
-.article {
-  transition:
-    opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-    background-color 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-/* Sidebar smooth transitions */
-.sidebar {
-  transition:
-    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.35s ease;
-}
-
-/* Overlay smooth fade */
-.sidebar-overlay {
-  transition:
-    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    visibility 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    backdrop-filter 0.35s ease;
-}
 
 /* Search input focus animation */
 .search-input {
@@ -2017,26 +2007,16 @@ body.dark .topic-link.active::before {
   transition: background-color 0.2s ease;
 }
 
-/* Dark mode transition for all elements */
-body,
-.sidebar,
-.article,
-.nav-container,
-.folder-btn,
-.menu-toggle,
-.dark-toggle,
-.search-input,
-.group h4,
-.topic-link,
-.site-footer {
-  transition-property:
-    background, background-color, color, border-color, box-shadow;
-  transition-duration: 0.3s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+/* Body colour sweeps for theme toggle */
+body {
+  transition:
+    background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Reduced motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -2044,16 +2024,6 @@ body,
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-}
-
-/* GPU acceleration hints */
-.sidebar,
-.article,
-.group,
-.topic-link,
-.folder-btn,
-.nav-foot {
-  will-change: transform;
 }
 
 /* Smooth scroll for content area */
@@ -2083,24 +2053,28 @@ body,
   justify-content: center;
   box-shadow: var(--shadow-lg);
   z-index: 1000;
+  /* Spring: pops up on hover, snaps down on press */
   transition:
-    transform var(--duration-fast) var(--ease-spring),
-    background-color var(--duration-fast) var(--ease-smooth),
-    box-shadow var(--duration-fast) var(--ease-smooth);
+    transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .toc-fab:hover {
-  transform: scale(1.1);
-  box-shadow: var(--shadow-xl);
+  transform: scale(1.12);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
 }
 
 .toc-fab:active {
-  transform: scale(0.95);
+  transform: scale(0.93);
+  transition:
+    transform 0.08s cubic-bezier(0.4, 0, 1, 1),
+    box-shadow 0.08s cubic-bezier(0.4, 0, 1, 1);
 }
 
 .toc-fab-active {
   background: var(--ink);
-  transform: rotate(90deg);
+  transform: rotate(90deg) scale(1.05);
 }
 
 .toc-fab svg {
@@ -2122,6 +2096,7 @@ body,
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -2255,6 +2230,7 @@ body,
     background: rgba(43, 111, 111, 0.3);
     border-radius: 8px;
   }
+
   100% {
     background: transparent;
   }

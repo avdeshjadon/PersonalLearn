@@ -3,6 +3,7 @@ import { marked } from "marked";
 import { getJavaStructure } from "../data/javaStructure";
 import { getOopsStructure } from "../data/oopsStructure";
 import { getAdvancedJavaStructure } from "../data/advancedJavaStructure";
+import { getPostmanStructure } from "../data/postmanStructure";
 import {
   extractTitleFromMarkdown,
   processAsciiDiagrams,
@@ -40,7 +41,10 @@ export const useNotes = (onGroupExpand) => {
       return contentCache.current[cacheKey];
     }
 
-    const response = await fetch(`/notes/${folder}/${path}`);
+    const url = import.meta.env.DEV 
+      ? `/notes/${folder}/${path}?t=${Date.now()}`
+      : `/notes/${folder}/${path}`;
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Failed to fetch ${path}: ${response.status}`);
     }
@@ -59,7 +63,9 @@ export const useNotes = (onGroupExpand) => {
           ? getJavaStructure()
           : folder === "oops"
             ? getOopsStructure()
-            : getAdvancedJavaStructure();
+            : folder === "postman"
+              ? getPostmanStructure()
+              : getAdvancedJavaStructure();
       const fileList = [];
 
       structureData.forEach((group) => {
@@ -122,9 +128,11 @@ export const useNotes = (onGroupExpand) => {
             ? "00-oops-roadmap"
             : currentFolder === "advanced-java"
               ? "01-object-class"
-              : orderedData.length > 0
-                ? orderedData[0].slug
-                : "";
+              : currentFolder === "postman"
+                ? "00-web-service-api"
+                : orderedData.length > 0
+                  ? orderedData[0].slug
+                  : "";
       const initialSlug = hash || defaultSlug;
 
       if (initialSlug) {

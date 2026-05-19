@@ -63,9 +63,9 @@ main() static modifier (0x0008 flag) enables JVM invocation without object alloc
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  SCENARIO 1: main() IS STATIC (ACTUAL JAVA)                             ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  SCENARIO 1: main() IS STATIC (ACTUAL JAVA)                             ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║        CODE:                                                                       ║
 ║        public class Demo {                                                         ║
@@ -77,30 +77,30 @@ main() static modifier (0x0008 flag) enables JVM invocation without object alloc
 ║        EXECUTION: $ java Demo                                                      ║
 ║                                                                                    ║
 ║        Step 1: Load Demo class                                                     ║
-║        ┌────────────────────────────────────────┐                                 ║
-║        │  METHOD AREA                           │                                 ║
-║        │  • Demo class metadata                 │                                 ║
-║        │  • main() bytecode stored              │                                 ║
-║        └────────────────────────────────────────┘                                 ║
+║        ╔════════════════════════════════════════╗                                 ║
+║        ║  METHOD AREA                           ║                                 ║
+║        ║  • Demo class metadata                 ║                                 ║
+║        ║  • main() bytecode stored              ║                                 ║
+║        ╚════════════════════════════════════════╝                                 ║
 ║                                                                                    ║
 ║        Step 2: Call main() directly (NO OBJECT NEEDED)                             ║
-║        ┌────────────────────────────────────────┐                                 ║
-║        │  Demo.main(args);                      │                                 ║
-║        │  • No object creation                  │                                 ║
-║        │  • No constructor call                 │                                 ║
-║        │  • No heap allocation                  │                                 ║
-║        │  • Direct method invocation            │                                 ║
-║        └────────────────────────────────────────┘                                 ║
+║        ╔════════════════════════════════════════╗                                 ║
+║        ║  Demo.main(args);                      ║                                 ║
+║        ║  • No object creation                  ║                                 ║
+║        ║  • No constructor call                 ║                                 ║
+║        ║  • No heap allocation                  ║                                 ║
+║        ║  • Direct method invocation            ║                                 ║
+║        ╚════════════════════════════════════════╝                                 ║
 ║                                                                                    ║
 ║        Step 3: Execute main() body                                                 ║
 ║        Output: Hello                                                               ║
 ║                                                                                    ║
 ║        MEMORY STATE:                                                               ║
-║        ┌────────────────────────────────────────┐                                 ║
-║        │  Method Area: Demo class + main()      │                                 ║
-║        │  Heap: Empty (no Demo object)          │                                 ║
-║        │  Stack: main() frame (no 'this')       │                                 ║
-║        └────────────────────────────────────────┘                                 ║
+║        ╔════════════════════════════════════════╗                                 ║
+║        ║  Method Area: Demo class + main()      ║                                 ║
+║        ║  Heap: Empty (no Demo object)          ║                                 ║
+║        ║  Stack: main() frame (no 'this')       ║                                 ║
+║        ╚════════════════════════════════════════╝                                 ║
 ║                                                                                    ║
 ║        ADVANTAGES:                                                                 ║
 ║        ✓ Simple and fast execution                                                 ║
@@ -110,9 +110,9 @@ main() static modifier (0x0008 flag) enables JVM invocation without object alloc
 ║                                                                                    ║
 ║                                       ↓                                            ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  SCENARIO 2: main() IS NOT STATIC (HYPOTHETICAL)                        ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  SCENARIO 2: main() IS NOT STATIC (HYPOTHETICAL)                        ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║        CODE:                                                                       ║
 ║        public class Demo {                                                         ║
@@ -124,47 +124,47 @@ main() static modifier (0x0008 flag) enables JVM invocation without object alloc
 ║        EXECUTION: $ java Demo                                                      ║
 ║                                                                                    ║
 ║        Step 1: Load Demo class                                                     ║
-║        ┌────────────────────────────────────────┐                                 ║
-║        │  METHOD AREA                           │                                 ║
-║        │  • Demo class metadata                 │                                 ║
-║        │  • main() bytecode stored              │                                 ║
-║        └────────────────────────────────────────┘                                 ║
+║        ╔════════════════════════════════════════╗                                 ║
+║        ║  METHOD AREA                           ║                                 ║
+║        ║  • Demo class metadata                 ║                                 ║
+║        ║  • main() bytecode stored              ║                                 ║
+║        ╚════════════════════════════════════════╝                                 ║
 ║                                                                                    ║
 ║        Step 2: JVM NEEDS TO CREATE OBJECT (PROBLEMS BEGIN!)                        ║
 ║                                                                                    ║
 ║        PROBLEM 1: Which constructor to call?                                       ║
-║        ┌────────────────────────────────────────┐                                 ║
-║        │  public Demo() { }                     │                                 ║
-║        │  public Demo(int x) { }                │                                 ║
-║        │  public Demo(String s) { }             │                                 ║
-║        │  // JVM doesn't know which one! ✗      │                                 ║
-║        └────────────────────────────────────────┘                                 ║
+║        ╔════════════════════════════════════════╗                                 ║
+║        ║  public Demo() { }                     ║                                 ║
+║        ║  public Demo(int x) { }                ║                                 ║
+║        ║  public Demo(String s) { }             ║                                 ║
+║        ║  // JVM doesn't know which one! ✗      ║                                 ║
+║        ╚════════════════════════════════════════╝                                 ║
 ║                                                                                    ║
 ║        PROBLEM 2: Constructor parameters unknown                                   ║
-║        ┌────────────────────────────────────────┐                                 ║
-║        │  public Demo(int x, String s) {        │                                 ║
-║        │      // What values for x and s?       │                                 ║
-║        │      // JVM doesn't know! ✗            │                                 ║
-║        │  }                                     │                                 ║
-║        └────────────────────────────────────────┘                                 ║
+║        ╔════════════════════════════════════════╗                                 ║
+║        ║  public Demo(int x, String s) {        ║                                 ║
+║        ║      // What values for x and s?       ║                                 ║
+║        ║      // JVM doesn't know! ✗            ║                                 ║
+║        ║  }                                     ║                                 ║
+║        ╚════════════════════════════════════════╝                                 ║
 ║                                                                                    ║
 ║        PROBLEM 3: Constructor initialization might fail                            ║
-║        ┌────────────────────────────────────────┐                                 ║
-║        │  public Demo() {                       │                                 ║
-║        │      connectDatabase();  // May fail!  │                                 ║
-║        │      loadConfig();   // May throw!     │                                 ║
-║        │      // JVM can't handle this! ✗       │                                 ║
-║        │  }                                     │                                 ║
-║        └────────────────────────────────────────┘                                 ║
+║        ╔════════════════════════════════════════╗                                 ║
+║        ║  public Demo() {                       ║                                 ║
+║        ║      connectDatabase();  // May fail!  ║                                 ║
+║        ║      loadConfig();   // May throw!     ║                                 ║
+║        ║      // JVM can't handle this! ✗       ║                                 ║
+║        ║  }                                     ║                                 ║
+║        ╚════════════════════════════════════════╝                                 ║
 ║                                                                                    ║
 ║        PROBLEM 4: Circular dependency                                              ║
-║        ┌────────────────────────────────────────┐                                 ║
-║        │  Need object → Call constructor        │                                 ║
-║        │  Constructor needs → Code execution    │                                 ║
-║        │  Code execution needs → main() method  │                                 ║
-║        │  main() method needs → Object          │                                 ║
-║        │  Circular dependency! ✗                │                                 ║
-║        └────────────────────────────────────────┘                                 ║
+║        ╔════════════════════════════════════════╗                                 ║
+║        ║  Need object → Call constructor        ║                                 ║
+║        ║  Constructor needs → Code execution    ║                                 ║
+║        ║  Code execution needs → main() method  ║                                 ║
+║        ║  main() method needs → Object          ║                                 ║
+║        ║  Circular dependency! ✗                ║                                 ║
+║        ╚════════════════════════════════════════╝                                 ║
 ║                                                                                    ║
 ║        PROBLEMS SUMMARY:                                                           ║
 ║        ✗ JVM doesn't know which constructor                                        ║
@@ -179,19 +179,19 @@ main() static modifier (0x0008 flag) enables JVM invocation without object alloc
 ║                                                                                    ║
 ║                          FEATURE COMPARISON                                        ║
 ║                                                                                    ║
-║        ┌──────────────────────────┬──────────────────────────┐                    ║
-║        │  STATIC main()           │  NON-STATIC main()       │                    ║
-║        ├──────────────────────────┼──────────────────────────┤                    ║
-║        │  ✓ No object needed      │  ✗ Object required       │                    ║
-║        │  ✓ No constructor call   │  ✗ Constructor must call │                    ║
-║        │  ✓ No parameters needed  │  ✗ Parameters unknown    │                    ║
-║        │  ✓ Fast startup          │  ✗ Slower startup        │                    ║
-║        │  ✓ Simple & predictable  │  ✗ Complex & unpredictable│                   ║
-║        │  ✓ No init errors        │  ✗ Init might fail       │                    ║
-║        │  ✓ No heap allocation    │  ✗ Heap allocation needed│                    ║
-║        │  ✓ Direct method call    │  ✗ Virtual dispatch      │                    ║
-║        │  ✓ invokestatic bytecode │  ✗ invokevirtual bytecode│                    ║
-║        └──────────────────────────┴──────────────────────────┘                    ║
+║        ╔══════════════════════════╦══════════════════════════╗                    ║
+║        ║  STATIC main()           ║  NON-STATIC main()       ║                    ║
+║        ╠══════════════════════════╬══════════════════════════╣                    ║
+║        ║  ✓ No object needed      ║  ✗ Object required       ║                    ║
+║        ║  ✓ No constructor call   ║  ✗ Constructor must call ║                    ║
+║        ║  ✓ No parameters needed  ║  ✗ Parameters unknown    ║                    ║
+║        ║  ✓ Fast startup          ║  ✗ Slower startup        ║                    ║
+║        ║  ✓ Simple & predictable  ║  ✗ Complex & unpredictable║                   ║
+║        ║  ✓ No init errors        ║  ✗ Init might fail       ║                    ║
+║        ║  ✓ No heap allocation    ║  ✗ Heap allocation needed║                    ║
+║        ║  ✓ Direct method call    ║  ✗ Virtual dispatch      ║                    ║
+║        ║  ✓ invokestatic bytecode ║  ✗ invokevirtual bytecode║                    ║
+║        ╚══════════════════════════╩══════════════════════════╝                    ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 ```
@@ -209,79 +209,79 @@ main() static modifier (0x0008 flag) enables JVM invocation without object alloc
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  STATIC main() MEMORY LAYOUT (ACTUAL)                                   ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  STATIC main() MEMORY LAYOUT (ACTUAL)                                   ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
-║        ┌──────────────────────────────────────┐                                   ║
-║        │  METHOD AREA / METASPACE             │                                   ║
-║        │  ┌────────────────────────────────┐  │                                   ║
-║        │  │  Demo class metadata           │  │                                   ║
-║        │  │  • Class structure             │  │                                   ║
-║        │  │  • main() bytecode (static)    │  │                                   ║
-║        │  │  • Field descriptors           │  │                                   ║
-║        │  └────────────────────────────────┘  │                                   ║
-║        └──────────────────────────────────────┘                                   ║
+║        ╔══════════════════════════════════════╗                                   ║
+║        ║  METHOD AREA / METASPACE             ║                                   ║
+║        ║  ╔════════════════════════════════╗  ║                                   ║
+║        ║  ║  Demo class metadata           ║  ║                                   ║
+║        ║  ║  • Class structure             ║  ║                                   ║
+║        ║  ║  • main() bytecode (static)    ║  ║                                   ║
+║        ║  ║  • Field descriptors           ║  ║                                   ║
+║        ║  ╚════════════════════════════════╝  ║                                   ║
+║        ╚══════════════════════════════════════╝                                   ║
 ║                                                                                    ║
-║        ┌──────────────────────────────────────┐                                   ║
-║        │  HEAP                                │                                   ║
-║        │  Empty - No Demo object created      │                                   ║
-║        │  (Object created only if needed)     │                                   ║
-║        └──────────────────────────────────────┘                                   ║
+║        ╔══════════════════════════════════════╗                                   ║
+║        ║  HEAP                                ║                                   ║
+║        ║  Empty - No Demo object created      ║                                   ║
+║        ║  (Object created only if needed)     ║                                   ║
+║        ╚══════════════════════════════════════╝                                   ║
 ║                                                                                    ║
-║        ┌──────────────────────────────────────┐                                   ║
-║        │  STACK (main thread)                 │                                   ║
-║        │  ┌────────────────────────────────┐  │                                   ║
-║        │  │  Frame: main(args)             │  │                                   ║
-║        │  │  ┌──────────────────────────┐  │  │                                   ║
-║        │  │  │  Local Variables:        │  │  │                                   ║
-║        │  │  │  0: args (String[])      │  │  │                                   ║
-║        │  │  │  (No 'this' reference!)  │  │  │                                   ║
-║        │  │  └──────────────────────────┘  │  │                                   ║
-║        │  │  Operand stack: (empty)        │  │                                   ║
-║        │  └────────────────────────────────┘  │                                   ║
-║        └──────────────────────────────────────┘                                   ║
+║        ╔══════════════════════════════════════╗                                   ║
+║        ║  STACK (main thread)                 ║                                   ║
+║        ║  ╔════════════════════════════════╗  ║                                   ║
+║        ║  ║  Frame: main(args)             ║  ║                                   ║
+║        ║  ║  ╔══════════════════════════╗  ║  ║                                   ║
+║        ║  ║  ║  Local Variables:        ║  ║  ║                                   ║
+║        ║  ║  ║  0: args (String[])      ║  ║  ║                                   ║
+║        ║  ║  ║  (No 'this' reference!)  ║  ║  ║                                   ║
+║        ║  ║  ╚══════════════════════════╝  ║  ║                                   ║
+║        ║  ║  Operand stack: (empty)        ║  ║                                   ║
+║        ║  ╚════════════════════════════════╝  ║                                   ║
+║        ╚══════════════════════════════════════╝                                   ║
 ║                                                                                    ║
 ║        Memory Usage: ~100 KB (method only)                                         ║
 ║                                                                                    ║
 ║                                       ↓                                            ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  NON-STATIC main() MEMORY LAYOUT (HYPOTHETICAL)                         ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  NON-STATIC main() MEMORY LAYOUT (HYPOTHETICAL)                         ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
-║        ┌──────────────────────────────────────┐                                   ║
-║        │  METHOD AREA / METASPACE             │                                   ║
-║        │  ┌────────────────────────────────┐  │                                   ║
-║        │  │  Demo class metadata           │  │                                   ║
-║        │  │  • Class structure             │  │                                   ║
-║        │  │  • main() bytecode (instance)  │  │                                   ║
-║        │  │  • Field descriptors           │  │                                   ║
-║        │  └────────────────────────────────┘  │                                   ║
-║        └──────────────────────────────────────┘                                   ║
+║        ╔══════════════════════════════════════╗                                   ║
+║        ║  METHOD AREA / METASPACE             ║                                   ║
+║        ║  ╔════════════════════════════════╗  ║                                   ║
+║        ║  ║  Demo class metadata           ║  ║                                   ║
+║        ║  ║  • Class structure             ║  ║                                   ║
+║        ║  ║  • main() bytecode (instance)  ║  ║                                   ║
+║        ║  ║  • Field descriptors           ║  ║                                   ║
+║        ║  ╚════════════════════════════════╝  ║                                   ║
+║        ╚══════════════════════════════════════╝                                   ║
 ║                                                                                    ║
-║        ┌──────────────────────────────────────┐                                   ║
-║        │  HEAP (Required!)                    │                                   ║
-║        │  ┌────────────────────────────────┐  │                                   ║
-║        │  │  Demo object                   │  │                                   ║
-║        │  │  • Object header (12-16 bytes) │  │                                   ║
-║        │  │  • Instance variables          │  │                                   ║
-║        │  │  • Padding                     │  │                                   ║
-║        │  └────────────────────────────────┘  │                                   ║
-║        └──────────────────────────────────────┘                                   ║
+║        ╔══════════════════════════════════════╗                                   ║
+║        ║  HEAP (Required!)                    ║                                   ║
+║        ║  ╔════════════════════════════════╗  ║                                   ║
+║        ║  ║  Demo object                   ║  ║                                   ║
+║        ║  ║  • Object header (12-16 bytes) ║  ║                                   ║
+║        ║  ║  • Instance variables          ║  ║                                   ║
+║        ║  ║  • Padding                     ║  ║                                   ║
+║        ║  ╚════════════════════════════════╝  ║                                   ║
+║        ╚══════════════════════════════════════╝                                   ║
 ║                                                                                    ║
-║        ┌──────────────────────────────────────┐                                   ║
-║        │  STACK (main thread)                 │                                   ║
-║        │  ┌────────────────────────────────┐  │                                   ║
-║        │  │  Frame: main(args)             │  │                                   ║
-║        │  │  ┌──────────────────────────┐  │  │                                   ║
-║        │  │  │  Local Variables:        │  │  │                                   ║
-║        │  │  │  0: this (reference)     │  │  │                                   ║
-║        │  │  │  1: args (String[])      │  │  │                                   ║
-║        │  │  └──────────────────────────┘  │  │                                   ║
-║        │  │  Operand stack: (empty)        │  │                                   ║
-║        │  └────────────────────────────────┘  │                                   ║
-║        └──────────────────────────────────────┘                                   ║
+║        ╔══════════════════════════════════════╗                                   ║
+║        ║  STACK (main thread)                 ║                                   ║
+║        ║  ╔════════════════════════════════╗  ║                                   ║
+║        ║  ║  Frame: main(args)             ║  ║                                   ║
+║        ║  ║  ╔══════════════════════════╗  ║  ║                                   ║
+║        ║  ║  ║  Local Variables:        ║  ║  ║                                   ║
+║        ║  ║  ║  0: this (reference)     ║  ║  ║                                   ║
+║        ║  ║  ║  1: args (String[])      ║  ║  ║                                   ║
+║        ║  ║  ╚══════════════════════════╝  ║  ║                                   ║
+║        ║  ║  Operand stack: (empty)        ║  ║                                   ║
+║        ║  ╚════════════════════════════════╝  ║                                   ║
+║        ╚══════════════════════════════════════╝                                   ║
 ║                                                                                    ║
 ║        Memory Usage: ~100 KB + object overhead + heap allocation                   ║
 ║                                                                                    ║
@@ -822,21 +822,21 @@ main() static hai kyunki JVM ko bina object banaye program start karna hota hai.
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║                     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  Why main() is Static?                ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  No Object Needed                     ┃                      ║
-║                     ┃  No Constructor Dependency            ┃                      ║
-║                     ┃  No Parameter Problem                 ┃                      ║
-║                     ┃  No Initialization Errors             ┃                      ║
-║                     ┃  No Circular Dependency               ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  Static = Class Level                 ┃                      ║
-║                     ┃  Direct Call: ClassName.main(args)    ┃                      ║
-║                     ┃  Fast, Simple, Predictable            ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛                      ║
+║                     ╔═══════════════════════════════════════╗                      ║
+║                     ║                                       ║                      ║
+║                     ║  Why main() is Static?                ║                      ║
+║                     ║                                       ║                      ║
+║                     ║  No Object Needed                     ║                      ║
+║                     ║  No Constructor Dependency            ║                      ║
+║                     ║  No Parameter Problem                 ║                      ║
+║                     ║  No Initialization Errors             ║                      ║
+║                     ║  No Circular Dependency               ║                      ║
+║                     ║                                       ║                      ║
+║                     ║  Static = Class Level                 ║                      ║
+║                     ║  Direct Call: ClassName.main(args)    ║                      ║
+║                     ║  Fast, Simple, Predictable            ║                      ║
+║                     ║                                       ║                      ║
+║                     ╚═══════════════════════════════════════╝                      ║
 ║                                                                                    ║
 ║                                                                                    ║
 ║    ╔═══════════════╗         ╔═══════════════╗         ╔═══════════════╗           ║

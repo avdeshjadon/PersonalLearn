@@ -32,7 +32,7 @@ export const processAsciiDiagrams = (content) => {
   return content.replace(/```([^`]+)```/g, (match, code) => {
     const hasBoxChars = ['┌', '│', '└', '─', '┐', '┘', '├', '┤', '┬', '┴']
       .some(char => code.includes(char));
-    
+
     if (hasBoxChars) {
       return `<pre class="ascii-diagram"><code>${code.trim()}</code></pre>`;
     }
@@ -59,7 +59,7 @@ export const sortByNumber = (items) => {
  */
 export const filterStructure = (structure, manifest, query) => {
   if (!query) return structure;
-  
+
   const lowerQuery = query.toLowerCase();
   return structure
     .map((group) => {

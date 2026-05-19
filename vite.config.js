@@ -11,13 +11,18 @@ export default defineConfig({
     {
       name: 'watch-public-notes',
       configureServer(server) {
-        const notesDir = path.resolve(__dirname, 'public/notes')
+        const notesDir = path.resolve(process.cwd(), 'public/notes')
+        console.log('[watch-public-notes] Watching directory:', notesDir);
         server.watcher.add(notesDir)
 
         const sendReload = (file) => {
           if (!file) return
+          console.log('[watch-public-notes] File changed:', file);
           if (file.startsWith(notesDir)) {
+            console.log('[watch-public-notes] Sending notes-changed event for:', file);
             server.ws.send({ type: 'custom', event: 'notes-changed', data: { file } })
+          } else {
+            console.log('[watch-public-notes] File does not start with notesDir');
           }
         }
 

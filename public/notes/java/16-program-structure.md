@@ -63,250 +63,250 @@ Program Structure implements JVM specification and Java Language Specification (
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  LEVEL 1: PACKAGE DECLARATION (Optional, but recommended)                ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  LEVEL 1: PACKAGE DECLARATION (Optional, but recommended)                ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  package com.company.project;                                    │             ║
-║   │           │       │       │                                      │             ║
-║   │           │       │       └─ Project name                        │             ║
-║   │           │       └─ Company/organization name                   │             ║
-║   │           └─ Domain extension                                    │             ║
-║   │                                                                  │             ║
-║   │  Purpose:                                                        │             ║
-║   │  • Logical grouping of related classes                           │             ║
-║   │  • Prevents naming conflicts (namespace)                         │             ║
-║   │  • Reflects directory structure                                  │             ║
-║   │  • Access control boundary (package-private)                     │             ║
-║   │                                                                  │             ║
-║   │  Rules:                                                          │             ║
-║   │  • Must be first statement (after comments/whitespace)           │             ║
-║   │  • Only one package declaration per file                         │             ║
-║   │  • Lowercase convention (com.company.project)                    │             ║
-║   │  • Domain-reverse naming (com.google.app)                        │             ║
-║   │  • Matches directory path: com/company/project/MyClass.java      │             ║
-║   │                                                                  │             ║
-║   │  Example:                                                        │             ║
-║   │  package com.mycompany.banking.accounts;                         │             ║
-║   │  // Stored in: com/mycompany/banking/accounts/                  │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
-║                                                                                    ║
-║                              ↓                                                     ║
-║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  LEVEL 2: IMPORT STATEMENTS (Optional, for external classes)             ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  import java.util.ArrayList;        // Single class import       │             ║
-║   │  import java.util.*;                // Wildcard import            │             ║
-║   │  import static java.lang.Math.PI;  // Static import              │             ║
-║   │  import static java.lang.Math.*;   // Static wildcard import     │             ║
-║   │                                                                  │             ║
-║   │  Purpose:                                                        │             ║
-║   │  • Access classes from other packages without full name          │             ║
-║   │  • Import: ArrayList instead of java.util.ArrayList              │             ║
-║   │  • Reduce code verbosity                                         │             ║
-║   │  • Clarify dependencies                                          │             ║
-║   │                                                                  │             ║
-║   │  Types:                                                          │             ║
-║   │  1. Single-type import:                                          │             ║
-║   │     import java.util.ArrayList;  (specific class)                │             ║
-║   │                                                                  │             ║
-║   │  2. On-demand (wildcard) import:                                 │             ║
-║   │     import java.util.*;  (all classes in package)                │             ║
-║   │                                                                  │             ║
-║   │  3. Static import:                                               │             ║
-║   │     import static java.lang.Math.sqrt;  (static method)          │             ║
-║   │     import static java.lang.System.out; (static field)           │             ║
-║   │                                                                  │             ║
-║   │  Rules:                                                          │             ║
-║   │  • After package, before class declaration                       │             ║
-║   │  • Multiple imports allowed                                      │             ║
-║   │  • No imports needed for: java.lang.*, same package classes      │             ║
-║   │  • Single-type import preferred over wildcard                    │             ║
-║   │                                                                  │             ║
-║   │  Organization convention:                                        │             ║
-║   │  1. java.* imports                                               │             ║
-║   │  2. javax.* imports                                              │             ║
-║   │  3. Third-party imports (org.*, com.*)                           │             ║
-║   │  4. Own project imports                                          │             ║
-║   │  (Blank line between groups)                                     │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  package com.company.project;                                    ║             ║
+║   ║           ║       ║       ║                                      ║             ║
+║   ║           ║       ║       ╚═ Project name                        ║             ║
+║   ║           ║       ╚═ Company/organization name                   ║             ║
+║   ║           ╚═ Domain extension                                    ║             ║
+║   ║                                                                  ║             ║
+║   ║  Purpose:                                                        ║             ║
+║   ║  • Logical grouping of related classes                           ║             ║
+║   ║  • Prevents naming conflicts (namespace)                         ║             ║
+║   ║  • Reflects directory structure                                  ║             ║
+║   ║  • Access control boundary (package-private)                     ║             ║
+║   ║                                                                  ║             ║
+║   ║  Rules:                                                          ║             ║
+║   ║  • Must be first statement (after comments/whitespace)           ║             ║
+║   ║  • Only one package declaration per file                         ║             ║
+║   ║  • Lowercase convention (com.company.project)                    ║             ║
+║   ║  • Domain-reverse naming (com.google.app)                        ║             ║
+║   ║  • Matches directory path: com/company/project/MyClass.java      ║             ║
+║   ║                                                                  ║             ║
+║   ║  Example:                                                        ║             ║
+║   ║  package com.mycompany.banking.accounts;                         ║             ║
+║   ║  // Stored in: com/mycompany/banking/accounts/                  ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
 ║                              ↓                                                     ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  LEVEL 3: CLASS/INTERFACE DECLARATION (Required)                         ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  LEVEL 2: IMPORT STATEMENTS (Optional, for external classes)             ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  /**                                                             │             ║
-║   │   * Javadoc comment for class                                    │             ║
-║   │   * Describes class purpose and usage                            │             ║
-║   │   * @author Your Name                                            │             ║
-║   │   * @version 1.0                                                 │             ║
-║   │   */                                                             │             ║
-║   │  public class MyClass extends SuperClass implements Interface {  │             ║
-║   │    ▲      ▲     ▲         ▲                ▲          ▲          │             ║
-║   │    │      │     │         │                │          │          │             ║
-║   │    │      │     │         │                │          └─ Interface impl        │             ║
-║   │    │      │     │         │                └─ implements keyword               │             ║
-║   │    │      │     │         └─ Superclass (optional)                             │             ║
-║   │    │      │     └─ Class name (PascalCase)                       │             ║
-║   │    │      └─ Type (class/interface/enum/record)                  │             ║
-║   │    └─ Access modifier (public/default)                           │             ║
-║   │                                                                  │             ║
-║   │  Rules:                                                          │             ║
-║   │  • Only ONE public class per file                                │             ║
-║   │  • Filename must match public class name: MyClass.java           │             ║
-║   │  • Multiple package-private (default) classes allowed            │             ║
-║   │  • PascalCase naming: FirstLetterCapital                         │             ║
-║   │                                                                  │             ║
-║   │  Access Modifiers:                                               │             ║
-║   │  • public: Accessible from anywhere                              │             ║
-║   │  • default (no modifier): Package-private, same package only     │             ║
-║   │                                                                  │             ║
-║   │  Other Modifiers:                                                │             ║
-║   │  • abstract: Cannot be instantiated                              │             ║
-║   │  • final: Cannot be subclassed                                   │             ║
-║   │  • strictfp: Strict floating-point calculations                  │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  import java.util.ArrayList;        // Single class import       ║             ║
+║   ║  import java.util.*;                // Wildcard import            ║             ║
+║   ║  import static java.lang.Math.PI;  // Static import              ║             ║
+║   ║  import static java.lang.Math.*;   // Static wildcard import     ║             ║
+║   ║                                                                  ║             ║
+║   ║  Purpose:                                                        ║             ║
+║   ║  • Access classes from other packages without full name          ║             ║
+║   ║  • Import: ArrayList instead of java.util.ArrayList              ║             ║
+║   ║  • Reduce code verbosity                                         ║             ║
+║   ║  • Clarify dependencies                                          ║             ║
+║   ║                                                                  ║             ║
+║   ║  Types:                                                          ║             ║
+║   ║  1. Single-type import:                                          ║             ║
+║   ║     import java.util.ArrayList;  (specific class)                ║             ║
+║   ║                                                                  ║             ║
+║   ║  2. On-demand (wildcard) import:                                 ║             ║
+║   ║     import java.util.*;  (all classes in package)                ║             ║
+║   ║                                                                  ║             ║
+║   ║  3. Static import:                                               ║             ║
+║   ║     import static java.lang.Math.sqrt;  (static method)          ║             ║
+║   ║     import static java.lang.System.out; (static field)           ║             ║
+║   ║                                                                  ║             ║
+║   ║  Rules:                                                          ║             ║
+║   ║  • After package, before class declaration                       ║             ║
+║   ║  • Multiple imports allowed                                      ║             ║
+║   ║  • No imports needed for: java.lang.*, same package classes      ║             ║
+║   ║  • Single-type import preferred over wildcard                    ║             ║
+║   ║                                                                  ║             ║
+║   ║  Organization convention:                                        ║             ║
+║   ║  1. java.* imports                                               ║             ║
+║   ║  2. javax.* imports                                              ║             ║
+║   ║  3. Third-party imports (org.*, com.*)                           ║             ║
+║   ║  4. Own project imports                                          ║             ║
+║   ║  (Blank line between groups)                                     ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
 ║                              ↓                                                     ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  LEVEL 4: CLASS BODY - MEMBER ORGANIZATION                               ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  LEVEL 3: CLASS/INTERFACE DECLARATION (Required)                         ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  public class MyClass {                                          │             ║
-║   │                                                                  │             ║
-║   │      // ══════════════════════════════════════════════════════   │             ║
-║   │      // 4.1 CLASS/STATIC VARIABLES                               │             ║
-║   │      // ══════════════════════════════════════════════════════   │             ║
-║   │      public static final int MAX_SIZE = 100;  // Constant        │             ║
-║   │      private static int count = 0;            // Static var      │             ║
-║   │                                                                  │             ║
-║   │      // ══════════════════════════════════════════════════════   │             ║
-║   │      // 4.2 INSTANCE VARIABLES                                   │             ║
-║   │      // ══════════════════════════════════════════════════════   │             ║
-║   │      private String name;                     // Private field   │             ║
-║   │      private int age;                                            │             ║
-║   │      protected double salary;                 // Protected       │             ║
-║   │                                                                  │             ║
-║   │      // ══════════════════════════════════════════════════════   │             ║
-║   │      // 4.3 STATIC INITIALIZATION BLOCK                          │             ║
-║   │      // ══════════════════════════════════════════════════════   │             ║
-║   │      static {                                                    │             ║
-║   │          // Executed when class is loaded                        │             ║
-║   │          count = 0;                                              │             ║
-║   │          System.out.println("Class loaded");                     │             ║
-║   │      }                                                           │             ║
-║   │                                                                  │             ║
-║   │      // ══════════════════════════════════════════════════════   │             ║
-║   │      // 4.4 INSTANCE INITIALIZATION BLOCK                        │             ║
-║   │      // ══════════════════════════════════════════════════════   │             ║
-║   │      {                                                           │             ║
-║   │          // Executed before constructor                          │             ║
-║   │          count++;                                                │             ║
-║   │      }                                                           │             ║
-║   │                                                                  │             ║
-║   │      // ══════════════════════════════════════════════════════   │             ║
-║   │      // 4.5 CONSTRUCTORS                                         │             ║
-║   │      // ══════════════════════════════════════════════════════   │             ║
-║   │      // No-arg constructor first                                 │             ║
-║   │      public MyClass() {                                          │             ║
-║   │          this("Default", 0);                                     │             ║
-║   │      }                                                           │             ║
-║   │                                                                  │             ║
-║   │      // Parameterized constructors                               │             ║
-║   │      public MyClass(String name) {                               │             ║
-║   │          this.name = name;                                       │             ║
-║   │      }                                                           │             ║
-║   │                                                                  │             ║
-║   │      public MyClass(String name, int age) {                      │             ║
-║   │          this.name = name;                                       │             ║
-║   │          this.age = age;                                         │             ║
-║   │      }                                                           │             ║
-║   │                                                                  │             ║
-║   │      // ══════════════════════════════════════════════════════   │             ║
-║   │      // 4.6 STATIC METHODS                                       │             ║
-║   │      // ══════════════════════════════════════════════════════   │             ║
-║   │      public static int getCount() {                              │             ║
-║   │          return count;                                           │             ║
-║   │      }                                                           │             ║
-║   │                                                                  │             ║
-║   │      public static void resetCount() {                           │             ║
-║   │          count = 0;                                              │             ║
-║   │      }                                                           │             ║
-║   │                                                                  │             ║
-║   │      // ══════════════════════════════════════════════════════   │             ║
-║   │      // 4.7 INSTANCE METHODS                                     │             ║
-║   │      // ══════════════════════════════════════════════════════   │             ║
-║   │      // Getters                                                  │             ║
-║   │      public String getName() {                                   │             ║
-║   │          return name;                                            │             ║
-║   │      }                                                           │             ║
-║   │                                                                  │             ║
-║   │      public int getAge() {                                       │             ║
-║   │          return age;                                             │             ║
-║   │      }                                                           │             ║
-║   │                                                                  │             ║
-║   │      // Setters                                                  │             ║
-║   │      public void setName(String name) {                          │             ║
-║   │          this.name = name;                                       │             ║
-║   │      }                                                           │             ║
-║   │                                                                  │             ║
-║   │      public void setAge(int age) {                               │             ║
-║   │          if(age >= 0) {                                          │             ║
-║   │              this.age = age;                                     │             ║
-║   │          }                                                       │             ║
-║   │      }                                                           │             ║
-║   │                                                                  │             ║
-║   │      // Business logic methods                                   │             ║
-║   │      public void display() {                                     │             ║
-║   │          System.out.println("Name: " + name + ", Age: " + age);  │             ║
-║   │      }                                                           │             ║
-║   │                                                                  │             ║
-║   │      // Private helper methods                                   │             ║
-║   │      private void validateAge(int age) {                         │             ║
-║   │          if(age < 0 || age > 150) {                              │             ║
-║   │              throw new IllegalArgumentException("Invalid age");  │             ║
-║   │          }                                                       │             ║
-║   │      }                                                           │             ║
-║   │                                                                  │             ║
-║   │      // ══════════════════════════════════════════════════════   │             ║
-║   │      // 4.8 OVERRIDDEN METHODS                                   │             ║
-║   │      // ══════════════════════════════════════════════════════   │             ║
-║   │      @Override                                                   │             ║
-║   │      public String toString() {                                  │             ║
-║   │          return "MyClass{name='" + name + "', age=" + age + "}"; │             ║
-║   │      }                                                           │             ║
-║   │                                                                  │             ║
-║   │      @Override                                                   │             ║
-║   │      public boolean equals(Object obj) {                         │             ║
-║   │          if(this == obj) return true;                            │             ║
-║   │          if(obj == null || getClass() != obj.getClass())         │             ║
-║   │              return false;                                       │             ║
-║   │          MyClass other = (MyClass) obj;                          │             ║
-║   │          return age == other.age &&                              │             ║
-║   │                 name.equals(other.name);                         │             ║
-║   │      }                                                           │             ║
-║   │                                                                  │             ║
-║   │      // ══════════════════════════════════════════════════════   │             ║
-║   │      // 4.9 NESTED/INNER CLASSES                                 │             ║
-║   │      // ══════════════════════════════════════════════════════   │             ║
-║   │      public static class NestedClass {                           │             ║
-║   │          // Static nested class                                  │             ║
-║   │      }                                                           │             ║
-║   │                                                                  │             ║
-║   │      public class InnerClass {                                   │             ║
-║   │          // Non-static inner class                               │             ║
-║   │      }                                                           │             ║
-║   │  }                                                               │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  /**                                                             ║             ║
+║   ║   * Javadoc comment for class                                    ║             ║
+║   ║   * Describes class purpose and usage                            ║             ║
+║   ║   * @author Your Name                                            ║             ║
+║   ║   * @version 1.0                                                 ║             ║
+║   ║   */                                                             ║             ║
+║   ║  public class MyClass extends SuperClass implements Interface {  ║             ║
+║   ║    ▲      ▲     ▲         ▲                ▲          ▲          ║             ║
+║   ║    ║      ║     ║         ║                ║          ║          ║             ║
+║   ║    ║      ║     ║         ║                ║          ╚═ Interface impl        ║             ║
+║   ║    ║      ║     ║         ║                ╚═ implements keyword               ║             ║
+║   ║    ║      ║     ║         ╚═ Superclass (optional)                             ║             ║
+║   ║    ║      ║     ╚═ Class name (PascalCase)                       ║             ║
+║   ║    ║      ╚═ Type (class/interface/enum/record)                  ║             ║
+║   ║    ╚═ Access modifier (public/default)                           ║             ║
+║   ║                                                                  ║             ║
+║   ║  Rules:                                                          ║             ║
+║   ║  • Only ONE public class per file                                ║             ║
+║   ║  • Filename must match public class name: MyClass.java           ║             ║
+║   ║  • Multiple package-private (default) classes allowed            ║             ║
+║   ║  • PascalCase naming: FirstLetterCapital                         ║             ║
+║   ║                                                                  ║             ║
+║   ║  Access Modifiers:                                               ║             ║
+║   ║  • public: Accessible from anywhere                              ║             ║
+║   ║  • default (no modifier): Package-private, same package only     ║             ║
+║   ║                                                                  ║             ║
+║   ║  Other Modifiers:                                                ║             ║
+║   ║  • abstract: Cannot be instantiated                              ║             ║
+║   ║  • final: Cannot be subclassed                                   ║             ║
+║   ║  • strictfp: Strict floating-point calculations                  ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
+║                                                                                    ║
+║                              ↓                                                     ║
+║                                                                                    ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  LEVEL 4: CLASS BODY - MEMBER ORGANIZATION                               ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
+║                                                                                    ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  public class MyClass {                                          ║             ║
+║   ║                                                                  ║             ║
+║   ║      // ══════════════════════════════════════════════════════   ║             ║
+║   ║      // 4.1 CLASS/STATIC VARIABLES                               ║             ║
+║   ║      // ══════════════════════════════════════════════════════   ║             ║
+║   ║      public static final int MAX_SIZE = 100;  // Constant        ║             ║
+║   ║      private static int count = 0;            // Static var      ║             ║
+║   ║                                                                  ║             ║
+║   ║      // ══════════════════════════════════════════════════════   ║             ║
+║   ║      // 4.2 INSTANCE VARIABLES                                   ║             ║
+║   ║      // ══════════════════════════════════════════════════════   ║             ║
+║   ║      private String name;                     // Private field   ║             ║
+║   ║      private int age;                                            ║             ║
+║   ║      protected double salary;                 // Protected       ║             ║
+║   ║                                                                  ║             ║
+║   ║      // ══════════════════════════════════════════════════════   ║             ║
+║   ║      // 4.3 STATIC INITIALIZATION BLOCK                          ║             ║
+║   ║      // ══════════════════════════════════════════════════════   ║             ║
+║   ║      static {                                                    ║             ║
+║   ║          // Executed when class is loaded                        ║             ║
+║   ║          count = 0;                                              ║             ║
+║   ║          System.out.println("Class loaded");                     ║             ║
+║   ║      }                                                           ║             ║
+║   ║                                                                  ║             ║
+║   ║      // ══════════════════════════════════════════════════════   ║             ║
+║   ║      // 4.4 INSTANCE INITIALIZATION BLOCK                        ║             ║
+║   ║      // ══════════════════════════════════════════════════════   ║             ║
+║   ║      {                                                           ║             ║
+║   ║          // Executed before constructor                          ║             ║
+║   ║          count++;                                                ║             ║
+║   ║      }                                                           ║             ║
+║   ║                                                                  ║             ║
+║   ║      // ══════════════════════════════════════════════════════   ║             ║
+║   ║      // 4.5 CONSTRUCTORS                                         ║             ║
+║   ║      // ══════════════════════════════════════════════════════   ║             ║
+║   ║      // No-arg constructor first                                 ║             ║
+║   ║      public MyClass() {                                          ║             ║
+║   ║          this("Default", 0);                                     ║             ║
+║   ║      }                                                           ║             ║
+║   ║                                                                  ║             ║
+║   ║      // Parameterized constructors                               ║             ║
+║   ║      public MyClass(String name) {                               ║             ║
+║   ║          this.name = name;                                       ║             ║
+║   ║      }                                                           ║             ║
+║   ║                                                                  ║             ║
+║   ║      public MyClass(String name, int age) {                      ║             ║
+║   ║          this.name = name;                                       ║             ║
+║   ║          this.age = age;                                         ║             ║
+║   ║      }                                                           ║             ║
+║   ║                                                                  ║             ║
+║   ║      // ══════════════════════════════════════════════════════   ║             ║
+║   ║      // 4.6 STATIC METHODS                                       ║             ║
+║   ║      // ══════════════════════════════════════════════════════   ║             ║
+║   ║      public static int getCount() {                              ║             ║
+║   ║          return count;                                           ║             ║
+║   ║      }                                                           ║             ║
+║   ║                                                                  ║             ║
+║   ║      public static void resetCount() {                           ║             ║
+║   ║          count = 0;                                              ║             ║
+║   ║      }                                                           ║             ║
+║   ║                                                                  ║             ║
+║   ║      // ══════════════════════════════════════════════════════   ║             ║
+║   ║      // 4.7 INSTANCE METHODS                                     ║             ║
+║   ║      // ══════════════════════════════════════════════════════   ║             ║
+║   ║      // Getters                                                  ║             ║
+║   ║      public String getName() {                                   ║             ║
+║   ║          return name;                                            ║             ║
+║   ║      }                                                           ║             ║
+║   ║                                                                  ║             ║
+║   ║      public int getAge() {                                       ║             ║
+║   ║          return age;                                             ║             ║
+║   ║      }                                                           ║             ║
+║   ║                                                                  ║             ║
+║   ║      // Setters                                                  ║             ║
+║   ║      public void setName(String name) {                          ║             ║
+║   ║          this.name = name;                                       ║             ║
+║   ║      }                                                           ║             ║
+║   ║                                                                  ║             ║
+║   ║      public void setAge(int age) {                               ║             ║
+║   ║          if(age >= 0) {                                          ║             ║
+║   ║              this.age = age;                                     ║             ║
+║   ║          }                                                       ║             ║
+║   ║      }                                                           ║             ║
+║   ║                                                                  ║             ║
+║   ║      // Business logic methods                                   ║             ║
+║   ║      public void display() {                                     ║             ║
+║   ║          System.out.println("Name: " + name + ", Age: " + age);  ║             ║
+║   ║      }                                                           ║             ║
+║   ║                                                                  ║             ║
+║   ║      // Private helper methods                                   ║             ║
+║   ║      private void validateAge(int age) {                         ║             ║
+║   ║          if(age < 0 || age > 150) {                              ║             ║
+║   ║              throw new IllegalArgumentException("Invalid age");  ║             ║
+║   ║          }                                                       ║             ║
+║   ║      }                                                           ║             ║
+║   ║                                                                  ║             ║
+║   ║      // ══════════════════════════════════════════════════════   ║             ║
+║   ║      // 4.8 OVERRIDDEN METHODS                                   ║             ║
+║   ║      // ══════════════════════════════════════════════════════   ║             ║
+║   ║      @Override                                                   ║             ║
+║   ║      public String toString() {                                  ║             ║
+║   ║          return "MyClass{name='" + name + "', age=" + age + "}"; ║             ║
+║   ║      }                                                           ║             ║
+║   ║                                                                  ║             ║
+║   ║      @Override                                                   ║             ║
+║   ║      public boolean equals(Object obj) {                         ║             ║
+║   ║          if(this == obj) return true;                            ║             ║
+║   ║          if(obj == null || getClass() != obj.getClass())         ║             ║
+║   ║              return false;                                       ║             ║
+║   ║          MyClass other = (MyClass) obj;                          ║             ║
+║   ║          return age == other.age &&                              ║             ║
+║   ║                 name.equals(other.name);                         ║             ║
+║   ║      }                                                           ║             ║
+║   ║                                                                  ║             ║
+║   ║      // ══════════════════════════════════════════════════════   ║             ║
+║   ║      // 4.9 NESTED/INNER CLASSES                                 ║             ║
+║   ║      // ══════════════════════════════════════════════════════   ║             ║
+║   ║      public static class NestedClass {                           ║             ║
+║   ║          // Static nested class                                  ║             ║
+║   ║      }                                                           ║             ║
+║   ║                                                                  ║             ║
+║   ║      public class InnerClass {                                   ║             ║
+║   ║          // Non-static inner class                               ║             ║
+║   ║      }                                                           ║             ║
+║   ║  }                                                               ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 ```
@@ -1032,30 +1032,30 @@ Program Structure Java file ka standardized layout hai top-down order mein: Pack
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║                     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  Java Program Structure:              ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  1. package (location)                ┃                      ║
-║                     ┃     package com.company.project;      ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  2. import (dependencies)             ┃                      ║
-║                     ┃     import java.util.*;               ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  3. class (container)                 ┃                      ║
-║                     ┃     public class MyClass {            ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  4. members (organized):              ┃                      ║
-║                     ┃     • Static variables                ┃                      ║
-║                     ┃     • Instance variables              ┃                      ║
-║                     ┃     • Constructors                    ┃                      ║
-║                     ┃     • Methods                         ┃                      ║
-║                     ┃     }                                 ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  Filename = Public Class Name + .java ┃                      ║
-║                     ┃  MyClass.java for public class MyClass┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛                      ║
+║                     ╔═══════════════════════════════════════╗                      ║
+║                     ║                                       ║                      ║
+║                     ║  Java Program Structure:              ║                      ║
+║                     ║                                       ║                      ║
+║                     ║  1. package (location)                ║                      ║
+║                     ║     package com.company.project;      ║                      ║
+║                     ║                                       ║                      ║
+║                     ║  2. import (dependencies)             ║                      ║
+║                     ║     import java.util.*;               ║                      ║
+║                     ║                                       ║                      ║
+║                     ║  3. class (container)                 ║                      ║
+║                     ║     public class MyClass {            ║                      ║
+║                     ║                                       ║                      ║
+║                     ║  4. members (organized):              ║                      ║
+║                     ║     • Static variables                ║                      ║
+║                     ║     • Instance variables              ║                      ║
+║                     ║     • Constructors                    ║                      ║
+║                     ║     • Methods                         ║                      ║
+║                     ║     }                                 ║                      ║
+║                     ║                                       ║                      ║
+║                     ║  Filename = Public Class Name + .java ║                      ║
+║                     ║  MyClass.java for public class MyClass║                      ║
+║                     ║                                       ║                      ║
+║                     ╚═══════════════════════════════════════╝                      ║
 ║                                                                                    ║
 ║                                                                                    ║
 ║    ╔═══════════╗    ╔═══════════╗    ╔═══════════╗    ╔═══════════╗               ║

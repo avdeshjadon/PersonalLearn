@@ -24,72 +24,51 @@ Two main translation approaches were developed. Compilers translate the entire s
 - **Hybrid**: Dono ka combination (Java, C#)
 - Choose based on project requirements
 
----
-
 ## Definitions
 
-### Very Simple Definition
-**Compiler** = Puri book ek saath translate (fast reading later)
-**Interpreter** = Ek-ek line translate karte jao (slow but flexible)
-
-### College Exam Definition
-A compiler is a program that translates the entire source code into machine code at once before execution, while an interpreter translates and executes source code line-by-line during runtime.
-
-### Viva Definition
-A compiler performs complete translation of source code to object code in a single pass, creating an executable file that can run independently. An interpreter translates and executes instructions sequentially without creating a separate executable, providing immediate feedback but slower execution.
-
-### Interview Definition
-Compilers perform ahead-of-time (AOT) translation, converting entire source code to machine code through lexical analysis, parsing, semantic analysis, and code generation phases, producing standalone executables. Interpreters perform just-in-time (JIT) translation, executing source code directly through a runtime environment, enabling dynamic features and cross-platform portability at the cost of execution speed.
-
-### Technical Definition
-A compiler is a multi-phase translator that performs lexical analysis (tokenization), syntax analysis (parsing), semantic analysis (type checking), intermediate code generation, optimization, and target code generation, producing platform-specific machine code. An interpreter is a runtime executor that parses and executes source code or intermediate representation (bytecode) instruction-by-instruction through a virtual machine or runtime environment.
-
-### One-line Crisp Definition
-**Compiler = Translate all → Execute | Interpreter = Translate + Execute simultaneously**
-
----
+**A compiler is a program that translates the entire source code into machine code at once before execution, while an interpreter translates and executes source code line-by-line during runtime.**
 
 ## Compiler vs Interpreter Process
 
 ```
 ╔════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                    ║
-║              ╔═══════════════════════════════════════════════════════╗             ║
-║              ║       COMPILER vs INTERPRETER PROCESS                 ║             ║
-║              ╚═══════════════════════════════════════════════════════╝             ║
+║               ╔═══════════════════════════════════════════════════════╗            ║
+║               ║       COMPILER vs INTERPRETER PROCESS                 ║            ║
+║               ╚═══════════════════════════════════════════════════════╝            ║
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓            ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃    COMPILER PROCESS          ┃            ┃    INTERPRETER PROCESS       ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛            ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════╗            ╔══════════════════════════════╗     ║
+║   ║    COMPILER PROCESS          ║            ║    INTERPRETER PROCESS       ║     ║
+║   ╚══════════════════════════════╝            ╚══════════════════════════════╝     ║
 ║                                                                                    ║
-║   ┌──────────────┐                             ┌──────────────┐                    ║
-║   │ Source Code  │                             │ Source Code  │                    ║
-║   │ Program.c    │                             │ script.py    │                    ║
-║   └──────┬───────┘                             └──────┬───────┘                    ║
-║          │                                            │                            ║
+║   ╔══════════════╗                             ╔══════════════╗                    ║
+║   ║ Source Code  ║                             ║ Source Code  ║                    ║
+║   ║ Program.c    ║                             ║ script.py    ║                    ║
+║   ╚══════╦═══════╝                             ╚══════╦═══════╝                    ║
+║          ║                                            ║                            ║
 ║          ▼                                            ▼                            ║
-║   ┌──────────────┐                             ┌──────────────────────┐            ║
-║   │  COMPILER    │                             │   INTERPRETER        │            ║
-║   │  (gcc, g++)  │                             │   (python, node)     │            ║
-║   │              │                             │                      │            ║
-║   │ Translates   │                             │ Translates line 1    │            ║
-║   │ ENTIRE code  │                             │ → Executes line 1    │            ║
-║   └──────┬───────┘                             │ Translates line 2    │            ║
-║          │                                     │ → Executes line 2    │            ║
-║          ▼                                     └──────┬───────────────┘            ║
-║   ┌──────────────┐                                    │                            ║
-║   │ Machine Code │                                    ▼                            ║
-║   │  Executable  │                             ┌──────────────┐                    ║
-║   │ program.exe  │                             │    Output    │                    ║
-║   └──────┬───────┘                             └──────────────┘                    ║
-║          │                                                                         ║
+║   ╔══════════════╗                             ╔══════════════════════╗            ║
+║   ║  COMPILER    ║                             ║   INTERPRETER        ║            ║
+║   ║  (gcc, g++)  ║                             ║   (python, node)     ║            ║
+║   ║              ║                             ║                      ║            ║
+║   ║ Translates   ║                             ║ Translates line 1    ║            ║
+║   ║ ENTIRE code  ║                             ║ → Executes line 1    ║            ║
+║   ╚══════╦═══════╝                             ║ Translates line 2    ║            ║
+║          ║                                     ║ → Executes line 2    ║            ║
+║          ▼                                     ╚══════╦═══════════════╝            ║
+║   ╔══════════════╗                                    ║                            ║
+║   ║ Machine Code ║                                    ▼                            ║
+║   ║  Executable  ║                             ╔══════════════╗                    ║
+║   ║ program.exe  ║                             ║    Output    ║                    ║
+║   ╚══════╦═══════╝                             ╚══════════════╝                    ║
+║          ║                                                                         ║
 ║          ▼                                     • No executable created             ║
-║   ┌──────────────┐                            • Must translate every run           ║
-║   │  EXECUTION   │                            • Slower execution                   ║
-║   │    Output    │                                                                 ║
-║   └──────────────┘                                                                 ║
+║   ╔══════════════╗                             • Must translate every run          ║
+║   ║  EXECUTION   ║                             • Slower execution                  ║
+║   ║    Output    ║                                                                 ║
+║   ╚══════════════╝                                                                 ║
 ║                                                                                    ║
 ║   • Fast execution                                                                 ║
 ║   • Run multiple times                                                             ║
@@ -113,9 +92,9 @@ A compiler is a multi-phase translator that performs lexical analysis (tokenizat
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  MODEL 1: COMPILED (C, C++, Rust)                                        ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  MODEL 1: COMPILED (C, C++, Rust)                                        ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║            Source Code (.c) → Compiler → Machine Code → CPU → Output               ║
 ║                                                                                    ║
@@ -123,9 +102,9 @@ A compiler is a multi-phase translator that performs lexical analysis (tokenizat
 ║            • Platform-specific                                                     ║
 ║            • Compile once, run many                                                ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  MODEL 2: INTERPRETED (Python, JavaScript)                               ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  MODEL 2: INTERPRETED (Python, JavaScript)                               ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║            Source Code (.py) → Interpreter (line-by-line) → Output                 ║
 ║                                                                                    ║
@@ -133,9 +112,9 @@ A compiler is a multi-phase translator that performs lexical analysis (tokenizat
 ║            • Platform-independent                                                  ║
 ║            • Translate every run                                                   ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  MODEL 3: HYBRID (Java, C#)                                              ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  MODEL 3: HYBRID (Java, C#)                                              ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║            Source (.java) → Compiler → Bytecode → JVM → Output                     ║
 ║                                                                                    ║
@@ -166,234 +145,26 @@ A compiler is a multi-phase translator that performs lexical analysis (tokenizat
 | **Examples** | C, C++, Rust, Go | Python, Ruby, PHP |
 | **Typical Use** | Performance-critical systems, OS | Scripting, prototyping, web |
 
----
-
-## Real-life Hinglish Examples
-
-### Example 1: Book Translation
-
-**Compiler (Puri book translate):**
-```
-╔════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                    ║
-║              ╔═══════════════════════════════════════════════════════╗             ║
-║              ║           COMPILER = FULL BOOK TRANSLATION            ║             ║
-║              ╚═══════════════════════════════════════════════════════╝             ║
-║                                                                                    ║
-╠════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                    ║
-║                      ╭───────────────────────────────────╮                         ║
-║                      │  English Book                     │                         ║
-║                      ╰─────────────────┬─────────────────╯                         ║
-║                                        ▼                                           ║
-║                      ╭───────────────────────────────────╮                         ║
-║                      │  Translator (1 week)              │                         ║
-║                      │  Translates entire book           │                         ║
-║                      ╰─────────────────┬─────────────────╯                         ║
-║                                        ▼                                           ║
-║                      ╭───────────────────────────────────╮                         ║
-║                      │  Hindi Book (printed)             │                         ║
-║                      ╰─────────────────┬─────────────────╯                         ║
-║                                        ▼                                           ║
-║                      ╔═══════════════════════════════════╗                         ║
-║                      ║ Ab baar baar padh sakte ho        ║                         ║
-║                      ║ Translation sirf ek baar hua      ║                         ║
-║                      ║ Reading FAST hai!                 ║                         ║
-║                      ╚═══════════════════════════════════╝                         ║
-║                                                                                    ║
-╚════════════════════════════════════════════════════════════════════════════════════╝
-```
-
-**Interpreter (Line-by-line):**
-```
-╔════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                    ║
-║              ╔═══════════════════════════════════════════════════════╗             ║
-║              ║       INTERPRETER = LINE-BY-LINE TRANSLATION          ║             ║
-║              ╚═══════════════════════════════════════════════════════╝             ║
-║                                                                                    ║
-╠════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                    ║
-║                      ╭───────────────────────────────────╮                         ║
-║                      │  English Book                     │                         ║
-║                      ╰─────────────────┬─────────────────╯                         ║
-║                                        ▼                                           ║
-║                      ╭───────────────────────────────────╮                         ║
-║                      │  Translator reads line 1          │                         ║
-║                      │  → Translates → You hear          │                         ║
-║                      ╰─────────────────┬─────────────────╯                         ║
-║                                        ▼                                           ║
-║                      ╭───────────────────────────────────╮                         ║
-║                      │  Translator reads line 2          │                         ║
-║                      │  → Translates → You hear          │                         ║
-║                      ╰─────────────────┬─────────────────╯                         ║
-║                                        ▼                                           ║
-║                      ╔═══════════════════════════════════╗                         ║
-║                      ║ Har baar translator chahiye       ║                         ║
-║                      ║ Slow process                      ║                         ║
-║                      ║ But error turant pata chal jata   ║                         ║
-║                      ╚═══════════════════════════════════╝                         ║
-║                                                                                    ║
-╚════════════════════════════════════════════════════════════════════════════════════╝
-```
-
-### Example 2: Restaurant Menu
-
-**Compiler:**
-```
-Menu card (English) → Translate once (morning) → Hindi menu card
-
-Poore din customers Hindi menu use kar sakte hain
-Fast service!
-```
-
-**Interpreter:**
-```
-Customer: "What is Pasta?"
-Waiter: "Pasta matlab..."
-Customer: "What is Pizza?"
-Waiter: "Pizza matlab..."
-
-Har customer ke liye translate karna padta hai — Slow!
-```
-
----
-
-## Syntax Explanation (Same Program, Different Models)
-
-### C (Compiled)
-
-```c
-// hello.c
-#include <stdio.h>
-int main() {
-    printf("Hello World\n");
-    return 0;
-}
-
-// Compile:
-$ gcc hello.c -o hello
-
-// Run:
-$ ./hello
-Hello World
-```
-
-### Python (Interpreted)
-
-```python
-# hello.py
-print("Hello World")
-
-# Run directly (no compilation):
-$ python hello.py
-Hello World
-```
-
-### Java (Hybrid)
-
-```java
-// Hello.java
-public class Hello {
-    public static void main(String[] args) {
-        System.out.println("Hello World");
-    }
-}
-
-// Compile to bytecode:
-$ javac Hello.java  → Creates Hello.class
-
-// Interpret bytecode:
-$ java Hello
-Hello World
-```
-
----
-
-## Memory Usage Comparison
-
-```
-╔════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                    ║
-║              ╔═══════════════════════════════════════════════════════╗             ║
-║              ║           MEMORY USAGE COMPARISON                     ║             ║
-║              ╚═══════════════════════════════════════════════════════╝             ║
-║                                                                                    ║
-╠════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                    ║
-║  COMPILER APPROACH:                                                                ║
-║                                                                                    ║
-║  COMPILE TIME (Happens once):                                                      ║
-║  ┌──────────────────────────────────────────────────────────────┐                  ║
-║  │  Source Code → Compiler (in RAM) → Executable (saved to disk)│                  ║
-║  └──────────────────────────────────────────────────────────────┘                  ║
-║                                                                                    ║
-║  RUN TIME (Every execution):                                                       ║
-║  ┌──────────────────────────────────────────────────────────────┐                  ║
-║  │  Executable (in RAM) → CPU executes → Output                 │                  ║
-║  │  Memory: Only executable                                     │                  ║
-║  │  Speed: Fast! Direct execution                               │                  ║
-║  └──────────────────────────────────────────────────────────────┘                  ║
-║                                                                                    ║
-║  INTERPRETER APPROACH:                                                             ║
-║                                                                                    ║
-║  RUN TIME (Every execution):                                                       ║
-║  ┌──────────────────────────────────────────────────────────────┐                  ║
-║  │  Source Code (in RAM)                                        │                  ║
-║  │       ↓                                                      │                  ║
-║  │  Interpreter (in RAM) → Translate + Execute → Output         │                  ║
-║  │  Memory: Source + Interpreter + Runtime data                 │                  ║
-║  │  Speed: Slower (translation overhead)                        │                  ║
-║  └──────────────────────────────────────────────────────────────┘                  ║
-║                                                                                    ║
-╚════════════════════════════════════════════════════════════════════════════════════╝
-```
-
----
-
 ## Advantages
 
-### Compiler Advantages:
-
-| Advantage | Description |
-|-----------|-------------|
-| **Fast Execution** | Already translated, direct machine code |
-| **Optimized** | Compiler optimizes code |
-| **No Runtime Dependency** | Executable file is standalone |
-| **Better Performance** | No translation overhead |
-| **Security** | Source code hidden |
-
-### Interpreter Advantages:
-
-| Advantage | Description |
-|-----------|-------------|
-| **Easy Debugging** | Error line immediately visible |
-| **Platform Independent** | Same code, any OS |
-| **No Compilation Step** | Direct run |
-| **Dynamic Features** | Runtime modifications possible |
-| **Faster Development** | Write and test immediately |
+| Compiler Advantages | Interpreter Advantages |
+|---------------------|------------------------|
+| **Fast Execution:** Already translated, direct machine code | **Easy Debugging:** Error line immediately visible |
+| **Optimized:** Compiler optimizes code | **Platform Independent:** Same code, any OS |
+| **No Runtime Dependency:** Executable file is standalone | **No Compilation Step:** Direct run |
+| **Better Performance:** No translation overhead | **Dynamic Features:** Runtime modifications possible |
+| **Security:** Source code hidden | **Faster Development:** Write and test immediately |
 
 ---
 
 ## Limitations
 
-### Compiler Limitations:
-
-| Limitation | Description |
-|------------|-------------|
-| **Slower Development** | Compile → Test → Repeat cycle |
-| **Platform Specific** | Different exe for Windows/Linux |
-| **Harder Debugging** | Error location not always clear |
-| **Recompilation** | Every change needs recompile |
-
-### Interpreter Limitations:
-
-| Limitation | Description |
-|------------|-------------|
-| **Slow Execution** | Translating every time |
-| **Runtime Dependency** | Interpreter must be installed |
-| **More Memory** | Interpreter + source in memory |
-| **Source Exposure** | Code visible to users |
+| Compiler Limitations | Interpreter Limitations |
+|----------------------|-------------------------|
+| **Slower Development:** Compile → Test → Repeat cycle | **Slow Execution:** Translating every time |
+| **Platform Specific:** Different exe for Windows/Linux | **Runtime Dependency:** Interpreter must be installed |
+| **Harder Debugging:** Error location not always clear | **More Memory:** Interpreter + source in memory |
+| **Recompilation:** Every change needs recompile | **Source Exposure:** Code visible to users |
 
 ---
 
@@ -420,23 +191,23 @@ Compiler sare errors ek saath dikhata hai compilation time pe. Interpreter pehli
 Compiler translates entire code at once and creates an executable file. Execution is very fast because code is already translated. Interpreter translates and executes code line-by-line. No executable is created and execution is slower.
 
 ```
-┌────────────────────────────────────────────┐
-│  COMPILER                                  │
-│  • Translates entire code at once          │
-│  • Creates executable file                 │
-│  • Fast execution                          │
-│  • Harder debugging                        │
-│  • Examples: C, C++                        │
-└────────────────────────────────────────────┘
+╔════════════════════════════════════════════╗
+║  COMPILER                                  ║
+║  • Translates entire code at once          ║
+║  • Creates executable file                 ║
+║  • Fast execution                          ║
+║  • Harder debugging                        ║
+║  • Examples: C, C++                        ║
+╚════════════════════════════════════════════╝
 
-┌────────────────────────────────────────────┐
-│  INTERPRETER                               │
-│  • Translates line-by-line                 │
-│  • No executable file                      │
-│  • Slower execution                        │
-│  • Easier debugging                        │
-│  • Examples: Python, JavaScript            │
-└────────────────────────────────────────────┘
+╔════════════════════════════════════════════╗
+║  INTERPRETER                               ║
+║  • Translates line-by-line                 ║
+║  • No executable file                      ║
+║  • Slower execution                        ║
+║  • Easier debugging                        ║
+║  • Examples: Python, JavaScript            ║
+╚════════════════════════════════════════════╝
 ```
 
 ---
@@ -454,17 +225,17 @@ Java is **both** (hybrid approach):
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║                      ╭───────────────────────────────────╮                         ║
-║                      │  Step 1: COMPILATION              │                         ║
-║                      │  javac compiles .java → .class    │                         ║
-║                      │  (bytecode)                       │                         ║
-║                      ╰─────────────────┬─────────────────╯                         ║
+║                      ╔═══════════════════════════════════╗                         ║
+║                      ║  Step 1: COMPILATION              ║                         ║
+║                      ║  javac compiles .java → .class    ║                         ║
+║                      ║  (bytecode)                       ║                         ║
+║                      ╚═════════════════╦═════════════════╝                         ║
 ║                                        ▼                                           ║
-║                      ╭───────────────────────────────────╮                         ║
-║                      │  Step 2: INTERPRETATION           │                         ║
-║                      │  JVM interprets bytecode          │                         ║
-║                      │  (with JIT compilation)           │                         ║
-║                      ╰─────────────────┬─────────────────╯                         ║
+║                      ╔═══════════════════════════════════╗                         ║
+║                      ║  Step 2: INTERPRETATION           ║                         ║
+║                      ║  JVM interprets bytecode          ║                         ║
+║                      ║  (with JIT compilation)           ║                         ║
+║                      ╚═════════════════╦═════════════════╝                         ║
 ║                                        ▼                                           ║
 ║                      ╔═══════════════════════════════════╗                         ║
 ║                      ║ Best of both worlds:              ║                         ║
@@ -526,18 +297,18 @@ Choose based on your needs:
 JIT (Just-In-Time) compilation combines benefits of both:
 
 ```
-┌────────────────────────────────────────────┐
-│  JIT COMPILATION                           │
-├────────────────────────────────────────────┤
-│  • Compiles bytecode at runtime            │
-│  • Caches compiled code for reuse          │
-│  • Used in Java (HotSpot JVM)              │
-│  • Used in JavaScript (V8)                 │
-│  • Used in C# (.NET)                       │
-│                                            │
-│  Result: Interpreter flexibility +         │
-│          Compiler speed                    │
-└────────────────────────────────────────────┘
+╔════════════════════════════════════════════╗
+║  JIT COMPILATION                           ║
+╠════════════════════════════════════════════╣
+║  • Compiles bytecode at runtime            ║
+║  • Caches compiled code for reuse          ║
+║  • Used in Java (HotSpot JVM)              ║
+║  • Used in JavaScript (V8)                 ║
+║  • Used in C# (.NET)                       ║
+║                                            ║
+║  Result: Interpreter flexibility +         ║
+║          Compiler speed                    ║
+╚════════════════════════════════════════════╝
 ```
 
 ---
@@ -568,14 +339,14 @@ Java hybrid approach use karta hai: javac compiler bytecode banata hai, phir JVM
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║                     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  The Trade-off:                       ┃                      ║
-║                     ┃  Compiler = Fast execution            ┃                      ║
-║                     ┃  Interpreter = Fast development       ┃                      ║
-║                     ┃  Hybrid (Java) = Best of both         ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛                      ║
+║                     ╔═══════════════════════════════════════╗                      ║
+║                     ║                                       ║                      ║
+║                     ║  The Trade-off:                       ║                      ║
+║                     ║  Compiler = Fast execution            ║                      ║
+║                     ║  Interpreter = Fast development       ║                      ║
+║                     ║  Hybrid (Java) = Best of both         ║                      ║
+║                     ║                                       ║                      ║
+║                     ╚═══════════════════════════════════════╝                      ║
 ║                                                                                    ║
 ║                                                                                    ║
 ║    ╔═══════════════╗         ╔═══════════════╗         ╔═══════════════╗           ║

@@ -63,103 +63,103 @@ JVM is a stack-based virtual machine implementing JVM specification (JSR 924), f
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  CLASS LOADER SUBSYSTEM                                                  ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  CLASS LOADER SUBSYSTEM                                                  ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  Loading Phase:                                                  │             ║
-║   │  • Bootstrap ClassLoader                                         │             ║
-║   │    (Loads core Java classes: rt.jar, java.lang.*)                │             ║
-║   │  • Extension ClassLoader                                         │             ║
-║   │    (Loads extension classes: jre/lib/ext)                        │             ║
-║   │  • Application ClassLoader                                       │             ║
-║   │    (Loads application classes from CLASSPATH)                    │             ║
-║   │                                                                  │             ║
-║   │  Linking Phase:                                                  │             ║
-║   │  • Verification (Bytecode validity check)                        │             ║
-║   │  • Preparation (Allocate memory for static variables)            │             ║
-║   │  • Resolution (Symbolic references to direct references)         │             ║
-║   │                                                                  │             ║
-║   │  Initialization Phase:                                           │             ║
-║   │  • Execute static blocks and initialize static variables         │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  Loading Phase:                                                  ║             ║
+║   ║  • Bootstrap ClassLoader                                         ║             ║
+║   ║    (Loads core Java classes: rt.jar, java.lang.*)                ║             ║
+║   ║  • Extension ClassLoader                                         ║             ║
+║   ║    (Loads extension classes: jre/lib/ext)                        ║             ║
+║   ║  • Application ClassLoader                                       ║             ║
+║   ║    (Loads application classes from CLASSPATH)                    ║             ║
+║   ║                                                                  ║             ║
+║   ║  Linking Phase:                                                  ║             ║
+║   ║  • Verification (Bytecode validity check)                        ║             ║
+║   ║  • Preparation (Allocate memory for static variables)            ║             ║
+║   ║  • Resolution (Symbolic references to direct references)         ║             ║
+║   ║                                                                  ║             ║
+║   ║  Initialization Phase:                                           ║             ║
+║   ║  • Execute static blocks and initialize static variables         ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  RUNTIME DATA AREAS                                                      ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  RUNTIME DATA AREAS                                                      ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  Method Area / Metaspace (Shared):                               │             ║
-║   │  • Class metadata (class structure, fields, methods)             │             ║
-║   │  • Method bytecode                                               │             ║
-║   │  • Static variables                                              │             ║
-║   │  • Constant pool                                                 │             ║
-║   │  • Field data                                                    │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  Method Area / Metaspace (Shared):                               ║             ║
+║   ║  • Class metadata (class structure, fields, methods)             ║             ║
+║   ║  • Method bytecode                                               ║             ║
+║   ║  • Static variables                                              ║             ║
+║   ║  • Constant pool                                                 ║             ║
+║   ║  • Field data                                                    ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  Heap (Shared, GC managed):                                      │             ║
-║   │  ┌────────────────────────────────────────────────────────────┐  │             ║
-║   │  │ Young Generation:                                          │  │             ║
-║   │  │ • Eden Space (New objects created)                         │  │             ║
-║   │  │ • Survivor Spaces (S0, S1)                                 │  │             ║
-║   │  └────────────────────────────────────────────────────────────┘  │             ║
-║   │  ┌────────────────────────────────────────────────────────────┐  │             ║
-║   │  │ Old Generation / Tenured:                                  │  │             ║
-║   │  │ • Long-lived objects                                       │  │             ║
-║   │  └────────────────────────────────────────────────────────────┘  │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  Heap (Shared, GC managed):                                      ║             ║
+║   ║  ╔════════════════════════════════════════════════════════════╗  ║             ║
+║   ║  ║ Young Generation:                                          ║  ║             ║
+║   ║  ║ • Eden Space (New objects created)                         ║  ║             ║
+║   ║  ║ • Survivor Spaces (S0, S1)                                 ║  ║             ║
+║   ║  ╚════════════════════════════════════════════════════════════╝  ║             ║
+║   ║  ╔════════════════════════════════════════════════════════════╗  ║             ║
+║   ║  ║ Old Generation / Tenured:                                  ║  ║             ║
+║   ║  ║ • Long-lived objects                                       ║  ║             ║
+║   ║  ╚════════════════════════════════════════════════════════════╝  ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  Stack (Per thread):                                             │             ║
-║   │  • Stack frames (one per method call)                            │             ║
-║   │  • Local variables                                               │             ║
-║   │  • Operand stack                                                 │             ║
-║   │  • Frame data                                                    │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  Stack (Per thread):                                             ║             ║
+║   ║  • Stack frames (one per method call)                            ║             ║
+║   ║  • Local variables                                               ║             ║
+║   ║  • Operand stack                                                 ║             ║
+║   ║  • Frame data                                                    ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  PC Registers (Per thread):                                      │             ║
-║   │  • Current instruction pointer                                   │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  PC Registers (Per thread):                                      ║             ║
+║   ║  • Current instruction pointer                                   ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  Native Method Stacks (Per thread):                              │             ║
-║   │  • For native C/C++ method calls via JNI                         │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  Native Method Stacks (Per thread):                              ║             ║
+║   ║  • For native C/C++ method calls via JNI                         ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  EXECUTION ENGINE                                                        ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  EXECUTION ENGINE                                                        ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  Interpreter:                                                    │             ║
-║   │  • Executes bytecode line-by-line                                │             ║
-║   │  • Fast startup, slower execution                                │             ║
-║   │                                                                  │             ║
-║   │  JIT Compiler (Just-In-Time):                                    │             ║
-║   │  • C1 Compiler (Client, fast compilation)                        │             ║
-║   │  • C2 Compiler (Server, aggressive optimization)                 │             ║
-║   │  • Compiles hot code (frequently executed) to native             │             ║
-║   │                                                                  │             ║
-║   │  Garbage Collector:                                              │             ║
-║   │  • Serial GC (Single-threaded)                                   │             ║
-║   │  • Parallel GC (Multi-threaded)                                  │             ║
-║   │  • CMS (Concurrent Mark Sweep)                                   │             ║
-║   │  • G1 GC (Garbage First)                                         │             ║
-║   │  • ZGC (Low latency)                                             │             ║
-║   │  • Shenandoah (Low pause)                                        │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  Interpreter:                                                    ║             ║
+║   ║  • Executes bytecode line-by-line                                ║             ║
+║   ║  • Fast startup, slower execution                                ║             ║
+║   ║                                                                  ║             ║
+║   ║  JIT Compiler (Just-In-Time):                                    ║             ║
+║   ║  • C1 Compiler (Client, fast compilation)                        ║             ║
+║   ║  • C2 Compiler (Server, aggressive optimization)                 ║             ║
+║   ║  • Compiles hot code (frequently executed) to native             ║             ║
+║   ║                                                                  ║             ║
+║   ║  Garbage Collector:                                              ║             ║
+║   ║  • Serial GC (Single-threaded)                                   ║             ║
+║   ║  • Parallel GC (Multi-threaded)                                  ║             ║
+║   ║  • CMS (Concurrent Mark Sweep)                                   ║             ║
+║   ║  • G1 GC (Garbage First)                                         ║             ║
+║   ║  • ZGC (Low latency)                                             ║             ║
+║   ║  • Shenandoah (Low pause)                                        ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  NATIVE METHOD INTERFACE (JNI)                                           ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  NATIVE METHOD INTERFACE (JNI)                                           ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  • Bridge to native C/C++ libraries                              │             ║
-║   │  • Platform-specific .dll / .so / .dylib files                   │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  • Bridge to native C/C++ libraries                              ║             ║
+║   ║  • Platform-specific .dll / .so / .dylib files                   ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 ```
@@ -484,18 +484,18 @@ Interview ke liye important points: JVM = Bytecode Executor + Memory Manager + S
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║                     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  JVM = Virtual Execution Engine       ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  Bytecode → JVM → Machine Code        ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  Platform-specific implementation     ┃                      ║
-║                     ┃  Platform-independent execution       ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  Write Once, Run Anywhere             ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛                      ║
+║                     ╔═══════════════════════════════════════╗                      ║
+║                     ║                                       ║                      ║
+║                     ║  JVM = Virtual Execution Engine       ║                      ║
+║                     ║                                       ║                      ║
+║                     ║  Bytecode → JVM → Machine Code        ║                      ║
+║                     ║                                       ║                      ║
+║                     ║  Platform-specific implementation     ║                      ║
+║                     ║  Platform-independent execution       ║                      ║
+║                     ║                                       ║                      ║
+║                     ║  Write Once, Run Anywhere             ║                      ║
+║                     ║                                       ║                      ║
+║                     ╚═══════════════════════════════════════╝                      ║
 ║                                                                                    ║
 ║                                                                                    ║
 ║    ╔═══════════════╗         ╔═══════════════╗         ╔═══════════════╗           ║

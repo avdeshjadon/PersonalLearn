@@ -65,17 +65,17 @@ String[] args implements command-line argument passing with JVM-level handling: 
 ║                                                                                    ║
 ║                  COMMAND: $ java MyProgram Hello World 123                         ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  COMPONENT BREAKDOWN                                                     ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  COMPONENT BREAKDOWN                                                     ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║        $ java MyProgram Hello World 123                                            ║
-║          │    │         │     │     │                                              ║
-║          │    │         │     │     └─ Argument 3                                  ║
-║          │    │         │     └─ Argument 2                                        ║
-║          │    │         └─ Argument 1                                              ║
-║          │    └─ Class name (NOT in args!)                                         ║
-║          └─ Java launcher                                                          ║
+║          ║    ║         ║     ║     ║                                              ║
+║          ║    ║         ║     ║     ╚═ Argument 3                                  ║
+║          ║    ║         ║     ╚═ Argument 2                                        ║
+║          ║    ║         ╚═ Argument 1                                              ║
+║          ║    ╚═ Class name (NOT in args!)                                         ║
+║          ╚═ Java launcher                                                          ║
 ║                                                                                    ║
 ║        RESULT IN MEMORY:                                                           ║
 ║        args = ["Hello", "World", "123"]                                            ║
@@ -86,15 +86,15 @@ String[] args implements command-line argument passing with JVM-level handling: 
 ║                                                                                    ║
 ║                                       ↓                                            ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  SIGNATURE VARIATIONS                                                    ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  SIGNATURE VARIATIONS                                                    ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║        public static void main(String[] args)                                      ║
-║                                  │      │  │                                       ║
-║                                  │      │  └─ Parameter name (flexible)            ║
-║                                  │      └─ Array notation                          ║
-║                                  └─ Element type: String                           ║
+║                                  ║      ║  ║                                       ║
+║                                  ║      ║  ╚═ Parameter name (flexible)            ║
+║                                  ║      ╚═ Array notation                          ║
+║                                  ╚═ Element type: String                           ║
 ║                                                                                    ║
 ║        VALID VARIATIONS:                                                           ║
 ║        ✓ String[] args                    (Standard)                               ║
@@ -112,49 +112,49 @@ String[] args implements command-line argument passing with JVM-level handling: 
 ║                                                                                    ║
 ║                                       ↓                                            ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  MEMORY REPRESENTATION                                                   ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  MEMORY REPRESENTATION                                                   ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║        HEAP MEMORY:                                                                ║
-║        ┌──────────────────────────────────────────┐                                ║
-║        │  String[] args array object              │                                ║
-║        │  ┌─────────────────────────────────────┐ │                                ║
-║        │  │  Array Header:                      │ │                                ║
-║        │  │  • Class: [Ljava.lang.String;       │ │                                ║
-║        │  │  • Length: 3                        │ │                                ║
-║        │  │  • Hash code                        │ │                                ║
-║        │  └─────────────────────────────────────┘ │                                ║
-║        │  ┌─────────────────────────────────────┐ │                                ║
-║        │  │  Array Elements:                    │ │                                ║
-║        │  │  [0] → reference to "Hello"         │ │                                ║
-║        │  │  [1] → reference to "World"         │ │                                ║
-║        │  │  [2] → reference to "123"           │ │                                ║
-║        │  └─────────────────────────────────────┘ │                                ║
-║        └──────────────────────────────────────────┘                                ║
+║        ╔══════════════════════════════════════════╗                                ║
+║        ║  String[] args array object              ║                                ║
+║        ║  ╔═════════════════════════════════════╗ ║                                ║
+║        ║  ║  Array Header:                      ║ ║                                ║
+║        ║  ║  • Class: [Ljava.lang.String;       ║ ║                                ║
+║        ║  ║  • Length: 3                        ║ ║                                ║
+║        ║  ║  • Hash code                        ║ ║                                ║
+║        ║  ╚═════════════════════════════════════╝ ║                                ║
+║        ║  ╔═════════════════════════════════════╗ ║                                ║
+║        ║  ║  Array Elements:                    ║ ║                                ║
+║        ║  ║  [0] → reference to "Hello"         ║ ║                                ║
+║        ║  ║  [1] → reference to "World"         ║ ║                                ║
+║        ║  ║  [2] → reference to "123"           ║ ║                                ║
+║        ║  ╚═════════════════════════════════════╝ ║                                ║
+║        ╚══════════════════════════════════════════╝                                ║
 ║                  ↓           ↓           ↓                                         ║
-║        ┌──────────┐  ┌──────────┐  ┌──────────┐                                    ║
-║        │ "Hello"  │  │ "World"  │  │  "123"   │                                    ║
-║        │ String   │  │ String   │  │ String   │                                    ║
-║        │ object   │  │ object   │  │ object   │                                    ║
-║        └──────────┘  └──────────┘  └──────────┘                                    ║
+║        ╔══════════╗  ╔══════════╗  ╔══════════╗                                    ║
+║        ║ "Hello"  ║  ║ "World"  ║  ║  "123"   ║                                    ║
+║        ║ String   ║  ║ String   ║  ║ String   ║                                    ║
+║        ║ object   ║  ║ object   ║  ║ object   ║                                    ║
+║        ╚══════════╝  ╚══════════╝  ╚══════════╝                                    ║
 ║                                                                                    ║
 ║        STACK MEMORY (main thread):                                                 ║
-║        ┌──────────────────────────────────────────┐                                ║
-║        │  Frame: main(args)                       │                                ║
-║        │  ┌─────────────────────────────────────┐ │                                ║
-║        │  │  Local Variables:                   │ │                                ║
-║        │  │  0: args → [reference to heap array]│ │                                ║
-║        │  │  (No 'this' - static method)        │ │                                ║
-║        │  └─────────────────────────────────────┘ │                                ║
-║        │  Operand stack: (empty initially)        │                                ║
-║        └──────────────────────────────────────────┘                                ║
+║        ╔══════════════════════════════════════════╗                                ║
+║        ║  Frame: main(args)                       ║                                ║
+║        ║  ╔═════════════════════════════════════╗ ║                                ║
+║        ║  ║  Local Variables:                   ║ ║                                ║
+║        ║  ║  0: args → [reference to heap array]║ ║                                ║
+║        ║  ║  (No 'this' - static method)        ║ ║                                ║
+║        ║  ╚═════════════════════════════════════╝ ║                                ║
+║        ║  Operand stack: (empty initially)        ║                                ║
+║        ╚══════════════════════════════════════════╝                                ║
 ║                                                                                    ║
 ║                                       ↓                                            ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  ACCESSING ARGUMENTS                                                     ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  ACCESSING ARGUMENTS                                                     ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║        CODE:                                                                       ║
 ║        public static void main(String[] args) {                                    ║
@@ -220,9 +220,9 @@ String[] args implements command-line argument passing with JVM-level handling: 
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  EXAMPLE 1: Simple Arguments                                             ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  EXAMPLE 1: Simple Arguments                                             ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║        INPUT:                                                                      ║
 ║        $ java Demo Hello World 123                                                 ║
@@ -241,9 +241,9 @@ String[] args implements command-line argument passing with JVM-level handling: 
 ║                                                                                    ║
 ║                                       ↓                                            ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  EXAMPLE 2: Arguments with Spaces (Using Quotes)                         ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  EXAMPLE 2: Arguments with Spaces (Using Quotes)                         ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║        INPUT:                                                                      ║
 ║        $ java Demo "Hello World" 123                                               ║
@@ -262,9 +262,9 @@ String[] args implements command-line argument passing with JVM-level handling: 
 ║                                                                                    ║
 ║                                       ↓                                            ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  EXAMPLE 3: No Arguments                                                 ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  EXAMPLE 3: No Arguments                                                 ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║        INPUT:                                                                      ║
 ║        $ java Demo                                                                 ║
@@ -281,9 +281,9 @@ String[] args implements command-line argument passing with JVM-level handling: 
 ║                                                                                    ║
 ║                                       ↓                                            ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  EXAMPLE 4: File Paths and Options                                       ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  EXAMPLE 4: File Paths and Options                                       ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║        INPUT:                                                                      ║
 ║        $ java Demo input.txt -verbose --debug                                      ║
@@ -301,9 +301,9 @@ String[] args implements command-line argument passing with JVM-level handling: 
 ║                                                                                    ║
 ║                                       ↓                                            ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  EXAMPLE 5: Empty String Argument                                        ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  EXAMPLE 5: Empty String Argument                                        ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║        INPUT:                                                                      ║
 ║        $ java Demo "" Hello                                                        ║
@@ -871,22 +871,22 @@ String[] args main() method ka parameter hai jo command-line arguments receive k
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║                     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  String[] args = CLI Arguments        ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  $ java Program Hello World           ┃                      ║
-║                     ┃  args[0] = "Hello"                    ┃                      ║
-║                     ┃  args[1] = "World"                    ┃                      ║
-║                     ┃  args.length = 2                      ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  • All arguments are Strings          ┃                      ║
-║                     ┃  • args[0] ≠ program name (unlike C)  ┃                      ║
-║                     ┃  • Never null (empty array if none)   ┃                      ║
-║                     ┃  • Parse: Integer.parseInt(args[0])   ┃                      ║
-║                     ┃  • Check: args.length before access   ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛                      ║
+║                     ╔═══════════════════════════════════════╗                      ║
+║                     ║                                       ║                      ║
+║                     ║  String[] args = CLI Arguments        ║                      ║
+║                     ║                                       ║                      ║
+║                     ║  $ java Program Hello World           ║                      ║
+║                     ║  args[0] = "Hello"                    ║                      ║
+║                     ║  args[1] = "World"                    ║                      ║
+║                     ║  args.length = 2                      ║                      ║
+║                     ║                                       ║                      ║
+║                     ║  • All arguments are Strings          ║                      ║
+║                     ║  • args[0] ≠ program name (unlike C)  ║                      ║
+║                     ║  • Never null (empty array if none)   ║                      ║
+║                     ║  • Parse: Integer.parseInt(args[0])   ║                      ║
+║                     ║  • Check: args.length before access   ║                      ║
+║                     ║                                       ║                      ║
+║                     ╚═══════════════════════════════════════╝                      ║
 ║                                                                                    ║
 ║                                                                                    ║
 ║    ╔═══════════════╗         ╔═══════════════╗         ╔═══════════════╗           ║

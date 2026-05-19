@@ -63,64 +63,64 @@ JRE provides complete runtime infrastructure including: JVM implementation with 
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  JVM (JAVA VIRTUAL MACHINE)                                              ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  JVM (JAVA VIRTUAL MACHINE)                                              ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  Class Loader Subsystem:                                         │             ║
-║   │  • Bootstrap ClassLoader (Core Java classes)                     │             ║
-║   │  • Extension ClassLoader (Extension libraries)                   │             ║
-║   │  • Application ClassLoader (Application classes)                 │             ║
-║   │                                                                  │             ║
-║   │  Runtime Data Areas:                                             │             ║
-║   │  • Heap (Object storage, GC managed)                             │             ║
-║   │  • Stack (Method frames, per thread)                             │             ║
-║   │  • Method Area/Metaspace (Class metadata)                        │             ║
-║   │  • PC Registers (Current instruction pointer)                    │             ║
-║   │  • Native Method Stacks (JNI calls)                              │             ║
-║   │                                                                  │             ║
-║   │  Execution Engine:                                               │             ║
-║   │  • Interpreter (Line-by-line bytecode execution)                 │             ║
-║   │  • JIT Compiler (C1 + C2 optimizing compilers)                   │             ║
-║   │  • Garbage Collector (Automatic memory management)               │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  Class Loader Subsystem:                                         ║             ║
+║   ║  • Bootstrap ClassLoader (Core Java classes)                     ║             ║
+║   ║  • Extension ClassLoader (Extension libraries)                   ║             ║
+║   ║  • Application ClassLoader (Application classes)                 ║             ║
+║   ║                                                                  ║             ║
+║   ║  Runtime Data Areas:                                             ║             ║
+║   ║  • Heap (Object storage, GC managed)                             ║             ║
+║   ║  • Stack (Method frames, per thread)                             ║             ║
+║   ║  • Method Area/Metaspace (Class metadata)                        ║             ║
+║   ║  • PC Registers (Current instruction pointer)                    ║             ║
+║   ║  • Native Method Stacks (JNI calls)                              ║             ║
+║   ║                                                                  ║             ║
+║   ║  Execution Engine:                                               ║             ║
+║   ║  • Interpreter (Line-by-line bytecode execution)                 ║             ║
+║   ║  • JIT Compiler (C1 + C2 optimizing compilers)                   ║             ║
+║   ║  • Garbage Collector (Automatic memory management)               ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  JAVA CLASS LIBRARIES                                                    ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  JAVA CLASS LIBRARIES                                                    ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  Core Packages:                                                  │             ║
-║   │  • java.lang (String, Object, System, Thread)                    │             ║
-║   │  • java.util (Collections, Date, Random)                         │             ║
-║   │  • java.io (File, Stream, Reader, Writer)                        │             ║
-║   │  • java.net (URL, Socket, HTTP)                                  │             ║
-║   │  • java.sql (Database connectivity, JDBC)                        │             ║
-║   │  • java.math (BigInteger, BigDecimal)                            │             ║
-║   │  • java.nio (New I/O, Buffers, Channels)                         │             ║
-║   │  • java.time (Date/Time API)                                     │             ║
-║   │  • java.security (Cryptography, Security)                        │             ║
-║   │  • java.text (Formatting, Parsing)                               │             ║
-║   │                                                                  │             ║
-║   │  Storage:                                                        │             ║
-║   │  • Java 8: rt.jar (Runtime jar archive)                          │             ║
-║   │  • Java 9+: Module system (java.base, etc.)                      │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  Core Packages:                                                  ║             ║
+║   ║  • java.lang (String, Object, System, Thread)                    ║             ║
+║   ║  • java.util (Collections, Date, Random)                         ║             ║
+║   ║  • java.io (File, Stream, Reader, Writer)                        ║             ║
+║   ║  • java.net (URL, Socket, HTTP)                                  ║             ║
+║   ║  • java.sql (Database connectivity, JDBC)                        ║             ║
+║   ║  • java.math (BigInteger, BigDecimal)                            ║             ║
+║   ║  • java.nio (New I/O, Buffers, Channels)                         ║             ║
+║   ║  • java.time (Date/Time API)                                     ║             ║
+║   ║  • java.security (Cryptography, Security)                        ║             ║
+║   ║  • java.text (Formatting, Parsing)                               ║             ║
+║   ║                                                                  ║             ║
+║   ║  Storage:                                                        ║             ║
+║   ║  • Java 8: rt.jar (Runtime jar archive)                          ║             ║
+║   ║  • Java 9+: Module system (java.base, etc.)                      ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  SUPPORTING FILES                                                        ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  SUPPORTING FILES                                                        ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │  • Configuration files (jvm.cfg)                                 │             ║
-║   │  • Security policies (java.policy)                               │             ║
-║   │  • Timezone data (tzdata)                                        │             ║
-║   │  • Font libraries                                                │             ║
-║   │  • Native libraries (.dll/.so/.dylib)                            │             ║
-║   │  • Properties files (logging, networking)                        │             ║
-║   │  • Internationalization resources                                │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║  • Configuration files (jvm.cfg)                                 ║             ║
+║   ║  • Security policies (java.policy)                               ║             ║
+║   ║  • Timezone data (tzdata)                                        ║             ║
+║   ║  • Font libraries                                                ║             ║
+║   ║  • Native libraries (.dll/.so/.dylib)                            ║             ║
+║   ║  • Properties files (logging, networking)                        ║             ║
+║   ║  • Internationalization resources                                ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 ```
@@ -138,44 +138,44 @@ JRE provides complete runtime infrastructure including: JVM implementation with 
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║   ┌──────────────────────────────────────────────────────────────────┐             ║
-║   │                         JDK                                      │             ║
-║   │              (Java Development Kit)                              │             ║
-║   │  ┌────────────────────────────────────────────────────────────┐  │             ║
-║   │  │  Development Tools:                                        │  │             ║
-║   │  │  • javac (Compiler)                                        │  │             ║
-║   │  │  • javadoc (Documentation Generator)                       │  │             ║
-║   │  │  • jar (Archive Tool)                                      │  │             ║
-║   │  │  • jdb (Debugger)                                          │  │             ║
-║   │  │  • javap (Disassembler)                                    │  │             ║
-║   │  └────────────────────────────────────────────────────────────┘  │             ║
-║   │                                                                  │             ║
-║   │  ┌────────────────────────────────────────────────────────────┐  │             ║
-║   │  │                      JRE                                   │  │             ║
-║   │  │          (Java Runtime Environment)                        │  │             ║
-║   │  │  ┌──────────────────────────────────────────────────────┐  │  │             ║
-║   │  │  │  Java Class Libraries:                               │  │  │             ║
-║   │  │  │  • java.lang, java.util, java.io                     │  │  │             ║
-║   │  │  │  • java.net, java.sql, java.math                     │  │  │             ║
-║   │  │  │  • Thousands of pre-compiled classes                 │  │  │             ║
-║   │  │  └──────────────────────────────────────────────────────┘  │  │             ║
-║   │  │                                                            │  │             ║
-║   │  │  ┌──────────────────────────────────────────────────────┐  │  │             ║
-║   │  │  │                   JVM                                │  │  │             ║
-║   │  │  │        (Java Virtual Machine)                        │  │  │             ║
-║   │  │  │  • Class Loader                                      │  │  │             ║
-║   │  │  │  • Runtime Data Areas                                │  │  │             ║
-║   │  │  │  • Execution Engine                                  │  │  │             ║
-║   │  │  │  • Garbage Collector                                 │  │  │             ║
-║   │  │  └──────────────────────────────────────────────────────┘  │  │             ║
-║   │  │                                                            │  │             ║
-║   │  │  ┌──────────────────────────────────────────────────────┐  │  │             ║
-║   │  │  │  Supporting Files:                                   │  │  │             ║
-║   │  │  │  • Properties, Security, Timezone                    │  │  │             ║
-║   │  │  │  • Native libraries                                  │  │  │             ║
-║   │  │  └──────────────────────────────────────────────────────┘  │  │             ║
-║   │  └────────────────────────────────────────────────────────────┘  │             ║
-║   └──────────────────────────────────────────────────────────────────┘             ║
+║   ╔══════════════════════════════════════════════════════════════════╗             ║
+║   ║                         JDK                                      ║             ║
+║   ║              (Java Development Kit)                              ║             ║
+║   ║  ╔════════════════════════════════════════════════════════════╗  ║             ║
+║   ║  ║  Development Tools:                                        ║  ║             ║
+║   ║  ║  • javac (Compiler)                                        ║  ║             ║
+║   ║  ║  • javadoc (Documentation Generator)                       ║  ║             ║
+║   ║  ║  • jar (Archive Tool)                                      ║  ║             ║
+║   ║  ║  • jdb (Debugger)                                          ║  ║             ║
+║   ║  ║  • javap (Disassembler)                                    ║  ║             ║
+║   ║  ╚════════════════════════════════════════════════════════════╝  ║             ║
+║   ║                                                                  ║             ║
+║   ║  ╔════════════════════════════════════════════════════════════╗  ║             ║
+║   ║  ║                      JRE                                   ║  ║             ║
+║   ║  ║          (Java Runtime Environment)                        ║  ║             ║
+║   ║  ║  ╔══════════════════════════════════════════════════════╗  ║  ║             ║
+║   ║  ║  ║  Java Class Libraries:                               ║  ║  ║             ║
+║   ║  ║  ║  • java.lang, java.util, java.io                     ║  ║  ║             ║
+║   ║  ║  ║  • java.net, java.sql, java.math                     ║  ║  ║             ║
+║   ║  ║  ║  • Thousands of pre-compiled classes                 ║  ║  ║             ║
+║   ║  ║  ╚══════════════════════════════════════════════════════╝  ║  ║             ║
+║   ║  ║                                                            ║  ║             ║
+║   ║  ║  ╔══════════════════════════════════════════════════════╗  ║  ║             ║
+║   ║  ║  ║                   JVM                                ║  ║  ║             ║
+║   ║  ║  ║        (Java Virtual Machine)                        ║  ║  ║             ║
+║   ║  ║  ║  • Class Loader                                      ║  ║  ║             ║
+║   ║  ║  ║  • Runtime Data Areas                                ║  ║  ║             ║
+║   ║  ║  ║  • Execution Engine                                  ║  ║  ║             ║
+║   ║  ║  ║  • Garbage Collector                                 ║  ║  ║             ║
+║   ║  ║  ╚══════════════════════════════════════════════════════╝  ║  ║             ║
+║   ║  ║                                                            ║  ║             ║
+║   ║  ║  ╔══════════════════════════════════════════════════════╗  ║  ║             ║
+║   ║  ║  ║  Supporting Files:                                   ║  ║  ║             ║
+║   ║  ║  ║  • Properties, Security, Timezone                    ║  ║  ║             ║
+║   ║  ║  ║  • Native libraries                                  ║  ║  ║             ║
+║   ║  ║  ╚══════════════════════════════════════════════════════╝  ║  ║             ║
+║   ║  ╚════════════════════════════════════════════════════════════╝  ║             ║
+║   ╚══════════════════════════════════════════════════════════════════╝             ║
 ║                                                                                    ║
 ║   RELATIONSHIP:  JDK ⊃ JRE ⊃ JVM                                                   ║
 ║                  (JDK contains JRE, JRE contains JVM)                              ║
@@ -267,19 +267,19 @@ Internal process: JRE pehle MyProgram.class file CLASSPATH mein locate karta hai
 
 ```
 jre/
-├── bin/
-│   ├── java (JVM launcher executable)
-│   ├── javaw (Windows GUI launcher)
-│   └── keytool (Security key management tool)
-├── lib/
-│   ├── rt.jar (Runtime classes - Java 8)
-│   ├── modules (Java 9+ modular system)
-│   ├── security/
-│   │   ├── java.policy (Security policies)
-│   │   └── cacerts (SSL certificates)
-│   ├── ext/ (Extension libraries directory)
-│   └── jvm.cfg (JVM configuration)
-└── legal/ (License and legal files)
+╠══ bin/
+║   ╠══ java (JVM launcher executable)
+║   ╠══ javaw (Windows GUI launcher)
+║   ╚══ keytool (Security key management tool)
+╠══ lib/
+║   ╠══ rt.jar (Runtime classes - Java 8)
+║   ╠══ modules (Java 9+ modular system)
+║   ╠══ security/
+║   ║   ╠══ java.policy (Security policies)
+║   ║   ╚══ cacerts (SSL certificates)
+║   ╠══ ext/ (Extension libraries directory)
+║   ╚══ jvm.cfg (JVM configuration)
+╚══ legal/ (License and legal files)
 ```
 
 bin directory mein executable files hoti hain jo programs run karti hain. lib directory mein libraries aur configuration files hoti hain. security subdirectory security-related files store karti hai. Java 8 mein rt.jar main runtime library thi, Java 9+ mein modular system use hota hai.
@@ -466,18 +466,18 @@ Interview ke liye important: JRE = Execution environment without development too
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║                     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  JRE = Runtime Environment            ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  JRE = JVM + Libraries + Support      ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  Components: JVM, java.lang,          ┃                      ║
-║                     ┃              java.util, java.io       ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  For: End Users (Run Only)            ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛                      ║
+║                     ╔═══════════════════════════════════════╗                      ║
+║                     ║                                       ║                      ║
+║                     ║  JRE = Runtime Environment            ║                      ║
+║                     ║                                       ║                      ║
+║                     ║  JRE = JVM + Libraries + Support      ║                      ║
+║                     ║                                       ║                      ║
+║                     ║  Components: JVM, java.lang,          ║                      ║
+║                     ║              java.util, java.io       ║                      ║
+║                     ║                                       ║                      ║
+║                     ║  For: End Users (Run Only)            ║                      ║
+║                     ║                                       ║                      ║
+║                     ╚═══════════════════════════════════════╝                      ║
 ║                                                                                    ║
 ║                                                                                    ║
 ║    ╔═══════════════╗         ╔═══════════════╗         ╔═══════════════╗           ║

@@ -27,89 +27,9 @@ Programming languages were created to bridge the gap between human logic and mac
 - Ek baar likho, multiple platforms pe chala sakte ho
 - Debugging aur code reuse easy ho gaya
 
----
+## Definition
 
-## Definitions
-
-### Very Simple Definition
-Programming language ek special language hai jisse hum computer ko instructions de sakte hain.
-
-### College Exam Definition
-A programming language is a formal language comprising a set of instructions, syntax rules, and semantics that enable programmers to communicate with computers and create software applications.
-
-### Viva Definition
-A programming language is a standardized communication medium between humans and computers, consisting of vocabulary (keywords), grammar (syntax), and meaning (semantics), which allows developers to express algorithms and logic in a structured, readable format that can be translated into machine-executable code.
-
-### Interview Definition
-A programming language is a formal notation system designed to express computational processes, providing abstraction layers over machine code through high-level constructs like variables, functions, and control structures. It serves as an intermediary between human logic and machine execution, enabling platform-independent software development through compilers or interpreters.
-
-### Technical Definition
-A programming language is a Turing-complete formal system with defined syntax (lexical and grammatical rules), semantics (meaning of constructs), and pragmatics (usage patterns), which is translated via compilation or interpretation into machine code or intermediate representations (bytecode) for execution on computing hardware.
-
-### One-line Crisp Definition
-**Programming Language = Human-readable syntax → Translator → Machine code**
-
----
-
-## Communication Gap Between Humans and Computers
-
-```
-╔════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                    ║
-║              ╔═══════════════════════════════════════════════════════╗             ║
-║              ║   THE HUMAN-COMPUTER COMMUNICATION PROBLEM            ║             ║
-║              ╚═══════════════════════════════════════════════════════╝             ║
-║                                                                                    ║
-╠════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  HUMANS THINK IN:                                                        ┃     ║
-║   ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫     ║
-║   ┃  • Natural language (English, Hindi)                                     ┃     ║
-║   ┃  • Logic and reasoning                                                   ┃     ║
-║   ┃  • Abstract concepts                                                     ┃     ║
-║   ┃  Example: "Add 5 and 3, then show the result"                            ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                      │                                             ║
-║                                      │                                             ║
-║                                      │ COMMUNICATION GAP                           ║
-║                                      │                                             ║
-║                                      ▼                                             ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  COMPUTERS UNDERSTAND:                                                   ┃     ║
-║   ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫     ║
-║   ┃  • Binary (0s and 1s only)                                               ┃     ║
-║   ┃  • Electrical signals                                                    ┃     ║
-║   ┃  • Machine instructions                                                  ┃     ║
-║   ┃  Example: 10110001 01010011 00000101 00000011...                         ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                                                                    ║
-║                                      ▼                                             ║
-║                         SOLUTION: PROGRAMMING LANGUAGE                             ║
-║                                      ▼                                             ║
-║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃              PROGRAMMING LANGUAGE (Bridge)                               ┃     ║
-║   ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫     ║
-║   ┃                                                                          ┃     ║
-║   ┃  Humans Write:                                                           ┃     ║
-║   ┃  int a = 5;                                                              ┃     ║
-║   ┃  int b = 3;                                                              ┃     ║
-║   ┃  int sum = a + b;                                                        ┃     ║
-║   ┃  System.out.println(sum);                                                ┃     ║
-║   ┃                                                                          ┃     ║
-║   ┃                    ↓ Compiler/Interpreter                                ┃     ║
-║   ┃                                                                          ┃     ║
-║   ┃  Computer Executes:                                                      ┃     ║
-║   ┃  10110001 01010011 00000101 00000011 11001010...                         ┃     ║
-║   ┃                                                                          ┃     ║
-║   ┃  Result: 8                                                               ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                                                                    ║
-╚════════════════════════════════════════════════════════════════════════════════════╝
-```
-
----
+**A programming language is a formal language used to write instructions and develop programs that enable computers to perform specific tasks, process data, and solve problems efficiently.**
 
 ## How Programming Language Works
 
@@ -122,55 +42,53 @@ A programming language is a Turing-complete formal system with defined syntax (l
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓    ║
-║  ┃                       STEP 1: HUMAN WRITES CODE                            ┃    ║
-║  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛    ║
+║  ╔════════════════════════════════════════════════════════════════════════════╗    ║
+║  ║                       STEP 1: HUMAN WRITES CODE                            ║    ║
+║  ╚════════════════════════════════════════════════════════════════════════════╝    ║
 ║                                                                                    ║
-║            ╭────────────────────────────────────────────────────╮                  ║
-║            │  int a = 5;                 ← High-level (Java)    │                  ║
-║            │  int b = 3;                   Human-readable       │                  ║
-║            │  int sum = a + b;                                  │                  ║
-║            │  System.out.println(sum);                          │                  ║
-║            ╰───────────────────────┬────────────────────────────╯                  ║
-║                                    │                                               ║
+║            ╔════════════════════════════════════════════════════╗                  ║
+║            ║  int a = 5;                 ← High-level (Java)    ║                  ║
+║            ║  int b = 3;                   Human-readable       ║                  ║
+║            ║  int sum = a + b;                                  ║                  ║
+║            ║  System.out.println(sum);                          ║                  ║
+║            ╚═══════════════════════╦════════════════════════════╝                  ║
+║                                    ║                                               ║
 ║                                    ▼                                               ║
-║  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓    ║
-║  ┃                STEP 2: TRANSLATOR (Compiler/Interpreter)                   ┃    ║
-║  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛    ║
+║  ╔════════════════════════════════════════════════════════════════════════════╗    ║
+║  ║                STEP 2: TRANSLATOR (Compiler/Interpreter)                   ║    ║
+║  ╚════════════════════════════════════════════════════════════════════════════╝    ║
 ║                                                                                    ║
-║            ╭────────────────────────────────────────────────────╮                  ║
-║            │   Lexical Analysis     ← Breaks into tokens        │                  ║
-║            │   Syntax Analysis      ← Checks grammar            │                  ║
-║            │   Semantic Analysis    ← Checks meaning            │                  ║
-║            │   Code Generation      ← Generates machine code    │                  ║
-║            ╰───────────────────────┬────────────────────────────╯                  ║
-║                                    │                                               ║
+║            ╔════════════════════════════════════════════════════╗                  ║
+║            ║   Lexical Analysis     ← Breaks into tokens        ║                  ║
+║            ║   Syntax Analysis      ← Checks grammar            ║                  ║
+║            ║   Semantic Analysis    ← Checks meaning            ║                  ║
+║            ║   Code Generation      ← Generates machine code    ║                  ║
+║            ╚═══════════════════════╦════════════════════════════╝                  ║
+║                                    ║                                               ║
 ║                                    ▼                                               ║
-║  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓    ║
-║  ┃                         STEP 3: MACHINE CODE                               ┃    ║
-║  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛    ║
+║  ╔════════════════════════════════════════════════════════════════════════════╗    ║
+║  ║                         STEP 3: MACHINE CODE                               ║    ║
+║  ╚════════════════════════════════════════════════════════════════════════════╝    ║
 ║                                                                                    ║
-║            ╭────────────────────────────────────────────────────╮                  ║
-║            │  10110001 01010011      ← Low-level (Binary)       │                  ║
-║            │  00000101 00000011        Machine-readable         │                  ║
-║            │  11001010 10101111                                 │                  ║
-║            ╰───────────────────────┬────────────────────────────╯                  ║
-║                                    │                                               ║
+║            ╔════════════════════════════════════════════════════╗                  ║
+║            ║  10110001 01010011      ← Low-level (Binary)       ║                  ║
+║            ║  00000101 00000011        Machine-readable         ║                  ║
+║            ║  11001010 10101111                                 ║                  ║
+║            ╚═══════════════════════╦════════════════════════════╝                  ║
+║                                    ║                                               ║
 ║                                    ▼                                               ║
-║  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓    ║
-║  ┃                         STEP 4: CPU EXECUTION                              ┃    ║
-║  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛    ║
+║  ╔════════════════════════════════════════════════════════════════════════════╗    ║
+║  ║                         STEP 4: CPU EXECUTION                              ║    ║
+║  ╚════════════════════════════════════════════════════════════════════════════╝    ║
 ║                                                                                    ║
-║            ╭────────────────────────────────────────────────────╮                  ║
-║            │  CPU fetches instructions one by one               │                  ║
-║            │  CPU executes each instruction                     │                  ║
-║            │  Output: 8                                         │                  ║
-║            ╰────────────────────────────────────────────────────╯                  ║
+║            ╔════════════════════════════════════════════════════╗                  ║
+║            ║  CPU fetches instructions one by one               ║                  ║
+║            ║  CPU executes each instruction                     ║                  ║
+║            ║  Output: 8                                         ║                  ║
+║            ╚════════════════════════════════════════════════════╝                  ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 ```
-
----
 
 ## Programming Language Abstraction Layers
 
@@ -185,127 +103,56 @@ A programming language is a Turing-complete formal system with defined syntax (l
 ║                                                                                    ║
 ║                         HUMAN WORLD (Easy to understand)                           ║
 ║                                      ↕                                             ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  HIGH-LEVEL LANGUAGES                                                    ┃     ║
-║   ┃  (Most Abstract)                                                         ┃     ║
-║   ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫     ║
-║   ┃  • Python, Java, C++, JavaScript                                         ┃     ║
-║   ┃  • Easy to read and write                                                ┃     ║
-║   ┃  • Platform independent                                                  ┃     ║
-║   ┃  Example: sum = a + b                                                    ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                      │                                             ║
-║                                      │ Translation                                 ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  HIGH-LEVEL LANGUAGES                                                    ║     ║
+║   ║  (Most Abstract)                                                         ║     ║
+║   ╠══════════════════════════════════════════════════════════════════════════╣     ║
+║   ║  • Python, Java, C++, JavaScript                                         ║     ║
+║   ║  • Easy to read and write                                                ║     ║
+║   ║  • Platform independent                                                  ║     ║
+║   ║  Example: sum = a + b                                                    ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
+║                                      ║                                             ║
+║                                      ║ Translation                                 ║
 ║                                      ▼                                             ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  MIDDLE-LEVEL LANGUAGES                                                  ┃     ║
-║   ┃  (Moderate Abstract)                                                     ┃     ║
-║   ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫     ║
-║   ┃  • C language                                                            ┃     ║
-║   ┃  • Some hardware control                                                 ┃     ║
-║   ┃  • Pointers, memory management                                           ┃     ║
-║   ┃  Example: *ptr = value                                                   ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                      │                                             ║
-║                                      │ Translation                                 ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  MIDDLE-LEVEL LANGUAGES                                                  ║     ║
+║   ║  (Moderate Abstract)                                                     ║     ║
+║   ╠══════════════════════════════════════════════════════════════════════════╣     ║
+║   ║  • C language                                                            ║     ║
+║   ║  • Some hardware control                                                 ║     ║
+║   ║  • Pointers, memory management                                           ║     ║
+║   ║  Example: *ptr = value                                                   ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
+║                                      ║                                             ║
+║                                      ║ Translation                                 ║
 ║                                      ▼                                             ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  LOW-LEVEL LANGUAGES                                                     ┃     ║
-║   ┃  (Less Abstract)                                                         ┃     ║
-║   ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫     ║
-║   ┃  • Assembly language                                                     ┃     ║
-║   ┃  • Hardware-specific                                                     ┃     ║
-║   ┃  • Direct memory/register access                                         ┃     ║
-║   ┃  Example: MOV AX, 5                                                      ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                      │                                             ║
-║                                      │ Translation                                 ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  LOW-LEVEL LANGUAGES                                                     ║     ║
+║   ║  (Less Abstract)                                                         ║     ║
+║   ╠══════════════════════════════════════════════════════════════════════════╣     ║
+║   ║  • Assembly language                                                     ║     ║
+║   ║  • Hardware-specific                                                     ║     ║
+║   ║  • Direct memory/register access                                         ║     ║
+║   ║  Example: MOV AX, 5                                                      ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
+║                                      ║                                             ║
+║                                      ║ Translation                                 ║
 ║                                      ▼                                             ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  MACHINE CODE                                                            ┃     ║
-║   ┃  (No Abstraction)                                                        ┃     ║
-║   ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫     ║
-║   ┃  • Binary (0s and 1s)                                                    ┃     ║
-║   ┃  • Direct hardware execution                                             ┃     ║
-║   ┃  • CPU-specific                                                          ┃     ║
-║   ┃  Example: 10110001 01010011                                              ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  MACHINE CODE                                                            ║     ║
+║   ║  (No Abstraction)                                                        ║     ║
+║   ╠══════════════════════════════════════════════════════════════════════════╣     ║
+║   ║  • Binary (0s and 1s)                                                    ║     ║
+║   ║  • Direct hardware execution                                             ║     ║
+║   ║  • CPU-specific                                                          ║     ║
+║   ║  Example: 10110001 01010011                                              ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                      ↕                                             ║
 ║                        COMPUTER WORLD (Direct hardware)                            ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 ```
-
----
-
-## Same Task in Different Languages
-
-```
-╔════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                    ║
-║              ╔═══════════════════════════════════════════════════════╗             ║
-║              ║  PRINT "HELLO" 5 TIMES — Different Language Levels    ║             ║
-║              ╚═══════════════════════════════════════════════════════╝             ║
-║                                                                                    ║
-╠════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  PYTHON (Highest Level)                                                  ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                                                                    ║
-║            ╭────────────────────────────────────────────────────╮                  ║
-║            │  for i in range(5):                                │                  ║
-║            │      print("Hello")                                │                  ║
-║            ╰────────────────────────────────────────────────────╯                  ║
-║            • Most readable                                                         ║
-║            • Least code                                                            ║
-║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  JAVA (High Level)                                                       ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                                                                    ║
-║            ╭────────────────────────────────────────────────────╮                  ║
-║            │  for (int i = 0; i < 5; i++) {                     │                  ║
-║            │      System.out.println("Hello");                  │                  ║
-║            │  }                                                 │                  ║
-║            ╰────────────────────────────────────────────────────╯                  ║
-║            • Very readable                                                         ║
-║            • Static typing                                                         ║
-║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  ASSEMBLY (Low Level)                                                    ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                                                                    ║
-║            ╭────────────────────────────────────────────────────╮                  ║
-║            │  MOV CX, 5                                         │                  ║
-║            │  LOOP_START:                                       │                  ║
-║            │    MOV AH, 09H                                     │                  ║
-║            │    LEA DX, MSG                                     │                  ║
-║            │    INT 21H                                         │                  ║
-║            │    LOOP LOOP_START                                 │                  ║
-║            │  MSG DB 'Hello$'                                   │                  ║
-║            ╰────────────────────────────────────────────────────╯                  ║
-║            • Hardware-specific                                                     ║
-║            • More complex                                                          ║
-║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  MACHINE CODE (Lowest Level)                                             ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                                                                    ║
-║            ╭────────────────────────────────────────────────────╮                  ║
-║            │  10110001 00000101                                 │                  ║
-║            │  00000011 11001010                                 │                  ║
-║            │  ... (many binary bytes)                           │                  ║
-║            ╰────────────────────────────────────────────────────╯                  ║
-║            • Completely unreadable for humans                                      ║
-║            • Direct CPU execution                                                  ║
-║                                                                                    ║
-║   OBSERVATION: Higher the level, easier for humans to understand                   ║
-║                                                                                    ║
-╚════════════════════════════════════════════════════════════════════════════════════╝
-```
-
----
 
 ## Real-life Hinglish Example
 
@@ -322,22 +169,22 @@ Socho tum ek **English teacher** ho aur tumhare paas ek **Chinese student** hai 
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║   ┌───────────────────────────┐              ┌───────────────────────────┐         ║
-║   │    You (Human)            │              │    Programmer             │         ║
-║   │  "Please sit down"        │              │  int x = 10;  (Java)      │         ║
-║   └─────────┬─────────────────┘              └─────────┬─────────────────┘         ║
-║             │                                           │                          ║
+║   ╔═══════════════════════════╗              ╔═══════════════════════════╗         ║
+║   ║    You (Human)            ║              ║    Programmer             ║         ║
+║   ║  "Please sit down"        ║              ║  int x = 10;  (Java)      ║         ║
+║   ╚═════════╦═════════════════╝              ╚═════════╦═════════════════╝         ║
+║             ║                                           ║                          ║
 ║             ▼                                           ▼                          ║
-║   ┌───────────────────────────┐              ┌───────────────────────────┐         ║
-║   │    Translator             │              │      Compiler             │         ║
-║   │ Converts to Chinese       │              │ Converts to bytecode      │         ║
-║   └─────────┬─────────────────┘              └─────────┬─────────────────┘         ║
-║             │                                           │                          ║
+║   ╔═══════════════════════════╗              ╔═══════════════════════════╗         ║
+║   ║    Translator             ║              ║      Compiler             ║         ║
+║   ║ Converts to Chinese       ║              ║ Converts to bytecode      ║         ║
+║   ╚═════════╦═════════════════╝              ╚═════════╦═════════════════╝         ║
+║             ║                                           ║                          ║
 ║             ▼                                           ▼                          ║
-║   ┌───────────────────────────┐              ┌───────────────────────────┐         ║
-║   │  Student (Computer)       │              │      Computer             │         ║
-║   │ (understands and sits)    │              │ 10110001.. (executes)     │         ║
-║   └───────────────────────────┘              └───────────────────────────┘         ║
+║   ╔═══════════════════════════╗              ╔═══════════════════════════╗         ║
+║   ║  Student (Computer)       ║              ║      Computer             ║         ║
+║   ║ (understands and sits)    ║              ║ 10110001.. (executes)     ║         ║
+║   ╚═══════════════════════════╝              ╚═══════════════════════════╝         ║
 ║                                                                                    ║
 ║   SIMILARITY:                                                                      ║
 ║   • Translator converts English → Chinese                                          ║
@@ -348,8 +195,6 @@ Socho tum ek **English teacher** ho aur tumhare paas ek **Chinese student** hai 
 ```
 
 Bilkul isi tarah, programming language ek **translator** ki tarah kaam karti hai jo tumhare human-readable instructions ko machine-readable binary mein convert karti hai!
-
----
 
 ## Programming Language in Memory
 
@@ -363,93 +208,56 @@ Bilkul isi tarah, programming language ek **translator** ki tarah kaam karti hai
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                   ║
 ║  SOURCE CODE (Stored on Disk):                                                    ║
-║  ┌──────────────────────────────────────┐                                         ║
-║  │  Program.java                        │                                         ║
-║  │  ┌────────────────────────┐          │                                         ║
-║  │  │  int x = 10;           │          │                                         ║
-║  │  │  int y = 20;           │          │                                         ║
-║  │  │  int sum = x + y;      │          │                                         ║
-║  │  └────────────────────────┘          │                                         ║
-║  │  • Text file                         │                                         ║
-║  │  • Human-readable                    │                                         ║
-║  └──────────────────────────────────────┘                                         ║
-║                     │                                                             ║
+║  ╔══════════════════════════════════════╗                                         ║
+║  ║  Program.java                        ║                                         ║
+║  ║  ╔════════════════════════╗          ║                                         ║
+║  ║  ║  int x = 10;           ║          ║                                         ║
+║  ║  ║  int y = 20;           ║          ║                                         ║
+║  ║  ║  int sum = x + y;      ║          ║                                         ║
+║  ║  ╚════════════════════════╝          ║                                         ║
+║  ║  • Text file                         ║                                         ║
+║  ║  • Human-readable                    ║                                         ║
+║  ╚══════════════════════════════════════╝                                         ║
+║                     ║                                                             ║
 ║                     ▼ Compilation                                                 ║
 ║  BYTECODE (Stored on Disk):                                                       ║
-║  ┌──────────────────────────────────────┐                                         ║
-║  │  Program.class                       │                                         ║
-║  │  ┌────────────────────────┐          │                                         ║
-║  │  │  CA FE BA BE ...       │          │                                         ║
-║  │  │  (binary bytecode)     │          │                                         ║
-║  │  └────────────────────────┘          │                                         ║
-║  │  • Binary file                       │                                         ║
-║  │  • JVM-readable                      │                                         ║
-║  └──────────────────────────────────────┘                                         ║
-║                     │                                                             ║
+║  ╔══════════════════════════════════════╗                                         ║
+║  ║  Program.class                       ║                                         ║
+║  ║  ╔════════════════════════╗          ║                                         ║
+║  ║  ║  CA FE BA BE ...       ║          ║                                         ║
+║  ║  ║  (binary bytecode)     ║          ║                                         ║
+║  ║  ╚════════════════════════╝          ║                                         ║
+║  ║  • Binary file                       ║                                         ║
+║  ║  • JVM-readable                      ║                                         ║
+║  ╚══════════════════════════════════════╝                                         ║
+║                     ║                                                             ║
 ║                     ▼ Execution                                                   ║
 ║  RUNTIME (Loaded in RAM):                                                         ║
-║  ┌──────────────────────────────────────┐                                         ║
-║  │  Memory (RAM)                        │                                         ║
-║  │  ┌────────────────────────┐          │                                         ║
-║  │  │  CODE SECTION          │          │                                         ║
-║  │  │  • Instructions        │          │                                         ║
-║  │  └────────────────────────┘          │                                         ║
-║  │  ┌────────────────────────┐          │                                         ║
-║  │  │  DATA SECTION          │          │                                         ║
-║  │  │  • x = 10              │          │                                         ║
-║  │  │  • y = 20              │          │                                         ║
-║  │  │  • sum = 30            │          │                                         ║
-║  │  └────────────────────────┘          │                                         ║
-║  └──────────────────┬───────────────────┘                                         ║
-║                     │                                                             ║
+║  ╔══════════════════════════════════════╗                                         ║
+║  ║  Memory (RAM)                        ║                                         ║
+║  ║  ╔════════════════════════╗          ║                                         ║
+║  ║  ║  CODE SECTION          ║          ║                                         ║
+║  ║  ║  • Instructions        ║          ║                                         ║
+║  ║  ╚════════════════════════╝          ║                                         ║
+║  ║  ╔════════════════════════╗          ║                                         ║
+║  ║  ║  DATA SECTION          ║          ║                                         ║
+║  ║  ║  • x = 10              ║          ║                                         ║
+║  ║  ║  • y = 20              ║          ║                                         ║
+║  ║  ║  • sum = 30            ║          ║                                         ║
+║  ║  ╚════════════════════════╝          ║                                         ║
+║  ╚══════════════════╦═══════════════════╝                                         ║
+║                     ║                                                             ║
 ║                     ▼                                                             ║
-║  ┌──────────────────────────────────────┐                                         ║
-║  │ ░ CPU (Processor)  ░                 │                                         ║
-║  ├──────────────────────────────────────┤                                         ║
-║  │ ░ • Fetches from RAM                 │                                         ║
-║  │ ░ • Executes one by one              │                                         ║
-║  │ ░ • Produces output                  │                                         ║
-║  └──────────────────────────────────────┘                                         ║
+║  ╔══════════════════════════════════════╗                                         ║
+║  ║ ░ CPU (Processor)  ░                 ║                                         ║
+║  ╠══════════════════════════════════════╣                                         ║
+║  ║ ░ • Fetches from RAM                 ║                                         ║
+║  ║ ░ • Executes one by one              ║                                         ║
+║  ║ ░ • Produces output                  ║                                         ║
+║  ╚══════════════════════════════════════╝                                         ║
 ║                                                                                   ║
 ╚═══════════════════════════════════════════════════════════════════════════════════╝
 ```
-
----
-
-## Syntax Explanation (Simple Java Program)
-
-```java
-
-public class HelloWorld {                     
-    public static void main(String[] args) {  
-        System.out.println("Hello, World!");  
-    }
-}
-```
-
-### Line-by-line Breakdown:
-
-| Line | Code | Explanation |
-|------|------|-------------|
-| 1 | `public class HelloWorld` | Class ka naam "HelloWorld" hai |
-| 2 | `public static void main(String[] args)` | Entry point - yahan se execution start |
-| 3 | `System.out.println("Hello, World!");` | Screen pe "Hello, World!" print karo |
-| 4 | Curly braces `{}` | Instructions ko group karte hain |
-
-### Execution Flow:
-
-```
-Input: None
-   │
-   ▼
-Processing: Print instruction execute hota hai
-   │
-   ▼
-Output: Hello, World!
-```
-
----
-
 ## Advantages
 
 | Advantage | Description |
@@ -475,8 +283,6 @@ Output: Hello, World!
 | **Dependency** | Need compiler/interpreter |
 | **Version Issues** | Language updates can break old code |
 
----
-
 ## Common Beginner Mistakes
 
 **Mistake 1: Thinking All Programming Languages Are the Same**
@@ -494,17 +300,17 @@ Syntax yaad karna important hai, lekin logic aur problem-solving zyada important
 **Mistake 5: Not Understanding Compilation vs Interpretation**
 Beginners ko pata nahi hota ki kuch languages (Java) compiled hain, kuch (Python) interpreted hain, aur kuch (Java) hybrid hain. Yeh farak performance aur execution mein dikhta hai.
 
----
-
 ## Important Interview Questions & Answers
 
 
 **Q1: What is a programming language?**
-A programming language is a formal system of communication with defined syntax and semantics, allowing humans to write instructions that a computer can understand and execute. It serves as a bridge between human logic and machine operations.
+
+A programming language is a formal language used to write instructions and develop programs that enable computers to perform specific tasks, process data, and solve problems efficiently.
 
 ---
 
 **Q2: Why do we need programming languages?**
+
 Programming languages are needed because:
 - Humans cannot write directly in binary (0s and 1s)
 - They provide abstraction over complex hardware
@@ -539,6 +345,7 @@ Programming languages are needed because:
 ---
 
 **Q5: What makes a good programming language?**
+
 A good programming language should be:
 - Readable (easy to understand)
 - Writable (easy to write)
@@ -571,18 +378,18 @@ Different levels (low, middle, high) aur paradigms (procedural, OOP, functional)
 ```
 ╔════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                    ║
-║                          ╔═══════════════════════╗                                 ║
-║                          ║   KEY TAKEAWAY        ║                                 ║
-║                          ╚═══════════════════════╝                                 ║
+║                             ╔═══════════════════════╗                              ║
+║                             ║   KEY TAKEAWAY        ║                              ║
+║                             ╚═══════════════════════╝                              ║
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║                     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  Programming Language = Bridge        ┃                      ║
-║                     ┃  Between Humans and Computers         ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛                      ║
+║                     ╔═══════════════════════════════════════╗                      ║
+║                     ║                                       ║                      ║
+║                     ║  Programming Language = Bridge        ║                      ║
+║                     ║  Between Humans and Computers         ║                      ║
+║                     ║                                       ║                      ║
+║                     ╚═══════════════════════════════════════╝                      ║
 ║                                                                                    ║
 ║                                                                                    ║
 ║    ╔═══════════════╗         ╔═══════════════╗         ╔═══════════════╗           ║

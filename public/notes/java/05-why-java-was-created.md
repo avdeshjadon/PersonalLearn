@@ -2,7 +2,7 @@
 
 ## Concept Introduction
 
-1990s ke starting mein, programming languages existing thi (C, C++), but ek specific problem thi — different devices ke liye alag alag code likhna padta tha. TV, AC, washing machine — sabka alag code. James Gosling aur Sun Microsystems ki team ne socha ki ek universal language banani chahiye jo har device pe chale. Yahi need se Java ka birth hua!
+1990s ke starting mein, programming languages existing thi (C, C++), but ek specific problem thi — different devices ke liye alag alag code likhna padta tha. TV, AC, washing machine — sabka alag code. **James Gosling** aur **Sun Microsystems** ki team ne socha ki ek universal language banani chahiye jo har device pe chale. Yahi need se Java ka birth hua!
 
 ## Why This Concept Exists
 
@@ -26,29 +26,12 @@ Java was created to solve these critical problems. It introduced platform indepe
 - Built-in security features
 - Simpler syntax than C++
 
----
+## Definition
 
-## Definitions
-
-### Very Simple Definition
-Java ek programming language hai jo "write once, run anywhere" principle pe kaam karti hai.
-
-### College Exam Definition
-Java was created to address the need for a platform-independent, secure, and robust programming language suitable for embedded systems and internet applications, eliminating the limitations of existing languages like C and C++.
-
-### Viva Definition
-Java was developed in 1995 by James Gosling at Sun Microsystems to solve critical challenges of the 1990s: platform dependency, security vulnerabilities in C/C++, complexity issues, and the need for a language suitable for distributed internet-based applications and embedded consumer electronic devices.
-
-### Interview Definition
-Java emerged as a response to architectural constraints of traditional compiled languages, introducing an intermediate bytecode representation executed by a platform-specific JVM, thereby decoupling source code from target hardware while providing automatic memory management, strong typing, and built-in security mechanisms. It was designed for the emerging internet era and embedded systems market.
-
-### Technical Definition
-Java was architected to provide platform independence through bytecode compilation and JVM abstraction, eliminate memory management vulnerabilities through garbage collection, reduce complexity via single inheritance and no pointers, and enable distributed computing through built-in networking APIs, addressing the limitations of C/C++ in the context of heterogeneous computing environments and internet-scale applications.
+**Java was developed in 1995 by James Gosling at Sun Microsystems to solve critical challenges of the 1990s: platform dependency, security vulnerabilities in C/C++, complexity issues, and the need for a language suitable for distributed internet-based applications and embedded consumer electronic devices.**
 
 ### One-line Crisp Definition
 **Java = Platform-independent language for embedded systems + internet applications**
-
----
 
 ## Historical Timeline
 
@@ -61,59 +44,57 @@ Java was architected to provide platform independence through bytecode compilati
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  1991: GREEN PROJECT BEGINS                                              ┃     ║
-║   ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫     ║
-║   ┃  • Sun Microsystems starts project                                       ┃     ║
-║   ┃  • Team Lead: James Gosling                                              ┃     ║
-║   ┃  • Goal: Language for consumer electronics                               ┃     ║
-║   ┃  • Original name: Oak (tree outside office)                              ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                      │                                             ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  1991: GREEN PROJECT BEGINS                                              ║     ║
+║   ╠══════════════════════════════════════════════════════════════════════════╣     ║
+║   ║  • Sun Microsystems starts project                                       ║     ║
+║   ║  • Team Lead: James Gosling                                              ║     ║
+║   ║  • Goal: Language for consumer electronics                               ║     ║
+║   ║  • Original name: Oak (tree outside office)                              ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
+║                                      ║                                             ║
 ║                                      ▼                                             ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  1992-1993: PROTOTYPE PHASE                                              ┃     ║
-║   ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫     ║
-║   ┃  • Star7 PDA demonstration                                               ┃     ║
-║   ┃  • Duke mascot created                                                   ┃     ║
-║   ┃  • "Oak" trademark issue discovered                                      ┃     ║
-║   ┃  • Internet era beginning                                                ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                      │                                             ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  1992-1993: PROTOTYPE PHASE                                              ║     ║
+║   ╠══════════════════════════════════════════════════════════════════════════╣     ║
+║   ║  • Star7 PDA demonstration                                               ║     ║
+║   ║  • Duke mascot created                                                   ║     ║
+║   ║  • "Oak" trademark issue discovered                                      ║     ║
+║   ║  • Internet era beginning                                                ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
+║                                      ║                                             ║
 ║                                      ▼                                             ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  1994: STRATEGIC PIVOT                                                   ┃     ║
-║   ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫     ║
-║   ┃  • World Wide Web exploding                                              ┃     ║
-║   ┃  • Focus shifted to internet applications                                ┃     ║
-║   ┃  • WebRunner browser prototype (later HotJava)                           ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                      │                                             ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  1994: STRATEGIC PIVOT                                                   ║     ║
+║   ╠══════════════════════════════════════════════════════════════════════════╣     ║
+║   ║  • World Wide Web exploding                                              ║     ║
+║   ║  • Focus shifted to internet applications                                ║     ║
+║   ║  • WebRunner browser prototype (later HotJava)                           ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
+║                                      ║                                             ║
 ║                                      ▼                                             ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  1995: JAVA IS BORN (May 23, 1995)                                       ┃     ║
-║   ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫     ║
-║   ┃  • Oak renamed to "Java" (inspired by coffee)                            ┃     ║
-║   ┃  • JDK 1.0 Beta released                                                 ┃     ║
-║   ┃  • Core philosophy: "Write Once, Run Anywhere"                           ┃     ║
-║   ┃  • Netscape Navigator adds Java support                                  ┃     ║
-║   ┃  • Official announcement at SunWorld conference                          ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
-║                                      │                                             ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  1995: JAVA IS BORN (May 23, 1995)                                       ║     ║
+║   ╠══════════════════════════════════════════════════════════════════════════╣     ║
+║   ║  • Oak renamed to "Java" (inspired by coffee)                            ║     ║
+║   ║  • JDK 1.0 Beta released                                                 ║     ║
+║   ║  • Core philosophy: "Write Once, Run Anywhere"                           ║     ║
+║   ║  • Netscape Navigator adds Java support                                  ║     ║
+║   ║  • Official announcement at SunWorld conference                          ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
+║                                      ║                                             ║
 ║                                      ▼                                             ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  1996-PRESENT: GROWTH & EVOLUTION                                        ┃     ║
-║   ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫     ║
-║   ┃  • 1996: JDK 1.0 officially released                                     ┃     ║
-║   ┃  • 2009: Oracle acquires Sun Microsystems                                ┃     ║
-║   ┃  • 2024: Java 21 LTS, Java 22, 23 released                               ┃     ║
-║   ┃  • Powers 3+ billion devices worldwide                                   ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  1996-PRESENT: GROWTH & EVOLUTION                                        ║     ║
+║   ╠══════════════════════════════════════════════════════════════════════════╣     ║
+║   ║  • 1996: JDK 1.0 officially released                                     ║     ║
+║   ║  • 2009: Oracle acquires Sun Microsystems                                ║     ║
+║   ║  • 2024: Java 21 LTS, Java 22, 23 released                               ║     ║
+║   ║  • Powers 3+ billion devices worldwide                                   ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 ```
-
----
 
 ## Problems Before Java
 
@@ -126,23 +107,23 @@ Java was architected to provide platform independence through bytecode compilati
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  PROBLEM 1: PLATFORM DEPENDENCY                                          ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  PROBLEM 1: PLATFORM DEPENDENCY                                          ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
-║   ┌────────────────────────────────────────┐                                       ║
-║   │      Write C/C++ Source Code           │                                       ║
-║   └──────────────┬─────────────────────────┘                                       ║
-║                  │                                                                 ║
-║                  │ Compile for each platform                                       ║
-║                  │                                                                 ║
-║      ┌───────────┼───────────┬───────────┐                                         ║
-║      │           │           │           │                                         ║
-║      ▼           ▼           ▼           ▼                                         ║
-║  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐                                       ║
-║  │Windows │ │  Mac   │ │ Linux  │ │Solaris │                                       ║
-║  │ .exe   │ │  bin   │ │  elf   │ │  bin   │                                       ║
-║  └────────┘ └────────┘ └────────┘ └────────┘                                       ║
+║   ╔════════════════════════════════════════╗                                       ║
+║   ║      Write C/C++ Source Code           ║                                       ║
+║   ╚══════════════╦═════════════════════════╝                                       ║
+║                  ║                                                                 ║
+║                  ║ Compile for each platform                                       ║
+║                  ║                                                                 ║
+║      ╔═══════════╬═══════════╦═════════╗                                           ║
+║      ║           ║           ║         ║                                           ║
+║      ▼           ▼           ▼         ▼                                           ║
+║  ╔════════╗ ╔════════╗ ╔════════╗ ╔════════╗                                       ║
+║  ║Windows ║ ║  Mac   ║ ║ Linux  ║ ║Solaris ║                                       ║
+║  ║ .exe   ║ ║  bin   ║ ║  elf   ║ ║  bin   ║                                       ║
+║  ╚════════╝ ╚════════╝ ╚════════╝ ╚════════╝                                       ║
 ║                                                                                    ║
 ║   Issues:                                                                          ║
 ║   • No code portability                                                            ║
@@ -150,20 +131,20 @@ Java was architected to provide platform independence through bytecode compilati
 ║   • Distribution nightmare                                                         ║
 ║   • Bug fixes needed on all platforms                                              ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  PROBLEM 2: EMBEDDED DEVICE DIVERSITY                                    ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  PROBLEM 2: EMBEDDED DEVICE DIVERSITY                                    ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
-║   ┌──────────┐  ┌────────────┐  ┌──────────┐  ┌──────────┐                         ║
-║   │   TV     │  │   AC       │  │  Phone   │  │   Car    │                         ║
-║   │ Set-Top  │  │ Thermostat │  │  PDA     │  │Dashboard │                         ║
-║   └─────┬────┘  └─────┬──────┘  └─────┬────┘  └─────┬────┘                         ║
-║         │             │               │             │                              ║
+║   ╔══════════╗  ╔════════════╗  ╔══════════╗  ╔══════════╗                         ║
+║   ║   TV     ║  ║   AC       ║  ║  Phone   ║  ║   Car    ║                         ║
+║   ║ Set-Top  ║  ║ Thermostat ║  ║  PDA     ║  ║Dashboard ║                         ║
+║   ╚═════╦════╝  ╚═════╦══════╝  ╚═════╦════╝  ╚═════╦════╝                         ║
+║         ║             ║               ║             ║                              ║
 ║         ▼             ▼               ▼             ▼                              ║
-║    ┌─────────┐   ┌─────────┐   ┌─────────┐   ┌─────────┐                           ║
-║    │ MIPS    │   │  ARM    │   │  x86    │   │PowerPC  │                           ║
-║    │ CPU     │   │  CPU    │   │  CPU    │   │  CPU    │                           ║
-║    └─────────┘   └─────────┘   └─────────┘   └─────────┘                           ║
+║    ╔═════════╗   ╔═════════╗   ╔═════════╗   ╔═════════╗                           ║
+║    ║ MIPS    ║   ║  ARM    ║   ║  x86    ║   ║PowerPC  ║                           ║
+║    ║ CPU     ║   ║  CPU    ║   ║  CPU    ║   ║  CPU    ║                           ║
+║    ╚═════════╝   ╚═════════╝   ╚═════════╝   ╚═════════╝                           ║
 ║                                                                                    ║
 ║   Issues:                                                                          ║
 ║   • Each device needed separate codebase                                           ║
@@ -171,55 +152,53 @@ Java was architected to provide platform independence through bytecode compilati
 ║   • Expensive development                                                          ║
 ║   • Limited code reuse                                                             ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  PROBLEM 3: MEMORY & SECURITY ISSUES                                     ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  PROBLEM 3: MEMORY & SECURITY ISSUES                                     ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║   C/C++ Memory Model:                                                              ║
-║   ┌─────────────────────────────────────────┐                                      ║
-║   │  Direct Memory Access with Pointers     │                                      ║
-║   └─────────────┬───────────────────────────┘                                      ║
-║                 │                                                                  ║
-║      ┌──────────┼──────────┬──────────┐                                            ║
-║      │          │          │          │                                            ║
+║   ╔═════════════════════════════════════════╗                                      ║
+║   ║  Direct Memory Access with Pointers     ║                                      ║
+║   ╚═════════════╦═══════════════════════════╝                                      ║
+║                 ║                                                                  ║
+║      ╔══════════╬══════════╦══════════╗                                            ║
+║      ║          ║          ║          ║                                            ║
 ║      ▼          ▼          ▼          ▼                                            ║
-║  ┌─────────┐ ┌──────┐ ┌──────────┐ ┌────────┐                                      ║
-║  │ Buffer  │ │Memory│ │ Dangling │ │Pointer │                                      ║
-║  │Overflow │ │Leaks │ │ Pointers │ │ Errors │                                      ║
-║  └────┬────┘ └──┬───┘ └─────┬────┘ └───┬────┘                                      ║
-║       │         │           │          │                                           ║
-║       └─────────┴───────────┴──────────┘                                           ║
-║                         │                                                          ║
+║  ╔═════════╗ ╔══════╗ ╔══════════╗ ╔════════╗                                      ║
+║  ║ Buffer  ║ ║Memory║ ║ Dangling ║ ║Pointer ║                                      ║
+║  ║Overflow ║ ║Leaks ║ ║ Pointers ║ ║ Errors ║                                      ║
+║  ╚════╦════╝ ╚══╦═══╝ ╚═════╦════╝ ╚═══╦════╝                                      ║
+║       ║         ║           ║          ║                                           ║
+║       ╚═════════╩═══════════╩══════════╝                                           ║
+║                         ║                                                          ║
 ║                         ▼                                                          ║
-║           ┌──────────────────────────┐                                             ║
-║           │  Security vulnerabilities │                                            ║
-║           │  System crashes           │                                            ║
-║           │  Unpredictable behavior   │                                            ║
-║           └──────────────────────────┘                                             ║
+║           ╔══════════════════════════════╗                                         ║
+║           ║  Security vulnerabilities    ║                                         ║
+║           ║  System crashes              ║                                         ║
+║           ║  Unpredictable behavior      ║                                         ║
+║           ╚══════════════════════════════╝                                         ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  PROBLEM 4: LANGUAGE COMPLEXITY                                          ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  PROBLEM 4: LANGUAGE COMPLEXITY                                          ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║   C++ Complexity Features:                                                         ║
-║   ┌────────────────┬────────────────┬────────────────┐                             ║
-║   │ Multiple       │ Manual Memory  │ Pointer        │                             ║
-║   │ Inheritance    │ Management     │ Arithmetic     │                             ║
-║   └────────┬───────┴───────┬────────┴───────┬────────┘                             ║
-║            │               │                │                                      ║
-║            └───────────────┴────────────────┘                                      ║
-║                            │                                                       ║
+║   ╔════════════════╦════════════════╦════════════════╗                             ║
+║   ║ Multiple       ║ Manual Memory  ║ Pointer        ║                             ║
+║   ║ Inheritance    ║ Management     ║ Arithmetic     ║                             ║
+║   ╚════════╦═══════╩═══════╦════════╩═══════╦════════╝                             ║
+║            ║               ║                ║                                      ║
+║            ╚═══════════════╩════════════════╝                                      ║
+║                            ║                                                       ║
 ║                            ▼                                                       ║
-║              ┌──────────────────────────┐                                          ║
-║              │ Steep learning curve     │                                          ║
-║              │ Error-prone development  │                                          ║
-║              │ Hard to maintain         │                                          ║
-║              └──────────────────────────┘                                          ║
+║              ╔══════════════════════════╗                                          ║
+║              ║ Steep learning curve     ║                                          ║
+║              ║ Error-prone development  ║                                          ║
+║              ║ Hard to maintain         ║                                          ║
+║              ╚══════════════════════════╝                                          ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 ```
-
----
 
 ## Java's Solution
 
@@ -232,190 +211,93 @@ Java was architected to provide platform independence through bytecode compilati
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  SOLUTION 1: PLATFORM INDEPENDENCE (WORA)                                ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  SOLUTION 1: PLATFORM INDEPENDENCE (WORA)                                ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
-║   ┌─────────────────────────────────────────┐                                      ║
-║   │  Write Java Source Code (Once)          │                                      ║
-║   │  ┌───────────────────────────┐          │                                      ║
-║   │  │  MyProgram.java           │          │                                      ║
-║   │  │  public class MyProgram { │          │                                      ║
-║   │  │    // Write once...       │          │                                      ║
-║   │  │  }                        │          │                                      ║
-║   │  └───────────────────────────┘          │                                      ║
-║   └─────────────────┬───────────────────────┘                                      ║
-║                     │                                                              ║
+║   ╔═════════════════════════════════════════╗                                      ║
+║   ║  Write Java Source Code (Once)          ║                                      ║
+║   ║  ╔═══════════════════════════╗          ║                                      ║
+║   ║  ║  MyProgram.java           ║          ║                                      ║
+║   ║  ║  public class MyProgram { ║          ║                                      ║
+║   ║  ║    // Write once...       ║          ║                                      ║
+║   ║  ║  }                        ║          ║                                      ║
+║   ║  ╚═══════════════════════════╝          ║                                      ║
+║   ╚═════════════════╦═══════════════════════╝                                      ║
+║                     ║                                                              ║
 ║                     ▼                                                              ║
-║   ┌─────────────────────────────────────────┐                                      ║
-║   │  Compile to Bytecode                    │                                      ║
-║   │  javac MyProgram.java                   │                                      ║
-║   │                                         │                                      ║
-║   │  ┌───────────────────────────┐          │                                      ║
-║   │  │  MyProgram.class          │          │                                      ║
-║   │  │  (Platform-Independent)   │          │                                      ║
-║   │  └───────────────────────────┘          │                                      ║
-║   └─────────────────┬───────────────────────┘                                      ║
-║                     │                                                              ║
-║                     │ Distribute Single File                                       ║
-║                     │                                                              ║
-║        ┌────────────┼────────────┬─────────────┐                                   ║
-║        │            │            │             │                                   ║
-║        ▼            ▼            ▼             ▼                                   ║
-║   ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐                               ║
-║   │Windows  │  │  macOS  │  │  Linux  │  │ Solaris │                               ║
-║   │   JVM   │  │   JVM   │  │   JVM   │  │   JVM   │                               ║
-║   └────┬────┘  └────┬────┘  └────┬────┘  └────┬────┘                               ║
-║        │            │            │             │                                   ║
-║        ▼            ▼            ▼             ▼                                   ║
-║   Runs on      Runs on      Runs on      Runs on                                   ║
-║   Windows      macOS        Linux        Solaris                                   ║
+║   ╔═════════════════════════════════════════╗                                      ║
+║   ║  Compile to Bytecode                    ║                                      ║
+║   ║  javac MyProgram.java                   ║                                      ║
+║   ║                                         ║                                      ║
+║   ║  ╔═══════════════════════════╗          ║                                      ║
+║   ║  ║  MyProgram.class          ║          ║                                      ║
+║   ║  ║  (Platform-Independent)   ║          ║                                      ║
+║   ║  ╚═══════════════════════════╝          ║                                      ║
+║   ╚═════════════════╦═══════════════════════╝                                      ║
+║                     ║                                                              ║
+║                     ║ Distribute Single File                                       ║
+║                     ║                                                              ║
+║        ╔════════════╬════════════╦════════════╗                                    ║
+║        ║            ║            ║            ║                                    ║
+║        ▼            ▼            ▼            ▼                                    ║
+║   ╔═════════╗  ╔═════════╗  ╔═════════╗  ╔═════════╗                               ║
+║   ║ Windows ║  ║  macOS  ║  ║  Linux  ║  ║ Solaris ║                               ║
+║   ║   JVM   ║  ║   JVM   ║  ║   JVM   ║  ║   JVM   ║                               ║
+║   ╚════╦════╝  ╚════╦════╝  ╚════╦════╝  ╚════╦════╝                               ║
+║        ║            ║            ║            ║                                    ║
+║        ▼            ▼            ▼            ▼                                    ║
+║     Runs on      Runs on      Runs on      Runs on                                 ║
+║      Windows      macOS        Linux       Solaris                                 ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  SOLUTION 2: AUTOMATIC MEMORY MANAGEMENT                                 ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  SOLUTION 2: AUTOMATIC MEMORY MANAGEMENT                                 ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║   C/C++ (Manual):                    Java (Automatic):                             ║
-║   ┌──────────────────────┐           ┌──────────────────────┐                      ║
-║   │ int* p = new int[10];│           │ int[] arr = new int[10];                    ║
-║   │ // Use memory        │           │ // Use memory        │                      ║
-║   │ delete[] p;          │           │ // No delete needed! │                      ║
-║   │                      │           │                      │                      ║
-║   │ Problems:            │           │ Benefits:            │                      ║
-║   │ • Memory leaks       │           │ • Garbage Collector  │                      ║
-║   │ • Dangling pointers  │           │ • No manual cleanup  │                      ║
-║   │ • Buffer overflows   │           │ • No memory leaks    │                      ║
-║   └──────────────────────┘           └──────────────────────┘                      ║
+║   ╔══════════════════════╗           ╔══════════════════════════╗                  ║
+║   ║ int* p = new int[10];║           ║ int[] arr = new int[10]; ║                  ║
+║   ║ // Use memory        ║           ║ // Use memory            ║                  ║
+║   ║ delete[] p;          ║           ║ // No delete needed!     ║                  ║
+║   ║                      ║           ║                          ║                  ║
+║   ║ Problems:            ║           ║ Benefits:                ║                  ║
+║   ║ • Memory leaks       ║           ║ • Garbage Collector      ║                  ║
+║   ║ • Dangling pointers  ║           ║ • No manual cleanup      ║                  ║
+║   ║ • Buffer overflows   ║           ║ • No memory leaks        ║                  ║
+║   ╚══════════════════════╝           ╚══════════════════════════╝                  ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  SOLUTION 3: BUILT-IN SECURITY                                           ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  SOLUTION 3: BUILT-IN SECURITY                                           ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
-║   ┌────────────────────────────────────────┐                                       ║
-║   │  SECURITY FEATURES                     │                                       ║
-║   ├────────────────────────────────────────┤                                       ║
-║   │  • No pointers (safe references)       │                                       ║
-║   │  • Automatic garbage collection        │                                       ║
-║   │  • Array bounds checking               │                                       ║
-║   │  • Strong type checking                │                                       ║
-║   │  • Bytecode verification               │                                       ║
-║   │  • Security Manager                    │                                       ║
-║   │  • Sandbox for untrusted code          │                                       ║
-║   └────────────────────────────────────────┘                                       ║
+║   ╔════════════════════════════════════════╗                                       ║
+║   ║  SECURITY FEATURES                     ║                                       ║
+║   ╠════════════════════════════════════════╣                                       ║
+║   ║  • No pointers (safe references)       ║                                       ║
+║   ║  • Automatic garbage collection        ║                                       ║
+║   ║  • Array bounds checking               ║                                       ║
+║   ║  • Strong type checking                ║                                       ║
+║   ║  • Bytecode verification               ║                                       ║
+║   ║  • Security Manager                    ║                                       ║
+║   ║  • Sandbox for untrusted code          ║                                       ║
+║   ╚════════════════════════════════════════╝                                       ║
 ║                                                                                    ║
-║   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓     ║
-║   ┃  SOLUTION 4: SIMPLIFIED LANGUAGE DESIGN                                  ┃     ║
-║   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛     ║
+║   ╔══════════════════════════════════════════════════════════════════════════╗     ║
+║   ║  SOLUTION 4: SIMPLIFIED LANGUAGE DESIGN                                  ║     ║
+║   ╚══════════════════════════════════════════════════════════════════════════╝     ║
 ║                                                                                    ║
 ║   Removed from C++:                  Added to Java:                                ║
-║   ┌──────────────────────┐           ┌──────────────────────┐                      ║
-║   │ • Pointers           │           │ • Built-in networking│                      ║
-║   │ • Multiple inherit.  │           │ • Multithreading     │                      ║
-║   │ • Operator overload  │           │ • Exception handling │                      ║
-║   │ • goto statements    │           │ • Rich libraries     │                      ║
-║   │ • Preprocessor       │           │ • Garbage collection │                      ║
-║   │ • Manual memory mgmt │           │ • Interfaces         │                      ║
-║   └──────────────────────┘           └──────────────────────┘                      ║
+║   ╔══════════════════════╗           ╔══════════════════════╗                      ║
+║   ║ • Pointers           ║           ║ • Built-in networking║                      ║
+║   ║ • Multiple inherit.  ║           ║ • Multithreading     ║                      ║
+║   ║ • Operator overload  ║           ║ • Exception handling ║                      ║
+║   ║ • goto statements    ║           ║ • Rich libraries     ║                      ║
+║   ║ • Preprocessor       ║           ║ • Garbage collection ║                      ║
+║   ║ • Manual memory mgmt ║           ║ • Interfaces         ║                      ║
+║   ╚══════════════════════╝           ╚══════════════════════╝                      ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 ```
-
----
-
-## Real-life Hinglish Example
-
-### Example 1: Movie Distribution Analogy
-
-**Before Java (Traditional approach):**
-
-Socho tumne ek movie banayi hai. Ab tumhe different formats mein release karni padegi. Cinema hall ke liye 70mm film, TV ke liye DVD, mobile ke liye MP4, laptop ke liye AVI. Har platform ke liye alag alag convert karna padega — bahut mehnat!
-
-**Java approach:**
-
-Ab socho Netflix jaisa platform hai. Tum ek hi format mein upload karo, aur wo apne aap har device pe adjust ho jaye — Smart TV pe chale, mobile pe chale, laptop pe chale, tablet pe chale. Ek format (bytecode), sab jagah chale (JVM).
-
-### Example 2: Universal Charger Analogy
-
-**Before Java:**
-
-Different charger for each phone — Nokia ka alag, Samsung ka alag, iPhone ka alag. Bahut frustrating!
-
-**Java approach:**
-
-USB-C cable jaise universal solution. Ek cable sab devices mein fit! Java ka bytecode bhi aise hi universal hai — ek baar compile, sab JVM pe chale.
-
----
-
-## Syntax Explanation
-
-### Problem in C/C++:
-```cpp
-// C++ code - Platform specific
-#include <iostream>
-using namespace std;
-
-int main() {
-    int* ptr = new int(10);  // Manual memory
-    cout << *ptr << endl;
-    delete ptr;              // Must manually free
-    return 0;
-}
-
-// Compile for Windows: g++ program.cpp -o program.exe
-// Compile for Linux: g++ program.cpp -o program
-// Different binaries!
-```
-
-### Solution in Java:
-```java
-// Java code - Platform independent
-public class Program {
-    public static void main(String[] args) {
-        Integer num = 10;  // Automatic memory
-        System.out.println(num);
-        // No manual cleanup needed
-    }
-}
-
-// Compile once: javac Program.java → Program.class
-// Run anywhere: java Program (Windows/Linux/Mac)
-// Same bytecode!
-```
-
----
-
-## Memory Behavior
-
-Java's memory management approach:
-
-```
-Before (C/C++):
-┌────────────────────────────────┐
-│  Developer Responsibility:     │
-│  • Allocate memory (malloc)    │
-│  • Track all pointers          │
-│  • Free memory (free/delete)   │
-│  • Avoid double-free           │
-│  • Avoid memory leaks          │
-│  • Handle dangling pointers    │
-│                                │
-│  Result: Complex, error-prone  │
-└────────────────────────────────┘
-
-After (Java):
-┌────────────────────────────────┐
-│  JVM Responsibility:           │
-│  • Automatic allocation (new)  │
-│  • Garbage Collector tracks    │
-│  • Automatic cleanup           │
-│  • No dangling pointers        │
-│  • No manual free needed       │
-│                                │
-│  Result: Simple, safe          │
-└────────────────────────────────┘
-```
-
----
 
 ## Advantages (in English)
 
@@ -432,7 +314,7 @@ After (Java):
 
 ---
 
-## Disadvantages (in English)
+## Disadvantages
 
 | Disadvantage | Description |
 |--------------|-------------|
@@ -448,7 +330,7 @@ After (Java):
 
 **Q1: Who created Java and when?**
 
-Java was created by James Gosling at Sun Microsystems. The project started in 1991 as the "Green Project" with the original name "Oak". It was officially released as Java on May 23, 1995.
+Java was created by **James Gosling** at **Sun Microsystems**. The project started in **1991** as the **"Green Project"** with the original name **"Oak"**. It was officially released as Java on **May 23, 1995**.
 
 ---
 
@@ -538,13 +420,13 @@ Isne C/C++ ki major problems fix ki — no pointers, automatic memory management
 ║                                                                                    ║
 ╠════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                    ║
-║                     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓                      ║
-║                     ┃                                       ┃                      ║
-║                     ┃  Java was created to solve:           ┃                      ║
-║                     ┃  Platform Dependency + Security +     ┃                      ║
-║                     ┃  Complexity + Internet Requirements   ┃                      ║
-║                     ┃                                       ┃                      ║
-║                     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛                      ║
+║                     ╔═══════════════════════════════════════╗                      ║
+║                     ║                                       ║                      ║
+║                     ║  Java was created to solve:           ║                      ║
+║                     ║  Platform Dependency + Security +     ║                      ║
+║                     ║  Complexity + Internet Requirements   ║                      ║
+║                     ║                                       ║                      ║
+║                     ╚═══════════════════════════════════════╝                      ║
 ║                                                                                    ║
 ║                                                                                    ║
 ║    ╔═══════════════╗         ╔═══════════════╗         ╔═══════════════╗           ║

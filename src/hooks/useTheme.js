@@ -6,21 +6,21 @@ import logger from '../utils/logger';
  */
 export const useTheme = () => {
   const [isDark, setIsDark] = useState(() => {
-    return localStorage.getItem('retro-dark') === '1';
+    const dark = localStorage.getItem('retro-dark') === '1';
+    // Apply synchronously before first paint to prevent flash
+    if (dark) document.body.classList.add('dark');
+    return dark;
   });
 
-  // Initialize on mount
+  // Fade in after mount
   useEffect(() => {
-    if (isDark) {
-      document.body.classList.add('dark');
-      logger.info('Theme', 'Dark mode enabled');
-    } else {
-      logger.info('Theme', 'Light mode enabled');
-    }
-    // Fade in body
     requestAnimationFrame(() => {
-      document.body.classList.add('js-fadein');
+      requestAnimationFrame(() => {
+        document.body.classList.add('js-fadein');
+      });
     });
+    logger.info('Theme', isDark ? 'Dark mode enabled' : 'Light mode enabled');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const toggleDark = useCallback(() => {
