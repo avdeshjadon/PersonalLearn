@@ -1,4 +1,5 @@
 import { memo, useEffect, useMemo, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 /**
  * Loading skeleton for smooth perceived performance
@@ -46,16 +47,33 @@ const Article = memo(({ content, isLoading, onNavigate }) => {
 
   return (
     <article className="article">
-      {isLoading ? (
-        <LoadingSpinner />
-      ) : (
-        <div
-          ref={contentRef}
-          key={contentKey}
-          className="article-content"
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
-      )}
+      <AnimatePresence mode="wait">
+        {isLoading ? (
+          <motion.div
+            key="loading"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <LoadingSpinner />
+          </motion.div>
+        ) : (
+          <motion.div
+            ref={contentRef}
+            key={contentKey}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ 
+              duration: 0.5,
+              ease: [0.22, 1, 0.36, 1]
+            }}
+            className="article-content"
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
+        )}
+      </AnimatePresence>
     </article>
   );
 });

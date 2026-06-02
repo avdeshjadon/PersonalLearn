@@ -1,4 +1,5 @@
 import { memo, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { getNumberFromSlug, cleanTitle, filterStructure } from '../utils/helpers';
 
 /**
@@ -47,9 +48,21 @@ const Sidebar = memo(({
             >
               {group.group}
             </h4>
-            <ul className={`group-list ${expandedGroups[gidx] ? '' : 'collapsed'}`}>
-              {(group.items || []).map((slug) => {
-                const item = manifest.find((m) => m.slug === slug);
+            <AnimatePresence initial={false}>
+              {expandedGroups[gidx] && (
+                <motion.ul
+                  className="group-list"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ 
+                    duration: 0.4,
+                    ease: [0.32, 0.72, 0, 1]
+                  }}
+                  style={{ overflow: 'hidden' }}
+                >
+                  {(group.items || []).map((slug) => {
+                    const item = manifest.find((m) => m.slug === slug);
                 if (!item) return null;
                 const noteNum = getNumberFromSlug(item.slug);
                 return (
@@ -66,8 +79,10 @@ const Sidebar = memo(({
                     </a>
                   </li>
                 );
-              })}
-            </ul>
+                  })}
+                </motion.ul>
+              )}
+            </AnimatePresence>
           </div>
         ))}
       </nav>

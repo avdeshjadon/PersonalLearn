@@ -1,4 +1,5 @@
 import { memo, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { getInterviewStructure } from '../data/interviewStructure';
 
 /**
@@ -50,8 +51,20 @@ const InterviewSidebar = memo(({ isOpen, onClose }) => {
             >
               {group.group}
             </h4>
-            <ul className={`group-list ${expandedGroups[gidx] ? '' : 'collapsed'}`}>
-              {group.items.map((item) => (
+            <AnimatePresence initial={false}>
+              {expandedGroups[gidx] && (
+                <motion.ul
+                  className="group-list"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ 
+                    duration: 0.4,
+                    ease: [0.32, 0.72, 0, 1]
+                  }}
+                  style={{ overflow: 'hidden' }}
+                >
+                  {group.items.map((item) => (
                 <li key={item.id}>
                   <a
                     className="topic-link"
@@ -63,8 +76,10 @@ const InterviewSidebar = memo(({ isOpen, onClose }) => {
                     {item.title}
                   </a>
                 </li>
-              ))}
-            </ul>
+                  ))}
+                </motion.ul>
+              )}
+            </AnimatePresence>
           </div>
         ))}
       </nav>

@@ -152,8 +152,15 @@ body.js-fadein {
   display: flex;
   gap: 8px;
   flex: 1;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.nav-buttons::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-actions {
@@ -166,6 +173,8 @@ body.js-fadein {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  white-space: nowrap;
   padding: 8px 20px;
   border: 1px solid #d0d0d0;
   border-radius: 8px;
@@ -177,7 +186,6 @@ body.js-fadein {
   cursor: pointer;
   /* Spring: lift on hover, instant snap on press */
   transition:
-    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
     background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
     border-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
     color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
@@ -188,15 +196,12 @@ body.js-fadein {
   background: #f8f8f8;
   border-color: #bbb;
   color: #333;
-  transform: translateY(-2px) scale(1.03);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
 }
 
 .folder-btn:active {
-  transform: translateY(1px) scale(0.96);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
   transition:
-    transform 0.08s cubic-bezier(0.4, 0, 1, 1),
     box-shadow 0.08s cubic-bezier(0.4, 0, 1, 1);
 }
 
@@ -226,7 +231,6 @@ body.js-fadein {
   width: 36px;
   height: 36px;
   transition:
-    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
     background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
     border-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
     color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
@@ -238,15 +242,12 @@ body.js-fadein {
   background: #f8f8f8;
   border-color: #bbb;
   color: #333;
-  transform: translateY(-2px) scale(1.08);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
 }
 
 .menu-toggle:active,
 .dark-toggle:active {
-  transform: translateY(1px) scale(0.91);
   transition:
-    transform 0.08s cubic-bezier(0.4, 0, 1, 1),
     box-shadow 0.08s cubic-bezier(0.4, 0, 1, 1);
 }
 
@@ -516,29 +517,7 @@ body.js-fadein {
   padding: 2px 0;
 }
 
-/* Smooth accordion animation */
-.group-list {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(-6px);
-  transition:
-    max-height 0.42s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-}
 
-.group-list.collapsed {
-  max-height: 0;
-  opacity: 0;
-  transform: translateY(-6px);
-}
-
-.group-list:not(.collapsed) {
-  max-height: 2000px;
-  opacity: 1;
-  transform: translateY(0);
-}
 
 .content {
   flex: 1;
@@ -738,21 +717,6 @@ body.js-fadein {
   }
 }
 
-.article-content {
-  animation: contentFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-@keyframes contentFadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 .site-footer {
   padding: 18px 0;
@@ -1319,6 +1283,14 @@ body.dark .article pre::-webkit-scrollbar-thumb {
   .nav-buttons {
     gap: 8px;
     flex: 1;
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  
+  .nav-buttons::-webkit-scrollbar {
+    display: none;
   }
 
   .folder-btn {
@@ -1510,7 +1482,7 @@ body.dark .article pre::-webkit-scrollbar-thumb {
   .folder-btn {
     padding: 10px 16px;
     font-size: 13px;
-    flex: 1;
+    flex: 0 0 auto;
     justify-content: center;
   }
 
@@ -1591,7 +1563,7 @@ body.dark .article pre::-webkit-scrollbar-thumb {
   .nav-buttons {
     order: 2;
     width: 100%;
-    justify-content: stretch;
+    justify-content: flex-start;
   }
 
   .nav-actions {
@@ -1602,7 +1574,7 @@ body.dark .article pre::-webkit-scrollbar-thumb {
   }
 
   .folder-btn {
-    flex: 1;
+    flex: 0 0 auto;
     padding: 10px 12px;
     font-size: 12px;
   }
