@@ -299,7 +299,7 @@ Java was created to solve these critical problems. It introduced platform indepe
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 ```
 
-## Advantages (in English)
+## Advantages
 
 | Advantage | Description |
 |-----------|-------------|

@@ -22,7 +22,6 @@ Two main translation approaches were developed. Compilers translate the entire s
 - **Compiler**: Pura code ek saath translate → Fast execution
 - **Interpreter**: Line-by-line translate → Easy debugging
 - **Hybrid**: Dono ka combination (Java, C#)
-- Choose based on project requirements
 
 ## Definitions
 
@@ -125,8 +124,6 @@ Two main translation approaches were developed. Compilers translate the entire s
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 ```
 
----
-
 ## Detailed Comparison Table
 
 | Feature | Compiler | Interpreter |
@@ -171,7 +168,7 @@ Two main translation approaches were developed. Compilers translate the entire s
 ## Common Beginner Mistakes
 
 **Mistake 1: Thinking Java is Purely Compiled or Interpreted**
-Bahut se beginners sochte hain ki Java sirf compiled hai ya sirf interpreted hai. Lekin Java ek hybrid approach use karta hai. Pehle javac compiler source code ko bytecode mein compile karta hai, phir JVM us bytecode ko interpret karta hai. Yeh dono ka combination hai.
+Bahut se beginners sochte hain ki Java sirf compiled hai ya sirf interpreted hai. Lekin Java ek hybrid approach use karta hai. Pehle `javac` compiler source code ko bytecode mein compile karta hai, phir JVM us bytecode ko interpret/JIT compile karke run karti hai. Yeh dono ka combination hai.
 
 **Mistake 2: Confusing Compilation with Execution**
 Log compilation aur execution ko ek hi samajh lete hain. Compilation matlab source code ko machine code mein translate karna. Execution matlab program ko actually run karna. Yeh dono alag processes hain.
@@ -214,7 +211,10 @@ Compiler translates entire code at once and creates an executable file. Executio
 
 **Q2: Is Java compiled or interpreted?**
 
-Java is **both** (hybrid approach):
+Java is **both**. Java ko hybrid bolte hain because it has two main phases:
+
+- `javac` compiler `.java` file ko `.class` bytecode mein convert karta hai.
+- JVM us bytecode ko runtime par execute karti hai using interpreter and JIT compiler.
 
 ```
 ╔════════════════════════════════════════════════════════════════════════════════════╗
@@ -245,6 +245,14 @@ Java is **both** (hybrid approach):
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 ```
+
+Short answer:
+
+```
+.java source code  --javac-->  .class bytecode  --JVM-->  output
+```
+
+Important point: CPU directly `.java` file run nahi karta. CPU ko finally machine code milta hai, lekin Java mein yeh machine code JVM runtime par generate/execute karwati hai.
 
 ---
 
