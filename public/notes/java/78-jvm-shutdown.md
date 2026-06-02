@@ -1,3 +1,0 @@
-# jvm shutdown
-
-Content coming soon...

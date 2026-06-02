@@ -1,3 +1,0 @@
-# object class
-
-Content coming soon...

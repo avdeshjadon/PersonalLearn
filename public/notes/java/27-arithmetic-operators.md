@@ -1,3 +1,0 @@
-# arithmetic operators
-
-Content coming soon...

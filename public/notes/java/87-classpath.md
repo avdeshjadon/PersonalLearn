@@ -1,3 +1,0 @@
-# classpath
-
-Content coming soon...

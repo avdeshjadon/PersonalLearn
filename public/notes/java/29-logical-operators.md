@@ -1,3 +1,0 @@
-# logical operators
-
-Content coming soon...

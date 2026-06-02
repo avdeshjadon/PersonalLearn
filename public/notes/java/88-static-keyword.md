@@ -1,3 +1,0 @@
-# static keyword
-
-Content coming soon...

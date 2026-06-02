@@ -1,3 +1,0 @@
-# what is variable
-
-Content coming soon...

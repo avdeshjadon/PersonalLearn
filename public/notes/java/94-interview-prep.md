@@ -1,3 +1,0 @@
-# interview prep
-
-Content coming soon...

@@ -1,3 +1,0 @@
-# relational operators
-
-Content coming soon...

@@ -1,3 +1,0 @@
-# garbage collection
-
-Content coming soon...

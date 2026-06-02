@@ -1,3 +1,0 @@
-# string pool
-
-Content coming soon...

@@ -1,3 +1,0 @@
-# stringbuffer
-
-Content coming soon...

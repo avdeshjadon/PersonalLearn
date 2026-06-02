@@ -1,3 +1,0 @@
-# declaration vs initialization
-
-Content coming soon...

@@ -1,3 +1,0 @@
-# array memory layout
-
-Content coming soon...

@@ -1,3 +1,0 @@
-# arrays introduction
-
-Content coming soon...

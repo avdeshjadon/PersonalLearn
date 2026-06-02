@@ -1,3 +1,0 @@
-# scope of variables
-
-Content coming soon...

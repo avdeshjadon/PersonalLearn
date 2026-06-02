@@ -222,7 +222,11 @@ function App() {
         {isInterviewMode ? (
           <Article content={interviewContent} isLoading={interviewLoading} />
         ) : (
-          <Article content={articleContent} isLoading={isLoading} />
+          <Article
+            content={articleContent}
+            isLoading={isLoading}
+            onNavigate={handleNavigate}
+          />
         )}
 
         {/* Footer Navigation - hidden for interview or presentation mode */}

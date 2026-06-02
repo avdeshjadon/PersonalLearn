@@ -1,3 +1,0 @@
-# quick reference
-
-Content coming soon...

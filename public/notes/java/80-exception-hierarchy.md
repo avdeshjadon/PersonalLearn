@@ -1,3 +1,0 @@
-# exception hierarchy
-
-Content coming soon...

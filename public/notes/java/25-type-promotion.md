@@ -1,3 +1,0 @@
-# type promotion
-
-Content coming soon...

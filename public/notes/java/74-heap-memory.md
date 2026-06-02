@@ -1,3 +1,0 @@
-# heap memory
-
-Content coming soon...

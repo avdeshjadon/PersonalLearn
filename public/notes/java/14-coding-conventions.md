@@ -1,3 +1,0 @@
-# coding conventions
-
-Content coming soon...

@@ -1,3 +1,0 @@
-# best practices
-
-Content coming soon...

@@ -1,3 +1,0 @@
-# bitwise operators
-
-Content coming soon...

@@ -1,3 +1,0 @@
-# data types
-
-Content coming soon...
