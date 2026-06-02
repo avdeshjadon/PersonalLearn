@@ -22,12 +22,7 @@ const TopNav = memo(({
           >
             <span>Java</span>
           </button>
-          <button
-            className={`folder-btn ${currentFolder === 'advanced-java' ? 'active' : ''}`}
-            onClick={() => onFolderSwitch('advanced-java')}
-          >
-            <span>Advanced Java</span>
-          </button>
+
           <button
             className={`folder-btn ${currentFolder === 'oops' ? 'active' : ''}`}
             onClick={() => onFolderSwitch('oops')}

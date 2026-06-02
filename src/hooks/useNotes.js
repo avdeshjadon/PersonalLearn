@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { marked } from "marked";
 import { getJavaStructure } from "../data/javaStructure";
 import { getOopsStructure } from "../data/oopsStructure";
-import { getAdvancedJavaStructure } from "../data/advancedJavaStructure";
 import { getPostmanStructure } from "../data/postmanStructure";
 import {
   extractTitleFromMarkdown,
@@ -63,9 +62,7 @@ export const useNotes = (onGroupExpand) => {
           ? getJavaStructure()
           : folder === "oops"
             ? getOopsStructure()
-            : folder === "postman"
-              ? getPostmanStructure()
-              : getAdvancedJavaStructure();
+            : getPostmanStructure();
       const fileList = [];
 
       structureData.forEach((group) => {
@@ -126,10 +123,8 @@ export const useNotes = (onGroupExpand) => {
           ? "00-java-roadmap"
           : currentFolder === "oops"
             ? "00-oops-roadmap"
-            : currentFolder === "advanced-java"
-              ? "01-object-class"
-              : currentFolder === "postman"
-                ? "00-web-service-api"
+            : currentFolder === "postman"
+              ? "00-web-service-api"
                 : orderedData.length > 0
                   ? orderedData[0].slug
                   : "";

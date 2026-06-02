@@ -16,7 +16,9 @@ age  -> identifier
 
 ## Keywords
 
-Keywords Java ke reserved words hote hain. Inka meaning Java language mein already fixed hota hai.
+> **Interview Definition:** Keywords are reserved words in Java that have a predefined meaning to the compiler. They cannot be used as names for variables, classes, or methods.
+
+Keywords Java ke reserved words hote hain. Inka meaning Java language mein already fixed hota hai. Isliye inko hum apna khud ka naam dene ke liye use nahi kar sakte.
 
 Examples:
 
@@ -26,21 +28,23 @@ class, public, static, void, int, if, else, for, while, return, new
 
 Rules:
 
-- Keywords ko variable/class/method name nahi bana sakte.
-- Keywords lowercase hote hain.
-- `true`, `false`, `null` literals hain, keywords nahi.
+- Keywords ko variable, class, ya method ka naam nahi bana sakte.
+- Keywords hamesha lowercase (small letters) mein hote hain.
+- `true`, `false`, `null` literals hain, technical terms me inhe keywords nahi maana jata.
 
-Invalid:
+Invalid Use:
 
 ```java
-int class = 10;
+int class = 10; // Error: 'class' ek keyword hai
 ```
 
 ---
 
 ## Identifiers
 
-Identifiers names hote hain jo hum variables, classes, methods ko dete hain.
+> **Interview Definition:** Identifiers are the names assigned by the programmer to various program elements such as variables, classes, and methods.
+
+Identifiers wo naam hote hain jo hum khud create karte hain apni coding me. Jaise variables ka naam, class ka naam, ya methods ka naam.
 
 Examples:
 
@@ -52,10 +56,10 @@ void display() {}
 
 Rules:
 
-- Letters, digits, `_`, `$` allowed hain.
-- Digit se start nahi kar sakte.
-- Keyword identifier nahi ban sakta.
-- Java case-sensitive hai.
+- Sirf letters (A-Z, a-z), digits (0-9), underscore (`_`), aur dollar sign (`$`) allowed hain.
+- Identifier ka naam kisi digit se start nahi ho sakta.
+- Keyword ko identifier nahi bana sakte.
+- Java case-sensitive hai (matlab `age` aur `Age` dono alag hain).
 
 Valid:
 
@@ -69,22 +73,24 @@ $value
 Invalid:
 
 ```java
-1age
-class
-student-name
+1age         // Starts with a digit
+class        // Keyword used as an identifier
+student-name // Hyphen is not allowed
 ```
 
 ---
 
 ## Literals
 
-Literals fixed values hote hain jo direct code mein likhe jaate hain.
+> **Interview Definition:** Literals are constant values that are directly assigned to variables in the source code.
+
+Literals fixed values hote hain jo hum directly apne code mein likhte hain assign karne ke liye.
 
 Examples:
 
 ```java
 10          // integer literal
-10.5        // floating literal
+10.5        // floating-point literal
 'A'         // character literal
 "Java"      // string literal
 true        // boolean literal
@@ -97,19 +103,23 @@ null        // null literal
 
 **Q1: What are keywords in Java?**
 
-Keywords are reserved words whose meaning is fixed in Java.
+Keywords are reserved words that have a special, predefined meaning in Java. They cannot be used as identifiers.
 
 **Q2: What are identifiers?**
 
-Identifiers are names given to variables, classes, methods, and objects.
+Identifiers are names given by the programmer to elements like variables, classes, methods, and objects.
 
 **Q3: What are literals?**
 
-Literals are fixed values written directly in code.
+Literals are fixed, constant values that are written directly into the source code, like `10` or `"Hello"`.
 
-**Q4: Can keyword be used as variable name?**
+**Q4: Can a keyword be used as a variable name?**
 
-No.
+No. Using a keyword as an identifier will result in a compile-time error.
+
+**Q5: Is `123name` a valid identifier?**
+
+No, because an identifier cannot start with a digit in Java.
 
 ---
 

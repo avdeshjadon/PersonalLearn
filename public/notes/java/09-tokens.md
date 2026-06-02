@@ -20,7 +20,7 @@ int   age   =   20   ;
 
 ## Definition
 
-**Tokens are the smallest individual units of a Java program that are meaningful to the compiler.**
+> **Interview Definition:** Tokens are the smallest individual units of a Java program that are meaningful to the compiler.
 
 ---
 

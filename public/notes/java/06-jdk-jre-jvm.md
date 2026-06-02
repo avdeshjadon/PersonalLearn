@@ -25,11 +25,11 @@ JDK > JRE > JVM
 
 ## Definitions
 
-**JDK (Java Development Kit)** Java development ke liye complete package hai. Isme compiler (`javac`), runtime, debugger, documentation tools, aur utilities hoti hain.
+> **Interview Definition:** JDK (Java Development Kit)** Java development ke liye complete package hai. Isme compiler (javac), runtime, debugger, documentation tools, aur utilities hoti hain.
 
-**JRE (Java Runtime Environment)** Java applications run karne ke liye required runtime package hai. Isme JVM, Java class libraries, aur supporting files hoti hain.
+> **Interview Definition:** JRE (Java Runtime Environment)** Java applications run karne ke liye required runtime package hai. Isme JVM, Java class libraries, aur supporting files hoti hain.
 
-**JVM (Java Virtual Machine)** Java bytecode ko execute karne wali virtual machine hai. JVM platform-specific hoti hai, lekin bytecode platform-independent hota hai.
+> **Interview Definition:** JVM (Java Virtual Machine)** Java bytecode ko execute karne wali virtual machine hai. JVM platform-specific hoti hai, lekin bytecode platform-independent hota hai.
 
 ---
 

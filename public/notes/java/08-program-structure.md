@@ -28,7 +28,7 @@ class Hello {
 
 ## Definition
 
-**Java program structure is the standard layout of a Java source file. It defines where package declaration, import statements, class declaration, variables, constructors, and methods are written.**
+> **Interview Definition:** Java program structure is the standard layout of a Java source file. It defines where package declaration, import statements, class declaration, variables, constructors, and methods are written.
 
 Short line:
 

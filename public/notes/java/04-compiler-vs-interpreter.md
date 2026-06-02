@@ -25,7 +25,7 @@ Two main translation approaches were developed. Compilers translate the entire s
 
 ## Definitions
 
-**A compiler is a program that translates the entire source code into machine code at once before execution, while an interpreter translates and executes source code line-by-line during runtime.**
+> **Interview Definition:** A compiler is a program that translates the entire source code into machine code at once before execution, while an interpreter translates and executes source code line-by-line during runtime.
 
 ## Compiler vs Interpreter Process
 

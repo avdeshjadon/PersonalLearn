@@ -28,7 +28,7 @@ Java was created to solve these critical problems. It introduced platform indepe
 
 ## Definition
 
-**Java was developed in 1995 by James Gosling at Sun Microsystems to solve critical challenges of the 1990s: platform dependency, security vulnerabilities in C/C++, complexity issues, and the need for a language suitable for distributed internet-based applications and embedded consumer electronic devices.**
+> **Interview Definition:** Java was developed in 1995 by James Gosling at Sun Microsystems to solve critical challenges of the 1990s: platform dependency, security vulnerabilities in C/C++, complexity issues, and the need for a language suitable for distributed internet-based applications and embedded consumer electronic devices.
 
 ### One-line Crisp Definition
 **Java = Platform-independent language for embedded systems + internet applications**

@@ -29,7 +29,7 @@ Programming languages were created to bridge the gap between human logic and mac
 
 ## Definition
 
-**A programming language is a formal language used to write instructions and develop programs that enable computers to perform specific tasks, process data, and solve problems efficiently.**
+> **Interview Definition:** A programming language is a formal language used to write instructions and develop programs that enable computers to perform specific tasks, process data, and solve problems efficiently.
 
 ## How Programming Language Works
 

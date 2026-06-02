@@ -22,7 +22,7 @@ Agar ye exact entry point mil gaya, program run hota hai.
 
 ## Definition
 
-**The `main()` method is the starting point of a Java application. JVM calls it first to start program execution.**
+> **Interview Definition:** The `main()` method is the starting point of a Java application. JVM calls it first to start program execution.
 
 ---
 

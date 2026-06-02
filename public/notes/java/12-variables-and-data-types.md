@@ -38,9 +38,12 @@ int age = 20;
 
 ## Types of Variables
 
-Java mein variables commonly teen (3) types ke hote hain:
+Java mein variables commonly 3 types ke hote hain:
 
 ### 1. Local Variable
+
+> **Interview Definition:** A local variable is a variable that is declared inside a method or a block. Its scope is limited to that specific block only.
+
 - Jo variable kisi method, constructor ya block ke andar declare hota hai usko local variable kehte hain.
 - Inka scope sirf usi block ya method tak limited hota hai.
 - Inhe by default koi value nahi milti. Use karne se pehle initialize karna MUST hai.
@@ -53,6 +56,9 @@ public void myMethod() {
 ```
 
 ### 2. Instance Variable (Non-Static)
+
+> **Interview Definition:** An instance variable is declared inside a class but outside any method. Every object of the class has its own separate copy of this variable.
+
 - Jo variable class ke andar hota hai, par kisi method ya block ke bahar.
 - Memory tab allocate hoti hai jab class ka object/instance create hota hai.
 - Har object ke paas apni separate copy hoti hai.
@@ -66,6 +72,9 @@ class Student {
 ```
 
 ### 3. Static Variable (Class Variable)
+
+> **Interview Definition:** A static variable belongs to the class rather than any object. Only a single copy of a static variable is created and shared among all the objects of that class.
+
 - Is variable ke sath `static` keyword use hota hai.
 - Yeh object se nahi balki class se directly related hota hai.
 - Pure class level par iski sirf **ek hi copy** share hoti hai saare objects ke beech.
@@ -81,7 +90,7 @@ class Student {
 
 ## Data Types in Java
 
-Data types main do (2) categories mein divided hain:
+Data types main 2 categories mein divided hain:
 1. **Primitive Data Types** (Built-in data types)
 2. **Non-Primitive Data Types** (Reference data types)
 
@@ -122,46 +131,46 @@ Examples of Non-Primitive Data Types:
 #### Difference Between Primitive and Non-Primitive Types
 | Primitive | Non-Primitive |
 |-----------|---------------|
-| Language mein pehle se defined hain. | Programmer khud create kar sakta hai (except `String`, `Array`). |
-| Inke paas apni methods nahi hoti (cannot call methods). | Inke objects bante hain to ye methods call kar sakte hain. |
-| Memory location par directly value store hoti hai. | Memory reference (address) store karta hai actual object ka. |
-| Start with lowercase letter (e.g., `int`, `boolean`). | Conventionally start with Uppercase letter (e.g., `String`, `Scanner`). |
-| Inka size fixed hota hai. | Inka size variable/dynamic hota hai. |
-| Inka default value 0/false wagera hota hai. | Inka default value hamesha `null` hota hai. |
-
----
+| They are predefined in Java. | They are created by the programmer (except `String`, `Array`). |
+| They do not have any methods (cannot call methods). | They can call methods to perform certain operations. |
+| They store the actual value directly in memory. | They store a memory reference (address) to the actual object. |
+| **Memory Location:** Stored in the Stack memory. | **Memory Location:** Objects are stored in Heap memory (reference is in stack). |
+| **Comparison:** Compared using the `==` operator. | **Comparison:** Values compared using the `.equals()` method. |
+| **Nullability:** Cannot hold a `null` value. | **Nullability:** Can be assigned a `null` value. |
+| **Performance:** Faster, as data is accessed directly. | **Performance:** Slower, as data is accessed via reference. |
+| Start with a lowercase letter (e.g., `int`, `boolean`). | Conventionally start with an uppercase letter (e.g., `String`, `Scanner`). |
+| Their size is fixed. | Their size is variable/dynamic. |
+| Their default value depends on the type (e.g., `0`, `false`). | Their default value is always `null`. |
 
 ## Scope and Lifetime
 
 **Scope** means where variable can be accessed inside a program.
 **Lifetime** means how long variable exists in the memory before being collected by GC (Garbage Collector).
 
-```java
-void testMethod() {
-    int x = 10; // 'x' scope is only within this testMethod block
-} 
-// 'x' cannot be accessed here.
-```
-
----
 
 ## Interview Questions
 
 **Q1: What is a variable?**
+
 Variable is a named memory location used to store data that can change during program execution.
 
 **Q2: What is data type?**
+
 Data type defines what kind of value a variable can store and how much memory to allocate for it.
 
 **Q3: Difference between local and instance variable?**
+
 Local variable kisi method/block ke andar hota hai. Instance variable class ke andar but method ke bahar hota hai, and is tied to an object.
 
 **Q4: Do local variables get default values?**
+
 No. Local variables must be initialized explicitly before use, otherwise compiler throws an error. Instance and static variables ko by default unka value mil jaata hai (like int->0, Object->null).
 
 **Q5: Difference between Primitive and Non-Primitive data types?**
+
 Primitives directly value store karte hain aur built-in hain (int, float). Non-primitive reference (address) store karte hain aur memory me object represent karte hain (String, Arrays, Classes).
 
 **Q6: Java 'char' 2 bytes kyun leta hai?**
+
 Kyunki Java ASCII encoding nahi, Unicode encoding (UTF-16) use karta hai to support worldwide languages.
 

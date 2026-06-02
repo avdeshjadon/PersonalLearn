@@ -26,7 +26,7 @@ The programming world created a spectrum of languages at different abstraction l
 
 ## Definition
 
-**Low-level languages are machine-oriented languages that provide little or no abstraction from hardware, while high-level languages are programmer-oriented languages that provide significant abstraction and are closer to human language.**
+> **Interview Definition:** Low-level languages are machine-oriented languages that provide little or no abstraction from hardware, while high-level languages are programmer-oriented languages that provide significant abstraction and are closer to human language.
 
 ## DIAGRAM: Detailed Comparison Table
 

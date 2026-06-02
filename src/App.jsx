@@ -168,9 +168,7 @@ function App() {
       ? "Java Notes"
       : currentFolder === "oops"
         ? "OOPs Notes"
-        : currentFolder === "advanced-java"
-          ? "Advanced Java Notes"
-          : currentFolder === "postman"
+        : currentFolder === "postman"
             ? "Postman API"
             : "Interview Prep";
 
