@@ -40,14 +40,16 @@ export const useNotes = (onGroupExpand) => {
       return contentCache.current[cacheKey];
     }
 
-    const url = import.meta.env.DEV 
-      ? `/notes/${folder}/${path}?t=${Date.now()}`
-      : `/notes/${folder}/${path}`;
+    const url = `/api/notes/${folder}/${path}`;
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Failed to fetch ${path}: ${response.status}`);
     }
     const content = await response.text();
+    
+    // Log directly to Chrome Console to prove it came from the backend
+    console.log(`[🌐 FETCH SUCCESS] Downloaded "${path}" directly from MongoDB Backend (URL: ${url})`);
+    
     contentCache.current[cacheKey] = content;
     return content;
   }, []);

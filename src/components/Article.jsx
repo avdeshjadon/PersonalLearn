@@ -12,20 +12,105 @@ const LoadingSpinner = () => (
 );
 
 /**
- * Article content component
- * Uses a content-derived key so the CSS fade-in animation fires
- * exactly once per navigation, not on every React re-render.
+ * Helper to highlight HTML string without breaking DOM
  */
-const Article = memo(({ content, isLoading, onNavigate }) => {
-  // Cheap stable key: first 64 chars of content. Changes only when
-  // the actual article changes, which re-mounts the div and replays
-  // the articleFadeIn / contentFadeIn animations.
+const highlightHTML = (html, query, activeIndex) => {
+  if (!html) return { html: '', totalMatches: 0 };
+  if (!query || !query.trim()) return { html, totalMatches: 0 };
+  
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  
+  const searchStr = query.trim().toLowerCase();
+  const escapedQuery = searchStr.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+  const regex = new RegExp(`(${escapedQuery})`, 'gi');
+  
+  const treeWalker = document.createTreeWalker(
+    div,
+    NodeFilter.SHOW_TEXT,
+    {
+      acceptNode: function(node) {
+        if (node.parentNode.nodeName === 'SCRIPT' || node.parentNode.nodeName === 'STYLE') {
+          return NodeFilter.FILTER_REJECT;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    },
+    false
+  );
+  
+  const nodesToReplace = [];
+  let currentNode;
+  while (currentNode = treeWalker.nextNode()) {
+    if (currentNode.nodeValue.toLowerCase().includes(searchStr)) {
+      nodesToReplace.push(currentNode);
+    }
+  }
+
+  let totalMatches = 0;
+
+  nodesToReplace.forEach(node => {
+    const text = node.nodeValue;
+    const parent = node.parentNode;
+    const fragment = document.createDocumentFragment();
+    let lastIndex = 0;
+    let match;
+    
+    // Reset regex index for each node
+    regex.lastIndex = 0;
+
+    while ((match = regex.exec(text)) !== null) {
+      if (match.index > lastIndex) {
+        fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+      }
+      const mark = document.createElement('mark');
+      mark.className = 'search-highlight';
+      
+      if (totalMatches === activeIndex) {
+        mark.className += ' search-highlight-active';
+      }
+      
+      mark.textContent = match[0];
+      fragment.appendChild(mark);
+      lastIndex = regex.lastIndex;
+      totalMatches++;
+    }
+    
+    if (lastIndex < text.length) {
+      fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+    }
+    
+    parent.replaceChild(fragment, node);
+  });
+  
+  return { html: div.innerHTML, totalMatches };
+};
+
+/**
+ * Article content component
+ */
+const Article = memo(({ content, isLoading, onNavigate, searchQuery, currentMatchIndex, onMatchesFound }) => {
   const contentRef = useRef(null);
+  
+  // Stable key for animations
   const contentKey = useMemo(
     () => (content ? content.slice(0, 64) : 'empty'),
     [content]
   );
 
+  // Parse and inject highlights into raw HTML
+  const { html: highlightedContent, totalMatches } = useMemo(() => {
+    return highlightHTML(content, searchQuery, currentMatchIndex);
+  }, [content, searchQuery, currentMatchIndex]);
+
+  // Report match count to parent
+  useEffect(() => {
+    if (onMatchesFound) {
+      onMatchesFound(totalMatches);
+    }
+  }, [totalMatches, onMatchesFound]);
+
+  // Handle internal link navigation
   useEffect(() => {
     const container = contentRef.current;
     if (!container || !onNavigate) return;
@@ -44,6 +129,21 @@ const Article = memo(({ content, isLoading, onNavigate }) => {
     container.addEventListener('click', handleClick);
     return () => container.removeEventListener('click', handleClick);
   }, [contentKey, onNavigate]);
+
+  // Scroll to active match when it changes
+  useEffect(() => {
+    if (!contentRef.current || totalMatches === 0) return;
+    
+    // Small timeout to allow React to flush the dangerouslySetInnerHTML
+    const timer = setTimeout(() => {
+      const activeMark = contentRef.current.querySelector('.search-highlight-active');
+      if (activeMark) {
+        activeMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 50);
+    
+    return () => clearTimeout(timer);
+  }, [currentMatchIndex, highlightedContent, totalMatches]);
 
   return (
     <article className="article">
@@ -70,7 +170,7 @@ const Article = memo(({ content, isLoading, onNavigate }) => {
               ease: [0.22, 1, 0.36, 1]
             }}
             className="article-content"
-            dangerouslySetInnerHTML={{ __html: content }}
+            dangerouslySetInnerHTML={{ __html: highlightedContent }}
           />
         )}
       </AnimatePresence>

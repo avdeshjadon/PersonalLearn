@@ -2,6 +2,9 @@ import { memo, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getNumberFromSlug, cleanTitle, filterStructure } from '../utils/helpers';
 
+import { Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
+
 /**
  * Sidebar component with search and topic groups
  */
@@ -25,7 +28,10 @@ const Sidebar = memo(({
 
   return (
     <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
-      <div className="brand">{brandText}</div>
+      <Link to="/learning-hub" className="brand" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', transition: 'color 0.2s ease' }} title="Back to Learning Hub">
+        <ArrowLeft size={18} />
+        {brandText}
+      </Link>
       <input
         type="text"
         className="search-input"

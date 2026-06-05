@@ -12,44 +12,58 @@ const TopNav = memo(({
   isDark,
   isPresentationMode,
   onPresentationToggle,
+  searchQuery,
+  onSearchChange,
+  matchCount,
+  currentMatchIndex,
+  onNextMatch,
+  onPrevMatch,
 }) => {
   return (
     <div className="folder-nav-top">
       <div className="nav-container">
-        <div className="nav-buttons">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={`folder-btn ${currentFolder === 'java' ? 'active' : ''}`}
-            onClick={() => onFolderSwitch('java')}
-          >
-            <span>Java</span>
-          </motion.button>
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={`folder-btn ${currentFolder === 'oops' ? 'active' : ''}`}
-            onClick={() => onFolderSwitch('oops')}
-          >
-            <span>OOPs</span>
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={`folder-btn ${currentFolder === 'interview' ? 'active' : ''}`}
-            onClick={() => onFolderSwitch('interview')}
-          >
-            <span>Interview</span>
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={`folder-btn ${currentFolder === 'postman' ? 'active' : ''}`}
-            onClick={() => onFolderSwitch('postman')}
-          >
-            <span>Postman</span>
-          </motion.button>
+        <div className="nav-buttons" style={{ flex: 1, paddingRight: '20px' }}>
+          <div className="search-bar" style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            backgroundColor: 'var(--bg-app)', 
+            borderRadius: '100px', 
+            padding: '10px 20px',
+            border: '1px solid var(--md-border)',
+            width: '100%',
+            maxWidth: '600px',
+            transition: 'all 0.2s ease'
+          }}>
+            <i className="fa-solid fa-search" style={{ color: 'var(--md-text-muted)', marginRight: '12px', fontSize: '15px' }}></i>
+            <input 
+              type="text" 
+              placeholder="Find in page..." 
+              value={searchQuery}
+              onChange={(e) => onSearchChange(e.target.value)}
+              style={{ 
+                border: 'none', 
+                background: 'transparent', 
+                outline: 'none', 
+                width: '100%', 
+                color: 'var(--md-text)',
+                fontSize: '15px',
+                fontWeight: '500'
+              }}
+            />
+            {searchQuery && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--md-text-muted)', fontSize: '13px', marginLeft: '8px' }}>
+                <span style={{ whiteSpace: 'nowrap' }}>
+                  {matchCount > 0 ? `${currentMatchIndex + 1} / ${matchCount}` : '0 / 0'}
+                </span>
+                <button onClick={onPrevMatch} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'inherit', padding: '0 4px' }}>
+                  <i className="fa-solid fa-chevron-up"></i>
+                </button>
+                <button onClick={onNextMatch} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'inherit', padding: '0 4px' }}>
+                  <i className="fa-solid fa-chevron-down"></i>
+                </button>
+              </div>
+            )}
+          </div>
         </div>
         <div className="nav-actions">
           <motion.button

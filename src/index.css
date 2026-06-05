@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #f6ecd2;
-  --paper: #fffdf6;
-  --accent: #2b6f6f;
-  --muted: #7a6f5a;
-  --ink: #222;
+  --bg: #fdfbf7;
+  --paper: #ffffff;
+  --accent: #d97757;
+  --muted: #555555;
+  --ink: var(--ink)222;
   --content-width: 900px;
 
   /* Ultra-smooth easing curves */
@@ -29,12 +29,12 @@
   --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16);
 
   /* Markdown render vars */
-  --md-bg: #faf6ea;
-  --md-text: #222;
-  --md-text-muted: #666;
-  --md-accent: #2b6f6f;
-  --md-code-bg: #fdf5e1;
-  --md-border: rgba(0, 0, 0, 0.1);
+  --md-bg: #fdfbf7;
+  --md-text: var(--ink)222;
+  --md-text-muted: #555555;
+  --md-accent: #d97757;
+  --md-code-bg: #f5f4ef;
+  --md-border: #e8e6e1;
 
   /* Safe areas for notched phones */
   --safe-top: env(safe-area-inset-top, 0px);
@@ -58,6 +58,26 @@ html {
 .toc-panel,
 .toc-fab {
   will-change: transform;
+}
+
+mark.search-highlight {
+  background-color: var(--accent);
+  color: #fff;
+  border-radius: 2px;
+  padding: 0 2px;
+  font-weight: inherit;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+mark.search-highlight-active {
+  background-color: #ff4500;
+  color: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 0 0 4px rgba(255, 69, 0, 0.3);
+  display: inline-block;
+  transition: all 0.2s;
+  z-index: 10;
+  position: relative;
 }
 
 /* Smooth scrolling containers */
@@ -124,7 +144,7 @@ body.js-fadein {
 }
 
 .folder-nav-top {
-  background: #f6ecd2;
+  background: var(--bg);
   border-bottom: none;
   position: sticky;
   top: -20px;
@@ -206,9 +226,9 @@ body.js-fadein {
 }
 
 .folder-btn.active {
-  background: #2b6f6f;
+  background: var(--accent);
   color: white;
-  border-color: #2b6f6f;
+  border-color: var(--accent);
 }
 
 .folder-btn.active:hover {
@@ -498,7 +518,7 @@ body.js-fadein {
 .subitems {
   margin: 8px 20px;
   font-size: 12px;
-  color: #7a6f5a;
+  color: var(--muted);
   padding: 8px 12px;
   background: rgba(122, 111, 90, 0.05);
   border-radius: 8px;
@@ -920,19 +940,19 @@ body.js-fadein {
 
 /* Premium Warm Dark Theme */
 body.dark {
-  --bg: #121212;
-  --paper: #1a1a1a;
-  --accent: #e8b66d;
-  --muted: #8a8a8a;
-  --ink: #e8e6e3;
+  --bg: #181817;
+  --paper: var(--ink)221;
+  --accent: #e16e5b;
+  --muted: #a3a19a;
+  --ink: #e5e3db;
 
   /* Dark markdown vars */
-  --md-bg: #1a1a1a;
-  --md-text: #e8e6e3;
-  --md-text-muted: #9a9a9a;
-  --md-accent: #e8b66d;
-  --md-code-bg: #0d0d0d;
-  --md-border: rgba(255, 255, 255, 0.08);
+  --md-bg: var(--ink)221;
+  --md-text: #e5e3db;
+  --md-text-muted: #a3a19a;
+  --md-accent: #e16e5b;
+  --md-code-bg: #2a2a29;
+  --md-border: #3a3a39;
 }
 
 body.dark .sidebar {
@@ -2336,4 +2356,38 @@ body.dark .presentation-nav-btn:hover {
 
 .presentation-exit-btn.visible:hover {
   opacity: 1;
+}
+
+/* ==========================================================================
+   UNIVERSAL RESPONSIVENESS overrides for Notes App
+   ========================================================================== */
+
+/* 1. Ultrawide Monitors (min-width: 1441px) */
+@media (min-width: 1441px) {
+  .article-content {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+}
+
+/* 2. Responsive padding for Mobile */
+@media (max-width: 768px) {
+  .content {
+    padding: 16px;
+  }
+  .article-content {
+    padding-bottom: 60px; /* Space for mobile nav */
+  }
+  .folder-nav-top {
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .folder-nav-top {
+    padding: 12px;
+  }
+  .search-bar {
+    max-width: 100% !important;
+  }
 }

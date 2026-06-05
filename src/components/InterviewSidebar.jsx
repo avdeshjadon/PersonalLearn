@@ -1,6 +1,8 @@
 import { memo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getInterviewStructure } from '../data/interviewStructure';
+import { Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 
 /**
  * Interview Sidebar with question navigation
@@ -35,7 +37,10 @@ const InterviewSidebar = memo(({ isOpen, onClose }) => {
 
   return (
     <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
-      <div className="brand">Interview Prep</div>
+      <Link to="/learning-hub" className="brand" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', transition: 'color 0.2s ease' }} title="Back to Learning Hub">
+        <ArrowLeft size={18} />
+        Interview Prep
+      </Link>
       <nav className="sidebar-list">
         {structure.map((group, gidx) => (
           <div
