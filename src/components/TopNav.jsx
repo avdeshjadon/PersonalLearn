@@ -18,6 +18,8 @@ const TopNav = memo(({
   currentMatchIndex,
   onNextMatch,
   onPrevMatch,
+  isBookmarked,
+  onBookmarkToggle,
 }) => {
   return (
     <div className="folder-nav-top">
@@ -85,6 +87,17 @@ const TopNav = memo(({
             onClick={onDarkToggle}
           >
             <i className={isDark ? 'fa-solid fa-sun' : 'fa-regular fa-moon'}></i>
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className={`dark-toggle ${isBookmarked ? 'active' : ''}`}
+            style={{ color: isBookmarked ? '#D97757' : '' }}
+            title={isBookmarked ? 'Remove Bookmark' : 'Add Bookmark'}
+            aria-label="Toggle bookmark"
+            onClick={onBookmarkToggle}
+          >
+            <i className={isBookmarked ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'}></i>
           </motion.button>
           <motion.button
             whileHover={{ scale: 1.1 }}

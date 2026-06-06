@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from "react";
-import { useNotes, useTheme, useSidebar } from "./hooks";
+import { useNotes, useTheme, useSidebar, useBookmarks } from "./hooks";
 import {
   Sidebar,
   InterviewSidebar,
@@ -98,6 +98,18 @@ function NotesApp({ topic }) {
     navigateTo,
     switchFolder,
   } = useNotes(sidebar.expandGroup);
+
+  const { isBookmarked, toggleBookmark } = useBookmarks();
+  
+  const currentTopic = manifest.find(x => x.slug === currentSlug);
+  const currentTitle = currentTopic ? currentTopic.title : "";
+  const bookmarked = isBookmarked(currentFolder, currentSlug);
+
+  const handleBookmarkToggle = useCallback(() => {
+    if (currentSlug && currentTitle) {
+      toggleBookmark(currentFolder, currentSlug, currentTitle);
+    }
+  }, [currentFolder, currentSlug, currentTitle, toggleBookmark]);
 
   // Sync with URL parameter topic
   useEffect(() => {
@@ -247,6 +259,8 @@ function NotesApp({ topic }) {
             currentMatchIndex={currentMatchIndex}
             onNextMatch={handleNextMatch}
             onPrevMatch={handlePrevMatch}
+            isBookmarked={bookmarked}
+            onBookmarkToggle={handleBookmarkToggle}
           />
         )}
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useParams, Navigate } from 'react-router-dom';
-import { Dashboard, OverviewContent, LearningHubContent, SettingsContent, TasksContent } from './components/dashboard';
+import { Dashboard, OverviewContent, LearningHubContent, SettingsContent, TasksContent, BookmarksContent } from './components/dashboard';
 import NotesApp from './NotesApp';
 import { useTheme } from './hooks';
 
@@ -25,7 +25,7 @@ function App() {
         <Route path="/" element={<Dashboard />}>
           <Route index element={<OverviewContent />} />
           <Route path="learning-hub" element={<LearningHubContent />} />
-          <Route path="bookmarks" element={<div style={{padding: '40px'}}><h2>Bookmarks (Coming Soon)</h2></div>} />
+          <Route path="bookmarks" element={<BookmarksContent />} />
           <Route path="flashcards" element={<div style={{padding: '40px'}}><h2>Flashcards (Coming Soon)</h2></div>} />
           <Route path="analytics" element={<div style={{padding: '40px'}}><h2>Analytics (Coming Soon)</h2></div>} />
           <Route path="settings" element={<SettingsContent />} />

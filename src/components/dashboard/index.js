@@ -7,3 +7,4 @@ export { OverviewContent } from './OverviewContent';
 export { LearningHubContent } from './LearningHubContent';
 export { SettingsContent } from './SettingsContent';
 export { TasksContent } from './TasksContent';
+export { BookmarksContent } from './BookmarksContent';
