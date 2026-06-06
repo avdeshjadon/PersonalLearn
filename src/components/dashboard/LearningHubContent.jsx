@@ -9,7 +9,7 @@ export function LearningHubContent() {
     <div className="learning-hub-container">
       <header className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between text-left">
         <div className="w-full">
-          <h1 className="text-[40px] font-semibold text-gray-900 tracking-[-1.5px] leading-[1.2] mb-1">
+          <h1 className="text-[40px] font-semibold text-[var(--text-primary)] tracking-[-1.5px] leading-[1.2] mb-1">
             Learning Hub
           </h1>
         </div>

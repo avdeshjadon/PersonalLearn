@@ -43,7 +43,7 @@ export function DashboardStats() {
             </div>
           </div>
           <button className="more-btn">
-            <MoreHorizontal size={16} className="text-gray-400" />
+            <MoreHorizontal size={16} className="text-[var(--text-secondary)]" />
           </button>
         </div>
       ))}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useTasks } from "../../hooks";
+import { useTasks, useSettings } from "../../hooks";
 import {
   PieChart,
   Pie,
@@ -21,6 +21,7 @@ export function OverviewContent() {
   const [time, setTime] = useState(new Date());
   const [selectedMonth, setSelectedMonth] = useState(new Date());
   const { tasks, toggleTaskCompletion, loading } = useTasks();
+  const { settings } = useSettings();
 
   const handlePrevMonth = () => {
     setSelectedMonth(
@@ -50,9 +51,10 @@ export function OverviewContent() {
 
   const getGreeting = () => {
     const hour = time.getHours();
-    if (hour < 12) return "Good Morning Avdesh";
-    if (hour < 17) return "Good Afternoon Avdesh";
-    return "Good Evening Avdesh";
+    const name = settings?.profile?.fullName || "User";
+    if (hour < 12) return `Good Morning ${name}`;
+    if (hour < 17) return `Good Afternoon ${name}`;
+    return `Good Evening ${name}`;
   };
 
   // Prepare Today's Chart Data

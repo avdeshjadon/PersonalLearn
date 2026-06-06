@@ -8,3 +8,5 @@ export { LearningHubContent } from './LearningHubContent';
 export { SettingsContent } from './SettingsContent';
 export { TasksContent } from './TasksContent';
 export { BookmarksContent } from './BookmarksContent';
+export { FlashcardsContent } from './FlashcardsContent';
+export { AnalyticsContent } from './AnalyticsContent';

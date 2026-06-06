@@ -79,7 +79,7 @@ export function DashboardCharts() {
                 </PieChart>
               </ResponsiveContainer>
               <div className="radial-inner">
-                <Users size={20} className="text-gray-400" />
+                <Users size={20} className="text-[var(--text-secondary)]" />
               </div>
               <div className="radial-badge">28%</div>
             </div>

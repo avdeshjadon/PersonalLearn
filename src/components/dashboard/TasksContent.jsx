@@ -71,7 +71,7 @@ export function TasksContent() {
     <div className="max-w-5xl w-full mx-auto px-6 py-6 min-h-full">
       <header className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between text-left">
         <div className="w-full">
-          <h1 className="text-[40px] font-semibold text-gray-900 tracking-[-1.5px] leading-[1.2] mb-1">My Tasks</h1>
+          <h1 className="text-[40px] font-semibold text-[var(--text-primary)] tracking-[-1.5px] leading-[1.2] mb-1">My Tasks</h1>
         </div>
       </header>
 
@@ -79,7 +79,7 @@ export function TasksContent() {
       <motion.div 
         initial={{ y: -10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="bg-white/80 backdrop-blur-md p-6 rounded-2xl border border-gray-100 shadow-sm mb-8 relative overflow-hidden w-full"
+        className="bg-[var(--bg-card)] backdrop-blur-md p-6 rounded-2xl border border-[var(--border-color)] shadow-sm mb-8 relative overflow-hidden w-full"
       >
         <form onSubmit={handleAddTask} className="flex flex-col sm:flex-row gap-4 relative z-10">
           <input
@@ -87,7 +87,7 @@ export function TasksContent() {
             value={newTaskTitle}
             onChange={(e) => setNewTaskTitle(e.target.value)}
             placeholder="What's on your mind today?"
-            className="flex-1 px-4 py-3.5 rounded-xl bg-gray-50 border border-gray-200 focus:border-orange-300 focus:bg-white focus:ring-2 focus:ring-orange-100 text-gray-800 text-base transition-all duration-200 outline-none placeholder:text-gray-400 font-medium"
+            className="flex-1 px-4 py-3.5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] focus:border-orange-300 focus:bg-[var(--bg-primary)] focus:ring-2 focus:ring-orange-100 text-[var(--text-primary)] text-base transition-all duration-200 outline-none placeholder:text-[var(--text-secondary)] font-medium"
           />
           <button 
             type="submit"
@@ -107,12 +107,12 @@ export function TasksContent() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
-              className="col-span-full flex flex-col items-center justify-center py-10 text-gray-400"
+              className="col-span-full flex flex-col items-center justify-center py-10 text-[var(--text-secondary)]"
             >
-              <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3">
+              <div className="w-12 h-12 bg-[var(--bg-secondary)] rounded-full flex items-center justify-center mb-3">
                 <CheckSquare size={24} className="text-gray-300" strokeWidth={1.5} />
               </div>
-              <p className="text-base font-semibold text-gray-500">No tasks yet.</p>
+              <p className="text-base font-semibold text-[var(--text-secondary)]">No tasks yet.</p>
             </motion.div>
           ) : (
             taskGroups.map((group) => (
@@ -122,10 +122,10 @@ export function TasksContent() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
-                className="bg-white/80 backdrop-blur-md p-3.5 rounded-xl border border-gray-200 shadow-sm w-full"
+                className="bg-[var(--bg-card)] backdrop-blur-md p-3.5 rounded-xl border border-[var(--border-color)] shadow-sm w-full"
               >
-                <div className="flex items-center mb-2 pb-1.5 border-b border-gray-100">
-                  <h2 className="text-[15px] font-bold text-gray-800 tracking-tight">
+                <div className="flex items-center mb-2 pb-1.5 border-b border-[var(--border-color)]">
+                  <h2 className="text-[15px] font-bold text-[var(--text-primary)] tracking-tight">
                     {group.label}
                   </h2>
                 </div>
@@ -190,16 +190,16 @@ function TaskItem({ task, toggle, del, startEditing, editingId, editTitle, setEd
               value={editTitle} 
               onChange={e => setEditTitle(e.target.value)}
               onKeyDown={e => { if(e.key === 'Enter') saveEdit(); if(e.key === 'Escape') cancelEdit(); }}
-              className="flex-1 px-1.5 py-0.5 rounded border border-orange-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-100 outline-none text-gray-800 bg-white text-[13px] transition-all"
+              className="flex-1 px-1.5 py-0.5 rounded border border-orange-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-100 outline-none text-[var(--text-primary)] bg-white text-[13px] transition-all"
             />
             <button onClick={saveEdit} className="px-2 py-0.5 bg-orange-500 hover:bg-orange-600 text-white text-[11px] font-bold rounded shadow-sm">Save</button>
-            <button onClick={cancelEdit} className="p-0.5 text-gray-400 hover:text-gray-600 rounded"><X size={12}/></button>
+            <button onClick={cancelEdit} className="p-0.5 text-[var(--text-secondary)] hover:text-[var(--text-secondary)] rounded"><X size={12}/></button>
           </div>
         ) : (
           <span className={`text-[13px] font-medium truncate transition-all duration-200 ${
             isCompleted ? 'text-[#10B981]' : 
             isMissed ? 'text-red-400 line-through' : 
-            'text-gray-700'
+            'text-[var(--text-primary)]'
           }`}>
             {task.title}
           </span>
@@ -210,14 +210,14 @@ function TaskItem({ task, toggle, del, startEditing, editingId, editTitle, setEd
         <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pl-1">
           <button 
             onClick={() => startEditing(task)}
-            className="p-1 text-gray-400 hover:text-orange-500 rounded"
+            className="p-1 text-[var(--text-secondary)] hover:text-orange-500 rounded"
             title="Edit Task"
           >
             <Edit2 size={13} strokeWidth={2.5} />
           </button>
           <button 
             onClick={() => del(task.id)}
-            className="p-1 text-gray-400 hover:text-red-500 rounded"
+            className="p-1 text-[var(--text-secondary)] hover:text-red-500 rounded"
             title="Delete Task"
           >
             <Trash2 size={13} strokeWidth={2.5} />

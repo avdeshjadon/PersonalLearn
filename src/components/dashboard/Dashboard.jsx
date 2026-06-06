@@ -58,7 +58,7 @@ export function Dashboard() {
         </div>
 
         {/* Footer */}
-        <footer className="w-full text-center py-6 mt-auto text-[14px] font-medium text-gray-400">
+        <footer className="w-full text-center py-6 mt-auto text-[14px] font-medium text-[var(--text-secondary)]">
           Made by Avdesh for Avdesh
         </footer>
       </main>
