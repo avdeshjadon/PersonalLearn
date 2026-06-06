@@ -81,7 +81,7 @@ export function BookmarksContent() {
                 </div>
 
                 <div className="flex-1">
-                  <h3 className="text-[16px] font-bold text-gray-800 leading-snug line-clamp-2 mb-1 group-hover:text-orange-600 transition-colors">
+                  <h3 className="text-[16px] font-bold text-gray-800 leading-snug line-clamp-2 mb-1 group-hover:text-[#D97757] transition-colors">
                     {bookmark.title}
                   </h3>
                   <p className="text-xs text-gray-400 mt-2">
@@ -89,7 +89,7 @@ export function BookmarksContent() {
                   </p>
                 </div>
                 
-                <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-orange-500 text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-[#D97757] text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                   <span>Read Note</span>
                   <ArrowRight size={16} strokeWidth={2.5} />
                 </div>

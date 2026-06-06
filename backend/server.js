@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import { connectDB } from './config/db.js';
 import noteRoutes from './routes/noteRoutes.js';
 import taskRoutes from './routes/taskRoutes.js';
+import bookmarkRoutes from './routes/bookmarkRoutes.js';
 import { startSync } from './services/syncService.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -21,6 +22,7 @@ app.use(express.json());
 // API Routes
 app.use('/api/notes', noteRoutes);
 app.use('/api/tasks', taskRoutes);
+app.use('/api/bookmarks', bookmarkRoutes);
 
 const PORT = 5001;
 
