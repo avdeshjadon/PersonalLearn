@@ -21,7 +21,7 @@ export function Dashboard() {
         onOpenTaskModal={() => setIsTaskModalOpen(true)}
       />
       
-      <main className="dashboard-main">
+      <main className="dashboard-main flex flex-col min-h-screen">
         {/* Top Header - Only shown in Learning Hub */}
         {isLearningHub && (
           <header className="dashboard-header">
@@ -53,9 +53,14 @@ export function Dashboard() {
         )}
 
         {/* Content Area */}
-        <div className="dashboard-content">
+        <div className="dashboard-content flex-1">
           <Outlet context={{ searchQuery }} />
         </div>
+
+        {/* Footer */}
+        <footer className="w-full text-center py-6 mt-auto text-[14px] font-medium text-gray-400">
+          Made by Avdesh for Avdesh
+        </footer>
       </main>
       <CreateTaskModal isOpen={isTaskModalOpen} onClose={() => setIsTaskModalOpen(false)} />
     </div>
