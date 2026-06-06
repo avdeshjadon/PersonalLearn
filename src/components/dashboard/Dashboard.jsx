@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { SidebarNav } from './SidebarNav';
 import { Search, Menu } from 'lucide-react';
 import { Outlet, useLocation } from 'react-router-dom';
+import { CreateTaskModal } from './CreateTaskModal';
 import './Dashboard.css';
 
 export function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
 
@@ -13,7 +15,11 @@ export function Dashboard() {
 
   return (
     <div className="dashboard-layout">
-      <SidebarNav isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+      <SidebarNav 
+        isOpen={isSidebarOpen} 
+        onClose={() => setIsSidebarOpen(false)} 
+        onOpenTaskModal={() => setIsTaskModalOpen(true)}
+      />
       
       <main className="dashboard-main">
         {/* Top Header - Only shown in Learning Hub */}
@@ -51,6 +57,7 @@ export function Dashboard() {
           <Outlet context={{ searchQuery }} />
         </div>
       </main>
+      <CreateTaskModal isOpen={isTaskModalOpen} onClose={() => setIsTaskModalOpen(false)} />
     </div>
   );
 }

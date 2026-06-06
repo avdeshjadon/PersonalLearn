@@ -1,98 +1,108 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const taskDir = path.join(__dirname, '..', '..', 'public', 'notes', 'task');
-
-// Ensure task directory exists
-if (!fs.existsSync(taskDir)) {
-  fs.mkdirSync(taskDir, { recursive: true });
-}
+import mongoose from 'mongoose';
 
 // Get all tasks
-export const getTasks = (req, res) => {
+export const getTasks = async (req, res) => {
   try {
-    const tasks = [];
-    if (fs.existsSync(taskDir)) {
-      const files = fs.readdirSync(taskDir);
-      files.forEach(file => {
-        if (file.endsWith('.md')) {
-          const content = fs.readFileSync(path.join(taskDir, file), 'utf-8');
-          try {
-            const taskData = JSON.parse(content);
-            tasks.push(taskData);
-          } catch (e) {
-            console.error(`Error parsing task file ${file}:`, e.message);
-          }
-        }
-      });
-    }
+    const db = mongoose.connection.db;
+    if (!db) return res.status(500).json({ error: 'Database not initialized' });
+
+    // Fetch from tasks collection
+    const tasks = await db.collection('tasks').find().sort({ createdAt: -1 }).toArray();
     
-    // Sort tasks by createdAt descending
-    tasks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    
-    res.json(tasks);
+    // Map _id to id to match frontend expectation (optional but good practice)
+    const formattedTasks = tasks.map(task => {
+      const { _id, ...rest } = task;
+      return { id: _id.toString(), ...rest };
+    });
+
+    res.json(formattedTasks);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
 // Create task
-export const createTask = (req, res) => {
+export const createTask = async (req, res) => {
   try {
     const { title } = req.body;
     if (!title) return res.status(400).json({ error: 'Title is required' });
 
+    const db = mongoose.connection.db;
+    if (!db) return res.status(500).json({ error: 'Database not initialized' });
+
     const newTask = {
-      id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
       title: title.trim(),
       createdAt: new Date().toISOString(),
       completedAt: null,
       status: 'pending'
     };
 
-    const filePath = path.join(taskDir, `${newTask.id}.md`);
-    fs.writeFileSync(filePath, JSON.stringify(newTask, null, 2));
-
-    res.status(201).json(newTask);
+    const result = await db.collection('tasks').insertOne(newTask);
+    
+    // Return created task matching frontend expectation
+    res.status(201).json({
+      id: result.insertedId.toString(),
+      ...newTask
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
 // Update task
-export const updateTask = (req, res) => {
+export const updateTask = async (req, res) => {
   try {
     const { id } = req.params;
     const updates = req.body;
-    const filePath = path.join(taskDir, `${id}.md`);
+    
+    const db = mongoose.connection.db;
+    if (!db) return res.status(500).json({ error: 'Database not initialized' });
 
-    if (!fs.existsSync(filePath)) {
+    let queryId;
+    try {
+      queryId = new mongoose.Types.ObjectId(id);
+    } catch (e) {
+      // If it's not a valid ObjectId, try falling back to string match in case old frontend sent custom ID
+      queryId = id;
+    }
+
+    const result = await db.collection('tasks').findOneAndUpdate(
+      { $or: [{ _id: queryId }, { id: id }] },
+      { $set: updates },
+      { returnDocument: 'after' }
+    );
+
+    if (!result) {
       return res.status(404).json({ error: 'Task not found' });
     }
 
-    const content = fs.readFileSync(filePath, 'utf-8');
-    const taskData = JSON.parse(content);
-    
-    const updatedTask = { ...taskData, ...updates };
-    fs.writeFileSync(filePath, JSON.stringify(updatedTask, null, 2));
-
-    res.json(updatedTask);
+    const { _id, ...rest } = result;
+    res.json({ id: _id.toString(), ...rest });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
 // Delete task
-export const deleteTask = (req, res) => {
+export const deleteTask = async (req, res) => {
   try {
     const { id } = req.params;
-    const filePath = path.join(taskDir, `${id}.md`);
+    
+    const db = mongoose.connection.db;
+    if (!db) return res.status(500).json({ error: 'Database not initialized' });
 
-    if (fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
+    let queryId;
+    try {
+      queryId = new mongoose.Types.ObjectId(id);
+    } catch (e) {
+      queryId = id;
+    }
+
+    const result = await db.collection('tasks').deleteOne({
+      $or: [{ _id: queryId }, { id: id }]
+    });
+
+    if (result.deletedCount === 1) {
       res.json({ success: true, message: 'Task deleted' });
     } else {
       res.status(404).json({ error: 'Task not found' });

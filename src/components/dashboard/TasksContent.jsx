@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTasks } from '../../hooks';
-import { Plus, Edit2, Trash2, CheckCircle, Circle, X } from 'lucide-react';
+import { Plus, Edit2, Trash2, CheckCircle, Circle, X, Calendar as CalendarIcon, CheckSquare } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export function TasksContent() {
   const { tasks, addTask, updateTask, deleteTask, toggleTaskCompletion } = useTasks();
@@ -32,107 +33,126 @@ export function TasksContent() {
     setEditTitle('');
   };
 
-  const pendingTasks = tasks.filter(t => t.status === 'pending');
-  const completedTasks = tasks.filter(t => t.status === 'completed');
-  const uncompletedTasks = tasks.filter(t => t.status === 'uncompleted');
+  const groupTasksByDate = (tasksList) => {
+    const groups = {};
+    tasksList.forEach(task => {
+      const date = task.createdAt ? new Date(task.createdAt) : new Date();
+      date.setHours(0, 0, 0, 0);
+      const dateStr = date.toISOString();
+      
+      if (!groups[dateStr]) {
+        groups[dateStr] = [];
+      }
+      groups[dateStr].push(task);
+    });
+
+    const sortedDates = Object.keys(groups).sort((a, b) => new Date(b) - new Date(a));
+    
+    return sortedDates.map(dateStr => {
+      const dateObj = new Date(dateStr);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const yesterday = new Date(today);
+      yesterday.setDate(yesterday.getDate() - 1);
+
+      const label = dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+
+      return {
+        label,
+        date: dateStr,
+        tasks: groups[dateStr]
+      };
+    });
+  };
+
+  const taskGroups = groupTasksByDate(tasks);
 
   return (
-    <div className="tasks-container" style={{ padding: '20px 40px', maxWidth: '1000px', margin: '0 auto' }}>
-      <header style={{ marginBottom: '32px' }}>
-        <h1 style={{ fontSize: '32px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '8px' }}>Your Tasks</h1>
-        <p style={{ color: 'var(--text-secondary)' }}>Manage your daily goals and track your progress.</p>
+    <div className="max-w-5xl mx-auto px-6 py-6 min-h-full">
+      <header className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between text-center sm:text-left">
+        <div className="w-full">
+          <h1 className="text-[40px] font-semibold text-gray-900 tracking-[-1.5px] leading-[1.2] mb-1">My Tasks</h1>
+          <p className="text-gray-500 text-sm font-medium mt-1">Capture your ideas, goals, and daily todos.</p>
+        </div>
       </header>
 
-      <div style={{ backgroundColor: 'var(--bg-card)', padding: '24px', borderRadius: '16px', border: '1px solid var(--border-color)', marginBottom: '32px' }}>
-        <form onSubmit={handleAddTask} style={{ display: 'flex', gap: '12px' }}>
+      {/* Input Section */}
+      <motion.div 
+        initial={{ y: -10, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        className="bg-white/80 backdrop-blur-md p-6 rounded-2xl border border-gray-100 shadow-sm mb-8 relative overflow-hidden w-full"
+      >
+        <form onSubmit={handleAddTask} className="flex flex-col sm:flex-row gap-4 relative z-10">
           <input
             type="text"
             value={newTaskTitle}
             onChange={(e) => setNewTaskTitle(e.target.value)}
-            placeholder="What needs to be done today?"
-            style={{ 
-              flex: 1, 
-              padding: '16px', 
-              borderRadius: '12px', 
-              border: '1px solid var(--border-color)', 
-              backgroundColor: 'var(--bg-primary)', 
-              color: 'var(--text-primary)',
-              fontSize: '16px',
-              outline: 'none',
-              transition: 'border-color 0.2s'
-            }}
+            placeholder="What's on your mind today?"
+            className="flex-1 px-4 py-3.5 rounded-xl bg-gray-50 border border-gray-200 focus:border-orange-300 focus:bg-white focus:ring-2 focus:ring-orange-100 text-gray-800 text-base transition-all duration-200 outline-none placeholder:text-gray-400 font-medium"
           />
           <button 
             type="submit"
-            style={{ 
-              padding: '0 24px', 
-              backgroundColor: 'var(--accent-color)', 
-              color: 'white', 
-              border: 'none', 
-              borderRadius: '12px',
-              cursor: 'pointer',
-              fontWeight: '600',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              transition: 'opacity 0.2s'
-            }}
-            onMouseOver={(e) => e.currentTarget.style.opacity = '0.9'}
-            onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+            disabled={!newTaskTitle.trim()}
+            className="px-6 py-3.5 bg-[#D97757] hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-xl font-bold text-base shadow-sm transition-all duration-200 flex items-center justify-center gap-2 whitespace-nowrap"
           >
-            <Plus size={20} /> Add Task
+            <Plus size={20} strokeWidth={3} /> Add Task
           </button>
         </form>
-      </div>
+      </motion.div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-        
-        {/* Pending Tasks */}
-        <section>
-          <h2 style={{ fontSize: '20px', color: 'var(--text-primary)', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: 'var(--accent-color)', display: 'inline-block' }}></span>
-            To Do ({pendingTasks.length})
-          </h2>
-          {pendingTasks.length === 0 ? (
-             <p style={{ color: 'var(--text-secondary)', fontStyle: 'italic' }}>No pending tasks. You're all caught up!</p>
+      {/* Tasks List grouped by date */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 items-start w-full">
+        <AnimatePresence mode="popLayout">
+          {taskGroups.length === 0 ? (
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              className="col-span-full flex flex-col items-center justify-center py-10 text-gray-400"
+            >
+              <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3">
+                <CheckSquare size={24} className="text-gray-300" strokeWidth={1.5} />
+              </div>
+              <p className="text-base font-semibold text-gray-500">No tasks yet.</p>
+            </motion.div>
           ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {pendingTasks.map(task => (
-                <TaskItem key={task.id} task={task} toggle={toggleTaskCompletion} del={deleteTask} startEditing={startEditing} editingId={editingId} editTitle={editTitle} setEditTitle={setEditTitle} saveEdit={saveEdit} cancelEdit={cancelEdit} />
-              ))}
-            </div>
+            taskGroups.map((group) => (
+              <motion.section 
+                key={group.date}
+                initial={{ opacity: 0, scale: 0.98, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+                className="bg-white/80 backdrop-blur-md p-3.5 rounded-xl border border-gray-200 shadow-sm w-full"
+              >
+                <div className="flex items-center mb-2 pb-1.5 border-b border-gray-100">
+                  <h2 className="text-[15px] font-bold text-gray-800 tracking-tight">
+                    {group.label}
+                  </h2>
+                </div>
+
+                <div className="flex flex-col gap-0.5">
+                  <AnimatePresence>
+                    {group.tasks.map(task => (
+                      <TaskItem 
+                        key={task.id} 
+                        task={task} 
+                        toggle={toggleTaskCompletion} 
+                        del={deleteTask} 
+                        startEditing={startEditing} 
+                        editingId={editingId} 
+                        editTitle={editTitle} 
+                        setEditTitle={setEditTitle} 
+                        saveEdit={saveEdit} 
+                        cancelEdit={cancelEdit} 
+                      />
+                    ))}
+                  </AnimatePresence>
+                </div>
+              </motion.section>
+            ))
           )}
-        </section>
-
-        {/* Completed Tasks */}
-        {completedTasks.length > 0 && (
-          <section>
-            <h2 style={{ fontSize: '20px', color: 'var(--text-primary)', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', opacity: 0.8 }}>
-              <span style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#10B981', display: 'inline-block' }}></span>
-              Completed ({completedTasks.length})
-            </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', opacity: 0.7 }}>
-              {completedTasks.map(task => (
-                <TaskItem key={task.id} task={task} toggle={toggleTaskCompletion} del={deleteTask} startEditing={startEditing} editingId={editingId} editTitle={editTitle} setEditTitle={setEditTitle} saveEdit={saveEdit} cancelEdit={cancelEdit} />
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Uncompleted/Failed Tasks */}
-        {uncompletedTasks.length > 0 && (
-          <section>
-            <h2 style={{ fontSize: '20px', color: 'var(--text-primary)', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', opacity: 0.8 }}>
-              <span style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#EF4444', display: 'inline-block' }}></span>
-              Missed ({uncompletedTasks.length})
-            </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', opacity: 0.7 }}>
-              {uncompletedTasks.map(task => (
-                <TaskItem key={task.id} task={task} toggle={toggleTaskCompletion} del={deleteTask} startEditing={startEditing} editingId={editingId} editTitle={editTitle} setEditTitle={setEditTitle} saveEdit={saveEdit} cancelEdit={cancelEdit} />
-              ))}
-            </div>
-          </section>
-        )}
+        </AnimatePresence>
       </div>
     </div>
   );
@@ -140,72 +160,72 @@ export function TasksContent() {
 
 function TaskItem({ task, toggle, del, startEditing, editingId, editTitle, setEditTitle, saveEdit, cancelEdit }) {
   const isEditing = editingId === task.id;
+  const isCompleted = task.status === 'completed';
+  const isMissed = task.status === 'uncompleted';
 
   return (
-    <div style={{ 
-      display: 'flex', 
-      alignItems: 'center', 
-      justifyContent: 'space-between',
-      padding: '16px 20px', 
-      backgroundColor: 'var(--bg-primary)', 
-      borderRadius: '12px', 
-      border: '1px solid var(--border-color)',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
-      transition: 'all 0.2s ease',
-    }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1 }}>
+    <motion.div 
+      layout
+      initial={{ opacity: 0, y: 2 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, x: -5 }}
+      className="group flex items-center justify-between py-1 transition-all duration-200"
+    >
+      <div className="flex items-center gap-2 flex-1 overflow-hidden">
         <button 
           onClick={() => toggle(task.id)}
-          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, color: task.status === 'completed' ? '#10B981' : task.status === 'uncompleted' ? '#EF4444' : 'var(--text-secondary)' }}
+          className={`flex-shrink-0 transition-colors duration-200 focus:outline-none ${
+            isCompleted ? 'text-emerald-500' : 
+            isMissed ? 'text-red-400' : 
+            'text-gray-300 hover:text-orange-500'
+          }`}
         >
-          {task.status === 'completed' ? <CheckCircle size={24} /> : <Circle size={24} />}
+          {isCompleted ? <CheckCircle size={16} strokeWidth={2.5} /> : <Circle size={16} strokeWidth={2.5} />}
         </button>
         
         {isEditing ? (
-          <div style={{ display: 'flex', flex: 1, gap: '8px' }}>
+          <div className="flex flex-1 items-center gap-1.5">
             <input 
               autoFocus
               type="text" 
               value={editTitle} 
               onChange={e => setEditTitle(e.target.value)}
               onKeyDown={e => { if(e.key === 'Enter') saveEdit(); if(e.key === 'Escape') cancelEdit(); }}
-              style={{ flex: 1, padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--accent-color)', backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)', outline: 'none' }}
+              className="flex-1 px-1.5 py-0.5 rounded border border-orange-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-100 outline-none text-gray-800 bg-white text-[13px] transition-all"
             />
-            <button onClick={saveEdit} style={{ background: 'var(--accent-color)', color: 'white', border: 'none', borderRadius: '6px', padding: '0 12px', cursor: 'pointer' }}>Save</button>
-            <button onClick={cancelEdit} style={{ background: 'transparent', color: 'var(--text-secondary)', border: 'none', cursor: 'pointer' }}><X size={20}/></button>
+            <button onClick={saveEdit} className="px-2 py-0.5 bg-orange-500 hover:bg-orange-600 text-white text-[11px] font-bold rounded shadow-sm">Save</button>
+            <button onClick={cancelEdit} className="p-0.5 text-gray-400 hover:text-gray-600 rounded"><X size={12}/></button>
           </div>
         ) : (
-          <span style={{ 
-            fontSize: '16px', 
-            color: 'var(--text-primary)', 
-            textDecoration: task.status === 'completed' || task.status === 'uncompleted' ? 'line-through' : 'none',
-            flex: 1
-          }}>
+          <span className={`text-[13px] font-medium truncate transition-all duration-200 ${
+            isCompleted ? 'text-[#10B981]' : 
+            isMissed ? 'text-red-400 line-through' : 
+            'text-gray-700'
+          }`}>
             {task.title}
           </span>
         )}
       </div>
 
       {!isEditing && (
-        <div style={{ display: 'flex', gap: '8px' }}>
+        <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pl-1">
           <button 
             onClick={() => startEditing(task)}
-            style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', padding: '8px', borderRadius: '6px', transition: 'background 0.2s' }}
-            onMouseOver={e => e.currentTarget.style.backgroundColor = 'var(--bg-card)'}
-            onMouseOut={e => e.currentTarget.style.backgroundColor = 'transparent'}
+            className="p-1 text-gray-400 hover:text-orange-500 rounded"
+            title="Edit Task"
           >
-            <Edit2 size={18} />
+            <Edit2 size={13} strokeWidth={2.5} />
           </button>
           <button 
             onClick={() => del(task.id)}
-            style={{ background: 'none', border: 'none', color: '#EF4444', cursor: 'pointer', padding: '8px', borderRadius: '6px', transition: 'background 0.2s' }}
-            onMouseOver={e => e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.1)'}
-            onMouseOut={e => e.currentTarget.style.backgroundColor = 'transparent'}
+            className="p-1 text-gray-400 hover:text-red-500 rounded"
+            title="Delete Task"
           >
-            <Trash2 size={18} />
+            <Trash2 size={13} strokeWidth={2.5} />
           </button>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
+

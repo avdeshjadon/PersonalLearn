@@ -2,7 +2,7 @@ import React from 'react';
 import { LayoutDashboard, BookOpen, Bookmark, Zap, BarChart2, Settings, Plus, GraduationCap, CheckSquare } from 'lucide-react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-export function SidebarNav({ isOpen, onClose }) {
+export function SidebarNav({ isOpen, onClose, onOpenTaskModal }) {
   const navigate = useNavigate();
 
   const navItems = [
@@ -43,7 +43,7 @@ export function SidebarNav({ isOpen, onClose }) {
           <h2 style={{ color: 'var(--accent-color)', marginLeft: '8px', fontSize: '20px', fontWeight: '800', letterSpacing: '-0.5px' }}>P-Learn</h2>
         </div>
 
-        <button className="register-btn" onClick={() => { navigate('/tasks'); onClose(); }}>
+        <button className="register-btn" onClick={() => { onOpenTaskModal(); onClose(); }}>
           Create Task <Plus size={16} />
         </button>
 
