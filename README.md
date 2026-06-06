@@ -1,131 +1,109 @@
-# 📚 Avdesh's Notes
+# P-Learn (Personal Learning Hub)
 
-A beautiful, modern React application for learning **Java** and **Object-Oriented Programming (OOPs)** concepts. Features a clean UI with dark mode support, responsive design, and smooth navigation.
+A comprehensive, modern React application designed as a complete personal learning and productivity hub. This platform integrates reading materials, task management, active recall via flashcards, progress analytics, and more into a single cohesive dashboard.
 
-![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=flat-square&logo=tailwind-css)
-![Vite](https://img.shields.io/badge/Vite-7-646CFF?style=flat-square&logo=vite)
+## Key Features
 
-## ✨ Features
+- **Dashboard & Analytics**: Track your learning progress, task completion rates, and overall engagement through a detailed analytics dashboard.
+- **Learning Hub**: Access structured notes on various topics including Java, Object-Oriented Programming (OOPs), Postman APIs, and Interview Prep. Features full Markdown support for rich content rendering.
+- **Task Management**: Create, organize, and track your daily tasks. Keep track of what you have accomplished and what is pending.
+- **Flashcards System**: Practice active recall with interactive flashcards. Test your knowledge on various subjects and flip cards to reveal answers.
+- **Bookmarks**: Save important topics and notes for quick reference and easy access later.
+- **Profile & Settings**:
+  - Dynamic avatar selector powered by DiceBear API with over 60 styles.
+  - Profile data persistence via MongoDB.
+  - Native Dark Mode support for an eye-friendly experience.
+  - Export functionality to download your data locally.
 
-- 📖 **113+ Java Topics** - From basics to advanced concepts
-- 🎯 **40+ OOPs Topics** - Complete OOP coverage with examples
-- 🌙 **Dark Mode** - Eye-friendly dark theme
-- 📱 **Fully Responsive** - Works on all devices
-- 🔍 **Search** - Quick topic search
-- ⚡ **Fast** - Built with Vite for blazing speed
-- 📝 **Markdown Support** - Rich content rendering
+## Tech Stack
 
-## 🚀 Quick Start
+**Frontend:**
+- React 19
+- Vite
+- Tailwind CSS
+- Recharts (for Analytics)
+- Lucide React (Icons)
+- React Router
 
+**Backend:**
+- Node.js
+- Express
+- MongoDB (Mongoose)
+
+## Quick Start
+
+### Prerequisites
+Make sure you have Node.js and MongoDB installed on your system. You need a running instance of MongoDB locally or a connection string to a cloud cluster.
+
+### 1. Clone the repository
 ```bash
-# Clone the repository
 git clone https://github.com/yourusername/personal-learn.git
-
-# Navigate to project
 cd personal-learn
+```
 
-# Install dependencies
+### 2. Install Dependencies
+```bash
+# Install frontend dependencies
 npm install
 
-# Start development server
+# Install backend dependencies
+cd backend
+npm install
+cd ..
+```
+
+### 3. Environment Variables
+Create a `.env` file in the `backend` directory if required, or ensure your local MongoDB is running on `mongodb://localhost:27017/personallearn`.
+
+### 4. Run the Application
+You need to run both the frontend and the backend servers simultaneously.
+
+**Start the Backend Server:**
+```bash
+npm run server
+```
+
+**Start the Frontend Development Server:**
+```bash
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+Open `http://localhost:5173` in your browser.
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 PersonalLearn/
-├── public/
-│   ├── notes/                    # Markdown content
-│   │   ├── java/                 # 113 Java topics
-│   │   └── oops/                 # 40 OOPs topics
-│   └── logo.svg
-├── src/
+├── backend/                      # Node.js Express Server
+│   ├── config/                   # Database configuration
+│   ├── controllers/              # Business logic (Tasks, Flashcards, Profile)
+│   ├── models/                   # Mongoose Database Models
+│   ├── routes/                   # API Endpoints
+│   └── server.js                 # Backend Entry Point
+├── public/                       
+│   └── notes/                    # Markdown content files
+├── src/                          # React Frontend
 │   ├── components/               # Reusable UI components
-│   │   ├── Article.jsx           # Article content display
-│   │   ├── FooterNav.jsx         # Prev/Next navigation
-│   │   ├── Overlay.jsx           # Mobile sidebar overlay
-│   │   ├── Sidebar.jsx           # Topic navigation sidebar
-│   │   ├── TopNav.jsx            # Top navigation bar
-│   │   └── index.js              # Component exports
-│   ├── hooks/                    # Custom React hooks
-│   │   ├── useNotes.js           # Notes data & content logic
-│   │   ├── useSidebar.js         # Sidebar state management
-│   │   ├── useTheme.js           # Dark mode management
-│   │   └── index.js              # Hook exports
-│   ├── utils/                    # Utility functions
-│   │   └── helpers.js            # Helper functions
-│   ├── data/                     # Topic structure definitions
-│   │   ├── javaStructure.js
-│   │   └── oopsStructure.js
+│   │   └── dashboard/            # Dashboard specific components (Tasks, Analytics, Settings, etc.)
+│   ├── hooks/                    # Custom React hooks (Data fetching & State)
+│   ├── data/                     # Static topic structures
 │   ├── App.jsx                   # Main application component
-│   ├── index.css                 # Styles (Tailwind + Custom)
-│   └── main.jsx                  # React entry point
-├── index.html
-├── vite.config.js
+│   ├── index.css                 # Global Styles & Theme Variables
+│   └── main.jsx                  # React Entry Point
 └── package.json
 ```
 
-## 📚 Topics Covered
+## Architecture
 
-### Java (113 Topics)
-- Programming Basics & Foundations
-- Java Introduction & History  
-- Java Architecture & JVM Internals
-- Variables & Data Types
-- Operators & Control Statements
-- Arrays & String Handling
-- Exception Handling
-- Memory Management
-- And much more...
+The project follows a decoupled client-server architecture. 
+- The frontend is a Single Page Application (SPA) built with React, consuming a RESTful API provided by the Express backend.
+- State is managed locally via Custom Hooks and synchronized with the MongoDB database to ensure data persistence across sessions.
+- Styling is implemented using Tailwind CSS along with custom CSS variables for seamless theme switching between Light and Dark modes.
 
-### OOPs (40 Topics)
-- Classes & Objects
-- Constructors & Encapsulation
-- Inheritance & Polymorphism
-- Abstraction & Interfaces
-- Design Principles
-- Best Practices
-- And much more...
+## Author
 
-## 🛠️ Tech Stack
+Avdesh Jadon
 
-| Technology | Purpose |
-|------------|---------|
-| React 19 | UI Library |
-| Tailwind CSS 4 | Styling |
-| Vite 7 | Build Tool |
-| Marked | Markdown Parser |
+## License
 
-## 📜 Scripts
-
-```bash
-npm run dev      # Start development server
-npm run build    # Build for production
-npm run preview  # Preview production build
-npm run lint     # Run ESLint
-```
-
-## 🎨 Color Palette
-
-| Mode | Background | Accent | Text |
-|------|------------|--------|------|
-| Light | `#f6ecd2` | `#2b6f6f` | `#222` |
-| Dark | `#0f1720` | `#7dd3fc` | `#e6eef6` |
-
-## 👨‍💻 Author
-
-**Avdesh Jadon**
-
-Made with ♥ for learners everywhere.
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
-⭐ Star this repo if you found it helpful!
+This project is open source and available under the MIT License.
