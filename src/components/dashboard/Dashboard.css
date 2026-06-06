@@ -238,7 +238,7 @@
 
 /* Header */
 .dashboard-header {
-  height: 160px; /* Doubled height */
+  height: 110px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -262,7 +262,7 @@
   border-radius: 100px;
   padding: 12px 24px;
   width: 100%;
-  max-width: 800px; /* Increased from 600px */
+  max-width: 100%;
   transition: all 0.2s ease;
   box-shadow: none;
 }
@@ -329,6 +329,10 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+.overview-charts-grid {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 /* Shared Card Style */
@@ -667,6 +671,7 @@
   
   .greeting-container h1 { font-size: 32px !important; }
   .stats-grid { grid-template-columns: 1fr; }
+  .live-clock { font-size: 28px !important; }
 }
 
 /* 5. Small Mobile Phones (max-width: 480px) */
@@ -676,4 +681,6 @@
   .dashboard-content { padding: 16px 12px; }
   .search-bar { padding: 8px 16px; }
   .search-bar input { font-size: 14px; }
+  .overview-charts-grid { grid-template-columns: 1fr !important; }
+  .live-clock { font-size: 24px !important; }
 }

@@ -6,3 +6,4 @@ export { DashboardBottomRow } from './DashboardBottomRow';
 export { OverviewContent } from './OverviewContent';
 export { LearningHubContent } from './LearningHubContent';
 export { SettingsContent } from './SettingsContent';
+export { TasksContent } from './TasksContent';

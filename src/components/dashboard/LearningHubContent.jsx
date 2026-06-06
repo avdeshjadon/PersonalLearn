@@ -1,7 +1,10 @@
 import React from 'react';
+import { useOutletContext } from 'react-router-dom';
 import { DashboardBottomRow } from './DashboardBottomRow';
 
 export function LearningHubContent() {
+  const { searchQuery } = useOutletContext() || { searchQuery: '' };
+
   return (
     <div className="learning-hub-container">
       <div style={{ marginBottom: '32px' }}>
@@ -18,7 +21,7 @@ export function LearningHubContent() {
         </p>
       </div>
 
-      <DashboardBottomRow />
+      <DashboardBottomRow searchQuery={searchQuery} />
     </div>
   );
 }

@@ -1,10 +1,13 @@
 import React from 'react';
-import { LayoutDashboard, BookOpen, Bookmark, Zap, BarChart2, Settings, Plus, GraduationCap } from 'lucide-react';
-import { NavLink } from 'react-router-dom';
+import { LayoutDashboard, BookOpen, Bookmark, Zap, BarChart2, Settings, Plus, GraduationCap, CheckSquare } from 'lucide-react';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 export function SidebarNav({ isOpen, onClose }) {
+  const navigate = useNavigate();
+
   const navItems = [
     { icon: <LayoutDashboard size={18} />, label: 'Overview', path: '/' },
+    { icon: <CheckSquare size={18} />, label: 'Tasks', path: '/tasks' },
     { icon: <BookOpen size={18} />, label: 'Learning Hub', path: '/learning-hub' },
     { icon: <Bookmark size={18} />, label: 'Bookmarks', path: '/bookmarks' },
     { icon: <Zap size={18} />, label: 'Flashcards', path: '/flashcards' },
@@ -40,8 +43,8 @@ export function SidebarNav({ isOpen, onClose }) {
           <h2 style={{ color: 'var(--accent-color)', marginLeft: '8px', fontSize: '20px', fontWeight: '800', letterSpacing: '-0.5px' }}>P-Learn</h2>
         </div>
 
-        <button className="register-btn">
-          Create Note <Plus size={16} />
+        <button className="register-btn" onClick={() => { navigate('/tasks'); onClose(); }}>
+          Create Task <Plus size={16} />
         </button>
 
         <div className="nav-section">
