@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTheme } from '../../hooks/useTheme';
-import { Moon, Sun, Settings as SettingsIcon } from 'lucide-react';
 
 export function SettingsContent() {
   const { isDark, toggleDark } = useTheme();
@@ -18,7 +17,6 @@ export function SettingsContent() {
           alignItems: 'center',
           gap: '12px'
         }}>
-          <SettingsIcon size={32} color="var(--accent-color)" />
           Settings
         </h1>
         <p style={{ color: 'var(--text-secondary)', marginTop: '8px', fontSize: '16px' }}>
@@ -40,15 +38,6 @@ export function SettingsContent() {
 
         <div style={{ padding: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <div style={{ 
-              width: '48px', height: '48px', 
-              borderRadius: '12px', 
-              backgroundColor: 'var(--bg-hover)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: 'var(--accent-color)'
-            }}>
-              {isDark ? <Moon size={24} /> : <Sun size={24} />}
-            </div>
             <div>
               <h3 style={{ fontSize: '16px', fontWeight: '600', color: 'var(--text-primary)', margin: 0 }}>Dark Mode</h3>
               <p style={{ color: 'var(--text-secondary)', fontSize: '14px', margin: '4px 0 0 0' }}>Toggle between light and dark themes.</p>

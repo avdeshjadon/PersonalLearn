@@ -7,19 +7,13 @@ export function LearningHubContent() {
 
   return (
     <div className="learning-hub-container">
-      <div style={{ marginBottom: '32px' }}>
-        <h1 style={{ 
-          fontSize: '28px', 
-          fontWeight: '700', 
-          color: 'var(--text-primary)', 
-          margin: 0
-        }}>
-          Learning Hub
-        </h1>
-        <p style={{ color: 'var(--text-secondary)', marginTop: '8px', fontSize: '15px' }}>
-          Select a topic below to jump back into your notes.
-        </p>
-      </div>
+      <header className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between text-left">
+        <div className="w-full">
+          <h1 className="text-[40px] font-semibold text-gray-900 tracking-[-1.5px] leading-[1.2] mb-1">
+            Learning Hub
+          </h1>
+        </div>
+      </header>
 
       <DashboardBottomRow searchQuery={searchQuery} />
     </div>

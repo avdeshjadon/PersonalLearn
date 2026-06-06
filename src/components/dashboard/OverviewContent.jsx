@@ -50,9 +50,9 @@ export function OverviewContent() {
 
   const getGreeting = () => {
     const hour = time.getHours();
-    if (hour < 12) return "Good Morning, Avdesh!";
-    if (hour < 17) return "Good Afternoon, Avdesh!";
-    return "Good Evening, Avdesh!";
+    if (hour < 12) return "Good Morning Avdesh";
+    if (hour < 17) return "Good Afternoon Avdesh";
+    return "Good Evening Avdesh";
   };
 
   // Prepare Today's Chart Data
@@ -150,16 +150,6 @@ export function OverviewContent() {
           >
             {getGreeting()}
           </h1>
-          <p
-            style={{
-              color: "var(--text-secondary)",
-              marginTop: "8px",
-              fontSize: "16px",
-              fontWeight: "500",
-            }}
-          >
-            Welcome back! Your dashboard is ready for you.
-          </p>
         </div>
 
         <div

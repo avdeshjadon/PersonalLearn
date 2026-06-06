@@ -68,11 +68,10 @@ export function TasksContent() {
   const taskGroups = groupTasksByDate(tasks);
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-6 min-h-full">
-      <header className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between text-center sm:text-left">
+    <div className="max-w-5xl w-full mx-auto px-6 py-6 min-h-full">
+      <header className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between text-left">
         <div className="w-full">
           <h1 className="text-[40px] font-semibold text-gray-900 tracking-[-1.5px] leading-[1.2] mb-1">My Tasks</h1>
-          <p className="text-gray-500 text-sm font-medium mt-1">Capture your ideas, goals, and daily todos.</p>
         </div>
       </header>
 
