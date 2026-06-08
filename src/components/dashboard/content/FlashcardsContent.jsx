@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useFlashcards } from '../../hooks';
+import { useFlashcards } from '../../../hooks';
 import { Plus, Trash2, RefreshCw } from 'lucide-react';
 
 export function FlashcardsContent() {

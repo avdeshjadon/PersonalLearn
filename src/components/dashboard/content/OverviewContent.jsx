@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useTasks, useSettings } from "../../hooks";
+import { useTasks, useSettings } from "../../../hooks";
 import {
   PieChart,
   Pie,

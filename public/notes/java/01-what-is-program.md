@@ -1,4 +1,4 @@
-# WHAT IS A PROGRAM
+# WHAT IS A PROGRAM 
 
 ## Concept Introduction
 
@@ -31,28 +31,26 @@ Programs were created to give instructions to computers automatically. A program
 
 ## Advantages
 
-| Advantage | Description |
-|-----------|-------------|
-| **Automation** | Write once, use multiple times automatically |
-| **Speed** | Executes tasks significantly faster than manual processing |
-| **Accuracy** | Delivers error-free results (provided the program logic is correct) |
-| **Reusability** | The same program can be used repeatedly with different data inputs |
-| **Scalability** | Capable of handling both small and massive workloads easily |
-| **Consistency** | Produces the exact same output every time it is executed |
-
+| Advantage       | Description                                                         |
+| --------------- | ------------------------------------------------------------------- |
+| **Automation**  | Write once, use multiple times automatically                        |
+| **Speed**       | Executes tasks significantly faster than manual processing          |
+| **Accuracy**    | Delivers error-free results (provided the program logic is correct) |
+| **Reusability** | The same program can be used repeatedly with different data inputs  |
+| **Scalability** | Capable of handling both small and massive workloads easily         |
+| **Consistency** | Produces the exact same output every time it is executed            |
 
 ## Limitations
 
-| Limitation | Description |
-|------------|-------------|
-| **Garbage In, Garbage Out** | Incorrect or flawed logic will produce incorrect output |
-| **No Intelligence** | A program strictly follows instructions and cannot think independently |
-| **Bugs** | Code may contain logical or syntax errors that cause unexpected behavior |
-| **Maintenance** | Requires continuous updates and bug fixes to keep running smoothly |
-| **Hardware Dependent** | A program cannot function without the underlying computer hardware |
+| Limitation                  | Description                                                              |
+| --------------------------- | ------------------------------------------------------------------------ |
+| **Garbage In, Garbage Out** | Incorrect or flawed logic will produce incorrect output                  |
+| **No Intelligence**         | A program strictly follows instructions and cannot think independently   |
+| **Bugs**                    | Code may contain logical or syntax errors that cause unexpected behavior |
+| **Maintenance**             | Requires continuous updates and bug fixes to keep running smoothly       |
+| **Hardware Dependent**      | A program cannot function without the underlying computer hardware       |
 
 ## Common Beginner Mistakes
-
 
 **Mistake 1: Program aur Software ko Same Samajhna**
 Bahut se beginners sochte hain ki program aur software ek hi cheez hain, lekin yeh galat hai. Program sirf ek single set of instructions hota hai, jabki software mein kai programs, data aur documentation shamil hote hain. Isliye, program aur software ko ek hi samajhna sahi nahi hai.
@@ -66,7 +64,6 @@ Kabhi-kabhi beginners sochte hain ki ek chhoti si syntax mistake, jaise semicolo
 **Mistake 4: Logic Errors Ko Nahi Samajhna**
 Kai baar program sahi tarah se run toh ho jata hai, lekin output galat aata hai. Iska matlab hai ki logic mein kuch problem hai. Sirf program chal jana kaafi nahi hai, hamesha expected aur actual output ko compare karke logic check karna chahiye.
 
-
 ## Important Interview Questions & Answers
 
 **Q1: What is a program?**
@@ -77,36 +74,36 @@ A program is a set of instructions written in a programming language that direct
 
 **Q2: Difference between Program and Process**
 
-| Aspect      | Program (Static)                | Process (Dynamic)                |
-|-------------|---------------------------------|----------------------------------|
-| Nature      | Code stored on disk             | Program in execution (in RAM)    |
-| State       | Passive entity                  | Active entity                    |
-| Location    | Hard disk / SSD                 | RAM (Memory)                     |
-| Lifespan    | Permanent (until deleted)       | Temporary (while running)        |
-| Example     | WhatsApp.exe file               | WhatsApp running on your phone   |
+| Aspect   | Program (Static)          | Process (Dynamic)              |
+| -------- | ------------------------- | ------------------------------ |
+| Nature   | Code stored on disk       | Program in execution (in RAM)  |
+| State    | Passive entity            | Active entity                  |
+| Location | Hard disk / SSD           | RAM (Memory)                   |
+| Lifespan | Permanent (until deleted) | Temporary (while running)      |
+| Example  | WhatsApp.exe file         | WhatsApp running on your phone |
 
-**Program kya hota hai?**  
+**Program kya hota hai?**
 
 Program ek **static cheez** hoti hai. Ye sirf **instructions ya code ka collection** hota hai jo **hard disk ya SSD me store** rehta hai.  
 Jab tak hum program ko run nahi karte, tab tak wo koi kaam nahi karta.
 
-**Example:**  
-- WhatsApp.exe  
-- Chrome.exe  
+**Example:**
 
-**Process kya hota hai?**  
+- WhatsApp.exe
+- Chrome.exe
+
+**Process kya hota hai?**
 
 Jab koi program **execute (run)** hota hai, tab wahi program **process ban jata hai**.  
 Process ek **dynamic entity** hoti hai jo **RAM me chalti hai** aur CPU, memory jaise resources use karti hai.
 
-**Example:**  
-- WhatsApp open hai aur chat chal rahi hai  
-- Chrome browser running state me hai  
+**Example:**
 
+- WhatsApp open hai aur chat chal rahi hai
+- Chrome browser running state me hai
 
 **Program = Code stored on disk**  
 **Process = Code running in memory**
-
 
 ---
 
@@ -125,6 +122,7 @@ A typical program is built using the following core components:
 **Q4: How does a computer execute a program?**
 
 The execution of a program involves these five steps:
+
 1. **Load:** The program is loaded from disk to RAM.
 2. **Fetch:** The CPU fetches instructions one by one.
 3. **Decode:** The CPU decodes each instruction.
@@ -178,3 +176,5 @@ Programs **automation**, **speed**, aur **accuracy** provide karte hain. Har pro
 ║                                                                               ║
 ╚═══════════════════════════════════════════════════════════════════════════════╝
 ```
+ 
+ 

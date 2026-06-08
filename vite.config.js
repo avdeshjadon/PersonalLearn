@@ -18,26 +18,41 @@ export default defineConfig({
     tailwindcss(),
     {
       name: 'watch-public-notes',
-      configureServer(server) {
+      async configureServer(server) {
+        const chokidar = await import('chokidar');
         const notesDir = path.resolve(process.cwd(), 'public/notes')
-        console.log('[watch-public-notes] Watching directory:', notesDir);
-        server.watcher.add(notesDir)
+        console.log('[watch-public-notes] Watching directory with custom chokidar:', notesDir);
+        
+        const watcher = chokidar.watch(notesDir, {
+          ignored: /(^|[\/\\])\../, 
+          persistent: true
+        });
 
         const sendReload = (file) => {
           if (!file) return
-          console.log('[watch-public-notes] File changed:', file);
-          if (file.startsWith(notesDir)) {
-            console.log('[watch-public-notes] Sending notes-changed event for:', file);
+          if (file.endsWith('.md')) {
+            console.log('[watch-public-notes] Markdown file changed, sending reload:', file);
             server.ws.send({ type: 'custom', event: 'notes-changed', data: { file } })
-          } else {
-            console.log('[watch-public-notes] File does not start with notesDir');
           }
         }
 
-        server.watcher.on('add', sendReload)
-        server.watcher.on('change', sendReload)
-        server.watcher.on('unlink', sendReload)
+        watcher.on('add', sendReload)
+        watcher.on('change', sendReload)
+        watcher.on('unlink', sendReload)
       },
     },
   ],
+  build: {
+    chunkSizeWarningLimit: 800,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'chart-vendor': ['recharts'],
+          'ui-vendor': ['framer-motion', 'lucide-react'],
+          'markdown-vendor': ['marked', 'mermaid']
+        }
+      }
+    }
+  }
 })

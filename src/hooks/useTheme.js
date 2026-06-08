@@ -1,39 +1,66 @@
 import { useState, useCallback, useEffect } from 'react';
 import logger from '../utils/logger';
 
+export const THEMES = ['light', 'dark', 'ocean', 'dracula', 'solarized', 'forest', 'monokai', 'synthwave', 'nord'];
+
+const applyThemeToDOM = (themeName) => {
+  // Remove all existing theme classes
+  THEMES.forEach(t => document.body.classList.remove(`theme-${t}`));
+  document.body.classList.remove('dark');
+
+  // Add the new theme class
+  document.body.classList.add(`theme-${themeName}`);
+
+  // If it's a dark theme variant, also add the generic .dark class
+  const isDarkVariant = themeName !== 'light' && themeName !== 'solarized';
+  if (isDarkVariant) {
+    document.body.classList.add('dark');
+  }
+};
+
 /**
- * Custom hook for managing theme (dark mode)
+ * Custom hook for managing themes across the app
  */
 export const useTheme = () => {
-  const [isDark, setIsDark] = useState(() => {
-    const dark = localStorage.getItem('retro-dark') === '1';
-    // Apply synchronously before first paint to prevent flash
-    if (dark) document.body.classList.add('dark');
-    return dark;
+  const [theme, setThemeState] = useState(() => {
+    let saved = localStorage.getItem('app-theme');
+    
+    // Fallback for old retro-dark users
+    if (!saved) {
+      const oldDark = localStorage.getItem('retro-dark');
+      saved = oldDark === '1' ? 'dark' : 'light';
+    }
+
+    applyThemeToDOM(saved);
+    return saved;
   });
 
-  // Fade in after mount
   useEffect(() => {
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         document.body.classList.add('js-fadein');
       });
     });
-    logger.info('Theme', isDark ? 'Dark mode enabled' : 'Light mode enabled');
+    logger.info('Theme initialized', theme);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const toggleDark = useCallback(() => {
-    setIsDark((prev) => {
-      const newValue = !prev;
-      document.body.classList.toggle('dark', newValue);
-      localStorage.setItem('retro-dark', newValue ? '1' : '0');
-      logger.success('Theme Changed', newValue ? 'Dark' : 'Light');
-      return newValue;
-    });
+  const setTheme = useCallback((newTheme) => {
+    setThemeState(newTheme);
+    applyThemeToDOM(newTheme);
+    localStorage.setItem('app-theme', newTheme);
+    logger.success('Theme Changed', newTheme);
   }, []);
 
-  return { isDark, toggleDark };
+  const isDark = theme !== 'light' && theme !== 'solarized';
+
+  // For compatibility with the TopNav toggle, just switch between light and dark
+  const toggleDark = useCallback(() => {
+    const newTheme = isDark ? 'light' : 'dark';
+    setTheme(newTheme);
+  }, [isDark, setTheme]);
+
+  return { theme, setTheme, isDark, toggleDark, THEMES };
 };
 
 export default useTheme;

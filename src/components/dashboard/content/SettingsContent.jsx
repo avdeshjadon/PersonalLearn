@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useTheme } from '../../hooks/useTheme';
-import useSettings from '../../hooks/useSettings';
-import { User, Moon, Camera, Check } from 'lucide-react';
+import { useTheme } from '../../../hooks/useTheme';
+import useSettings from '../../../hooks/useSettings';
+import { User, Palette, Camera, Check } from 'lucide-react';
 
 const SEEDS = [
   "Felix", "Aneka", "Jasper", "Mimi", "Oscar", "Lily", "Leo", "Max", 
@@ -21,8 +21,20 @@ const PREBUILT_AVATARS = SEEDS.map((seed, index) => {
   return `https://api.dicebear.com/7.x/${style}/svg?seed=${seed}`;
 });
 
+const THEME_DETAILS = {
+  light: { name: 'Light', bg: '#fdfbf7', card: '#ffffff', accent: '#d97757', isDark: false },
+  dark: { name: 'Dark', bg: '#181817', card: '#222221', accent: '#e16e5b', isDark: true },
+  ocean: { name: 'Ocean', bg: '#0f172a', card: '#1e293b', accent: '#06b6d4', isDark: true },
+  dracula: { name: 'Dracula', bg: '#282a36', card: '#44475a', accent: '#ff79c6', isDark: true },
+  solarized: { name: 'Solarized', bg: '#fdf6e3', card: '#eee8d5', accent: '#cb4b16', isDark: false },
+  forest: { name: 'Forest', bg: '#13241b', card: '#1c3629', accent: '#4ade80', isDark: true },
+  monokai: { name: 'Monokai', bg: '#272822', card: '#3e3d32', accent: '#a6e22e', isDark: true },
+  synthwave: { name: 'Synthwave', bg: '#2b213a', card: '#241b2f', accent: '#f92aad', isDark: true },
+  nord: { name: 'Nord', bg: '#2e3440', card: '#3b4252', accent: '#88c0d0', isDark: true },
+};
+
 export function SettingsContent() {
-  const { isDark, toggleDark } = useTheme();
+  const { theme, setTheme, THEMES } = useTheme();
   const { settings, updateProfile } = useSettings();
   
   const [activeTab, setActiveTab] = useState('profile');
@@ -46,17 +58,8 @@ export function SettingsContent() {
 
   const tabs = [
     { id: 'profile', label: 'Profile', icon: <User size={18} /> },
-    { id: 'appearance', label: 'Appearance', icon: <Moon size={18} /> }
+    { id: 'appearance', label: 'Appearance', icon: <Palette size={18} /> }
   ];
-
-  const ToggleSwitch = ({ checked, onChange }) => (
-    <button 
-      onClick={onChange}
-      className={`w-12 h-6 rounded-full relative transition-colors duration-300 ease-in-out cursor-pointer focus:outline-none ${checked ? 'bg-[#D97757]' : 'bg-gray-200'}`}
-    >
-      <div className={`w-5 h-5 rounded-full bg-white absolute top-0.5 shadow-sm transition-all duration-300 ease-in-out cursor-pointer ${checked ? 'left-[26px]' : 'left-[2px]'}`} />
-    </button>
-  );
 
   return (
     <div className="max-w-5xl w-full mx-auto px-6 py-6 min-h-full relative">
@@ -76,8 +79,8 @@ export function SettingsContent() {
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center cursor-pointer gap-3 px-4 py-3 rounded-xl font-medium transition-all ${
                 activeTab === tab.id 
-                  ? 'bg-orange-50 text-[#D97757]' 
-                  : 'text-[var(--text-secondary)] hover:bg-[var(--bg-secondary)] hover:text-[var(--text-primary)]'
+                  ? 'bg-[var(--bg-hover)] text-[var(--accent-color)]' 
+                  : 'text-[var(--text-secondary)] hover:bg-[var(--bg-input)] hover:text-[var(--text-primary)]'
               }`}
             >
               {tab.icon}
@@ -96,13 +99,13 @@ export function SettingsContent() {
               <div className="flex flex-col sm:flex-row gap-8 mb-8">
                 <div className="flex flex-col items-center gap-3">
                   <div 
-                    className="w-24 h-24 rounded-full bg-[var(--bg-secondary)] border-2 border-dashed border-gray-300 flex items-center justify-center relative group cursor-pointer overflow-hidden"
+                    className="w-24 h-24 rounded-full bg-[var(--bg-input)] border-2 border-dashed border-gray-300 flex items-center justify-center relative group cursor-pointer overflow-hidden"
                     onClick={() => setShowAvatarSelector(true)}
                   >
                     {profileForm.avatar ? (
                       <img src={profileForm.avatar} alt="Avatar" className="w-full h-full object-cover" />
                     ) : (
-                      <span className="text-4xl font-bold text-[#D97757]">
+                      <span className="text-4xl font-bold text-[var(--accent-color)]">
                         {profileForm.fullName ? profileForm.fullName.charAt(0).toUpperCase() : 'U'}
                       </span>
                     )}
@@ -120,7 +123,7 @@ export function SettingsContent() {
                       type="text" 
                       value={profileForm.fullName}
                       onChange={e => setProfileForm({...profileForm, fullName: e.target.value})}
-                      className="w-full p-3 rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] focus:bg-[var(--bg-primary)] focus:border-[#D97757] focus:ring-1 focus:ring-[#D97757] outline-none transition-all text-[var(--text-primary)] cursor-text"
+                      className="w-full p-3 rounded-xl border border-[var(--border-color)] bg-[var(--bg-input)] focus:bg-[var(--bg-card)] focus:border-[var(--accent-color)] focus:ring-1 focus:ring-[var(--accent-color)] outline-none transition-all text-[var(--text-primary)] cursor-text"
                     />
                   </div>
                   <div>
@@ -129,7 +132,7 @@ export function SettingsContent() {
                       type="email" 
                       value={profileForm.email}
                       onChange={e => setProfileForm({...profileForm, email: e.target.value})}
-                      className="w-full p-3 rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] focus:bg-[var(--bg-primary)] focus:border-[#D97757] focus:ring-1 focus:ring-[#D97757] outline-none transition-all text-[var(--text-primary)] cursor-text"
+                      className="w-full p-3 rounded-xl border border-[var(--border-color)] bg-[var(--bg-input)] focus:bg-[var(--bg-card)] focus:border-[var(--accent-color)] focus:ring-1 focus:ring-[var(--accent-color)] outline-none transition-all text-[var(--text-primary)] cursor-text"
                     />
                   </div>
                   <div>
@@ -137,11 +140,11 @@ export function SettingsContent() {
                     <textarea 
                       value={profileForm.bio}
                       onChange={e => setProfileForm({...profileForm, bio: e.target.value})}
-                      className="w-full p-3 rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] focus:bg-[var(--bg-primary)] focus:border-[#D97757] focus:ring-1 focus:ring-[#D97757] outline-none transition-all text-[var(--text-primary)] resize-none h-24 cursor-text"
+                      className="w-full p-3 rounded-xl border border-[var(--border-color)] bg-[var(--bg-input)] focus:bg-[var(--bg-card)] focus:border-[var(--accent-color)] focus:ring-1 focus:ring-[var(--accent-color)] outline-none transition-all text-[var(--text-primary)] resize-none h-24 cursor-text"
                     />
                   </div>
                   <div className="flex justify-end pt-2">
-                    <button type="submit" className="px-6 py-2.5 rounded-xl text-white font-medium shadow-sm transition-all cursor-pointer hover:bg-orange-600 active:scale-95" style={{ backgroundColor: '#D97757' }}>
+                    <button type="submit" className="px-6 py-2.5 rounded-xl text-white font-medium shadow-sm transition-all cursor-pointer hover:opacity-90 active:scale-95" style={{ backgroundColor: 'var(--btn-primary)' }}>
                       Save Changes
                     </button>
                   </div>
@@ -155,13 +158,55 @@ export function SettingsContent() {
             <div className="bg-[var(--bg-card)] backdrop-blur-md p-8 rounded-2xl border border-[var(--border-color)] shadow-sm animate-fade-in">
               <h2 className="text-xl font-bold text-[var(--text-primary)] mb-6 border-b border-[var(--border-color)] pb-4">Appearance</h2>
               
-              <div className="flex flex-col gap-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-base font-semibold text-[var(--text-primary)]">Dark Mode</h3>
-                    <p className="text-sm text-[var(--text-secondary)] mt-1">Switch between light and dark themes.</p>
-                  </div>
-                  <ToggleSwitch checked={isDark} onChange={toggleDark} />
+              <div className="flex flex-col gap-4">
+                <div>
+                  <h3 className="text-base font-semibold text-[var(--text-primary)]">Theme</h3>
+                  <p className="text-sm text-[var(--text-secondary)] mt-1 mb-6">Select your preferred color scheme. This will apply to both the Dashboard and the Notes view.</p>
+                </div>
+                
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                  {THEMES.map(t => {
+                    const details = THEME_DETAILS[t];
+                    if (!details) return null;
+                    const isActive = theme === t;
+                    return (
+                      <button 
+                        key={t}
+                        onClick={() => setTheme(t)}
+                        className={`flex flex-col gap-3 p-4 rounded-xl border-2 text-left transition-all relative overflow-hidden group focus:outline-none ${isActive ? 'border-[var(--accent-color)] shadow-md scale-[1.02]' : 'border-[var(--border-color)] hover:border-gray-400 hover:scale-[1.01]'}`}
+                        style={{ backgroundColor: details.bg }}
+                      >
+                        {/* Fake UI preview */}
+                        <div className="w-full h-24 rounded-lg relative overflow-hidden flex shadow-sm border border-black/10" style={{ backgroundColor: details.bg }}>
+                           {/* Sidebar */}
+                           <div className="w-1/3 h-full border-r border-black/10 flex flex-col gap-2 p-2" style={{ backgroundColor: details.card }}>
+                              <div className="w-full h-2 rounded-full" style={{ backgroundColor: details.accent, opacity: 0.8 }} />
+                              <div className="w-3/4 h-2 rounded-full" style={{ backgroundColor: details.isDark ? '#e5e3db' : '#222222', opacity: 0.3 }} />
+                              <div className="w-1/2 h-2 rounded-full" style={{ backgroundColor: details.isDark ? '#e5e3db' : '#222222', opacity: 0.3 }} />
+                           </div>
+                           {/* Content */}
+                           <div className="flex-1 p-3 flex flex-col gap-3" style={{ backgroundColor: details.bg }}>
+                              <div className="w-1/2 h-2 rounded-full" style={{ backgroundColor: details.isDark ? '#e5e3db' : '#222222', opacity: 0.5 }} />
+                              <div className="w-full h-2 rounded-full" style={{ backgroundColor: details.isDark ? '#e5e3db' : '#222222', opacity: 0.2 }} />
+                              <div className="w-4/5 h-2 rounded-full" style={{ backgroundColor: details.isDark ? '#e5e3db' : '#222222', opacity: 0.2 }} />
+                           </div>
+                        </div>
+                        
+                        <div className="flex justify-between items-center w-full mt-1 px-1">
+                          <span className="text-sm font-semibold tracking-wide" style={{ color: details.isDark ? '#e5e3db' : '#222222' }}>
+                            {details.name}
+                          </span>
+                        </div>
+                        
+                        {/* Active Checkmark overlay */}
+                        {isActive && (
+                          <div className="absolute top-3 right-3 bg-[var(--accent-color)] text-white p-1 rounded-full shadow-md z-10 animate-scale-in">
+                            <Check size={14} />
+                          </div>
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -181,13 +226,13 @@ export function SettingsContent() {
             <div className="grid grid-cols-4 sm:grid-cols-5 gap-4 max-h-80 overflow-y-auto custom-scrollbar p-2">
               {/* Fallback Initial Option */}
               <div 
-                className={`w-16 h-16 rounded-full flex items-center justify-center cursor-pointer border-2 transition-all ${!profileForm.avatar ? 'border-[#D97757] scale-110 shadow-md' : 'border-transparent hover:scale-105 hover:shadow-sm'} bg-[var(--bg-secondary)]`}
+                className={`w-16 h-16 rounded-full flex items-center justify-center cursor-pointer border-2 transition-all ${!profileForm.avatar ? 'border-[var(--accent-color)] scale-110 shadow-md' : 'border-transparent hover:scale-105 hover:shadow-sm'} bg-[var(--bg-input)]`}
                 onClick={() => {
                   setProfileForm({ ...profileForm, avatar: '' });
                   setShowAvatarSelector(false);
                 }}
               >
-                <span className="text-2xl font-bold text-[#D97757]">
+                <span className="text-2xl font-bold text-[var(--accent-color)]">
                   {profileForm.fullName ? profileForm.fullName.charAt(0).toUpperCase() : 'U'}
                 </span>
               </div>
@@ -198,7 +243,7 @@ export function SettingsContent() {
                   key={i} 
                   src={url} 
                   alt={`Avatar ${i}`} 
-                  className={`w-16 h-16 rounded-full cursor-pointer border-2 transition-all bg-orange-50 ${profileForm.avatar === url ? 'border-[#D97757] scale-110 shadow-md' : 'border-transparent hover:scale-105 hover:shadow-sm'}`}
+                  className={`w-16 h-16 rounded-full cursor-pointer border-2 transition-all bg-[var(--bg-hover)] ${profileForm.avatar === url ? 'border-[var(--accent-color)] scale-110 shadow-md' : 'border-transparent hover:scale-105 hover:shadow-sm'}`}
                   onClick={() => {
                     setProfileForm({ ...profileForm, avatar: url });
                     setShowAvatarSelector(false);

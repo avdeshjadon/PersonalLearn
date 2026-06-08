@@ -1,6 +1,6 @@
 import { memo, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getNumberFromSlug, cleanTitle, filterStructure } from '../utils/helpers';
+import { getNumberFromSlug, cleanTitle, filterStructure } from '../../utils/helpers';
 
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';

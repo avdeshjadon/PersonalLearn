@@ -1,15 +1,13 @@
 import { useState, useCallback, useRef, useEffect } from "react";
-import { useNotes, useTheme, useSidebar, useBookmarks } from "./hooks";
-import {
-  Sidebar,
-  InterviewSidebar,
-  TopNav,
-  Article,
-  FooterNav,
-  SiteFooter,
-  Overlay,
-  TableOfContents,
-} from "./components";
+import { marked } from "marked";
+import { useNotes, useTheme, useSidebar, useBookmarks } from "../hooks";
+import Sidebar from "../components/layout/Sidebar";
+import InterviewSidebar from "../components/layout/InterviewSidebar";
+import TopNav from "../components/layout/TopNav";
+import FooterNav, { SiteFooter } from "../components/layout/FooterNav";
+import Overlay from "../components/layout/Overlay";
+import Article from "../components/article/Article";
+import TableOfContents from "../components/article/TableOfContents";
 
 function NotesApp({ topic }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -130,9 +128,9 @@ function NotesApp({ topic }) {
         try {
           const response = await fetch(
             "/notes/interview/00-interview-questions.md",
+            { cache: 'no-cache' }
           );
           const text = await response.text();
-          const { marked } = await import("marked");
           setInterviewContent(marked(text));
         } catch (error) {
           setInterviewContent("<p>Error loading interview content</p>");
@@ -168,9 +166,9 @@ function NotesApp({ topic }) {
         try {
           const response = await fetch(
             "/notes/interview/00-interview-questions.md",
+            { cache: 'no-cache' }
           );
           const text = await response.text();
-          const { marked } = await import("marked");
           setInterviewContent(marked(text));
         } catch (error) {
           setInterviewContent("<p>Error loading interview content</p>");
@@ -249,8 +247,6 @@ function NotesApp({ topic }) {
             currentFolder={currentFolder}
             onFolderSwitch={handleFolderSwitch}
             onMenuToggle={sidebar.toggle}
-            onDarkToggle={toggleDark}
-            isDark={isDark}
             isPresentationMode={isPresentationMode}
             onPresentationToggle={handlePresentationToggle}
             searchQuery={pageSearchQuery}

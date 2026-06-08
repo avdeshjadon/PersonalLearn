@@ -7,7 +7,7 @@ const recentlyWrittenFiles = new Set();
 export const startSync = (db, notesDir) => {
   // 1. Local -> Mongo
   console.log(`[SYNC] Watching local directory for changes: ${notesDir}`);
-  const watcher = chokidar.watch(notesDir + '/**/*.md', {
+  const watcher = chokidar.watch(notesDir, {
     ignored: /(^|[\/\\])\../, 
     persistent: true
   });
@@ -17,6 +17,8 @@ export const startSync = (db, notesDir) => {
       recentlyWrittenFiles.delete(filePath);
       return;
     }
+    if (!filePath.endsWith('.md')) return;
+    
     try {
       const relativePath = path.relative(notesDir, filePath);
       const parts = relativePath.split(path.sep);
@@ -38,6 +40,7 @@ export const startSync = (db, notesDir) => {
   };
 
   const deleteFromMongo = async (filePath) => {
+    if (!filePath.endsWith('.md')) return;
     try {
       const relativePath = path.relative(notesDir, filePath);
       const parts = relativePath.split(path.sep);

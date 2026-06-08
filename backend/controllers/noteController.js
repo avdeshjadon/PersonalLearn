@@ -16,6 +16,7 @@ export const getNote = async (req, res) => {
     }
     
     console.log(`[API] Serving ${folder}/${filename} from MongoDB directly to Frontend.`);
+    res.setHeader('Cache-Control', 'no-cache'); // Require ETag revalidation
     res.type('text/plain').send(note.content);
   } catch (error) {
     console.error("[ERROR] API Error:", error);

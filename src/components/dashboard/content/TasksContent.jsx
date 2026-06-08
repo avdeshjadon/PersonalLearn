@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useTasks } from '../../hooks';
+import { useTasks } from '../../../hooks';
 import { Plus, Edit2, Trash2, CheckCircle, Circle, X, Calendar as CalendarIcon, CheckSquare } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 

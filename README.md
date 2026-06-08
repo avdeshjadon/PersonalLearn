@@ -56,17 +56,19 @@ cd ..
 Create a `.env` file in the `backend` directory if required, or ensure your local MongoDB is running on `mongodb://localhost:27017/personallearn`.
 
 ### 4. Run the Application
-You need to run both the frontend and the backend servers simultaneously.
+You need to run both the frontend and the backend servers simultaneously. Open **two separate terminal windows** in the project root directory.
 
-**Start the Backend Server:**
+**Terminal 1 (Start the Backend Server):**
 ```bash
 npm run server
 ```
+*(This starts the Node.js/Express backend)*
 
-**Start the Frontend Development Server:**
+**Terminal 2 (Start the Frontend Development Server):**
 ```bash
 npm run dev
 ```
+*(This starts the React/Vite frontend)*
 
 Open `http://localhost:5173` in your browser.
 

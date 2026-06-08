@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAnalytics } from '../../hooks';
+import { useAnalytics } from '../../../hooks';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip,
   PieChart, Pie, Cell, AreaChart, Area

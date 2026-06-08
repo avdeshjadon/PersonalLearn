@@ -1,34 +1,4 @@
-:root {
-  --bg-app: #fdfbf7;
-  --bg-card: #ffffff;
-  --bg-hover: #f5f4ef;
-  --bg-input: #f5f4ef;
-  --text-primary: #222222;
-  --text-secondary: #555555;
-  --border-color: #e8e6e1;
-  --accent-color: #d97757;
-  --btn-primary: var(--accent-color);
-  --btn-primary-hover: #c26547;
-  --btn-text: #ffffff;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-}
-
-.dark {
-  --bg-app: #181817;
-  --bg-card: #222221;
-  --bg-hover: #2a2a29;
-  --bg-input: #2a2a29;
-  --text-primary: #e5e3db;
-  --text-secondary: #a3a19a;
-  --border-color: #3a3a39;
-  --accent-color: #e16e5b;
-  --btn-primary: var(--accent-color);
-  --btn-primary-hover: #f08372;
-  --btn-text: #ffffff;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-}
+/* Variables are now imported from themes.css globally */
 
 /* Healthcare Purple Dashboard Styles */
 .dashboard-layout {
@@ -683,4 +653,31 @@
   .search-bar input { font-size: 14px; }
   .overview-charts-grid { grid-template-columns: 1fr !important; }
   .live-clock { font-size: 24px !important; }
+}
+
+/* Mobile-only header classes */
+.mobile-only-header {
+  display: none !important;
+}
+
+.mobile-page-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-only-header {
+    display: flex !important;
+    padding: 16px;
+    height: auto;
+    min-height: 80px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .mobile-page-title {
+    display: block;
+  }
 }

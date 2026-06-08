@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useBookmarks } from '../../hooks';
+import { useBookmarks } from '../../../hooks';
 import { Bookmark, BookmarkMinus, Folder, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 

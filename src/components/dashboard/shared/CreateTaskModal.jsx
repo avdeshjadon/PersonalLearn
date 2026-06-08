@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, X } from 'lucide-react';
-import { useTasks } from '../../hooks';
+import { useTasks } from '../../../hooks';
 
 export function CreateTaskModal({ isOpen, onClose }) {
   const { addTask } = useTasks();

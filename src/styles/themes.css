@@ -1,0 +1,266 @@
+/* 
+  Global Theme Definitions 
+  Includes both Dashboard and Notes variables for seamless integration.
+*/
+
+/* 1. LIGHT THEME (Default) */
+:root, .theme-light {
+  /* Dashboard */
+  --bg-app: #fdfbf7;
+  --bg-card: #ffffff;
+  --bg-hover: #f5f4ef;
+  --bg-input: #f5f4ef;
+  --text-primary: #222222;
+  --text-secondary: #555555;
+  --border-color: #e8e6e1;
+  --accent-color: #d97757;
+  --btn-primary: var(--accent-color);
+  --btn-primary-hover: #c26547;
+  --btn-text: #ffffff;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+
+  /* Notes */
+  --bg: #fdfbf7;
+  --paper: #ffffff;
+  --accent: #d97757;
+  --muted: #555555;
+  --ink: #222222;
+  --md-bg: #fdfbf7;
+  --md-text: #222222;
+  --md-text-muted: #555555;
+  --md-accent: #d97757;
+  --md-code-bg: #f5f4ef;
+  --md-border: #e8e6e1;
+}
+
+/* 2. DARK THEME */
+.theme-dark {
+  /* Dashboard */
+  --bg-app: #181817;
+  --bg-card: #222221;
+  --bg-hover: #2a2a29;
+  --bg-input: #2a2a29;
+  --text-primary: #e5e3db;
+  --text-secondary: #a3a19a;
+  --border-color: #3a3a39;
+  --accent-color: #e16e5b;
+  --btn-primary: var(--accent-color);
+  --btn-primary-hover: #f08372;
+  --btn-text: #ffffff;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+
+  /* Notes */
+  --bg: #181817;
+  --paper: #222221;
+  --accent: #e16e5b;
+  --muted: #a3a19a;
+  --ink: #e5e3db;
+  --md-bg: #181817;
+  --md-text: #e5e3db;
+  --md-text-muted: #a3a19a;
+  --md-accent: #e16e5b;
+  --md-code-bg: #2a2a29;
+  --md-border: #3a3a39;
+}
+
+/* 3. OCEAN THEME */
+.theme-ocean {
+  --bg-app: #0f172a;
+  --bg-card: #1e293b;
+  --bg-hover: #334155;
+  --bg-input: #334155;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-color: #475569;
+  --accent-color: #06b6d4;
+  --btn-primary: var(--accent-color);
+  --btn-primary-hover: #0891b2;
+  --btn-text: #ffffff;
+
+  --bg: #0f172a;
+  --paper: #1e293b;
+  --accent: #06b6d4;
+  --muted: #94a3b8;
+  --ink: #f8fafc;
+  --md-bg: #0f172a;
+  --md-text: #f8fafc;
+  --md-text-muted: #94a3b8;
+  --md-accent: #06b6d4;
+  --md-code-bg: #334155;
+  --md-border: #475569;
+}
+
+/* 4. DRACULA THEME */
+.theme-dracula {
+  --bg-app: #282a36;
+  --bg-card: #383a59;
+  --bg-hover: #44475a;
+  --bg-input: #44475a;
+  --text-primary: #f8f8f2;
+  --text-secondary: #bfbfbf;
+  --border-color: rgba(98, 114, 164, 0.3);
+  --accent-color: #ff79c6;
+  --btn-primary: var(--accent-color);
+  --btn-primary-hover: #ff92d0;
+  --btn-text: #ffffff;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+
+  /* Notes */
+  --bg: #282a36;
+  --paper: #383a59;
+  --accent: #ff79c6;
+  --muted: #bfbfbf;
+  --ink: #f8f8f2;
+  --md-bg: #282a36;
+  --md-text: #f8f8f2;
+  --md-text-muted: #bfbfbf;
+  --md-accent: #ff79c6;
+  --md-code-bg: #44475a;
+  --md-border: rgba(98, 114, 164, 0.3);
+}
+
+/* 5. SOLARIZED LIGHT THEME */
+.theme-solarized {
+  --bg-app: #fdf6e3;
+  --bg-card: #eee8d5;
+  --bg-hover: #e0d9c4;
+  --bg-input: #e0d9c4;
+  --text-primary: #073642;
+  --text-secondary: #586e75;
+  --border-color: #ccc3b0;
+  --accent-color: #cb4b16;
+  --btn-primary: var(--accent-color);
+  --btn-primary-hover: #dc322f;
+  --btn-text: #ffffff;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+
+  --bg: #fdf6e3;
+  --paper: #eee8d5;
+  --accent: #cb4b16;
+  --muted: #657b83;
+  --ink: #073642;
+  --md-bg: #fdf6e3;
+  --md-text: #586e75;
+  --md-text-muted: #657b83;
+  --md-accent: #cb4b16;
+  --md-code-bg: #e0d9c4;
+  --md-border: #ccc3b0;
+}
+
+/* 6. FOREST THEME */
+.theme-forest {
+  --bg-app: #13241b;
+  --bg-card: #1c3629;
+  --bg-hover: #264a38;
+  --bg-input: #264a38;
+  --text-primary: #e6f0eb;
+  --text-secondary: #98b3a5;
+  --border-color: #3b6b52;
+  --accent-color: #4ade80;
+  --btn-primary: var(--accent-color);
+  --btn-primary-hover: #22c55e;
+  --btn-text: #064e3b;
+
+  --bg: #13241b;
+  --paper: #1c3629;
+  --accent: #4ade80;
+  --muted: #98b3a5;
+  --ink: #e6f0eb;
+  --md-bg: #13241b;
+  --md-text: #e6f0eb;
+  --md-text-muted: #98b3a5;
+  --md-accent: #4ade80;
+  --md-code-bg: #264a38;
+  --md-border: #3b6b52;
+}
+
+/* 7. MONOKAI THEME */
+.theme-monokai {
+  --bg-app: #272822;
+  --bg-card: #3e3d32;
+  --bg-hover: #49483e;
+  --bg-input: #49483e;
+  --text-primary: #f8f8f2;
+  --text-secondary: #b8b5a1;
+  --border-color: #49483e;
+  --accent-color: #a6e22e;
+  --btn-primary: var(--accent-color);
+  --btn-primary-hover: #b6e354;
+  --btn-text: #272822;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+
+  --bg: #272822;
+  --paper: #3e3d32;
+  --accent: #a6e22e;
+  --muted: #b8b5a1;
+  --ink: #f8f8f2;
+  --md-bg: #272822;
+  --md-text: #f8f8f2;
+  --md-text-muted: #b8b5a1;
+  --md-accent: #a6e22e;
+  --md-code-bg: #49483e;
+  --md-border: #49483e;
+}
+
+/* 8. SYNTHWAVE THEME */
+.theme-synthwave {
+  --bg-app: #2b213a;
+  --bg-card: #241b2f;
+  --bg-hover: #34294f;
+  --bg-input: #34294f;
+  --text-primary: #f8f8f2;
+  --text-secondary: #b6b1b1;
+  --border-color: #463763;
+  --accent-color: #f92aad;
+  --btn-primary: var(--accent-color);
+  --btn-primary-hover: #ff4bc1;
+  --btn-text: #2b213a;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+
+  --bg: #2b213a;
+  --paper: #241b2f;
+  --accent: #f92aad;
+  --muted: #b6b1b1;
+  --ink: #f8f8f2;
+  --md-bg: #2b213a;
+  --md-text: #f8f8f2;
+  --md-text-muted: #b6b1b1;
+  --md-accent: #f92aad;
+  --md-code-bg: #34294f;
+  --md-border: #463763;
+}
+
+/* 9. NORD THEME */
+.theme-nord {
+  --bg-app: #2e3440;
+  --bg-card: #3b4252;
+  --bg-hover: #434c5e;
+  --bg-input: #434c5e;
+  --text-primary: #eceff4;
+  --text-secondary: #d8dee9;
+  --border-color: #4c566a;
+  --accent-color: #88c0d0;
+  --btn-primary: var(--accent-color);
+  --btn-primary-hover: #8fbcbb;
+  --btn-text: #2e3440;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+
+  --bg: #2e3440;
+  --paper: #3b4252;
+  --accent: #88c0d0;
+  --muted: #d8dee9;
+  --ink: #eceff4;
+  --md-bg: #2e3440;
+  --md-text: #eceff4;
+  --md-text-muted: #d8dee9;
+  --md-accent: #88c0d0;
+  --md-code-bg: #434c5e;
+  --md-border: #4c566a;
+}

@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { getNumberFromSlug, cleanTitle } from '../utils/helpers';
+import { getNumberFromSlug, cleanTitle } from '../../utils/helpers';
 
 /**
  * Footer navigation with prev/next buttons
