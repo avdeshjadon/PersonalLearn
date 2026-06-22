@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getInterviewStructure } from '../../data/interviewStructure';
+import { getInterviewStructure } from '../../features/notes/data/interviewStructure';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 

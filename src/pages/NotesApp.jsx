@@ -6,8 +6,8 @@ import InterviewSidebar from "../components/layout/InterviewSidebar";
 import TopNav from "../components/layout/TopNav";
 import FooterNav, { SiteFooter } from "../components/layout/FooterNav";
 import Overlay from "../components/layout/Overlay";
-import Article from "../components/article/Article";
-import TableOfContents from "../components/article/TableOfContents";
+import Article from "../features/notes/components/Article";
+import TableOfContents from "../features/notes/components/TableOfContents";
 
 function NotesApp({ topic }) {
   const [searchQuery, setSearchQuery] = useState("");

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { SidebarNav } from '../components/dashboard/shared/SidebarNav';
+import { SidebarNav } from '../features/dashboard/components/shared/SidebarNav';
 import { Search, Menu } from 'lucide-react';
 import { Outlet, useLocation } from 'react-router-dom';
-import { CreateTaskModal } from '../components/dashboard/shared/CreateTaskModal';
+import { CreateTaskModal } from '../features/dashboard/components/shared/CreateTaskModal';
 import '../styles/Dashboard.css';
 
 export function Dashboard() {

@@ -5,13 +5,13 @@ import { useTheme } from './hooks';
 const Dashboard = lazy(() => import('./pages/DashboardPage').then(m => ({ default: m.Dashboard })));
 const NotesApp = lazy(() => import('./pages/NotesApp'));
 
-const OverviewContent = lazy(() => import('./components/dashboard/content/OverviewContent').then(m => ({ default: m.OverviewContent })));
-const LearningHubContent = lazy(() => import('./components/dashboard/content/LearningHubContent').then(m => ({ default: m.LearningHubContent })));
-const SettingsContent = lazy(() => import('./components/dashboard/content/SettingsContent').then(m => ({ default: m.SettingsContent })));
-const TasksContent = lazy(() => import('./components/dashboard/content/TasksContent').then(m => ({ default: m.TasksContent })));
-const BookmarksContent = lazy(() => import('./components/dashboard/content/BookmarksContent').then(m => ({ default: m.BookmarksContent })));
-const FlashcardsContent = lazy(() => import('./components/dashboard/content/FlashcardsContent').then(m => ({ default: m.FlashcardsContent })));
-const AnalyticsContent = lazy(() => import('./components/dashboard/content/AnalyticsContent').then(m => ({ default: m.AnalyticsContent })));
+const OverviewContent = lazy(() => import('./features/dashboard/tabs/OverviewTab').then(m => ({ default: m.OverviewContent })));
+const LearningHubContent = lazy(() => import('./features/dashboard/tabs/LearningHubTab').then(m => ({ default: m.LearningHubContent })));
+const SettingsContent = lazy(() => import('./features/dashboard/tabs/SettingsTab').then(m => ({ default: m.SettingsContent })));
+const TasksContent = lazy(() => import('./features/dashboard/tabs/TasksTab').then(m => ({ default: m.TasksContent })));
+const BookmarksContent = lazy(() => import('./features/dashboard/tabs/BookmarksTab').then(m => ({ default: m.BookmarksContent })));
+const FlashcardsContent = lazy(() => import('./features/dashboard/tabs/FlashcardsTab').then(m => ({ default: m.FlashcardsContent })));
+const AnalyticsContent = lazy(() => import('./features/dashboard/tabs/AnalyticsTab').then(m => ({ default: m.AnalyticsContent })));
 
 function Loader() {
   return (
