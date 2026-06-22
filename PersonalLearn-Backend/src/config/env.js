@@ -5,8 +5,8 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Load environment variables from the root .env file
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
+// Load environment variables from the backend root .env file
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 export const ENV = {
   PORT: process.env.PORT || 5001,
