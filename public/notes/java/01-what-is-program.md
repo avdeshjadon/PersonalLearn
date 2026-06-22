@@ -2,7 +2,7 @@
 
 ## Concept Introduction
 
-Jab tum apne phone pe WhatsApp chalate ho, ya laptop pe game khelte ho, ya calculator use karte ho — yeh sab **programs** hain. Program ek set of instructions hai jo computer ko batata hai ki kya karna hai. Bilkul jaise recipe mein steps hote hain khana banane ke liye, waise hi program mein steps hote hain computer ko kaam karne ke liye.
+pagal Jab tum apne phone pe WhatsApp chalate ho, ya laptop pe game khelte ho, ya calculator use karte ho — yeh sab **programs** hain. Program ek set of instructions hai jo computer ko batata hai ki kya karna hai. Bilkul jaise recipe mein steps hote hain khana banane ke liye, waise hi program mein steps hote hain computer ko kaam karne ke liye.
 
 > **Interview Definition:** A program is a set of instructions that tells the computer what to do
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTasks } from '../../../hooks';
-import { Plus, Edit2, Trash2, CheckCircle, Circle, X, Calendar as CalendarIcon, CheckSquare } from 'lucide-react';
+import { Plus, Edit2, Trash2, CheckCircle, Circle, X, Calendar as CalendarIcon, CheckSquare, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function TasksContent() {
@@ -8,6 +8,7 @@ export function TasksContent() {
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [editingId, setEditingId] = useState(null);
   const [editTitle, setEditTitle] = useState('');
+  const [selectedGroupForModal, setSelectedGroupForModal] = useState(null);
 
   const handleAddTask = (e) => {
     e.preventDefault();
@@ -124,10 +125,17 @@ export function TasksContent() {
                 transition={{ duration: 0.3 }}
                 className="bg-[var(--bg-card)] backdrop-blur-md p-3.5 rounded-xl border border-[var(--border-color)] shadow-sm w-full"
               >
-                <div className="flex items-center mb-2 pb-1.5 border-b border-[var(--border-color)]">
+                <div className="flex items-center justify-between mb-2 pb-1.5 border-b border-[var(--border-color)]">
                   <h2 className="text-[15px] font-bold text-[var(--text-primary)] tracking-tight">
                     {group.label}
                   </h2>
+                  <button
+                    onClick={() => setSelectedGroupForModal(group)}
+                    className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors p-1 rounded"
+                    title="View Full Tasks"
+                  >
+                    <Info size={16} />
+                  </button>
                 </div>
 
                 <div className="flex flex-col gap-0.5">
@@ -153,6 +161,61 @@ export function TasksContent() {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Modal for viewing full tasks */}
+      <AnimatePresence>
+        {selectedGroupForModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              exit={{ opacity: 0 }} 
+              className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+              onClick={() => setSelectedGroupForModal(null)}
+            />
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative z-10 w-full max-w-md bg-[var(--bg-card)] border border-[var(--border-color)] rounded-2xl shadow-xl overflow-hidden"
+            >
+              <div className="flex items-center justify-between p-4 border-b border-[var(--border-color)]">
+                <h3 className="text-lg font-bold text-[var(--text-primary)]">
+                  Tasks for {selectedGroupForModal.label}
+                </h3>
+                <button 
+                  onClick={() => setSelectedGroupForModal(null)}
+                  className="p-1 text-[var(--text-secondary)] hover:text-red-500 rounded transition-colors"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              <div className="p-4 max-h-[60vh] overflow-y-auto flex flex-col gap-3">
+                {selectedGroupForModal.tasks.map(task => (
+                  <div key={task.id} className="flex gap-3 items-start p-3 bg-[var(--bg-secondary)] rounded-xl border border-[var(--border-color)]">
+                    <div className="mt-0.5 flex-shrink-0">
+                      {task.status === 'completed' ? (
+                        <CheckCircle size={18} className="text-emerald-500" strokeWidth={2.5} />
+                      ) : task.status === 'uncompleted' ? (
+                        <Circle size={18} className="text-red-400" strokeWidth={2.5} />
+                      ) : (
+                        <Circle size={18} className="text-gray-300" strokeWidth={2.5} />
+                      )}
+                    </div>
+                    <p className={`text-sm leading-relaxed whitespace-pre-wrap flex-1 ${
+                      task.status === 'completed' ? 'text-emerald-600 dark:text-emerald-400' : 
+                      task.status === 'uncompleted' ? 'text-red-500 dark:text-red-400 line-through' : 
+                      'text-[var(--text-primary)]'
+                    }`}>
+                      {task.title}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
