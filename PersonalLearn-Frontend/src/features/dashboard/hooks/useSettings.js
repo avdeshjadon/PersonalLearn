@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 
 const SETTINGS_KEY = 'plearn_user_settings';
-const API_URL = 'http://localhost:5001/api/profile';
+const API_URL = `${import.meta.env.VITE_API_URL || ''}/api/profile`;
 
 const DEFAULT_SETTINGS = {
   profile: {

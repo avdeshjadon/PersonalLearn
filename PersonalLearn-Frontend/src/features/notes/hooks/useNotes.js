@@ -40,7 +40,7 @@ export const useNotes = (onGroupExpand) => {
       return contentCache.current[cacheKey];
     }
 
-    const url = `/api/notes/${folder}/${path}`;
+    const url = `${import.meta.env.VITE_API_URL || ''}/api/notes/${folder}/${path}`;
     const response = await fetch(url, { cache: 'no-cache' });
     if (!response.ok) {
       throw new Error(`Failed to fetch ${path}: ${response.status}`);

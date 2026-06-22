@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const API_URL = 'http://localhost:5001/api/flashcards';
+const API_URL = `${import.meta.env.VITE_API_URL || ''}/api/flashcards`;
 
 /**
  * Custom hook for managing flashcards via MongoDB backend

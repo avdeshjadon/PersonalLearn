@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const API_URL = 'http://localhost:5001/api/bookmarks';
+const API_URL = `${import.meta.env.VITE_API_URL || ''}/api/bookmarks`;
 
 /**
  * Custom hook for managing bookmarked notes via MongoDB backend
