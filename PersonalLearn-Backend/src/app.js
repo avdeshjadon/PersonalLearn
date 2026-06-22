@@ -10,6 +10,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Health Check Route (For Cron Jobs)
+app.get('/health', (req, res) => {
+  res.status(200).send('Server is awake!');
+});
+
 // API Routes
 app.use('/api', routes);
 
