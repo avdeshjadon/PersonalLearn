@@ -51,8 +51,31 @@ export function useSettings() {
   }, []);
 
   useEffect(() => {
-    fetchProfile();
-  }, [fetchProfile]);
+    let ignore = false;
+    const fetchProfileData = async () => {
+      try {
+        const res = await fetch(API_URL);
+        if (ignore) return;
+        if (res.ok) {
+          const profileData = await res.json();
+          if (ignore) return;
+          setSettings(prev => ({
+            ...prev,
+            profile: {
+              fullName: profileData.fullName || 'User',
+              email: profileData.email || '',
+              bio: profileData.bio || '',
+              avatar: profileData.avatar || ''
+            }
+          }));
+        }
+      } catch (e) {
+        if (!ignore) console.error('Failed to fetch profile', e);
+      }
+    };
+    fetchProfileData();
+    return () => { ignore = true; };
+  }, []);
 
   // Persist local appearance settings
   useEffect(() => {

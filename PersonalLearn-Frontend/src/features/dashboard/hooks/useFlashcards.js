@@ -25,8 +25,27 @@ export function useFlashcards() {
   }, []);
 
   useEffect(() => {
-    fetchFlashcards();
-  }, [fetchFlashcards]);
+    let ignore = false;
+    const loadFlashcards = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(API_URL);
+        if (ignore) return;
+        if (response.ok) {
+          const data = await response.json();
+          if (ignore) return;
+          setFlashcards(data);
+        }
+      } catch (error) {
+        if (ignore) return;
+        console.error('Failed to fetch flashcards:', error);
+      } finally {
+        if (!ignore) setIsLoading(false);
+      }
+    };
+    loadFlashcards();
+    return () => { ignore = true; };
+  }, []);
 
   const addFlashcard = useCallback(async (question, answer, category) => {
     const tempId = `temp-${Date.now()}`;

@@ -8,7 +8,52 @@ export function useTasks() {
 
   // Load and auto-update tasks on mount
   useEffect(() => {
-    fetchTasks();
+    let ignore = false;
+    
+    const loadTasks = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(API_URL);
+        if (ignore) return;
+        
+        if (res.ok) {
+          let fetchedTasks = await res.json();
+          if (ignore) return;
+          
+          // Auto-uncomplete tasks created before today
+          const startOfToday = new Date();
+          startOfToday.setHours(0, 0, 0, 0);
+
+          fetchedTasks = await Promise.all(fetchedTasks.map(async (task) => {
+            if (task.status === 'pending') {
+              const taskDate = new Date(task.createdAt);
+              if (taskDate < startOfToday) {
+                const updated = { ...task, status: 'uncompleted' };
+                // update on backend too
+                await fetch(`${API_URL}/${task.id}`, {
+                  method: 'PUT',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(updated)
+                });
+                return updated;
+              }
+            }
+            return task;
+          }));
+
+          if (ignore) return;
+          setTasks(fetchedTasks);
+        }
+      } catch (error) {
+        if (ignore) return;
+        console.error('Error fetching tasks:', error);
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    };
+
+    loadTasks();
+    return () => { ignore = true; };
   }, []);
 
   const fetchTasks = async () => {
@@ -17,30 +62,6 @@ export function useTasks() {
       const res = await fetch(API_URL);
       if (res.ok) {
         let fetchedTasks = await res.json();
-        
-        // Auto-uncomplete tasks created before today
-        let hasChanges = false;
-        const startOfToday = new Date();
-        startOfToday.setHours(0, 0, 0, 0);
-
-        fetchedTasks = await Promise.all(fetchedTasks.map(async (task) => {
-          if (task.status === 'pending') {
-            const taskDate = new Date(task.createdAt);
-            if (taskDate < startOfToday) {
-              hasChanges = true;
-              const updated = { ...task, status: 'uncompleted' };
-              // update on backend too
-              await fetch(`${API_URL}/${task.id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(updated)
-              });
-              return updated;
-            }
-          }
-          return task;
-        }));
-
         setTasks(fetchedTasks);
       }
     } catch (error) {

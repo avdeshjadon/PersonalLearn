@@ -11,20 +11,25 @@ export function useBookmarks() {
 
   // Fetch bookmarks from DB on mount
   useEffect(() => {
+    let ignore = false;
     const fetchBookmarks = async () => {
       try {
         const response = await fetch(API_URL);
+        if (ignore) return;
         if (response.ok) {
           const data = await response.json();
+          if (ignore) return;
           setBookmarks(data);
         }
       } catch (error) {
+        if (ignore) return;
         console.error('Failed to fetch bookmarks:', error);
       } finally {
-        setIsLoading(false);
+        if (!ignore) setIsLoading(false);
       }
     };
     fetchBookmarks();
+    return () => { ignore = true; };
   }, []);
 
   const addBookmark = useCallback(async (folder, slug, title) => {

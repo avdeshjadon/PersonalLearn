@@ -12,6 +12,20 @@ const __dirname = path.dirname(__filename);
 // notesDir points to the frontend public/notes
 const notesDir = path.join(__dirname, '..', 'PersonalLearn-Frontend', 'public', 'notes');
 
+// Global Error Handlers to prevent silent crashes
+process.on('uncaughtException', (err) => {
+  console.error('[SERVER] UNCAUGHT EXCEPTION! 💥 Shutting down...');
+  console.error(err.name, err.message, err.stack);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (err) => {
+  console.error('[SERVER] UNHANDLED REJECTION! 💥 Shutting down...');
+  console.error(err.name, err.message, err.stack);
+  // Optionally give the server time to finish requests before exiting
+  process.exit(1); 
+});
+
 async function boot() {
   const db = await connectDB();
   

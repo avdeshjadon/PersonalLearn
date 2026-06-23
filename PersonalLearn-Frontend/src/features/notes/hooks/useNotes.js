@@ -89,6 +89,7 @@ export const useNotes = (onGroupExpand) => {
 
   // Initialize
   useEffect(() => {
+    let ignore = false;
     const init = async () => {
       // Interview mode doesn't use the manifest system — content is loaded separately in App.jsx
       if (currentFolder === "interview") {
@@ -100,6 +101,9 @@ export const useNotes = (onGroupExpand) => {
 
       const { manifestData, structureData } =
         await buildManifest(currentFolder);
+        
+      if (ignore) return;
+
       setManifest(manifestData);
       setStructure(structureData);
 
@@ -129,11 +133,13 @@ export const useNotes = (onGroupExpand) => {
     };
 
     init();
+    return () => { ignore = true; };
   }, [currentFolder, buildManifest]);
 
   // Load article content when slug changes
   useEffect(() => {
     if (!currentSlug || manifest.length === 0) return;
+    let ignore = false;
 
     const loadContent = async () => {
       const item = manifest.find((x) => x.slug === currentSlug);
@@ -143,6 +149,8 @@ export const useNotes = (onGroupExpand) => {
 
       try {
         const content = await fetchMarkdownContent(item.path, currentFolder);
+        if (ignore) return;
+        
         const processedContent = processAsciiDiagrams(content);
         const html = marked(processedContent);
         setArticleContent(html);
@@ -165,6 +173,7 @@ export const useNotes = (onGroupExpand) => {
           }
         }
       } catch (error) {
+        if (ignore) return;
         logger.error("Content Load Failed", error.message);
         setArticleContent(`
           <div style="padding: 40px; text-align: center; color: #d32f2f;">
@@ -174,10 +183,11 @@ export const useNotes = (onGroupExpand) => {
         `);
       }
 
-      setIsLoading(false);
+      if (!ignore) setIsLoading(false);
     };
 
     loadContent();
+    return () => { ignore = true; };
   }, [
     currentSlug,
     manifest,
