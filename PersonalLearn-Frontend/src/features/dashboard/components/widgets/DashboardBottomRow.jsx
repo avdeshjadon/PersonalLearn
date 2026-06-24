@@ -4,8 +4,7 @@ import { ArrowRight } from 'lucide-react';
 
 export function DashboardBottomRow({ searchQuery = '' }) {
   const cards = [
-    { title: 'Java Notes', path: '/learning/java', desc: 'Core fundamentals' },
-    { title: 'OOPs Concepts', path: '/learning/oops', desc: 'Object oriented' },
+    { title: 'Java Mastery', path: '/learning/java', desc: 'Complete Java & OOPs' },
     { title: 'Postman APIs', path: '/learning/postman', desc: 'Testing endpoints' },
     { title: 'Interview Prep', path: '/learning/interview', desc: 'Top questions' },
   ];

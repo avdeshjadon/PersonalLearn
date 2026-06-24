@@ -21,7 +21,7 @@ Java mein Type Casting mainly 2 tarah ki hoti hai:
 - **Small type to Big type** convert hota hai.
 - Ye **automatically** (Implicitly) hota hai compiler ke dwara.
 - Ise aap ek "chhote glass ka paani bade jug me dalna" samajh sakte hain—kabhi paani nahi girega (no data loss).
-- **Flow:** `byte` -> `short` -> `char` -> `int` -> `long` -> `float` -> `double`
+- **Flow:** byte -> short -> char -> int -> long -> float -> double
 
 ```java
 int myInt = 10;
@@ -36,9 +36,9 @@ System.out.println(myDouble);   // Outputs 10.0
 > **Interview Definition:** Narrowing casting is manually done by the programmer when assigning a larger primitive type to a smaller primitive type. It may result in data loss.
 
 - **Big type to Small type** convert hota hai.
-- Ye automatically NAHI hota. Ise manually brackets `()` use karke karna padta hai.
+- Ye automatically NAHI hota. Ise manually brackets () use karke karna padta hai.
 - Ise aap "bade jug ka paani chhote glass me dalna" samajh sakte hain—agar paani jyada hua toh bahar gir jayega (data/precision loss).
-- **Flow:** `double` -> `float` -> `long` -> `int` -> `char` -> `short` -> `byte`
+- **Flow:** double -> float -> long -> int -> char -> short -> byte
 
 ```java
 double myDouble = 9.78;
@@ -55,9 +55,9 @@ System.out.println(myInt);      // Outputs 9 (Decimal part is lost)
 > **Interview Definition:** Type promotion in Java is an automatic conversion mechanism where smaller data types like byte, short, or char are promoted to int when evaluating an arithmetic expression.
 
 **Rules for Type Promotion:**
-1. `byte`, `short`, aur `char` hamesha **`int`** me promote ho jate hain arithmetic operation ke time.
-2. Agar expression mein ek operand `long` hai, toh pura result `long` me promote hoga.
-3. Agar `float` hai, toh `float` me, aur `double` hai toh `double` me promote hoga.
+1. byte, short, aur char hamesha **int** me promote ho jate hain arithmetic operation ke time.
+2. Agar expression mein ek operand long hai, toh pura result long me promote hoga.
+3. Agar float hai, toh float me, aur double hai toh double me promote hoga.
 
 ```java
 byte a = 40;
@@ -69,7 +69,7 @@ byte c = 100;
 int d = (a * b) / c; 
 System.out.println(d); // Output: 20
 ```
-*(Note: Agar aap `byte result = a + b;` likhoge toh error aayega kyunki `a+b` ka result `int` hota hai!)*
+*(Note: Agar aap byte result = a + b; likhoge toh error aayega kyunki a+b ka result int hota hai!)*
 
 ---
 
@@ -85,7 +85,7 @@ Computer characters (jaise 'A', 'B', 'अ') ko directly save nahi kar sakta. Wo 
 | **Usage** | Purane languages jaise C / C++ me use hota tha. | Java me by default use hota hai taaki global support mile. |
 
 **Example:** 
-Character `'a'` ki Unicode/ASCII value 97 hoti hai. `'A'` ki 65 hoti hai.
+Character 'a' ki Unicode/ASCII value 97 hoti hai. 'A' ki 65 hoti hai.
 ```java
 char ch = 'A';
 int asciiVal = ch; // Automatically promoted from char to int
@@ -102,16 +102,16 @@ Type casting is the process of converting a value of one data type into another 
 
 **Q2: What is the difference between Widening and Narrowing casting?**
 
-Widening is converting a smaller type to a larger type (e.g., `int` to `double`). It is automatic and safe. 
-Narrowing is converting a larger type to a smaller type (e.g., `double` to `int`). It must be done explicitly by placing the target type in parentheses like `(int)`, and it can lead to data loss (e.g., decimal values get truncated).
+Widening is converting a smaller type to a larger type (e.g., int to double). It is automatic and safe. 
+Narrowing is converting a larger type to a smaller type (e.g., double to int). It must be done explicitly by placing the target type in parentheses like (int), and it can lead to data loss (e.g., decimal values get truncated).
 
 **Q3: Can we convert a boolean to an int?**
 
-No. In Java, `boolean` is not compatible with any other primitive data type. You cannot cast a boolean to an int or vice versa.
+No. In Java, boolean is not compatible with any other primitive data type. You cannot cast a boolean to an int or vice versa.
 
-**Q4: Why does `byte b1 = 10; byte b2 = 20; byte b3 = b1 + b2;` give a compile-time error?**
+**Q4: Why does byte b1 = 10; byte b2 = 20; byte b3 = b1 + b2; give a compile-time error?**
 
-Because of Type Promotion. When we add two byte variables (`b1 + b2`), Java automatically promotes them to `int` before performing the addition. So the result is an `int`, and assigning an `int` back to a `byte` requires explicit casting like `byte b3 = (byte)(b1 + b2);`.
+Because of Type Promotion. When we add two byte variables (b1 + b2), Java automatically promotes them to int before performing the addition. So the result is an int, and assigning an int back to a byte requires explicit casting like byte b3 = (byte)(b1 + b2);.
 
 **Q5: Why does Java use Unicode system instead of ASCII?**
 

@@ -2,7 +2,7 @@
 
 ## Concept Introduction
 
-`main()` method Java program ka **entry point** hota hai. Entry point ka matlab: program execution yahin se start hoti hai.
+main() method Java program ka **entry point** hota hai. Entry point ka matlab: program execution yahin se start hoti hai.
 
 Jab tum run karte ho:
 
@@ -10,7 +10,7 @@ Jab tum run karte ho:
 java Hello
 ```
 
-toh JVM `Hello` class ke andar ye method search karta hai:
+toh JVM Hello class ke andar ye method search karta hai:
 
 ```java
 public static void main(String[] args)
@@ -22,7 +22,7 @@ Agar ye exact entry point mil gaya, program run hota hai.
 
 ## Definition
 
-> **Interview Definition:** The `main()` method is the starting point of a Java application. JVM calls it first to start program execution.
+> **Interview Definition:** The main() method is the starting point of a Java application. JVM calls it first to start program execution.
 
 ---
 
@@ -73,19 +73,19 @@ Hello Java
 
 | Part | Simple Meaning |
 |------|----------------|
-| `public` | JVM class ke bahar se access kar sake |
-| `static` | Object banaye bina call ho sake |
-| `void` | Kuch return nahi karta |
-| `main` | JVM isi naam ko search karta hai |
-| `String[] args` | Command-line input store karta hai |
+| public | JVM class ke bahar se access kar sake |
+| static | Object banaye bina call ho sake |
+| void | Kuch return nahi karta |
+| main | JVM isi naam ko search karta hai |
+| String[] args | Command-line input store karta hai |
 
 ---
 
 ## Why public static void?
 
-**public:** JVM tumhari class ke bahar se `main()` call karta hai, isliye access public hona chahiye.
+**public:** JVM tumhari class ke bahar se main() call karta hai, isliye access public hona chahiye.
 
-**static:** JVM object banaye bina `main()` call karta hai. Isliye method class-level hota hai.
+**static:** JVM object banaye bina main() call karta hai. Isliye method class-level hota hai.
 
 **void:** Program start hone ke baad JVM ko return value ki zarurat nahi hoti.
 
@@ -101,7 +101,7 @@ void = no return
 
 ## String[] args
 
-`String[] args` command-line arguments receive karta hai.
+String[] args command-line arguments receive karta hai.
 
 Example:
 
@@ -131,7 +131,7 @@ Here:
 args[0] = "Java"
 ```
 
-Note: command-line arguments hamesha `String` hote hain. Number chahiye toh convert karna padega:
+Note: command-line arguments hamesha String hote hain. Number chahiye toh convert karna padega:
 
 ```java
 int n = Integer.parseInt(args[0]);
@@ -177,7 +177,7 @@ public static void main(int[] args)      // String[] missing
 
 **Q1: What is main() method?**
 
-`main()` method Java application ka entry point hai. JVM execution isi method se start karta hai.
+main() method Java application ka entry point hai. JVM execution isi method se start karta hai.
 
 **Q2: Why is main() public?**
 
@@ -189,7 +189,7 @@ Because JVM can call it without creating an object.
 
 **Q4: Why is main() void?**
 
-Because JVM does not need any return value from `main()`.
+Because JVM does not need any return value from main().
 
 **Q5: What is String[] args?**
 
@@ -197,7 +197,7 @@ It stores command-line arguments.
 
 **Q6: Can we overload main()?**
 
-Yes, we can overload `main()`, but JVM calls only:
+Yes, we can overload main(), but JVM calls only:
 
 ```java
 public static void main(String[] args)

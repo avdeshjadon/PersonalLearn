@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { marked } from "marked";
 import { getJavaStructure } from "../data/javaStructure";
-import { getOopsStructure } from "../data/oopsStructure";
 import { getPostmanStructure } from "../data/postmanStructure";
 import {
   extractTitleFromMarkdown,
@@ -62,9 +61,7 @@ export const useNotes = (onGroupExpand) => {
       const structureData =
         folder === "java"
           ? getJavaStructure()
-          : folder === "oops"
-            ? getOopsStructure()
-            : getPostmanStructure();
+          : getPostmanStructure();
       const fileList = [];
 
       structureData.forEach((group) => {
@@ -115,13 +112,11 @@ export const useNotes = (onGroupExpand) => {
       const defaultSlug =
         currentFolder === "java"
           ? "00-java-roadmap"
-          : currentFolder === "oops"
-            ? "00-oops-roadmap"
-            : currentFolder === "postman"
-              ? "postman-complete"
-                : orderedData.length > 0
-                  ? orderedData[0].slug
-                  : "";
+          : currentFolder === "postman"
+            ? "postman-complete"
+            : orderedData.length > 0
+              ? orderedData[0].slug
+              : "";
       const initialSlug = hash || defaultSlug;
 
       if (initialSlug) {

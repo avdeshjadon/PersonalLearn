@@ -90,13 +90,13 @@ public class Student {
 
 | Part | Required? | Meaning |
 |------|-----------|---------|
-| `package` | Optional | Class kis package/folder mein hai |
-| `import` | Optional | Dusre package ki classes use karne ke liye |
-| `class` | Required | Java code ka main container |
+| package | Optional | Class kis package/folder mein hai |
+| import | Optional | Dusre package ki classes use karne ke liye |
+| class | Required | Java code ka main container |
 | Variables | Optional | Data store karne ke liye |
 | Constructor | Optional | Object initialize karne ke liye |
 | Methods | Optional | Actions/behavior define karne ke liye |
-| `main()` | Required for standalone app | Program execution start karne ke liye |
+| main() | Required for standalone app | Program execution start karne ke liye |
 
 ---
 
@@ -146,7 +146,7 @@ Simple meaning:
 import = dusri class ko easily use karna
 ```
 
-Note: `java.lang` package automatically imported hota hai. Isliye `String`, `System`, `Math` ke liye import nahi lagta.
+Note: java.lang package automatically imported hota hai. Isliye String, System, Math ke liye import nahi lagta.
 
 ---
 
@@ -162,9 +162,9 @@ public class Hello {
 
 Rules:
 
-- Agar class `public` hai, filename class name ke same hona chahiye.
-- `public class Hello` ka file name `Hello.java` hoga.
-- Ek `.java` file mein only one public class allowed hoti hai.
+- Agar class public hai, filename class name ke same hona chahiye.
+- public class Hello ka file name Hello.java hoga.
+- Ek .java file mein only one public class allowed hoti hai.
 
 Example:
 
@@ -183,7 +183,7 @@ Hello.java
 
 ## Class Body
 
-Class ke `{ }` ke andar variables, constructors, aur methods aate hain.
+Class ke { } ke andar variables, constructors, aur methods aate hain.
 
 Common order:
 
@@ -325,7 +325,7 @@ Student.java
 
 **Q6: Can we have multiple classes in one Java file?**
 
-Yes, but only one class can be `public`.
+Yes, but only one class can be public.
 
 Example:
 

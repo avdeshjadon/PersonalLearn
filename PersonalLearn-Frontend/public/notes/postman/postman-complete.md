@@ -270,23 +270,23 @@ APIs use "methods" (or verbs) to tell the server what action to perform. This al
 ## 7. Anatomy of an API Request
 
 ### URL Structure
-An API endpoint is made up of distinct parts. Example: `https://library.postmanlabs.com/books`
-1. **Protocol:** `https://` (Secure data transfer).
-2. **Host:** `library.postmanlabs.com` (The domain/server you are reaching out to).
-3. **Path:** `/books` (The specific destination or resource on that server).
+An API endpoint is made up of distinct parts. Example: https://library.postmanlabs.com/books
+1. **Protocol:** https:// (Secure data transfer).
+2. **Host:** library.postmanlabs.com (The domain/server you are reaching out to).
+3. **Path:** /books (The specific destination or resource on that server).
 
 ### Parameters
 Parameters act as filters for your request.
-- **Query Parameters:** Added at the very end of the URL, starting with a `?`. They are built as Key-Value pairs.
-    - *Example:* `https://www.google.com/search?q=postman`
-    - *Multiple Parameters:* Use an ampersand `&`. Example: `?genre=finance&checkedOut=false`.
-- **Path Parameters:** Variables integrated directly into the URL path, denoted by a colon `:`.
-    - *Example:* `/books/:id` (e.g., `/books/BB70`). This is used to target one specific item rather than filtering a list.
+- **Query Parameters:** Added at the very end of the URL, starting with a ?. They are built as Key-Value pairs.
+    - *Example:* https://www.google.com/search?q=postman
+    - *Multiple Parameters:* Use an ampersand &. Example: ?genre=finance&checkedOut=false.
+- **Path Parameters:** Variables integrated directly into the URL path, denoted by a colon :.
+    - *Example:* /books/:id (e.g., /books/BB70). This is used to target one specific item rather than filtering a list.
 
 ### Headers & Body
 Think of an API request as sending a letter in the mail:
-- **Headers (The Envelope):** Contains metadata (delivery info). It tells the server who is sending the request, what format to expect, and carries authorization elements like an `API-Key`.
-- **Body / Payload (The Letter inside):** The actual data you are sending. This is typically formatted in **JSON** and is required when using `POST`, `PUT`, or `PATCH`.
+- **Headers (The Envelope):** Contains metadata (delivery info). It tells the server who is sending the request, what format to expect, and carries authorization elements like an API-Key.
+- **Body / Payload (The Letter inside):** The actual data you are sending. This is typically formatted in **JSON** and is required when using POST, PUT, or PATCH.
 
 ---
 
@@ -295,17 +295,17 @@ Think of an API request as sending a letter in the mail:
 When the server replies, it includes a 3-digit status code telling you how it went.
 
 - **2xx (Success):** Everything worked perfectly.
-    - `200 OK`: Request was successful (common with GET).
-    - `201 Created`: A new resource was successfully created (common with POST).
-    - `204 No Content`: Action was successful, but there is no data to return (common with DELETE).
+    - 200 OK: Request was successful (common with GET).
+    - 201 Created: A new resource was successfully created (common with POST).
+    - 204 No Content: Action was successful, but there is no data to return (common with DELETE).
 - **3xx (Redirection):** The page/resource has moved to a new location.
 - **4xx (Client Error):** You (the client) made a mistake in the request.
-    - `400 Bad Request`: Syntax error in your request.
-    - `401 Unauthorized`: You are missing or have an invalid API Key.
-    - `404 Not Found`: The URL or specific resource does not exist.
+    - 400 Bad Request: Syntax error in your request.
+    - 401 Unauthorized: You are missing or have an invalid API Key.
+    - 404 Not Found: The URL or specific resource does not exist.
 - **5xx (Server Error):** The server is broken or down.
-    - `500 Internal Server Error`: The backend code failed.
-    - `502 Bad Gateway`: Issue connecting through a proxy or gateway.
+    - 500 Internal Server Error: The backend code failed.
+    - 502 Bad Gateway: Issue connecting through a proxy or gateway.
 
 ---
 
@@ -317,11 +317,11 @@ When the server replies, it includes a 3-digit status code telling you how it we
 - **Forking:** Creating a safe copy/clone of a Collection. It allows you to test and make changes without breaking the original master collection.
 
 ### Variables
-Instead of typing `https://library.postmanlabs.com` 50 times, save it as a variable.
+Instead of typing https://library.postmanlabs.com 50 times, save it as a variable.
 1. Highlight the text in the URL bar.
 2. Right-click > **Set as variable**.
-3. Name it (e.g., `base_URL`) and set the scope to "Collection".
-4. *Usage Syntax:* `{{base_URL}}/books`
+3. Name it (e.g., base_URL) and set the scope to "Collection".
+4. *Usage Syntax:* {{base_URL}}/books
 
 ### Postman Scripts
 You can write JavaScript in the "Scripts" tab to automate tasks after a response is received (Post-response scripts).

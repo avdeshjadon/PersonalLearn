@@ -113,7 +113,7 @@ A typical program is built using the following core components:
 
 1. **Input:** The data provided to the program from external sources (e.g., keyboard, files, or APIs).
 2. **Data Structures:** The structured way data is stored and organized in memory (e.g., variables, arrays, objects).
-3. **Control Flow:** The logical rules that dictate the execution sequence (e.g., `if-else` conditions, `for`/`while` loops).
+3. **Control Flow:** The logical rules that dictate the execution sequence (e.g., if-else conditions, for/while loops).
 4. **Processing Logic:** The core mathematical or logical operations that transform the input data.
 5. **Output:** The final result produced by the program, displayed on a screen, saved to a database, or sent over a network.
 

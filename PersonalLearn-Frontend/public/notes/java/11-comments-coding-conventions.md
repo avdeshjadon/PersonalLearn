@@ -17,7 +17,7 @@ Compiler comments ko completely ignore kar deta hai, isliye inka program ke outp
 Java mein teen (3) tarah ke comments hote hain:
 
 ### A. Single-line Comment
-Ek line ko comment karne ke liye `//` ka use hota hai.
+Ek line ko comment karne ke liye // ka use hota hai.
 
 ```java
 // This is a single-line comment
@@ -25,7 +25,7 @@ int a = 10; // Variable 'a' is initialized to 10
 ```
 
 ### B. Multi-line Comment
-Ek se zyada lines (block of text) ko comment karne ke liye `/* ... */` ka use hota hai.
+Ek se zyada lines (block of text) ko comment karne ke liye /* ... */ ka use hota hai.
 
 ```java
 /* 
@@ -39,7 +39,7 @@ int b = 20;
 ### C. Documentation Comment (Javadoc)
 > **Interview Definition:** Documentation comments are used to generate official API documentation in HTML format using the javadoc tool.
 
-Ye API documentation banane ke kaam aate hain aur `/** ... */` se likhe jaate hain.
+Ye API documentation banane ke kaam aate hain aur /** ... */ se likhe jaate hain.
 
 ```java
 /**
@@ -63,17 +63,17 @@ Agar aap in rules ko follow nahi karenge toh error nahi aayega, par professional
 
 | Element | Convention (Rule) | Example | Description |
 |---------|-------------------|---------|-------------|
-| **Class** | `PascalCase` | `StudentDetails` | Har word ka pehla letter Capital. |
-| **Method** | `camelCase` | `calculateSum()` | Pehla letter small, baaki har word ka pehla letter Capital. |
-| **Variable**| `camelCase` | `employeeAge` | Pehla letter small, baaki har word ka pehla letter Capital. |
-| **Constant**| `UPPER_CASE` | `MAX_SPEED` | Sab kuch capital, words ke beech me underscore (`_`). |
-| **Package** | `lowercase` | `java.util` | Sab kuch strictly small letters me. |
+| **Class** | PascalCase | StudentDetails | Har word ka pehla letter Capital. |
+| **Method** | camelCase | calculateSum() | Pehla letter small, baaki har word ka pehla letter Capital. |
+| **Variable**| camelCase | employeeAge | Pehla letter small, baaki har word ka pehla letter Capital. |
+| **Constant**| UPPER_CASE | MAX_SPEED | Sab kuch capital, words ke beech me underscore (_). |
+| **Package** | lowercase | java.util | Sab kuch strictly small letters me. |
 
 ---
 
-## Best Practices (Achi Aadatein)
+## Best Practices
 
-- **Meaningful Names:** Variable ka naam kaam ke hisaab se rakho (e.g., `int age` better hai `int x` se).
+- **Meaningful Names:** Variable ka naam kaam ke hisaab se rakho (e.g., int age better hai int x se).
 - **Indentation:** Code ko properly space dekar likho taaki padhne me asani ho.
 - **Don't Over-comment:** Har choti line pe comment mat likho. Code khud me self-explanatory hona chahiye.
 
@@ -87,11 +87,11 @@ No. Comments are completely ignored by the Java compiler at compile-time and are
 
 **Q2: What is the difference between a multi-line comment and a Javadoc comment?**
 
-A multi-line comment `/* ... */` is used for general explanations in the code. A Javadoc comment `/** ... */` is specifically used to generate HTML API documentation using the `javadoc` tool.
+A multi-line comment /* ... */ is used for general explanations in the code. A Javadoc comment /** ... */ is specifically used to generate HTML API documentation using the javadoc tool.
 
 **Q3: What are Java naming conventions?**
 
-Java recommends `PascalCase` for classes and interfaces, `camelCase` for methods and variables, `UPPER_CASE` with underscores for constants, and entirely `lowercase` for package names.
+Java recommends PascalCase for classes and interfaces, camelCase for methods and variables, UPPER_CASE with underscores for constants, and entirely lowercase for package names.
 
 **Q4: Is it mandatory to follow coding conventions in Java?**
 

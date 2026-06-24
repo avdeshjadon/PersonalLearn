@@ -10,9 +10,9 @@ Jab hume ek hi variable me 100 students ke marks store karne hon, toh 100 alag-a
 
 | Array Type | Used For (Kab use karein?) | Example Declaration |
 |------------|----------------------------|---------------------|
-| **1D Array** | Seedhi line me data store karne ke liye (list). | `int[] arr = new int[5];` |
-| **2D Array** | Rows aur columns me data store karne ke liye (jaise Matrix/Excel table). | `int[][] arr = new int[2][3];` |
-| **Jagged Array**| Aisa 2D array jisme har row ka size alag ho. | `int[][] arr = new int[2][];` |
+| **1D Array** | Seedhi line me data store karne ke liye (list). | int[] arr = new int[5]; |
+| **2D Array** | Rows aur columns me data store karne ke liye (jaise Matrix/Excel table). | int[][] arr = new int[2][3]; |
+| **Jagged Array**| Aisa 2D array jisme har row ka size alag ho. | int[][] arr = new int[2][]; |
 
 ---
 
@@ -21,7 +21,7 @@ Jab hume ek hi variable me 100 students ke marks store karne hon, toh 100 alag-a
 > **Interview Definition:** A single-dimensional array represents a linear list of elements of the same type.
 
 - Isme values ko unke **index number** se access kiya jata hai.
-- Array ka index hamesha `0` se start hota hai. Agar size 3 hai, toh index `0, 1, 2` honge.
+- Array ka index hamesha 0 se start hota hai. Agar size 3 hai, toh index 0, 1, 2 honge.
 
 ```java
 // Array Declare & Initialize
@@ -43,7 +43,7 @@ System.out.println(marks[0]); // Output: 80
 > **Interview Definition:** A multi-dimensional array is an array of arrays. The most common is the 2D array, which represents data in a tabular format (rows and columns).
 
 - Ise matrix bhi kehte hain. 
-- Isme do brackets use hote hain: pehla `[]` row ke liye, aur dusra `[]` column ke liye.
+- Isme do brackets use hote hain: pehla [] row ke liye, aur dusra [] column ke liye.
 
 ```java
 int[][] matrix = {
@@ -79,7 +79,7 @@ int[][] jagged = {
 
 ## 4. Arrays Utility Class
 
-Java me arrays ke sath kaam karne ke liye (jaise sort karna ya print karna), ek bani-banayi class hai jiska naam `java.util.Arrays` hai.
+Java me arrays ke sath kaam karne ke liye (jaise sort karna ya print karna), ek bani-banayi class hai jiska naam java.util.Arrays hai.
 
 ```java
 import java.util.Arrays;
@@ -102,10 +102,10 @@ class Test {
 ## Important Points to Remember 
 
 - **Fixed Size:** Java me array ka size ek baar banne ke baad fix ho jata hai. Aap use bada ya chota nahi kar sakte.
-- **Index Starts at 0:** Har array ka pehla element `0` position par hota hai.
-- **ArrayIndexOutOfBoundsException:** Agar aap array ke size ke bahar ka element access karne ki koshish karoge (jaise size 3 hai aur aap `arr[5]` mang rahe ho), toh program ye error phekega aur crash ho jayega.
+- **Index Starts at 0:** Har array ka pehla element 0 position par hota hai.
+- **ArrayIndexOutOfBoundsException:** Agar aap array ke size ke bahar ka element access karne ki koshish karoge (jaise size 3 hai aur aap arr[5] mang rahe ho), toh program ye error phekega aur crash ho jayega.
 - **Memory Location:** Java me arrays hamesha heap memory me store hote hain kyunki ye objects hote hain.
-- **Default values:** Jab hum array banate hain (`new int[5]`), toh usme automatically `0` (numbers ke liye), `false` (boolean ke liye), ya `null` (objects ke liye) bhar jata hai.
+- **Default values:** Jab hum array banate hain (new int[5]), toh usme automatically 0 (numbers ke liye), false (boolean ke liye), ya null (objects ke liye) bhar jata hai.
 
 ---
 
@@ -121,13 +121,13 @@ In Java, all arrays are dynamically allocated and therefore stored in the heap m
 
 **Q3: Can we change the size of an array after its creation?**
 
-No, arrays in Java are of fixed length. Once created, their size cannot be changed. If you need a resizable array, you should use `ArrayList`.
+No, arrays in Java are of fixed length. Once created, their size cannot be changed. If you need a resizable array, you should use ArrayList.
 
 **Q4: What happens if you specify a negative size for an array?**
 
-The code will compile successfully, but it will throw a `NegativeArraySizeException` at runtime.
+The code will compile successfully, but it will throw a NegativeArraySizeException at runtime.
 
-**Q5: What is an `ArrayIndexOutOfBoundsException`?**
+**Q5: What is an ArrayIndexOutOfBoundsException?**
 
 It is a runtime exception thrown when an attempt is made to access an array with an illegal index—either a negative index or an index greater than or equal to the size of the array.
 

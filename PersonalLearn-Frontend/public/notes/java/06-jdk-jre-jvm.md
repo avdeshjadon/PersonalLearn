@@ -169,12 +169,12 @@ Main tools:
 
 | Tool | Full Form / Meaning | Use |
 |------|----------------------|-----|
-| `javac` | Java compiler | `.java` ko `.class` bytecode mein convert karta hai |
-| `java` | JVM launcher | Java program run karta hai |
-| `jar` | Java archive tool | Multiple class files ko JAR mein package karta hai |
-| `javadoc` | Documentation generator | Code comments se documentation banata hai |
-| `jdb` | Java debugger | Debugging ke liye |
-| `javap` | Class file disassembler | Bytecode inspect karne ke liye |
+| javac | Java compiler | .java ko .class bytecode mein convert karta hai |
+| java | JVM launcher | Java program run karta hai |
+| jar | Java archive tool | Multiple class files ko JAR mein package karta hai |
+| javadoc | Documentation generator | Code comments se documentation banata hai |
+| jdb | Java debugger | Debugging ke liye |
+| javap | Class file disassembler | Bytecode inspect karne ke liye |
 
 JDK use kab hota hai?
 
@@ -194,7 +194,7 @@ JRE contains:
 - Supporting configuration files
 - Native libraries
 
-JRE mein `javac` compiler nahi hota. Isliye JRE se Java code compile nahi hota, sirf already compiled `.class`/`.jar` files run hoti hain.
+JRE mein javac compiler nahi hota. Isliye JRE se Java code compile nahi hota, sirf already compiled .class/.jar files run hoti hain.
 
 ### JVM - Execution Engine
 
@@ -202,7 +202,7 @@ JVM ka kaam bytecode execute karna hai.
 
 JVM ke major parts:
 
-- **Class Loader:** `.class` files memory mein load karta hai.
+- **Class Loader:** .class files memory mein load karta hai.
 - **Bytecode Verifier:** bytecode safe aur valid hai ya nahi check karta hai.
 - **Runtime Data Areas:** heap, stack, method area/metaspace jaise memory areas manage karta hai.
 - **Execution Engine:** bytecode ko interpret/JIT compile karke run karta hai.
@@ -298,7 +298,7 @@ Ye command source code ko bytecode mein convert karti hai.
 java Hello
 ```
 
-Ye command JVM launch karke `Hello.class` bytecode run karti hai.
+Ye command JVM launch karke Hello.class bytecode run karti hai.
 
 ### View Bytecode
 
@@ -306,7 +306,7 @@ Ye command JVM launch karke `Hello.class` bytecode run karti hai.
 javap -c Hello
 ```
 
-Ye command `.class` file ke bytecode instructions dikhati hai.
+Ye command .class file ke bytecode instructions dikhati hai.
 
 ---
 
@@ -317,8 +317,8 @@ Ye command `.class` file ke bytecode instructions dikhati hai.
 | Full Form | Java Development Kit | Java Runtime Environment | Java Virtual Machine |
 | Main Purpose | Develop + compile + run | Run Java programs | Execute bytecode |
 | Contains | JRE + development tools | JVM + libraries | Execution engine |
-| Has `javac`? | Yes | No | No |
-| Has `java` command? | Yes | Yes/runtime launcher | JVM is launched by it |
+| Has javac? | Yes | No | No |
+| Has java command? | Yes | Yes/runtime launcher | JVM is launched by it |
 | Used By | Developers | End users / runtime apps | Runtime internally |
 | Platform Dependency | Platform-specific install | Platform-specific install | Platform-specific implementation |
 | Runs Bytecode? | Through included JRE/JVM | Through JVM | Yes |
@@ -333,15 +333,15 @@ Teeno same nahi hain. JDK sabse bada package hai, JRE uske andar runtime part ha
 
 **Mistake 2: Thinking JRE can compile Java code**
 
-JRE sirf Java program run karta hai. Compilation ke liye `javac` chahiye, jo JDK mein hota hai.
+JRE sirf Java program run karta hai. Compilation ke liye javac chahiye, jo JDK mein hota hai.
 
 **Mistake 3: Thinking JVM is platform-independent**
 
 Bytecode platform-independent hota hai. JVM platform-specific hoti hai. Windows ke liye Windows JVM, Mac ke liye Mac JVM, Linux ke liye Linux JVM hoti hai.
 
-**Mistake 4: Thinking CPU directly runs `.class` file**
+**Mistake 4: Thinking CPU directly runs .class file**
 
-CPU directly `.class` bytecode nahi samajhta. JVM bytecode ko interpret/JIT compile karke machine code mein convert karwati hai.
+CPU directly .class bytecode nahi samajhta. JVM bytecode ko interpret/JIT compile karke machine code mein convert karwati hai.
 
 ---
 
@@ -349,7 +349,7 @@ CPU directly `.class` bytecode nahi samajhta. JVM bytecode ko interpret/JIT comp
 
 **Q1: What is the difference between JDK, JRE, and JVM?**
 
-JDK is used to develop Java applications. It includes JRE and development tools like `javac`. JRE is used to run Java applications. It includes JVM and class libraries. JVM is the engine that executes Java bytecode.
+JDK is used to develop Java applications. It includes JRE and development tools like javac. JRE is used to run Java applications. It includes JVM and class libraries. JVM is the engine that executes Java bytecode.
 
 ```
 JDK = JRE + Development Tools
@@ -361,7 +361,7 @@ JVM = Bytecode Execution Engine
 
 **Q2: Why do developers need JDK?**
 
-Developers need JDK because they need `javac` compiler, debugger, documentation tools, and runtime. Without JDK, Java source code cannot be compiled.
+Developers need JDK because they need javac compiler, debugger, documentation tools, and runtime. Without JDK, Java source code cannot be compiled.
 
 ---
 
@@ -373,13 +373,13 @@ Normal Java bytecode cannot run without JVM. JVM loads bytecode, verifies it, ma
 
 **Q4: Is JVM platform-independent?**
 
-No. JVM is platform-specific. Java bytecode is platform-independent. Same `.class` file can run on different operating systems because each OS has its own JVM implementation.
+No. JVM is platform-specific. Java bytecode is platform-independent. Same .class file can run on different operating systems because each OS has its own JVM implementation.
 
 ---
 
-**Q5: What happens when we run `java Hello`?**
+**Q5: What happens when we run java Hello?**
 
-JVM starts, class loader loads `Hello.class`, bytecode verifier checks safety, JVM finds `main()` method, execution engine runs bytecode, JIT compiles hot code when needed, and garbage collector manages memory.
+JVM starts, class loader loads Hello.class, bytecode verifier checks safety, JVM finds main() method, execution engine runs bytecode, JIT compiles hot code when needed, and garbage collector manages memory.
 
 ---
 

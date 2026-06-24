@@ -436,9 +436,9 @@ body.js-fadein {
 .group ul {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 6px 0 0 0;
   background: var(--bg-hover);
-  border-radius: 0 0 10px 10px;
+  border-radius: 10px;
 }
 
 .group li {
@@ -499,8 +499,8 @@ body.js-fadein {
 
 .topic-link.active {
   opacity: 1;
-  color: var(--accent);
-  font-weight: 700;
+  color: var(--ink);
+  font-weight: 600;
   background: var(--bg-hover) ;
 }
 
@@ -1667,10 +1667,11 @@ body.sidebar-open {
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 3px;
-  height: 60%;
+  width: 2px;
+  height: 50%;
   background: var(--accent);
   border-radius: 0 2px 2px 0;
+  opacity: 0.8;
   animation: slideInLeft 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 

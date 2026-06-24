@@ -30,7 +30,7 @@ Rules:
 
 - Keywords ko variable, class, ya method ka naam nahi bana sakte.
 - Keywords hamesha lowercase (small letters) mein hote hain.
-- `true`, `false`, `null` literals hain, technical terms me inhe keywords nahi maana jata.
+- true, false, null literals hain, technical terms me inhe keywords nahi maana jata.
 
 Invalid Use:
 
@@ -56,10 +56,10 @@ void display() {}
 
 Rules:
 
-- Sirf letters (A-Z, a-z), digits (0-9), underscore (`_`), aur dollar sign (`$`) allowed hain.
+- Sirf letters (A-Z, a-z), digits (0-9), underscore (_), aur dollar sign ($) allowed hain.
 - Identifier ka naam kisi digit se start nahi ho sakta.
 - Keyword ko identifier nahi bana sakte.
-- Java case-sensitive hai (matlab `age` aur `Age` dono alag hain).
+- Java case-sensitive hai (matlab age aur Age dono alag hain).
 
 Valid:
 
@@ -111,13 +111,13 @@ Identifiers are names given by the programmer to elements like variables, classe
 
 **Q3: What are literals?**
 
-Literals are fixed, constant values that are written directly into the source code, like `10` or `"Hello"`.
+Literals are fixed, constant values that are written directly into the source code, like 10 or "Hello".
 
 **Q4: Can a keyword be used as a variable name?**
 
 No. Using a keyword as an identifier will result in a compile-time error.
 
-**Q5: Is `123name` a valid identifier?**
+**Q5: Is 123name a valid identifier?**
 
 No, because an identifier cannot start with a digit in Java.
 

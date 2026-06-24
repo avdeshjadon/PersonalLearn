@@ -56,16 +56,16 @@ public class Test {
 
 | Token | Type |
 |-------|------|
-| `public` | keyword |
-| `class` | keyword |
-| `Test` | identifier |
-| `{` | separator |
-| `int` | keyword |
-| `age` | identifier |
-| `=` | operator |
-| `20` | literal |
-| `;` | separator |
-| `}` | separator |
+| public | keyword |
+| class | keyword |
+| Test | identifier |
+| { | separator |
+| int | keyword |
+| age | identifier |
+| = | operator |
+| 20 | literal |
+| ; | separator |
+| } | separator |
 
 ---
 

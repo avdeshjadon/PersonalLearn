@@ -204,7 +204,7 @@ export function TasksContent() {
                     </div>
                     <p className={`text-sm leading-relaxed whitespace-pre-wrap flex-1 ${
                       task.status === 'completed' ? 'text-emerald-600 dark:text-emerald-400' : 
-                      task.status === 'uncompleted' ? 'text-red-500 dark:text-red-400 line-through' : 
+                      task.status === 'uncompleted' ? 'text-red-500 dark:text-red-400' : 
                       'text-[var(--text-primary)]'
                     }`}>
                       {task.title}
@@ -261,7 +261,7 @@ function TaskItem({ task, toggle, del, startEditing, editingId, editTitle, setEd
         ) : (
           <span className={`text-[13px] font-medium truncate transition-all duration-200 ${
             isCompleted ? 'text-[#10B981]' : 
-            isMissed ? 'text-red-400 line-through' : 
+            isMissed ? 'text-red-400' : 
             'text-[var(--text-primary)]'
           }`}>
             {task.title}

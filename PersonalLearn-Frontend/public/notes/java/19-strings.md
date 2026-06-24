@@ -4,7 +4,7 @@
 
 Programming me jab hume text (jaise kisi ka naam, address, ya message) store karna hota hai, toh hum **String** ka use karte hain. String asal me characters (jaise 'A', 'b', 'c') ki ek ladi (sequence) hoti hai.
 
-> **Interview Definition:** In Java, a String is an object that represents a sequence of character values. It is backed by a character array internally. The `java.lang.String` class is used to create a string object.
+> **Interview Definition:** In Java, a String is an object that represents a sequence of character values. It is backed by a character array internally. The java.lang.String class is used to create a string object.
 
 ### Quick Summary Table
 
@@ -38,7 +38,7 @@ System.out.println(s); // Output: Java Language
 
 > **Interview Definition:** The String Constant Pool is a special memory region inside the Heap memory where Java stores String literals. It is used to save memory by reusing identical String objects.
 
-- Jab hum double quotes `""` se string banate hain, toh Java pehle check karta hai ki kya SCP me wo string pehle se hai. 
+- Jab hum double quotes "" se string banate hain, toh Java pehle check karta hai ki kya SCP me wo string pehle se hai. 
 - Agar hai, toh wahi purana reference (memory address) de deta hai. Naya object nahi banata!
 
 ```java
@@ -50,11 +50,11 @@ System.out.println(a == b); // Output: true (Dono same memory address point kar 
 
 ---
 
-## 3. String Comparison (`==` vs `equals()`)
+## 3. String Comparison (== vs equals())
 
 Interviews me sabse zyada poocha jane wala topic!
 
-> **Interview Definition:** The `==` operator compares the memory reference (address) of two objects, while the `equals()` method compares the actual content (values) inside the objects.
+> **Interview Definition:** The == operator compares the memory reference (address) of two objects, while the equals() method compares the actual content (values) inside the objects.
 
 ```java
 String s1 = new String("Hello"); // 'new' keyword se Heap me naya object banega
@@ -71,7 +71,7 @@ System.out.println(s1.equals(s2)); // Output: true
 
 ## 4. StringBuilder vs StringBuffer
 
-Kyunki `String` immutable (unchangeable) hoti hai, agar hume ek aisi string banani hai jise hum bar-bar change kar sakein bina memory waste kiye, toh hum in dono classes ka use karte hain.
+Kyunki String immutable (unchangeable) hoti hai, agar hume ek aisi string banani hai jise hum bar-bar change kar sakein bina memory waste kiye, toh hum in dono classes ka use karte hain.
 
 - **StringBuilder:** Bohot fast hai, par ek time par 2 threads isko safely use nahi kar sakte (Not thread-safe). Normally humesha yahi use karna chahiye.
 - **StringBuffer:** Thoda slow hai, par thread-safe hai (Synchronized). Iska use tab karte hain jab multi-threading ho rahi ho.
@@ -91,27 +91,78 @@ String ke paas kaafi saare useful methods hote hain text manipulation ke liye.
 
 | Method                                 | Description                                                       | Return Type |
 | :------------------------------------- | :---------------------------------------------------------------- | :---------- |
-| **`charAt(int index)`**                | Returns the character at the specified index.                     | `char`      |
-| **`length()`**                         | Returns the length of the string.                                 | `int`       |
-| **`substring(int beginIndex)`**        | Returns a substring from the `beginIndex` to the end.             | `String`    |
-| **`substring(int begin, int end)`**    | Returns a substring from `begin`(inclusive) to `end`(exclusive).  | `String`    |
-| **`contains(CharSequence s)`**         | Checks if the string contains the specified sequence.             | `boolean`   |
-| **`equals(Object another)`**           | Compares the content of the string.                               | `boolean`   |
-| **`equalsIgnoreCase(String another)`** | Compares string content ignoring case.                            | `boolean`   |
-| **`isEmpty()`**                        | Checks if the string length is 0.                                 | `boolean`   |
-| **`concat(String str)`**               | Concatenates the specified string to the end.                     | `String`    |
-| **`replace(char old, char new)`**      | Replaces all occurrences of a character with a new one.           | `String`    |
-| **`split(String regex)`**              | Splits the string around matches of the given regular expression. | `String[]`  |
-| **`indexOf(String s)`**                | Returns the index of the first occurrence of the substring.       | `int`       |
-| **`toLowerCase()`**                    | Converts all characters to lower case.                            | `String`    |
-| **`toUpperCase()`**                    | Converts all characters to upper case.                            | `String`    |
-| **`trim()`**                           | Removes leading and trailing whitespace.                          | `String`    |
-| **`toCharArray()`**                    | Converts the string to a new character array.                     | `char[]`    |
-| **`valueOf(int i)`**                   | Returns the string representation of the int argument.            | `String`    |
+| **charAt(int index)**                | Returns the character at the specified index.                     | char      |
+| **length()**                         | Returns the length of the string.                                 | int       |
+| **substring(int beginIndex)**        | Returns a substring from the beginIndex to the end.             | String    |
+| **substring(int begin, int end)**    | Returns a substring from begin(inclusive) to end(exclusive).  | String    |
+| **contains(CharSequence s)**         | Checks if the string contains the specified sequence.             | boolean   |
+| **equals(Object another)**           | Compares the content of the string.                               | boolean   |
+| **equalsIgnoreCase(String another)** | Compares string content ignoring case.                            | boolean   |
+| **isEmpty()**                        | Checks if the string length is 0.                                 | boolean   |
+| **concat(String str)**               | Concatenates the specified string to the end.                     | String    |
+| **replace(char old, char new)**      | Replaces all occurrences of a character with a new one.           | String    |
+| **split(String regex)**              | Splits the string around matches of the given regular expression. | String[]  |
+| **indexOf(String s)**                | Returns the index of the first occurrence of the substring.       | int       |
+| **toLowerCase()**                    | Converts all characters to lower case.                            | String    |
+| **toUpperCase()**                    | Converts all characters to upper case.                            | String    |
+| **trim()**                           | Removes leading and trailing whitespace.                          | String    |
+| **toCharArray()**                    | Converts the string to a new character array.                     | char[]    |
+| **valueOf(int i)**                   | Returns the string representation of the int argument.            | String    |
 
 ---
 
-## Interview Questions
+## 6. Concatenation, Numbers & Special Characters
+
+### String Concatenation
+The `+` operator can be used between strings to combine them. This is called concatenation. You can also use the `concat()` method.
+
+```java
+String firstName = "John";
+String lastName = "Doe";
+System.out.println(firstName + " " + lastName); // Output: John Doe
+System.out.println(firstName.concat(lastName)); // Output: JohnDoe
+```
+
+### Adding Numbers and Strings
+If you add two numbers, the result will be a number. If you add two strings, the result will be a string concatenation. If you add a number and a string, the result will be a string concatenation!
+
+```java
+int x = 10;
+int y = 20;
+System.out.println(x + y); // Outputs 30 (integer)
+
+String a = "10";
+String b = "20";
+System.out.println(a + b); // Outputs 1020 (String)
+
+String c = "10";
+int d = 20;
+System.out.println(c + d); // Outputs 1020 (String)
+```
+
+### Special Characters (Escape Sequences)
+Because strings must be written within quotes, Java will misunderstand this string:
+`String txt = "We are the so-called "Vikings" from the north.";` // ERROR
+
+To avoid this, use the backslash `\` escape character.
+
+| Escape character | Result | Description |
+|------------------|--------|-------------|
+| `\'` | `'` | Single quote |
+| `\"` | `"` | Double quote |
+| `\\` | `\` | Backslash |
+| `\n` | | New Line |
+| `\t` | | Tab |
+
+```java
+String txt1 = "We are the so-called \"Vikings\" from the north.";
+String txt2 = "It\'s alright.";
+String txt3 = "The character \\ is called backslash.";
+```
+
+---
+
+## Important Interview Questions
 
 **Q1: Why are Strings immutable in Java?**
 
@@ -121,15 +172,15 @@ Strings are immutable in Java for several reasons:
 3. **Thread Safety:** Since Strings cannot be modified, they are inherently thread-safe and can be shared among multiple threads without synchronization.
 4. **Caching Hashcode:** The hashcode of a String is heavily used in HashMaps. Immutability guarantees that the hashcode will never change, allowing Java to cache it for faster performance.
 
-**Q2: What is the difference between creating a String using double quotes (`""`) and the `new` keyword?**
+**Q2: What is the difference between creating a String using double quotes ("") and the new keyword?**
 
-When you create a String using double quotes (`String s = "Hello"`), Java checks the String Constant Pool. If the string exists, it returns the reference; if not, it creates it in the pool. 
-When you use the `new` keyword (`String s = new String("Hello")`), Java forcefully creates a new String object in the general Heap memory, bypassing the pool for the object creation (though the literal "Hello" may still be placed in the pool).
+When you create a String using double quotes (String s = "Hello"), Java checks the String Constant Pool. If the string exists, it returns the reference; if not, it creates it in the pool. 
+When you use the new keyword (String s = new String("Hello")), Java forcefully creates a new String object in the general Heap memory, bypassing the pool for the object creation (though the literal "Hello" may still be placed in the pool).
 
-**Q3: Explain the difference between `==` and `.equals()`?**
+**Q3: Explain the difference between == and .equals()?**
 
-The `==` operator checks if two reference variables point to the exact same object in memory (reference comparison). The `.equals()` method evaluates whether the sequence of characters within the two String objects is identical (content comparison).
+The == operator checks if two reference variables point to the exact same object in memory (reference comparison). The .equals() method evaluates whether the sequence of characters within the two String objects is identical (content comparison).
 
-**Q4: Which one is better: `StringBuilder` or `StringBuffer`?**
+**Q4: Which one is better: StringBuilder or StringBuffer?**
 
-`StringBuilder` is almost always preferred because it is faster and more efficient as it is not synchronized. You should only use `StringBuffer` in a multi-threaded environment where multiple threads are modifying the same string simultaneously.
+StringBuilder is almost always preferred because it is faster and more efficient as it is not synchronized. You should only use StringBuffer in a multi-threaded environment where multiple threads are modifying the same string simultaneously.

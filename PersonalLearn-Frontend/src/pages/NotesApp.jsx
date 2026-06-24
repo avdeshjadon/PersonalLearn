@@ -203,12 +203,10 @@ function NotesApp({ topic }) {
   // Brand text based on current folder
   const brandText =
     currentFolder === "java"
-      ? "Java Notes"
-      : currentFolder === "oops"
-        ? "OOPs Notes"
-        : currentFolder === "postman"
-            ? "Postman API"
-            : "Interview Prep";
+      ? "Java Complete Notes"
+      : currentFolder === "postman"
+          ? "Postman API"
+          : "Interview Prep";
 
   // Check if interview mode
   const isInterviewMode = currentFolder === "interview";
