@@ -125,9 +125,9 @@
 /* 5. SOLARIZED LIGHT THEME */
 .theme-solarized {
   --bg-app: #fdf6e3;
-  --bg-card: #eee8d5;
-  --bg-hover: #e0d9c4;
-  --bg-input: #e0d9c4;
+  --bg-card: #f5f1e5;
+  --bg-hover: #eee8d5;
+  --bg-input: #eee8d5;
   --text-primary: #073642;
   --text-secondary: #586e75;
   --border-color: #ccc3b0;
@@ -139,7 +139,7 @@
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
 
   --bg: #fdf6e3;
-  --paper: #eee8d5;
+  --paper: #f5f1e5;
   --accent: #cb4b16;
   --muted: #657b83;
   --ink: #073642;
