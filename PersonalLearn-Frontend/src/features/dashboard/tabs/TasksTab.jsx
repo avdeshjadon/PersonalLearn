@@ -1,21 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { useTasks } from '../../../hooks';
-import { Plus, Edit2, Trash2, CheckCircle, Circle, X, Calendar as CalendarIcon, CheckSquare, Info } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { springSmooth, springBouncy, springSnappy } from '../../../utils/springs';
+import React, { useState, useEffect } from "react";
+import { useTasks } from "../../../hooks";
+import {
+  Plus,
+  Edit2,
+  Trash2,
+  CheckCircle,
+  Circle,
+  X,
+  Calendar as CalendarIcon,
+  CheckSquare,
+  Info,
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  springSmooth,
+  springBouncy,
+  springSnappy,
+} from "../../../utils/springs";
 
 export function TasksContent() {
-  const { tasks, addTask, updateTask, deleteTask, toggleTaskCompletion } = useTasks();
-  const [newTaskTitle, setNewTaskTitle] = useState('');
+  const { tasks, addTask, updateTask, deleteTask, toggleTaskCompletion } =
+    useTasks();
+  const [newTaskTitle, setNewTaskTitle] = useState("");
   const [editingId, setEditingId] = useState(null);
-  const [editTitle, setEditTitle] = useState('');
+  const [editTitle, setEditTitle] = useState("");
   const [selectedGroupForModal, setSelectedGroupForModal] = useState(null);
 
   const handleAddTask = (e) => {
     e.preventDefault();
     if (!newTaskTitle.trim()) return;
     addTask(newTaskTitle);
-    setNewTaskTitle('');
+    setNewTaskTitle("");
   };
 
   const startEditing = (task) => {
@@ -32,37 +47,43 @@ export function TasksContent() {
 
   const cancelEdit = () => {
     setEditingId(null);
-    setEditTitle('');
+    setEditTitle("");
   };
 
   const groupTasksByDate = (tasksList) => {
     const groups = {};
-    tasksList.forEach(task => {
+    tasksList.forEach((task) => {
       const date = task.createdAt ? new Date(task.createdAt) : new Date();
       date.setHours(0, 0, 0, 0);
       const dateStr = date.toISOString();
-      
+
       if (!groups[dateStr]) {
         groups[dateStr] = [];
       }
       groups[dateStr].push(task);
     });
 
-    const sortedDates = Object.keys(groups).sort((a, b) => new Date(b) - new Date(a));
-    
-    return sortedDates.map(dateStr => {
+    const sortedDates = Object.keys(groups).sort(
+      (a, b) => new Date(b) - new Date(a),
+    );
+
+    return sortedDates.map((dateStr) => {
       const dateObj = new Date(dateStr);
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       const yesterday = new Date(today);
       yesterday.setDate(yesterday.getDate() - 1);
 
-      const label = dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+      const label = dateObj.toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "short",
+        day: "numeric",
+      });
 
       return {
         label,
         date: dateStr,
-        tasks: groups[dateStr]
+        tasks: groups[dateStr],
       };
     });
   };
@@ -77,8 +98,8 @@ export function TasksContent() {
       else setCols(1);
     };
     updateCols();
-    window.addEventListener('resize', updateCols);
-    return () => window.removeEventListener('resize', updateCols);
+    window.addEventListener("resize", updateCols);
+    return () => window.removeEventListener("resize", updateCols);
   }, []);
 
   const masonryColumns = Array.from({ length: cols }, () => []);
@@ -90,17 +111,22 @@ export function TasksContent() {
     <div className="max-w-5xl w-full mx-auto px-6 py-6 min-h-full">
       <header className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between text-left">
         <div className="w-full">
-          <h1 className="text-[40px] font-semibold text-[var(--text-primary)] tracking-[-1.5px] leading-[1.2] mb-1">My Tasks</h1>
+          <h1 className="text-[40px] font-semibold text-[var(--text-primary)] tracking-[-1.5px] leading-[1.2] mb-1">
+            My Tasks
+          </h1>
         </div>
       </header>
 
       {/* Input Section */}
-      <motion.div 
+      <motion.div
         initial={{ y: -10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         className="bg-[var(--bg-card)] backdrop-blur-md p-6 rounded-2xl border border-[var(--border-color)] shadow-sm mb-8 relative overflow-hidden w-full"
       >
-        <form onSubmit={handleAddTask} className="flex flex-col sm:flex-row gap-4 relative z-10">
+        <form
+          onSubmit={handleAddTask}
+          className="flex flex-col sm:flex-row gap-4 relative z-10"
+        >
           <input
             type="text"
             value={newTaskTitle}
@@ -108,7 +134,7 @@ export function TasksContent() {
             placeholder="What's on your mind today?"
             className="flex-1 px-4 py-3.5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] focus:border-orange-300 focus:bg-[var(--bg-primary)] focus:ring-2 focus:ring-orange-100 text-[var(--text-primary)] text-base transition-all duration-200 outline-none placeholder:text-[var(--text-secondary)] font-medium"
           />
-          <button 
+          <button
             type="submit"
             disabled={!newTaskTitle.trim()}
             className="px-6 py-3.5 bg-[#D97757] hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-xl font-bold text-base shadow-sm transition-all duration-200 flex items-center justify-center gap-2 whitespace-nowrap"
@@ -122,25 +148,34 @@ export function TasksContent() {
       <div className="w-full">
         {taskGroups.length === 0 ? (
           <AnimatePresence mode="popLayout">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
               className="w-full flex flex-col items-center justify-center py-10 text-[var(--text-secondary)] break-inside-avoid"
             >
               <div className="w-12 h-12 bg-[var(--bg-secondary)] rounded-full flex items-center justify-center mb-3">
-                <CheckSquare size={24} className="text-gray-300" strokeWidth={1.5} />
+                <CheckSquare
+                  size={24}
+                  className="text-gray-300"
+                  strokeWidth={1.5}
+                />
               </div>
-              <p className="text-base font-semibold text-[var(--text-secondary)]">No tasks yet.</p>
+              <p className="text-base font-semibold text-[var(--text-secondary)]">
+                No tasks yet.
+              </p>
             </motion.div>
           </AnimatePresence>
         ) : (
           <div className="flex items-start gap-4 w-full">
             {masonryColumns.map((colItems, colIndex) => (
-              <div key={colIndex} className="flex flex-col gap-4 flex-1 min-w-0">
+              <div
+                key={colIndex}
+                className="flex flex-col gap-4 flex-1 min-w-0"
+              >
                 <AnimatePresence mode="popLayout">
                   {colItems.map((group) => (
-                    <motion.section 
+                    <motion.section
                       key={group.date}
                       initial={{ opacity: 0, scale: 0.98, y: 10 }}
                       animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -148,38 +183,38 @@ export function TasksContent() {
                       transition={springSmooth}
                       className="bg-[var(--bg-card)] backdrop-blur-md p-3.5 rounded-xl border border-[var(--border-color)] shadow-sm w-full"
                     >
-                <div className="flex items-center justify-between mb-2 pb-1.5 border-b border-[var(--border-color)]">
-                  <h2 className="text-[15px] font-bold text-[var(--text-primary)] tracking-tight">
-                    {group.label}
-                  </h2>
-                  <button
-                    onClick={() => setSelectedGroupForModal(group)}
-                    className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors p-1 rounded"
-                    title="View Full Tasks"
-                  >
-                    <Info size={16} />
-                  </button>
-                </div>
+                      <div className="flex items-center justify-between mb-2 pb-1.5 border-b border-[var(--border-color)]">
+                        <h2 className="text-[15px] font-bold text-[var(--text-primary)] tracking-tight">
+                          {group.label}
+                        </h2>
+                        <button
+                          onClick={() => setSelectedGroupForModal(group)}
+                          className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors p-1 rounded"
+                          title="View Full Tasks"
+                        >
+                          <Info size={16} />
+                        </button>
+                      </div>
 
-                <div className="flex flex-col gap-0.5">
-                  <AnimatePresence>
-                    {group.tasks.map(task => (
-                      <TaskItem 
-                        key={task.id} 
-                        task={task} 
-                        toggle={toggleTaskCompletion} 
-                        del={deleteTask} 
-                        startEditing={startEditing} 
-                        editingId={editingId} 
-                        editTitle={editTitle} 
-                        setEditTitle={setEditTitle} 
-                        saveEdit={saveEdit} 
-                        cancelEdit={cancelEdit} 
-                      />
-                    ))}
-                  </AnimatePresence>
-                </div>
-                      </motion.section>
+                      <div className="flex flex-col gap-0.5">
+                        <AnimatePresence>
+                          {group.tasks.map((task) => (
+                            <TaskItem
+                              key={task.id}
+                              task={task}
+                              toggle={toggleTaskCompletion}
+                              del={deleteTask}
+                              startEditing={startEditing}
+                              editingId={editingId}
+                              editTitle={editTitle}
+                              setEditTitle={setEditTitle}
+                              saveEdit={saveEdit}
+                              cancelEdit={cancelEdit}
+                            />
+                          ))}
+                        </AnimatePresence>
+                      </div>
+                    </motion.section>
                   ))}
                 </AnimatePresence>
               </div>
@@ -192,14 +227,14 @@ export function TasksContent() {
       <AnimatePresence>
         {selectedGroupForModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }} 
-              exit={{ opacity: 0 }} 
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               className="absolute inset-0 bg-black/50 backdrop-blur-sm"
               onClick={() => setSelectedGroupForModal(null)}
             />
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
@@ -210,7 +245,7 @@ export function TasksContent() {
                 <h3 className="text-lg font-bold text-[var(--text-primary)]">
                   Tasks for {selectedGroupForModal.label}
                 </h3>
-                <button 
+                <button
                   onClick={() => setSelectedGroupForModal(null)}
                   className="p-1 text-[var(--text-secondary)] hover:text-red-500 rounded transition-colors"
                 >
@@ -218,22 +253,49 @@ export function TasksContent() {
                 </button>
               </div>
               <div className="p-4 max-h-[60vh] overflow-y-auto flex flex-col gap-3">
-                {selectedGroupForModal.tasks.map(task => (
-                  <div key={task.id} className="flex gap-3 items-start p-3 bg-[var(--bg-secondary)] rounded-xl border border-[var(--border-color)]">
+                {selectedGroupForModal.tasks.map((task) => (
+                  <div
+                    key={task.id}
+                    className="flex gap-3 items-start p-3 bg-[var(--bg-secondary)] rounded-xl border border-[var(--border-color)]"
+                  >
                     <div className="mt-0.5 flex-shrink-0">
-                      {task.status === 'completed' ? (
-                        <CheckCircle size={18} className="text-emerald-500" strokeWidth={2.5} />
-                      ) : task.status === 'uncompleted' ? (
-                        <Circle size={18} className="text-red-400" strokeWidth={2.5} />
+                      {task.status === "completed" ? (
+                        <CheckCircle
+                          size={18}
+                          className="text-emerald-500"
+                          strokeWidth={2.5}
+                        />
+                      ) : task.status === "completed_late" ? (
+                        <CheckCircle
+                          size={18}
+                          className="text-amber-500"
+                          strokeWidth={2.5}
+                        />
+                      ) : task.status === "uncompleted" ? (
+                        <Circle
+                          size={18}
+                          className="text-red-400"
+                          strokeWidth={2.5}
+                        />
                       ) : (
-                        <Circle size={18} className="text-gray-300" strokeWidth={2.5} />
+                        <Circle
+                          size={18}
+                          className="text-gray-300"
+                          strokeWidth={2.5}
+                        />
                       )}
                     </div>
-                    <p className={`text-sm leading-relaxed whitespace-pre-wrap flex-1 ${
-                      task.status === 'completed' ? 'text-emerald-600 dark:text-emerald-400' : 
-                      task.status === 'uncompleted' ? 'text-red-500 dark:text-red-400' : 
-                      'text-[var(--text-primary)]'
-                    }`}>
+                    <p
+                      className={`text-sm leading-relaxed whitespace-pre-wrap flex-1 ${
+                        task.status === "completed"
+                          ? "text-emerald-600 dark:text-emerald-400"
+                          : task.status === "completed_late"
+                            ? "text-amber-600 dark:text-amber-400"
+                            : task.status === "uncompleted"
+                              ? "text-red-500 dark:text-red-400"
+                              : "text-[var(--text-primary)]"
+                      }`}
+                    >
                       {task.title}
                     </p>
                   </div>
@@ -247,13 +309,24 @@ export function TasksContent() {
   );
 }
 
-function TaskItem({ task, toggle, del, startEditing, editingId, editTitle, setEditTitle, saveEdit, cancelEdit }) {
+function TaskItem({
+  task,
+  toggle,
+  del,
+  startEditing,
+  editingId,
+  editTitle,
+  setEditTitle,
+  saveEdit,
+  cancelEdit,
+}) {
   const isEditing = editingId === task.id;
-  const isCompleted = task.status === 'completed';
-  const isMissed = task.status === 'uncompleted';
+  const isCompleted = task.status === "completed";
+  const isCompletedLate = task.status === "completed_late";
+  const isMissed = task.status === "uncompleted";
 
   return (
-    <motion.div 
+    <motion.div
       layout
       initial={{ opacity: 0, y: 2 }}
       animate={{ opacity: 1, y: 0 }}
@@ -262,36 +335,63 @@ function TaskItem({ task, toggle, del, startEditing, editingId, editTitle, setEd
       className="group flex items-center justify-between py-1"
     >
       <div className="flex items-center gap-2 flex-1 overflow-hidden">
-        <button 
+        <button
           onClick={() => toggle(task.id)}
           className={`flex-shrink-0 transition-colors duration-200 focus:outline-none ${
-            isCompleted ? 'text-emerald-500' : 
-            isMissed ? 'text-red-400' : 
-            'text-gray-300 hover:text-orange-500'
+            isCompleted
+              ? "text-emerald-500"
+              : isCompletedLate
+                ? "text-amber-500"
+                : isMissed
+                  ? "text-red-400"
+                  : "text-gray-300 hover:text-orange-500"
           }`}
         >
-          {isCompleted ? <CheckCircle size={16} strokeWidth={2.5} /> : <Circle size={16} strokeWidth={2.5} />}
+          {isCompleted || isCompletedLate ? (
+            <CheckCircle size={16} strokeWidth={2.5} />
+          ) : (
+            <Circle size={16} strokeWidth={2.5} />
+          )}
         </button>
-        
+
         {isEditing ? (
           <div className="flex flex-1 items-center gap-1.5">
-            <input 
+            <input
               autoFocus
-              type="text" 
-              value={editTitle} 
-              onChange={e => setEditTitle(e.target.value)}
-              onKeyDown={e => { if(e.key === 'Enter') saveEdit(); if(e.key === 'Escape') cancelEdit(); }}
+              type="text"
+              value={editTitle}
+              onChange={(e) => setEditTitle(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") saveEdit();
+                if (e.key === "Escape") cancelEdit();
+              }}
               className="flex-1 px-1.5 py-0.5 rounded border border-orange-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-100 outline-none text-[var(--text-primary)] bg-white text-[13px] transition-all"
             />
-            <button onClick={saveEdit} className="px-2 py-0.5 bg-orange-500 hover:bg-orange-600 text-white text-[11px] font-bold rounded shadow-sm">Save</button>
-            <button onClick={cancelEdit} className="p-0.5 text-[var(--text-secondary)] hover:text-[var(--text-secondary)] rounded"><X size={12}/></button>
+            <button
+              onClick={saveEdit}
+              className="px-2 py-0.5 bg-orange-500 hover:bg-orange-600 text-white text-[11px] font-bold rounded shadow-sm"
+            >
+              Save
+            </button>
+            <button
+              onClick={cancelEdit}
+              className="p-0.5 text-[var(--text-secondary)] hover:text-[var(--text-secondary)] rounded"
+            >
+              <X size={12} />
+            </button>
           </div>
         ) : (
-          <span className={`text-[13px] font-medium truncate transition-all duration-200 ${
-            isCompleted ? 'text-[#10B981]' : 
-            isMissed ? 'text-red-400' : 
-            'text-[var(--text-primary)]'
-          }`}>
+          <span
+            className={`text-[13px] font-medium truncate transition-all duration-200 ${
+              isCompleted
+                ? "text-[#10B981]"
+                : isCompletedLate
+                  ? "text-amber-500"
+                  : isMissed
+                    ? "text-red-400"
+                    : "text-[var(--text-primary)]"
+            }`}
+          >
             {task.title}
           </span>
         )}
@@ -299,14 +399,14 @@ function TaskItem({ task, toggle, del, startEditing, editingId, editTitle, setEd
 
       {!isEditing && (
         <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pl-1">
-          <button 
+          <button
             onClick={() => startEditing(task)}
             className="p-1 text-[var(--text-secondary)] hover:text-orange-500 rounded"
             title="Edit Task"
           >
             <Edit2 size={13} strokeWidth={2.5} />
           </button>
-          <button 
+          <button
             onClick={() => del(task.id)}
             className="p-1 text-[var(--text-secondary)] hover:text-red-500 rounded"
             title="Delete Task"
@@ -318,4 +418,3 @@ function TaskItem({ task, toggle, del, startEditing, editingId, editTitle, setEd
     </motion.div>
   );
 }
-

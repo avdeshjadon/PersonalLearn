@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useTasks, useSettings } from "../../../hooks";
 import {
-  PieChart,
-  Pie,
-  Cell,
   ResponsiveContainer,
   Tooltip as RechartsTooltip,
   AreaChart,
@@ -13,26 +10,42 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Legend,
 } from "recharts";
-import { CheckCircle, Circle, ChevronLeft, ChevronRight } from "lucide-react";
+import { 
+  CheckCircle, 
+  Circle, 
+  ChevronLeft, 
+  ChevronRight,
+  TrendingUp,
+  Target,
+  Award
+} from "lucide-react";
+import { motion } from "framer-motion";
 
 export function OverviewContent() {
   const [time, setTime] = useState(new Date());
   const [selectedMonth, setSelectedMonth] = useState(new Date());
   const { tasks, toggleTaskCompletion, loading } = useTasks();
   const { settings } = useSettings();
+  const scrollContainerRef = useRef(null);
+
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      const today = new Date().getDate();
+      const daysInMonth = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1, 0).getDate();
+      const scrollWidth = scrollContainerRef.current.scrollWidth;
+      const clientWidth = scrollContainerRef.current.clientWidth;
+      const scrollPosition = (scrollWidth / daysInMonth) * today - (clientWidth / 2);
+      scrollContainerRef.current.scrollLeft = Math.max(0, scrollPosition);
+    }
+  }, [selectedMonth, tasks.length]);
 
   const handlePrevMonth = () => {
-    setSelectedMonth(
-      (prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1),
-    );
+    setSelectedMonth((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
   };
 
   const handleNextMonth = () => {
-    setSelectedMonth(
-      (prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1),
-    );
+    setSelectedMonth((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
   };
 
   useEffect(() => {
@@ -52,34 +65,76 @@ export function OverviewContent() {
   const getGreeting = () => {
     const hour = time.getHours();
     const name = settings?.profile?.fullName || "User";
-    if (hour < 12) return `Good Morning ${name}`;
-    if (hour < 17) return `Good Afternoon ${name}`;
-    return `Good Evening ${name}`;
+    if (hour < 12) return `Good Morning, ${name}`;
+    if (hour < 17) return `Good Afternoon, ${name}`;
+    return `Good Evening, ${name}`;
   };
 
-  // Prepare Today's Chart Data
   const startOfToday = new Date();
   startOfToday.setHours(0, 0, 0, 0);
 
   const todaysTasks = tasks.filter(
     (t) => new Date(t.createdAt) >= startOfToday || t.status === "pending",
   );
-  const completedToday = todaysTasks.filter(
-    (t) => t.status === "completed",
-  ).length;
-  const pendingToday = todaysTasks.filter((t) => t.status === "pending").length;
-  const uncompletedToday = todaysTasks.filter(
-    (t) => t.status === "uncompleted",
-  ).length;
 
-  const pieData = [
-    { name: "Completed", value: completedToday, color: "#10B981" },
-    { name: "Pending", value: pendingToday, color: "#F59E0B" },
-    { name: "Missed", value: uncompletedToday, color: "#EF4444" },
-  ].filter((d) => d.value > 0);
+  const completedToday = todaysTasks.filter(t => t.status === "completed").length;
+  const todayCompletionRate = todaysTasks.length > 0 ? Math.round((completedToday / todaysTasks.length) * 100) : 0;
 
-  // Prepare Weekly Chart Data
+  const goalStartDate = new Date('2026-06-21T00:00:00');
+  const goalEndDate = new Date('2027-01-01T23:59:59');
+  
+  const totalGoalDays = Math.max(1, Math.ceil((goalEndDate - goalStartDate) / (1000 * 60 * 60 * 24)));
+  const daysElapsed = Math.max(0, Math.ceil((new Date() - goalStartDate) / (1000 * 60 * 60 * 24)));
+  const timeProgressPercentage = Math.min(100, Math.max(0, Math.round((daysElapsed / totalGoalDays) * 100)));
+
+  const longTermData = [];
+  let currentDate = new Date(goalStartDate.getFullYear(), goalStartDate.getMonth(), goalStartDate.getDate());
+  let cumulativeCompleted = 0;
+  let cumulativeMissed = 0;
+  
+  const todayDate = new Date();
+  todayDate.setHours(23, 59, 59, 999);
+  const endDate = new Date(goalEndDate.getFullYear(), goalEndDate.getMonth(), goalEndDate.getDate());
+  
+  const tasksSinceStart = tasks.filter(t => new Date(t.createdAt) >= goalStartDate);
+  const totalCompletedSinceStart = tasksSinceStart.filter(t => t.status === "completed" || t.status === "completed_late").length;
+
+  while (currentDate <= endDate) {
+    const dayStart = new Date(currentDate);
+    dayStart.setHours(0, 0, 0, 0);
+    const dayEnd = new Date(currentDate);
+    dayEnd.setHours(23, 59, 59, 999);
+    
+    if (dayStart > todayDate) {
+      longTermData.push({
+        name: dayStart.toLocaleDateString("en-US", { month: "short", day: "numeric" }),
+        Completed: null,
+        Missed: null
+      });
+    } else {
+      const completedOnDay = tasksSinceStart.filter(t => {
+        const tDate = new Date(t.createdAt);
+        return (t.status === "completed" || t.status === "completed_late") && tDate >= dayStart && tDate <= dayEnd;
+      }).length;
+      const missedOnDay = tasksSinceStart.filter(t => {
+        const tDate = new Date(t.createdAt);
+        return t.status === "uncompleted" && tDate >= dayStart && tDate <= dayEnd;
+      }).length;
+      cumulativeCompleted += completedOnDay;
+      cumulativeMissed += missedOnDay;
+      
+      longTermData.push({
+        name: dayStart.toLocaleDateString("en-US", { month: "short", day: "numeric" }),
+        Completed: cumulativeCompleted,
+        Missed: cumulativeMissed
+      });
+    }
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
   const weeklyData = [];
+  let totalWeeklyTasks = 0;
+  let completedWeeklyTasks = 0;
   for (let i = 6; i >= 0; i--) {
     const d = new Date();
     d.setDate(d.getDate() - i);
@@ -92,18 +147,24 @@ export function OverviewContent() {
       return tDate >= d && tDate <= end;
     });
 
+    const comp = dayTasks.filter((t) => t.status === "completed" || t.status === "completed_late").length;
+    const missed = dayTasks.filter((t) => t.status === "uncompleted").length;
+    totalWeeklyTasks += dayTasks.length;
+    completedWeeklyTasks += comp;
+
     weeklyData.push({
       name: d.toLocaleDateString("en-US", { weekday: "short" }),
-      Completed: dayTasks.filter((t) => t.status === "completed").length,
-      Missed: dayTasks.filter((t) => t.status === "uncompleted").length,
+      Completed: comp,
+      Missed: missed,
     });
   }
+  const weeklyCompletionRate = totalWeeklyTasks > 0 ? Math.round((completedWeeklyTasks / totalWeeklyTasks) * 100) : 0;
 
-  // Prepare Monthly Chart Data
   const monthlyData = [];
   const year = selectedMonth.getFullYear();
   const month = selectedMonth.getMonth();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
+  let maxTasksInADay = 0;
 
   for (let i = 1; i <= daysInMonth; i++) {
     const dayStart = new Date(year, month, i, 0, 0, 0);
@@ -113,564 +174,274 @@ export function OverviewContent() {
       const tDate = new Date(t.createdAt);
       return tDate >= dayStart && tDate <= dayEnd;
     });
+    
+    maxTasksInADay = Math.max(maxTasksInADay, dayTasks.length);
 
-    const total = dayTasks.length;
-    const completed = dayTasks.filter((t) => t.status === "completed").length;
-    const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
-
-    monthlyData.push({
-      day: i,
-      Percentage: percentage,
-      Completed: completed,
-      Total: total,
+    const dataObj = { day: i, Total: dayTasks.length };
+    
+    dayTasks.forEach((task, index) => {
+      let p = task.progress || 0;
+      if ((task.status === "completed" || task.status === "completed_late") && !task.progress) p = 100;
+      dataObj[`task${index}`] = p;
     });
+
+    monthlyData.push(dataObj);
   }
+  
+  const barColors = ['#3B82F6', '#10B981', '#F59E0B', '#8B5CF6', '#EC4899', '#06B6D4', '#F97316', '#6366F1'];
+  const itemVariants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };
 
   return (
-    <div className="overview-container">
-      <div
-        className="greeting-container"
-        style={{
-          marginBottom: "40px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap",
-          gap: "20px",
-        }}
-      >
+    <div className="max-w-7xl w-full mx-auto px-6 py-8 min-h-full">
+      <header className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1
-            style={{
-              fontSize: "40px",
-              fontWeight: "600",
-              color: "var(--text-primary)",
-              margin: 0,
-              letterSpacing: "-1.5px",
-              lineHeight: "1.2",
-            }}
+          <motion.h1 
+            initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}
+            className="text-[40px] font-bold text-[var(--text-primary)] tracking-[-1.5px] leading-[1.2]"
           >
             {getGreeting()}
-          </h1>
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            color: "var(--text-primary)",
-            opacity: 0.85,
-          }}
-        >
-          <span
-            className="live-clock"
-            style={{
-              fontSize: "36px",
-              fontWeight: "300",
-              fontFamily: "system-ui, -apple-system, sans-serif",
-              letterSpacing: "-1px",
-              fontVariantNumeric: "tabular-nums",
-            }}
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-[var(--text-secondary)] font-medium mt-1 text-lg"
           >
+            Here's your progress overview.
+          </motion.p>
+        </div>
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}
+          className="flex items-center px-6 py-3 bg-[var(--bg-card)]/50 backdrop-blur-xl border border-[var(--border-color)] rounded-2xl shadow-sm"
+        >
+          <span className="text-[32px] font-light tracking-tight text-[var(--text-primary)] tabular-nums">
             {formatTime(time)}
           </span>
-        </div>
-      </div>
+        </motion.div>
+      </header>
 
-      <div
-        className="overview-charts-grid"
-        style={{ display: "grid", gap: "24px", marginBottom: "32px" }}
+      <motion.div 
+        variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
+        initial="hidden" animate="visible"
+        className="grid grid-cols-1 lg:grid-cols-3 gap-6"
       >
-        {/* Today's Progress Chart */}
-        <div
-          style={{
-            backgroundColor: "var(--bg-card)",
-            padding: "24px",
-            borderRadius: "16px",
-            border: "1px solid var(--border-color)",
-            minHeight: "300px",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <h3
-            style={{
-              color: "var(--text-primary)",
-              fontSize: "18px",
-              marginBottom: "16px",
-              fontWeight: "700",
-            }}
-          >
-            Today's Progress
-          </h3>
-          <div style={{ flex: 1, position: "relative" }}>
-            {loading ? (
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <span
-                  style={{
-                    color: "var(--text-secondary)",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                  }}
-                >
-                  Loading chart...
-                </span>
+        <motion.div variants={itemVariants} className="lg:col-span-2 relative overflow-hidden bg-[var(--bg-card)]/80 backdrop-blur-xl border border-[var(--border-color)] rounded-[32px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 group flex flex-col">
+          <div className="flex flex-col sm:flex-row justify-between items-start mb-6 gap-4">
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <Target className="text-purple-500" size={24} />
+                <h3 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Journey to Jan 2027</h3>
               </div>
-            ) : pieData.length > 0 ? (
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={pieData}
-                    innerRadius={60}
-                    outerRadius={90}
-                    paddingAngle={5}
-                    cornerRadius={8}
-                    dataKey="value"
-                    isAnimationActive={true}
-                    animationBegin={0}
-                    animationDuration={1500}
-                    animationEasing="ease-out"
-                    stroke="none"
-                  >
-                    {pieData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <RechartsTooltip
-                    contentStyle={{
-                      backgroundColor: "var(--bg-primary)",
-                      border: "1px solid var(--border-color)",
-                      borderRadius: "8px",
-                    }}
-                  />
-                </PieChart>
-              </ResponsiveContainer>
-            ) : (
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "var(--text-secondary)",
-                }}
-              >
-                No tasks for today yet.
+              <p className="text-sm text-[var(--text-secondary)] font-medium">Consistent task completion towards your final goal</p>
+            </div>
+            <div className="flex items-center gap-6 bg-[var(--bg-primary)] px-4 py-2.5 rounded-2xl border border-[var(--border-color)]">
+              <div className="text-right">
+                <div className="text-[10px] uppercase font-bold text-[var(--text-secondary)] tracking-wider">Time Elapsed</div>
+                <div className="text-lg font-black text-purple-500 leading-none mt-1">{timeProgressPercentage}%</div>
               </div>
-            )}
+              <div className="w-px h-8 bg-[var(--border-color)]"></div>
+              <div className="text-left">
+                <div className="text-[10px] uppercase font-bold text-[var(--text-secondary)] tracking-wider">Total Done</div>
+                <div className="text-lg font-black text-emerald-500 leading-none mt-1">{totalCompletedSinceStart}</div>
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* Weekly Progress Chart */}
-        <div
-          style={{
-            backgroundColor: "var(--bg-card)",
-            padding: "24px",
-            borderRadius: "16px",
-            border: "1px solid var(--border-color)",
-            minHeight: "300px",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <h3
-            style={{
-              color: "var(--text-primary)",
-              fontSize: "18px",
-              marginBottom: "16px",
-              fontWeight: "700",
-            }}
-          >
-            Weekly Activity
-          </h3>
-          <div style={{ flex: 1, position: "relative" }}>
+          <div className="w-full h-2 bg-[var(--bg-primary)] rounded-full mb-8 overflow-hidden border border-[var(--border-color)]">
+            <div 
+              className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full transition-all duration-1000 ease-out relative"
+              style={{ width: `${timeProgressPercentage}%` }}
+            >
+              <div className="absolute inset-0 bg-white/20 w-full animate-pulse"></div>
+            </div>
+          </div>
+
+          <div className="flex-1 h-[240px] relative w-full">
             {loading ? (
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <span
-                  style={{
-                    color: "var(--text-secondary)",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                  }}
-                >
-                  Loading chart...
-                </span>
-              </div>
+              <div className="absolute inset-0 flex items-center justify-center"><span className="text-[var(--text-secondary)] font-medium">Loading...</span></div>
             ) : (
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart
-                  data={weeklyData}
-                  margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
-                >
+                <AreaChart data={longTermData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <defs>
-                    <linearGradient
-                      id="colorCompleted"
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="1"
-                    >
-                      <stop offset="5%" stopColor="#10B981" stopOpacity={0.3} />
-                      <stop offset="95%" stopColor="#10B981" stopOpacity={0} />
+                    <linearGradient id="colorGoal" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#8B5CF6" stopOpacity={0.4} />
+                      <stop offset="95%" stopColor="#8B5CF6" stopOpacity={0} />
                     </linearGradient>
-                    <linearGradient
-                      id="colorMissed"
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="1"
-                    >
+                    <linearGradient id="colorGoalMissed" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="#EF4444" stopOpacity={0.3} />
                       <stop offset="95%" stopColor="#EF4444" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    vertical={false}
-                    stroke="var(--border-color)"
-                  />
-                  <XAxis
-                    dataKey="name"
-                    tick={{ fill: "var(--text-secondary)", fontSize: 12 }}
-                    axisLine={false}
-                    tickLine={false}
-                  />
-                  <YAxis
-                    tick={{ fill: "var(--text-secondary)", fontSize: 12 }}
-                    axisLine={false}
-                    tickLine={false}
-                    allowDecimals={false}
-                  />
-                  <RechartsTooltip
-                    contentStyle={{
-                      backgroundColor: "var(--bg-primary)",
-                      border: "1px solid var(--border-color)",
-                      borderRadius: "8px",
-                    }}
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="Completed"
-                    stroke="#10B981"
-                    strokeWidth={3}
-                    fillOpacity={1}
-                    fill="url(#colorCompleted)"
-                    isAnimationActive={true}
-                    animationBegin={0}
-                    animationDuration={1500}
-                    animationEasing="ease-out"
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="Missed"
-                    stroke="#EF4444"
-                    strokeWidth={3}
-                    fillOpacity={1}
-                    fill="url(#colorMissed)"
-                    isAnimationActive={true}
-                    animationBegin={0}
-                    animationDuration={1500}
-                    animationEasing="ease-out"
-                  />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-color)" opacity={0.5} />
+                  <XAxis dataKey="name" tick={{ fill: "var(--text-secondary)", fontSize: 11, fontWeight: 500 }} axisLine={false} tickLine={false} interval="preserveStartEnd" minTickGap={30} />
+                  <YAxis tick={{ fill: "var(--text-secondary)", fontSize: 11, fontWeight: 500 }} axisLine={false} tickLine={false} allowDecimals={false} />
+                  <RechartsTooltip contentStyle={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-color)", borderRadius: "12px", boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)" }} labelStyle={{ color: "var(--text-primary)", fontWeight: "bold", marginBottom: "4px" }} />
+                  <Area type="monotone" dataKey="Completed" stroke="#8B5CF6" strokeWidth={3} fillOpacity={1} fill="url(#colorGoal)" isAnimationActive={true} animationDuration={1500} connectNulls={false} />
+                  <Area type="monotone" dataKey="Missed" stroke="#EF4444" strokeWidth={3} fillOpacity={1} fill="url(#colorGoalMissed)" isAnimationActive={true} animationDuration={1500} connectNulls={false} />
                 </AreaChart>
               </ResponsiveContainer>
             )}
           </div>
-        </div>
-      </div>
+        </motion.div>
 
-      {/* Monthly Progress Chart */}
-      <div
-        style={{
-          backgroundColor: "var(--bg-card)",
-          padding: "24px",
-          borderRadius: "16px",
-          border: "1px solid var(--border-color)",
-          marginBottom: "32px",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: "24px",
-            flexWrap: "wrap",
-            gap: "16px",
-          }}
-        >
-          <h3
-            style={{
-              color: "var(--text-primary)",
-              fontSize: "18px",
-              fontWeight: "700",
-              margin: 0,
-            }}
-          >
-            Monthly Progress
-          </h3>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "16px",
-              backgroundColor: "var(--bg-primary)",
-              padding: "6px 12px",
-              borderRadius: "8px",
-              border: "1px solid var(--border-color)",
-            }}
-          >
-            <button
-              onClick={handlePrevMonth}
-              style={{
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                color: "var(--text-secondary)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <ChevronLeft size={20} />
-            </button>
-            <span
-              style={{
-                color: "var(--text-primary)",
-                fontWeight: "600",
-                minWidth: "120px",
-                textAlign: "center",
-                fontSize: "14px",
-              }}
-            >
-              {selectedMonth.toLocaleDateString("en-US", {
-                month: "long",
-                year: "numeric",
-              })}
-            </span>
-            <button
-              onClick={handleNextMonth}
-              style={{
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                color: "var(--text-secondary)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <ChevronRight size={20} />
-            </button>
+        {/* Quick Stats */}
+        <motion.div variants={itemVariants} className="lg:col-span-1 bg-[var(--bg-card)]/80 backdrop-blur-xl border border-[var(--border-color)] rounded-[32px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
+          <div className="absolute top-0 right-0 p-6 opacity-[0.03] text-[var(--text-primary)] transform group-hover:scale-110 transition-transform duration-500">
+            <Award size={120} strokeWidth={1} />
           </div>
-        </div>
+          
+          <div>
+            <div className="inline-flex items-center gap-2 bg-blue-500/10 text-blue-500 px-3 py-1.5 rounded-xl mb-6">
+              <TrendingUp size={16} />
+              <span className="text-sm font-bold tracking-wide uppercase">Today's Pulse</span>
+            </div>
+            
+            <div className="mb-8 relative z-10">
+              <h4 className="text-[var(--text-secondary)] font-medium text-lg mb-1">Completion Rate</h4>
+              <div className="flex items-baseline gap-2">
+                <span className="text-6xl font-black tracking-tighter text-[var(--text-primary)]">{todayCompletionRate}%</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-[var(--bg-primary)] rounded-2xl p-5 border border-[var(--border-color)] relative z-10">
+            <div className="flex justify-between items-center mb-3">
+              <span className="font-medium text-[var(--text-secondary)]">Tasks Completed</span>
+              <span className="font-bold text-xl text-[var(--text-primary)]">{completedToday}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="font-medium text-[var(--text-secondary)]">Total Tasks Today</span>
+              <span className="font-bold text-xl text-[var(--text-primary)]">{todaysTasks.length}</span>
+            </div>
+          </div>
+        </motion.div>
 
-        <div style={{ height: "300px", position: "relative" }}>
-          {loading ? (
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <span
-                style={{
-                  color: "var(--text-secondary)",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                }}
-              >
-                Loading chart...
+        <motion.div variants={itemVariants} className="lg:col-span-1 bg-[var(--bg-card)]/80 backdrop-blur-xl border border-[var(--border-color)] rounded-[32px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 flex flex-col">
+          <div className="flex justify-between items-start mb-6">
+            <h3 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Weekly Focus</h3>
+            <div className="px-3 py-1 bg-emerald-500/10 text-emerald-500 rounded-lg text-sm font-bold">
+              {weeklyCompletionRate}% Win
+            </div>
+          </div>
+          <div className="flex-1 h-[220px] relative w-full">
+            {loading ? (
+              <div className="absolute inset-0 flex items-center justify-center"><span className="text-[var(--text-secondary)] font-medium">Loading...</span></div>
+            ) : (
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={weeklyData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
+                  <defs>
+                    <linearGradient id="colorCompleted" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#10B981" stopOpacity={0.4} />
+                      <stop offset="95%" stopColor="#10B981" stopOpacity={0} />
+                    </linearGradient>
+                    <linearGradient id="colorMissed" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#EF4444" stopOpacity={0.3} />
+                      <stop offset="95%" stopColor="#EF4444" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-color)" opacity={0.5} />
+                  <XAxis dataKey="name" tick={{ fill: "var(--text-secondary)", fontSize: 11, fontWeight: 500 }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: "var(--text-secondary)", fontSize: 11, fontWeight: 500 }} axisLine={false} tickLine={false} allowDecimals={false} />
+                  <RechartsTooltip contentStyle={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-color)", borderRadius: "12px", boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)" }} />
+                  <Area type="monotone" dataKey="Completed" stroke="#10B981" strokeWidth={3} fillOpacity={1} fill="url(#colorCompleted)" isAnimationActive={true} animationDuration={1500} />
+                  <Area type="monotone" dataKey="Missed" stroke="#EF4444" strokeWidth={3} fillOpacity={1} fill="url(#colorMissed)" isAnimationActive={true} animationDuration={1500} />
+                </AreaChart>
+              </ResponsiveContainer>
+            )}
+          </div>
+        </motion.div>
+
+        <motion.div variants={itemVariants} className="lg:col-span-2 bg-[var(--bg-card)]/80 backdrop-blur-xl border border-[var(--border-color)] rounded-[32px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+            <h3 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Monthly Grind</h3>
+            <div className="flex items-center gap-2 bg-[var(--bg-primary)] p-1 rounded-xl border border-[var(--border-color)]">
+              <button onClick={handlePrevMonth} className="p-2 hover:bg-[var(--bg-card)] rounded-lg transition-colors text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
+                <ChevronLeft size={18} />
+              </button>
+              <span className="text-[var(--text-primary)] font-bold text-sm min-w-[100px] text-center">
+                {selectedMonth.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
               </span>
+              <button onClick={handleNextMonth} className="p-2 hover:bg-[var(--bg-card)] rounded-lg transition-colors text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
+                <ChevronRight size={18} />
+              </button>
+            </div>
+          </div>
+
+          <div className="h-[220px] relative flex">
+            {loading ? (
+              <div className="absolute inset-0 flex items-center justify-center z-20 w-full"><span className="text-[var(--text-secondary)] font-medium">Loading...</span></div>
+            ) : (
+              <>
+                <div className="w-[30px] flex-shrink-0 h-full z-10 bg-[var(--bg-card)]/80 backdrop-blur-sm">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={[{day: ''}]} margin={{ top: 10, right: 0, left: -25, bottom: 0 }}>
+                      <XAxis dataKey="day" tick={{ fill: "transparent", fontSize: 11 }} axisLine={false} tickLine={false} />
+                      <YAxis tick={{ fill: "var(--text-secondary)", fontSize: 10, fontWeight: 600 }} axisLine={false} tickLine={false} domain={[0, 100]} ticks={[0, 25, 50, 75, 100]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+
+                <div ref={scrollContainerRef} className="flex-1 overflow-x-auto overflow-y-hidden no-scrollbar">
+                  <div style={{ width: `${Math.max(100, (daysInMonth / 10) * 100)}%`, height: "100%" }}>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={monthlyData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-color)" opacity={0.5} />
+                        <XAxis dataKey="day" tick={{ fill: "var(--text-secondary)", fontSize: 11, fontWeight: 600 }} axisLine={false} tickLine={false} />
+                        <YAxis hide domain={[0, 100]} ticks={[0, 25, 50, 75, 100]} />
+                        <RechartsTooltip contentStyle={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-color)", borderRadius: "12px", boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)" }} labelFormatter={(label) => `${selectedMonth.toLocaleDateString("en-US", { month: "short" })} ${label}`} formatter={(value) => [`${value}%`, `Task Progress`]} cursor={{ fill: "var(--bg-primary)", opacity: 0.6 }} />
+                        {Array.from({ length: maxTasksInADay }).map((_, idx) => (
+                          <Bar key={`task${idx}`} dataKey={`task${idx}`} fill={barColors[idx % barColors.length]} isAnimationActive={true} animationDuration={1500} radius={[4, 4, 0, 0]} barSize={8} />
+                        ))}
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </motion.div>
+
+        <motion.div variants={itemVariants} className="lg:col-span-3 bg-[var(--bg-card)]/80 backdrop-blur-xl border border-[var(--border-color)] rounded-[32px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300">
+          <h3 className="text-xl font-bold text-[var(--text-primary)] tracking-tight mb-6">Today's Action Items</h3>
+          
+          {todaysTasks.length === 0 ? (
+            <div className="py-12 flex flex-col items-center justify-center bg-[var(--bg-primary)] rounded-2xl border border-dashed border-[var(--border-color)]">
+              <div className="w-16 h-16 bg-[var(--bg-secondary)] rounded-full flex items-center justify-center mb-4">
+                <Target className="text-gray-400" size={32} />
+              </div>
+              <p className="text-[var(--text-secondary)] font-medium text-lg">Your slate is clean today.</p>
+              <p className="text-sm text-[var(--text-secondary)]/70 mt-1">Head to the Tasks tab to add new goals.</p>
             </div>
           ) : (
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                data={monthlyData}
-                margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
-              >
-                <defs>
-                  <linearGradient
-                    id="colorPercentage"
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="1"
-                  >
-                    <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#3B82F6" stopOpacity={0.2} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid
-                  strokeDasharray="3 3"
-                  vertical={false}
-                  stroke="var(--border-color)"
-                />
-                <XAxis
-                  dataKey="day"
-                  tick={{ fill: "var(--text-secondary)", fontSize: 12 }}
-                  axisLine={false}
-                  tickLine={false}
-                />
-                <YAxis
-                  tick={{ fill: "var(--text-secondary)", fontSize: 12 }}
-                  axisLine={false}
-                  tickLine={false}
-                  domain={[0, 100]}
-                />
-                <RechartsTooltip
-                  contentStyle={{
-                    backgroundColor: "var(--bg-primary)",
-                    border: "1px solid var(--border-color)",
-                    borderRadius: "8px",
-                  }}
-                  labelFormatter={(label) =>
-                    `${selectedMonth.toLocaleDateString("en-US", { month: "short" })} ${label}`
-                  }
-                  formatter={(value, name) => [
-                    name === "Percentage" ? `${value}%` : value,
-                    name,
-                  ]}
-                  cursor={{ fill: "var(--bg-primary)", opacity: 0.4 }}
-                />
-                <Bar
-                  dataKey="Percentage"
-                  fill="url(#colorPercentage)"
-                  radius={[4, 4, 0, 0]}
-                  isAnimationActive={true}
-                  animationBegin={0}
-                  animationDuration={1500}
-                  animationEasing="ease-out"
-                />
-              </BarChart>
-            </ResponsiveContainer>
-          )}
-        </div>
-      </div>
-
-      {/* Today's Tasks List */}
-      <div
-        style={{
-          backgroundColor: "var(--bg-card)",
-          padding: "24px",
-          borderRadius: "16px",
-          border: "1px solid var(--border-color)",
-        }}
-      >
-        <h3
-          style={{
-            color: "var(--text-primary)",
-            fontSize: "18px",
-            marginBottom: "16px",
-            fontWeight: "700",
-          }}
-        >
-          Tasks For Today
-        </h3>
-        {todaysTasks.length === 0 ? (
-          <p style={{ color: "var(--text-secondary)", fontStyle: "italic" }}>
-            No tasks found. Click "Create Task" in the sidebar to get started!
-          </p>
-        ) : (
-          <div
-            style={{ display: "flex", flexDirection: "column", gap: "12px" }}
-          >
-            {todaysTasks.map((task) => (
-              <div
-                key={task.id}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "16px",
-                  padding: "12px 16px",
-                  backgroundColor: "var(--bg-primary)",
-                  borderRadius: "8px",
-                  border: "1px solid var(--border-color)",
-                }}
-              >
-                <button
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+              {todaysTasks.map((task) => (
+                <motion.div
+                  key={task.id}
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  className={`flex items-center gap-4 p-4 rounded-2xl border transition-all duration-200 cursor-pointer ${
+                    task.status === "completed" 
+                      ? "bg-emerald-500/5 border-emerald-500/20" 
+                      : task.status === "uncompleted"
+                        ? "bg-red-500/5 border-red-500/20"
+                        : "bg-[var(--bg-primary)] border-[var(--border-color)] hover:border-orange-500/30"
+                  }`}
                   onClick={() => toggleTaskCompletion(task.id)}
-                  style={{
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                    padding: 0,
-                    color:
-                      task.status === "completed"
-                        ? "#10B981"
-                        : task.status === "uncompleted"
-                          ? "#EF4444"
-                          : "var(--text-secondary)",
-                  }}
                 >
-                  {task.status === "completed" ? (
-                    <CheckCircle size={20} />
-                  ) : (
-                    <Circle size={20} />
+                  <button className={`flex-shrink-0 transition-colors ${task.status === "completed" ? "text-emerald-500" : task.status === "uncompleted" ? "text-red-400" : "text-gray-300 hover:text-orange-500"}`}>
+                    {task.status === "completed" ? <CheckCircle size={22} strokeWidth={2.5} /> : <Circle size={22} strokeWidth={2.5} />}
+                  </button>
+                  <span className={`font-medium text-sm line-clamp-2 flex-1 ${task.status === "completed" ? "text-emerald-600 dark:text-emerald-400" : task.status === "uncompleted" ? "text-red-400 line-through opacity-70" : "text-[var(--text-primary)]"}`}>
+                    {task.title}
+                  </span>
+                  {task.progress > 0 && task.status === 'pending' && (
+                    <div className="px-2.5 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 text-xs font-bold rounded-lg border border-orange-200 dark:border-orange-800/50">
+                      {task.progress}%
+                    </div>
                   )}
-                </button>
-                <span
-                  style={{
-                    color: task.status === "completed" ? "#10B981" : "var(--text-primary)",
-                    textDecoration: task.status === "uncompleted" ? "line-through" : "none",
-                    opacity: task.status === "uncompleted" ? 0.6 : 1,
-                  }}
-                >
-                  {task.title}
-                </span>
-                {task.status === "uncompleted" && (
-                  <span
-                    style={{
-                      marginLeft: "auto",
-                      fontSize: "12px",
-                      color: "#EF4444",
-                      backgroundColor: "rgba(239, 68, 68, 0.1)",
-                      padding: "4px 8px",
-                      borderRadius: "12px",
-                    }}
-                  >
-                    Missed
-                  </span>
-                )}
-                {task.status === "completed" && (
-                  <span
-                    style={{
-                      marginLeft: "auto",
-                      fontSize: "12px",
-                      color: "#10B981",
-                      backgroundColor: "rgba(16, 185, 129, 0.1)",
-                      padding: "4px 8px",
-                      borderRadius: "12px",
-                    }}
-                  >
-                    Done
-                  </span>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
+        </motion.div>
+      </motion.div>
     </div>
   );
 }
