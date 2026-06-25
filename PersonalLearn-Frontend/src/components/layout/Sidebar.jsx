@@ -1,6 +1,7 @@
 import { memo, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getNumberFromSlug, cleanTitle, filterStructure } from '../../utils/helpers';
+import { springSmooth } from '../../utils/springs';
 
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
@@ -61,10 +62,7 @@ const Sidebar = memo(({
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  transition={{ 
-                    duration: 0.4,
-                    ease: [0.32, 0.72, 0, 1]
-                  }}
+                  transition={springSmooth}
                   style={{ overflow: 'hidden' }}
                 >
                   {(group.items || []).map((slug) => {

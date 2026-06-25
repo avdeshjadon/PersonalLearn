@@ -1,5 +1,6 @@
 import { memo, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { springSmooth } from '../../../utils/springs';
 
 /**
  * Loading skeleton for smooth perceived performance
@@ -165,10 +166,7 @@ const Article = memo(({ content, isLoading, onNavigate, searchQuery, currentMatc
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
-            transition={{ 
-              duration: 0.5,
-              ease: [0.22, 1, 0.36, 1]
-            }}
+            transition={springSmooth}
             className="article-content"
             dangerouslySetInnerHTML={{ __html: highlightedContent }}
           />

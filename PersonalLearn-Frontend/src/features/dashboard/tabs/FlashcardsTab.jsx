@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useFlashcards } from '../../../hooks';
+import { springSmooth, springBouncy } from '../../../utils/springs';
 import { Plus, Trash2, RefreshCw } from 'lucide-react';
 
 export function FlashcardsContent() {
@@ -53,6 +54,7 @@ export function FlashcardsContent() {
             initial={{ opacity: 0, height: 0, marginBottom: 0 }}
             animate={{ opacity: 1, height: 'auto', marginBottom: 32 }}
             exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+            transition={springSmooth}
             className="bg-[var(--bg-card)] backdrop-blur-md p-6 rounded-2xl border border-[var(--border-color)] shadow-sm overflow-hidden"
             onSubmit={handleAddFlashcard}
           >
@@ -128,15 +130,15 @@ export function FlashcardsContent() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.3 }}
+                  transition={springSmooth}
                   className="relative w-full aspect-[4/3] cursor-pointer group"
                   onClick={() => handleToggleFlip(card.id)}
                   style={{ perspective: '1000px' }}
                 >
                   <motion.div
-                    className="w-full h-full relative preserve-3d transition-all duration-500 ease-in-out"
+                    className="w-full h-full relative preserve-3d"
                     animate={{ rotateY: isFlipped ? 180 : 0 }}
-                    transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+                    transition={springBouncy}
                     style={{ transformStyle: 'preserve-3d' }}
                   >
                     {/* FRONT SIDE */}

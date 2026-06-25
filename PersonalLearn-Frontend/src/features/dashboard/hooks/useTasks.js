@@ -16,34 +16,35 @@ export function useTasks() {
         const res = await fetch(API_URL);
         if (ignore) return;
         
-        if (res.ok) {
-          let fetchedTasks = await res.json();
-          if (ignore) return;
-          
-          // Auto-uncomplete tasks created before today
-          const startOfToday = new Date();
-          startOfToday.setHours(0, 0, 0, 0);
+        if (!res.ok) throw new Error(`Failed to load tasks: ${res.statusText}`);
+        
+        let fetchedTasks = await res.json();
+        if (ignore) return;
+        
+        // Auto-uncomplete tasks created before today
+        const startOfToday = new Date();
+        startOfToday.setHours(0, 0, 0, 0);
 
-          fetchedTasks = await Promise.all(fetchedTasks.map(async (task) => {
-            if (task.status === 'pending') {
-              const taskDate = new Date(task.createdAt);
-              if (taskDate < startOfToday) {
-                const updated = { ...task, status: 'uncompleted' };
-                // update on backend too
-                await fetch(`${API_URL}/${task.id}`, {
-                  method: 'PUT',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify(updated)
-                });
-                return updated;
-              }
+        fetchedTasks = await Promise.all(fetchedTasks.map(async (task) => {
+          if (task.status === 'pending') {
+            const taskDate = new Date(task.createdAt);
+            if (taskDate < startOfToday) {
+              const updated = { ...task, status: 'uncompleted' };
+              // update on backend too
+              const putRes = await fetch(`${API_URL}/${task.id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updated)
+              });
+              if (!putRes.ok) console.error(`Failed to auto-update task ${task.id}`);
+              return updated;
             }
-            return task;
-          }));
+          }
+          return task;
+        }));
 
-          if (ignore) return;
-          setTasks(fetchedTasks);
-        }
+        if (ignore) return;
+        setTasks(fetchedTasks);
       } catch (error) {
         if (ignore) return;
         console.error('Error fetching tasks:', error);
@@ -60,10 +61,9 @@ export function useTasks() {
     try {
       setLoading(true);
       const res = await fetch(API_URL);
-      if (res.ok) {
-        let fetchedTasks = await res.json();
-        setTasks(fetchedTasks);
-      }
+      if (!res.ok) throw new Error(`Failed to fetch tasks: ${res.statusText}`);
+      let fetchedTasks = await res.json();
+      setTasks(fetchedTasks);
     } catch (error) {
       console.error('Error fetching tasks:', error);
     } finally {
@@ -78,13 +78,13 @@ export function useTasks() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: title.trim() })
       });
-      if (res.ok) {
-        const newTask = await res.json();
-        setTasks(prev => [newTask, ...prev]);
-        return newTask;
-      }
+      if (!res.ok) throw new Error(`Failed to add task: ${res.statusText}`);
+      const newTask = await res.json();
+      setTasks(prev => [newTask, ...prev]);
+      return newTask;
     } catch (error) {
       console.error('Error adding task:', error);
+      throw error;
     }
   };
 
@@ -93,11 +93,12 @@ export function useTasks() {
       setTasks(prev => prev.map(task => 
         task.id === id ? { ...task, title: newTitle } : task
       ));
-      await fetch(`${API_URL}/${id}`, {
+      const res = await fetch(`${API_URL}/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: newTitle })
       });
+      if (!res.ok) throw new Error(`Failed to update task: ${res.statusText}`);
     } catch (error) {
       console.error('Error updating task:', error);
       fetchTasks(); // rollback on error
@@ -120,11 +121,12 @@ export function useTasks() {
       }));
 
       if (updatedTask) {
-        await fetch(`${API_URL}/${id}`, {
+        const res = await fetch(`${API_URL}/${id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(updatedTask)
         });
+        if (!res.ok) throw new Error(`Failed to toggle task: ${res.statusText}`);
       }
     } catch (error) {
       console.error('Error toggling task:', error);
@@ -135,9 +137,10 @@ export function useTasks() {
   const deleteTask = async (id) => {
     try {
       setTasks(prev => prev.filter(task => task.id !== id));
-      await fetch(`${API_URL}/${id}`, {
+      const res = await fetch(`${API_URL}/${id}`, {
         method: 'DELETE'
       });
+      if (!res.ok) throw new Error(`Failed to delete task: ${res.statusText}`);
     } catch (error) {
       console.error('Error deleting task:', error);
       fetchTasks(); // rollback on error

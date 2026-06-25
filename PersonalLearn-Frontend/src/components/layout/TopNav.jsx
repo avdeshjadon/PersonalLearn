@@ -42,7 +42,7 @@ const TopNav = memo(({
               className="menu-toggle"
               title="Toggle menu"
               onClick={onMenuToggle}
-              style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%', background: 'var(--md-code-bg)', border: '1px solid var(--md-border)', color: 'var(--md-text)' }}
+              style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--md-code-bg)', border: '1px solid var(--md-border)', color: 'var(--md-text)' }}
             >
               <i className="fa-solid fa-bars"></i>
             </motion.button>

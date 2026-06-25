@@ -39,7 +39,9 @@ export const useNotes = (onGroupExpand) => {
       return contentCache.current[cacheKey];
     }
 
-    const url = `${import.meta.env.VITE_API_URL || ''}/api/notes/${folder}/${path}`;
+    // Backend doesn't know about our local sequential prefix, so we strip it for the API call
+    const backendPath = path.replace(/^\d+__/, '');
+    const url = `${import.meta.env.VITE_API_URL || ''}/api/notes/${folder}/${backendPath}`;
     const response = await fetch(url, { cache: 'no-cache' });
     if (!response.ok) {
       throw new Error(`Failed to fetch ${path}: ${response.status}`);
@@ -70,11 +72,15 @@ export const useNotes = (onGroupExpand) => {
         }
       });
 
-      const manifestData = fileList.map((filename) => ({
-        slug: filename.replace(".md", ""),
-        title: filename.replace(".md", "").replace(/-/g, " ").toUpperCase(),
-        path: filename,
-      }));
+      const manifestData = fileList.map((filename) => {
+        const slug = filename.replace(".md", "");
+        const originalSlug = slug.replace(/^\d+__/, "");
+        return {
+          slug: slug,
+          title: originalSlug.replace(/-/g, " ").toUpperCase(),
+          path: filename,
+        };
+      });
 
       logger.timeEnd(`Build Manifest (${folder})`);
       logger.success("Manifest Built", `${manifestData.length} topics loaded`);
@@ -111,7 +117,7 @@ export const useNotes = (onGroupExpand) => {
       // Default to roadmap for each folder, fallback to first item
       const defaultSlug =
         currentFolder === "java"
-          ? "00-java-roadmap"
+          ? "001__00-java-roadmap"
           : currentFolder === "postman"
             ? "postman-complete"
             : orderedData.length > 0

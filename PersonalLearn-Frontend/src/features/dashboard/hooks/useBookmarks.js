@@ -16,11 +16,11 @@ export function useBookmarks() {
       try {
         const response = await fetch(API_URL);
         if (ignore) return;
-        if (response.ok) {
-          const data = await response.json();
-          if (ignore) return;
-          setBookmarks(data);
-        }
+        if (!response.ok) throw new Error(`Failed to fetch bookmarks: ${response.statusText}`);
+        
+        const data = await response.json();
+        if (ignore) return;
+        setBookmarks(data);
       } catch (error) {
         if (ignore) return;
         console.error('Failed to fetch bookmarks:', error);
@@ -53,14 +53,11 @@ export function useBookmarks() {
         body: JSON.stringify({ folder, slug, title })
       });
       
-      if (response.ok) {
-        const savedBookmark = await response.json();
-        // Replace temp id with real id
-        setBookmarks(prev => prev.map(b => b.id === tempId ? { ...b, id: savedBookmark.id } : b));
-      } else {
-        // Revert on failure
-        setBookmarks(prev => prev.filter(b => b.id !== tempId));
-      }
+      if (!response.ok) throw new Error(`Failed to add bookmark: ${response.statusText}`);
+      
+      const savedBookmark = await response.json();
+      // Replace temp id with real id
+      setBookmarks(prev => prev.map(b => b.id === tempId ? { ...b, id: savedBookmark.id } : b));
     } catch (error) {
       console.error('Failed to add bookmark:', error);
       setBookmarks(prev => prev.filter(b => b.id !== tempId));
@@ -68,18 +65,24 @@ export function useBookmarks() {
   }, []);
 
   const removeBookmark = useCallback(async (folder, slug) => {
+    // Find the bookmark to potentially restore it
+    const bookmarkToRemove = bookmarks.find(b => b.folder === folder && b.slug === slug);
+    if (!bookmarkToRemove) return;
+
     // Optimistic update
     setBookmarks(prev => prev.filter(b => !(b.folder === folder && b.slug === slug)));
 
     try {
-      await fetch(`${API_URL}/${folder}/${slug}`, {
+      const response = await fetch(`${API_URL}/${folder}/${slug}`, {
         method: 'DELETE'
       });
+      if (!response.ok) throw new Error(`Failed to remove bookmark: ${response.statusText}`);
     } catch (error) {
       console.error('Failed to remove bookmark:', error);
-      // We could revert here by refetching, but let's assume it usually works
+      // Revert on failure
+      setBookmarks(prev => [bookmarkToRemove, ...prev]);
     }
-  }, []);
+  }, [bookmarks]);
 
   const isBookmarked = useCallback((folder, slug) => {
     return bookmarks.some(b => b.folder === folder && b.slug === slug);

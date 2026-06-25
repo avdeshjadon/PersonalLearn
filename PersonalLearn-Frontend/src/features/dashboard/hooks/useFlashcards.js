@@ -13,10 +13,9 @@ export function useFlashcards() {
     setIsLoading(true);
     try {
       const response = await fetch(API_URL);
-      if (response.ok) {
-        const data = await response.json();
-        setFlashcards(data);
-      }
+      if (!response.ok) throw new Error(`Failed to fetch flashcards: ${response.statusText}`);
+      const data = await response.json();
+      setFlashcards(data);
     } catch (error) {
       console.error('Failed to fetch flashcards:', error);
     } finally {
@@ -31,11 +30,11 @@ export function useFlashcards() {
       try {
         const response = await fetch(API_URL);
         if (ignore) return;
-        if (response.ok) {
-          const data = await response.json();
-          if (ignore) return;
-          setFlashcards(data);
-        }
+        if (!response.ok) throw new Error(`Failed to load flashcards: ${response.statusText}`);
+        
+        const data = await response.json();
+        if (ignore) return;
+        setFlashcards(data);
       } catch (error) {
         if (ignore) return;
         console.error('Failed to fetch flashcards:', error);
@@ -66,12 +65,10 @@ export function useFlashcards() {
         body: JSON.stringify({ question, answer, category })
       });
       
-      if (response.ok) {
-        const savedCard = await response.json();
-        setFlashcards(prev => prev.map(c => c.id === tempId ? savedCard : c));
-      } else {
-        setFlashcards(prev => prev.filter(c => c.id !== tempId));
-      }
+      if (!response.ok) throw new Error(`Failed to add flashcard: ${response.statusText}`);
+      
+      const savedCard = await response.json();
+      setFlashcards(prev => prev.map(c => c.id === tempId ? savedCard : c));
     } catch (error) {
       console.error('Failed to add flashcard:', error);
       setFlashcards(prev => prev.filter(c => c.id !== tempId));
@@ -79,16 +76,21 @@ export function useFlashcards() {
   }, []);
 
   const removeFlashcard = useCallback(async (id) => {
+    const cardToRemove = flashcards.find(c => c.id === id);
+    if (!cardToRemove) return;
+
     setFlashcards(prev => prev.filter(c => c.id !== id));
 
     try {
-      await fetch(`${API_URL}/${id}`, {
+      const response = await fetch(`${API_URL}/${id}`, {
         method: 'DELETE'
       });
+      if (!response.ok) throw new Error(`Failed to remove flashcard: ${response.statusText}`);
     } catch (error) {
       console.error('Failed to remove flashcard:', error);
+      setFlashcards(prev => [cardToRemove, ...prev]);
     }
-  }, []);
+  }, [flashcards]);
 
   return {
     flashcards,

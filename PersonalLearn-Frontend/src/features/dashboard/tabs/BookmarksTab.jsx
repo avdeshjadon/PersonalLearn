@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useBookmarks } from '../../../hooks';
+import { springSmooth } from '../../../utils/springs';
 import { Bookmark, BookmarkMinus, Folder, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -59,7 +60,7 @@ export function BookmarksContent() {
                 initial={{ opacity: 0, scale: 0.98, y: 10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3 }}
+                transition={springSmooth}
                 className="bg-[var(--bg-card)] backdrop-blur-md p-4 rounded-xl border border-[var(--border-color)] shadow-sm w-full group hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col h-full"
                 onClick={() => handleNavigateToNote(bookmark.folder, bookmark.slug)}
               >

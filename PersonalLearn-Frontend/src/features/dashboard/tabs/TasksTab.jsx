@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTasks } from '../../../hooks';
 import { Plus, Edit2, Trash2, CheckCircle, Circle, X, Calendar as CalendarIcon, CheckSquare, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { springSmooth, springBouncy, springSnappy } from '../../../utils/springs';
 
 export function TasksContent() {
   const { tasks, addTask, updateTask, deleteTask, toggleTaskCompletion } = useTasks();
@@ -68,6 +69,23 @@ export function TasksContent() {
 
   const taskGroups = groupTasksByDate(tasks);
 
+  const [cols, setCols] = useState(3);
+  useEffect(() => {
+    const updateCols = () => {
+      if (window.innerWidth >= 1024) setCols(3);
+      else if (window.innerWidth >= 640) setCols(2);
+      else setCols(1);
+    };
+    updateCols();
+    window.addEventListener('resize', updateCols);
+    return () => window.removeEventListener('resize', updateCols);
+  }, []);
+
+  const masonryColumns = Array.from({ length: cols }, () => []);
+  taskGroups.forEach((group, i) => {
+    masonryColumns[i % cols].push(group);
+  });
+
   return (
     <div className="max-w-5xl w-full mx-auto px-6 py-6 min-h-full">
       <header className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between text-left">
@@ -101,30 +119,35 @@ export function TasksContent() {
       </motion.div>
 
       {/* Tasks List grouped by date */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 items-start w-full">
-        <AnimatePresence mode="popLayout">
-          {taskGroups.length === 0 ? (
+      <div className="w-full">
+        {taskGroups.length === 0 ? (
+          <AnimatePresence mode="popLayout">
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
-              className="col-span-full flex flex-col items-center justify-center py-10 text-[var(--text-secondary)]"
+              className="w-full flex flex-col items-center justify-center py-10 text-[var(--text-secondary)] break-inside-avoid"
             >
               <div className="w-12 h-12 bg-[var(--bg-secondary)] rounded-full flex items-center justify-center mb-3">
                 <CheckSquare size={24} className="text-gray-300" strokeWidth={1.5} />
               </div>
               <p className="text-base font-semibold text-[var(--text-secondary)]">No tasks yet.</p>
             </motion.div>
-          ) : (
-            taskGroups.map((group) => (
-              <motion.section 
-                key={group.date}
-                initial={{ opacity: 0, scale: 0.98, y: 10 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3 }}
-                className="bg-[var(--bg-card)] backdrop-blur-md p-3.5 rounded-xl border border-[var(--border-color)] shadow-sm w-full"
-              >
+          </AnimatePresence>
+        ) : (
+          <div className="flex items-start gap-4 w-full">
+            {masonryColumns.map((colItems, colIndex) => (
+              <div key={colIndex} className="flex flex-col gap-4 flex-1 min-w-0">
+                <AnimatePresence mode="popLayout">
+                  {colItems.map((group) => (
+                    <motion.section 
+                      key={group.date}
+                      initial={{ opacity: 0, scale: 0.98, y: 10 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={springSmooth}
+                      className="bg-[var(--bg-card)] backdrop-blur-md p-3.5 rounded-xl border border-[var(--border-color)] shadow-sm w-full"
+                    >
                 <div className="flex items-center justify-between mb-2 pb-1.5 border-b border-[var(--border-color)]">
                   <h2 className="text-[15px] font-bold text-[var(--text-primary)] tracking-tight">
                     {group.label}
@@ -156,10 +179,13 @@ export function TasksContent() {
                     ))}
                   </AnimatePresence>
                 </div>
-              </motion.section>
-            ))
-          )}
-        </AnimatePresence>
+                      </motion.section>
+                  ))}
+                </AnimatePresence>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Modal for viewing full tasks */}
@@ -177,6 +203,7 @@ export function TasksContent() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
+              transition={springSnappy}
               className="relative z-10 w-full max-w-md bg-[var(--bg-card)] border border-[var(--border-color)] rounded-2xl shadow-xl overflow-hidden"
             >
               <div className="flex items-center justify-between p-4 border-b border-[var(--border-color)]">
@@ -231,7 +258,8 @@ function TaskItem({ task, toggle, del, startEditing, editingId, editTitle, setEd
       initial={{ opacity: 0, y: 2 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, x: -5 }}
-      className="group flex items-center justify-between py-1 transition-all duration-200"
+      transition={springSmooth}
+      className="group flex items-center justify-between py-1"
     >
       <div className="flex items-center gap-2 flex-1 overflow-hidden">
         <button 

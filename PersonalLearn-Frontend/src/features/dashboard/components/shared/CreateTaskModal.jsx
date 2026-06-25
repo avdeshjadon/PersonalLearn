@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, X } from 'lucide-react';
 import { useTasks } from '../../../../hooks';
+import { springSnappy } from '../../../../utils/springs';
 
 export function CreateTaskModal({ isOpen, onClose }) {
   const { addTask } = useTasks();
@@ -30,6 +31,7 @@ export function CreateTaskModal({ isOpen, onClose }) {
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={springSnappy}
             className="bg-[var(--bg-card)] backdrop-blur-xl p-6 rounded-2xl shadow-2xl relative z-10 w-full max-w-lg overflow-hidden"
           >
             <button 
