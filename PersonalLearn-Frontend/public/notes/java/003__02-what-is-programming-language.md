@@ -145,7 +145,7 @@ Bilkul isi tarah, programming language ek **translator** ki tarah kaam karti hai
 ║                     ║                                                             ║
 ║                     ▼                                                             ║
 ║  ╔══════════════════════════════════════╗                                         ║
-║  ║ ░ CPU (Processor)  ░                 ║                                         ║
+║  ║ ░ CPU (Processor)                    ║                                         ║
 ║  ╠══════════════════════════════════════╣                                         ║
 ║  ║ ░ • Fetches from RAM                 ║                                         ║
 ║  ║ ░ • Executes one by one              ║                                         ║

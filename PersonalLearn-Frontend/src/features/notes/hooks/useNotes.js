@@ -39,18 +39,20 @@ export const useNotes = (onGroupExpand) => {
       return contentCache.current[cacheKey];
     }
 
-    // Backend doesn't know about our local sequential prefix, so we strip it for the API call
-    const backendPath = path.replace(/^\d+__/, '');
-    const url = `${import.meta.env.VITE_API_URL || ''}/api/notes/${folder}/${backendPath}`;
-    const response = await fetch(url, { cache: 'no-cache' });
+    // Use the exact filename because the backend sync service uploads it with the prefix
+    const backendPath = path;
+    const url = `${import.meta.env.VITE_API_URL || ""}/api/notes/${folder}/${backendPath}`;
+    const response = await fetch(url, { cache: "no-cache" });
     if (!response.ok) {
       throw new Error(`Failed to fetch ${path}: ${response.status}`);
     }
     const content = await response.text();
-    
+
     // Log directly to Chrome Console to prove it came from the backend
-    console.log(`[🌐 FETCH SUCCESS] Downloaded "${path}" directly from MongoDB Backend (URL: ${url})`);
-    
+    console.log(
+      `[🌐 FETCH SUCCESS] Downloaded "${path}" directly from MongoDB Backend (URL: ${url})`,
+    );
+
     contentCache.current[cacheKey] = content;
     return content;
   }, []);
@@ -61,9 +63,7 @@ export const useNotes = (onGroupExpand) => {
       logger.time(`Build Manifest (${folder})`);
 
       const structureData =
-        folder === "java"
-          ? getJavaStructure()
-          : getPostmanStructure();
+        folder === "java" ? getJavaStructure() : getPostmanStructure();
       const fileList = [];
 
       structureData.forEach((group) => {
@@ -104,7 +104,7 @@ export const useNotes = (onGroupExpand) => {
 
       const { manifestData, structureData } =
         await buildManifest(currentFolder);
-        
+
       if (ignore) return;
 
       setManifest(manifestData);
@@ -134,7 +134,9 @@ export const useNotes = (onGroupExpand) => {
     };
 
     init();
-    return () => { ignore = true; };
+    return () => {
+      ignore = true;
+    };
   }, [currentFolder, buildManifest]);
 
   // Load article content when slug changes
@@ -143,7 +145,25 @@ export const useNotes = (onGroupExpand) => {
     let ignore = false;
 
     const loadContent = async () => {
-      const item = manifest.find((x) => x.slug === currentSlug);
+      let item = manifest.find((x) => x.slug === currentSlug);
+
+      // If not found by exact match, try matching without the number prefix
+      if (!item) {
+        item = manifest.find(
+          (x) =>
+            x.slug.replace(/^\d+__/, "") === currentSlug.replace(/^\d+__/, ""),
+        );
+
+        // If found, update the slug and URL to the correct full slug
+        if (item && !ignore) {
+          setCurrentSlug(item.slug);
+          window.history.replaceState({ slug: item.slug }, "", `#${item.slug}`);
+          // Let the effect re-run with the corrected slug
+          return;
+        }
+      }
+
+      // If still no item, it might be an internal anchor link to a heading, or a broken link.
       if (!item) return;
 
       setIsLoading(true);
@@ -151,7 +171,7 @@ export const useNotes = (onGroupExpand) => {
       try {
         const content = await fetchMarkdownContent(item.path, currentFolder);
         if (ignore) return;
-        
+
         const processedContent = processAsciiDiagrams(content);
         const html = marked(processedContent);
         setArticleContent(html);
@@ -188,7 +208,9 @@ export const useNotes = (onGroupExpand) => {
     };
 
     loadContent();
-    return () => { ignore = true; };
+    return () => {
+      ignore = true;
+    };
   }, [
     currentSlug,
     manifest,

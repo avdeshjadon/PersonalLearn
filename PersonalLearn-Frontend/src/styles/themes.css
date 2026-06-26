@@ -144,10 +144,10 @@
   --muted: #657b83;
   --ink: #073642;
   --md-bg: #fdf6e3;
-  --md-text: #586e75;
-  --md-text-muted: #657b83;
+  --md-text: #073642;
+  --md-text-muted: #586e75;
   --md-accent: #cb4b16;
-  --md-code-bg: #e0d9c4;
+  --md-code-bg: #f4ecd7;
   --md-border: #ccc3b0;
 }
 
