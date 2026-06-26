@@ -33,11 +33,9 @@ export const useNotes = (onGroupExpand) => {
 
   // Fetch markdown content
   const fetchMarkdownContent = useCallback(async (path, folder) => {
-    const cacheKey = `${folder}/${path}`;
-    if (contentCache.current[cacheKey]) {
-      logger.debug("Cache Hit", cacheKey);
-      return contentCache.current[cacheKey];
-    }
+    // Removed caching during development so you can see your markdown updates instantly
+    // when you click to another note and come back.
+    // If you want full hot-reload, you just need to refresh the browser page.
 
     // Use the exact filename because the backend sync service uploads it with the prefix
     const backendPath = path;
@@ -53,7 +51,7 @@ export const useNotes = (onGroupExpand) => {
       `[🌐 FETCH SUCCESS] Downloaded "${path}" directly from MongoDB Backend (URL: ${url})`,
     );
 
-    contentCache.current[cacheKey] = content;
+
     return content;
   }, []);
 
@@ -74,10 +72,9 @@ export const useNotes = (onGroupExpand) => {
 
       const manifestData = fileList.map((filename) => {
         const slug = filename.replace(".md", "");
-        const originalSlug = slug.replace(/^\d+__/, "");
         return {
           slug: slug,
-          title: originalSlug.replace(/-/g, " ").toUpperCase(),
+          title: slug.replace(/-/g, " ").toUpperCase(),
           path: filename,
         };
       });
@@ -117,7 +114,7 @@ export const useNotes = (onGroupExpand) => {
       // Default to roadmap for each folder, fallback to first item
       const defaultSlug =
         currentFolder === "java"
-          ? "001__00-java-roadmap"
+          ? "00-java-roadmap"
           : currentFolder === "postman"
             ? "postman-complete"
             : orderedData.length > 0
@@ -147,21 +144,7 @@ export const useNotes = (onGroupExpand) => {
     const loadContent = async () => {
       let item = manifest.find((x) => x.slug === currentSlug);
 
-      // If not found by exact match, try matching without the number prefix
-      if (!item) {
-        item = manifest.find(
-          (x) =>
-            x.slug.replace(/^\d+__/, "") === currentSlug.replace(/^\d+__/, ""),
-        );
 
-        // If found, update the slug and URL to the correct full slug
-        if (item && !ignore) {
-          setCurrentSlug(item.slug);
-          window.history.replaceState({ slug: item.slug }, "", `#${item.slug}`);
-          // Let the effect re-run with the corrected slug
-          return;
-        }
-      }
 
       // If still no item, it might be an internal anchor link to a heading, or a broken link.
       if (!item) return;

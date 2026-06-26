@@ -45,8 +45,8 @@ double myDouble = 9.78;
 int myInt = (int) myDouble;      // Manual casting: double to int
 
 System.out.println(myDouble);    // Outputs 9.78
-System.out.println(myInt);      // Outputs 9 (Decimal part is lost)
-```
+System.out.println(myInt);       // Outputs 9 (Decimal part is lost)
+``` 
 
 ---
 
@@ -88,8 +88,8 @@ Computer characters (jaise 'A', 'B', 'अ') ko directly save nahi kar sakta. Wo 
 Character 'a' ki Unicode/ASCII value 97 hoti hai. 'A' ki 65 hoti hai.
 ```java
 char ch = 'A';
-int asciiVal = ch; // Automatically promoted from char to int
-System.out.println(asciiVal); // Output: 65
+int asciiVal = ch;                // Automatically promoted from char to int
+System.out.println(asciiVal);     // Output: 65
 ```
 
 ---
