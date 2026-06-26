@@ -25,10 +25,10 @@ Java mein Type Casting mainly 2 tarah ki hoti hai:
 
 ```java
 int myInt = 10;
-double myDouble = myInt; // Automatic casting: int to double
+double myDouble = myInt;         // Automatic casting: int to double
 
-System.out.println(myInt);      // Outputs 10
-System.out.println(myDouble);   // Outputs 10.0
+System.out.println(myInt);       // Outputs 10
+System.out.println(myDouble);    // Outputs 10.0
 ```
 
 ### 2. Narrowing Casting (Explicit Casting)
@@ -42,9 +42,9 @@ System.out.println(myDouble);   // Outputs 10.0
 
 ```java
 double myDouble = 9.78;
-int myInt = (int) myDouble; // Manual casting: double to int
+int myInt = (int) myDouble;      // Manual casting: double to int
 
-System.out.println(myDouble);   // Outputs 9.78
+System.out.println(myDouble);    // Outputs 9.78
 System.out.println(myInt);      // Outputs 9 (Decimal part is lost)
 ```
 

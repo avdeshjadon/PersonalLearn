@@ -25,7 +25,7 @@ JDK > JRE > JVM
 
 ## Definitions
 
-> **Interview Definition:** JDK (Java Development Kit)** Java development ke liye complete package hai. Isme compiler (javac), runtime, debugger, documentation tools, aur utilities hoti hain.
+> **Interview Definition:** JDK (Java Development Kit) Java development ke liye complete package hai. Isme compiler (javac), runtime, debugger, documentation tools, aur utilities hoti hain.
 
 > **Interview Definition:** JRE (Java Runtime Environment)** Java applications run karne ke liye required runtime package hai. Isme JVM, Java class libraries, aur supporting files hoti hain.
 

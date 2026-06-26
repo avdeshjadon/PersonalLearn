@@ -52,7 +52,7 @@ Java mein variables commonly 3 types ke hote hain:
 
 ```java
 public void myMethod() {
-    int count = 10; // Local variable
+    int count = 10; 
     System.out.println(count);
 }
 ```
@@ -68,8 +68,8 @@ public void myMethod() {
 
 ```java
 class Student {
-    String name; // Instance variable
-    int rollNo;  // Instance variable
+    String name; 
+    int rollNo;  
 }
 ```
 
@@ -84,7 +84,7 @@ class Student {
 
 ```java
 class Student {
-    static String collegeName = "ABC College"; // Static variable
+    static String collegeName = "ABC College";
 }
 ```
 
@@ -156,7 +156,6 @@ When you do not want a variable's value to change, use the `final` keyword. A va
 
 ```java
 final int myNum = 15;
-myNum = 20;  // Error: cannot assign a value to final variable 'myNum'
 ```
 
 ### When to Use final?
@@ -169,7 +168,7 @@ You should declare variables as `final` when their values should never change. F
 The `var` keyword was introduced in Java 10. It lets the compiler automatically detect the type of a local variable based on the value you assign to it (Type Inference).
 
 ```java
-var x = 5;              // x is an int
+var x = 5;                 // x is an int
 var myDouble = 9.98;    // double
 var myString = "Hello"; // String
 ```
