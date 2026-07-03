@@ -7,6 +7,7 @@ export function DashboardBottomRow({ searchQuery = '' }) {
     { title: 'Java Mastery', path: '/learning/java', desc: 'Complete Java & OOPs' },
     { title: 'Postman APIs', path: '/learning/postman', desc: 'Testing endpoints' },
     { title: 'Interview Prep', path: '/learning/interview', desc: 'Top questions' },
+    { title: 'MySQL', path: '/learning/mysql', desc: 'Database & SQL' },
   ];
 
   const filteredCards = cards.filter(c => 

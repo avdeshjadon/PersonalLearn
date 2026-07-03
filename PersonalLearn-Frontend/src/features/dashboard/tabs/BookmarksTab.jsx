@@ -20,6 +20,7 @@ export function BookmarksContent() {
       case 'oops': return 'OOPs';
       case 'postman': return 'Postman API';
       case 'interview': return 'Interview Prep';
+      case 'mysql': return 'MySQL';
       default: return folder;
     }
   };

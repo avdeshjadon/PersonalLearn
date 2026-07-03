@@ -52,19 +52,20 @@ html {
 }
 
 mark.search-highlight {
-  background-color: var(--accent);
-  color: #fff;
-  border-radius: 2px;
+  background-color: color-mix(in srgb, var(--accent) 25%, transparent);
+  color: inherit;
+  border-radius: 3px;
   padding: 0 2px;
   font-weight: inherit;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: none;
 }
 
 mark.search-highlight-active {
-  background-color: #ff4500;
+  background-color: var(--accent);
   color: #fff;
-  transform: scale(1.1);
-  box-shadow: 0 0 0 4px rgba(255, 69, 0, 0.3);
+  border-radius: 3px;
+  padding: 0 2px;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 40%, transparent);
   display: inline-block;
   transition: all 0.2s;
   z-index: 10;
@@ -208,13 +209,12 @@ body.js-fadein {
   background: var(--md-code-bg);
   border-color: var(--md-border);
   color: var(--ink);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
 }
 
 .folder-btn:active {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-  transition:
-    box-shadow 0.08s cubic-bezier(0.4, 0, 1, 1);
+  transition: box-shadow 0.08s cubic-bezier(0.4, 0, 1, 1);
 }
 
 .folder-btn.active {
@@ -254,13 +254,12 @@ body.js-fadein {
   background: var(--md-code-bg);
   border-color: var(--md-border);
   color: var(--ink);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
 }
 
 .menu-toggle:active,
 .dark-toggle:active {
-  transition:
-    box-shadow 0.08s cubic-bezier(0.4, 0, 1, 1);
+  transition: box-shadow 0.08s cubic-bezier(0.4, 0, 1, 1);
 }
 
 .dark-toggle i {
@@ -342,7 +341,9 @@ body.js-fadein {
   outline: none;
   border-color: var(--accent);
   background: var(--bg);
-  box-shadow: 0 0 0 2px var(--md-border), var(--shadow-sm);
+  box-shadow:
+    0 0 0 2px var(--md-border),
+    var(--shadow-sm);
   transform: scale(1.01);
 }
 
@@ -378,13 +379,13 @@ body.js-fadein {
 
 #list::-webkit-scrollbar-thumb,
 .sidebar-list::-webkit-scrollbar-thumb {
-  background: var(--bg-hover) ;
+  background: var(--bg-hover);
   border-radius: 3px;
 }
 
 #list::-webkit-scrollbar-thumb:hover,
 .sidebar-list::-webkit-scrollbar-thumb:hover {
-  background: var(--bg-hover) ;
+  background: var(--bg-hover);
 }
 
 /* Groups with smooth animations */
@@ -399,7 +400,7 @@ body.js-fadein {
   padding: 10px 14px;
   font-size: 13px;
   color: var(--accent);
-  background: var(--bg-hover) ;
+  background: var(--bg-hover);
   letter-spacing: 0.4px;
   cursor: pointer;
   font-weight: 600;
@@ -418,9 +419,9 @@ body.js-fadein {
 }
 
 .group h4:hover {
-  background: var(--bg-hover) ;
+  background: var(--bg-hover);
   transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 4px 16px rgba(43, 111, 111, 0.10);
+  box-shadow: 0 4px 16px rgba(43, 111, 111, 0.1);
   color: var(--accent);
 }
 
@@ -432,7 +433,7 @@ body.js-fadein {
 }
 
 .group h4.expanded {
-  background: var(--bg-hover) ;
+  background: var(--bg-hover);
   box-shadow: var(--shadow-sm);
 }
 
@@ -489,7 +490,7 @@ body.js-fadein {
 .topic-link:hover {
   opacity: 1;
   transform: translateX(8px);
-  background: var(--bg-hover) ;
+  background: var(--bg-hover);
 }
 
 .topic-link:active {
@@ -504,7 +505,7 @@ body.js-fadein {
   opacity: 1;
   color: var(--ink);
   font-weight: 600;
-  background: var(--bg-hover) ;
+  background: var(--bg-hover);
 }
 
 .subitems {
@@ -528,8 +529,6 @@ body.js-fadein {
   margin: 4px 0;
   padding: 2px 0;
 }
-
-
 
 .content {
   flex: 1;
@@ -617,7 +616,7 @@ body.js-fadein {
 .nav-foot:hover {
   opacity: 1;
   transform: translateY(-5px) scale(1.03);
-  background: var(--bg-hover) ;
+  background: var(--bg-hover);
 }
 
 .nav-foot:active {
@@ -730,7 +729,6 @@ body.js-fadein {
   }
 }
 
-
 .site-footer {
   padding: 18px 0;
   text-align: center;
@@ -832,6 +830,7 @@ body.js-fadein {
   overflow-x: auto;
   border-radius: 4px;
   line-height: 1.6;
+  position: relative;
 }
 
 .article code {
@@ -845,6 +844,10 @@ body.js-fadein {
   background: transparent;
   padding: 0;
 }
+
+
+
+
 
 /* ASCII Diagrams */
 .article .ascii-diagram {
@@ -1042,7 +1045,7 @@ body.js-fadein {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
-  
+
   .nav-buttons::-webkit-scrollbar {
     display: none;
   }
@@ -1159,11 +1162,11 @@ body.js-fadein {
   .topic-link:hover,
   .topic-link:active {
     transform: none;
-    background: var(--bg-hover) ;
+    background: var(--bg-hover);
   }
 
   .topic-link.active {
-    background: var(--bg-hover) ;
+    background: var(--bg-hover);
   }
 
   /* Footer nav */
@@ -1389,7 +1392,6 @@ body.js-fadein {
    MOBILE TOUCH FEEDBACK
    ============================================ */
 @media (max-width: 800px) {
-
   /* Active/touch states for buttons */
   .folder-btn:active {
     transform: scale(0.96);
@@ -1399,7 +1401,7 @@ body.js-fadein {
   .menu-toggle:active,
   .dark-toggle:active {
     transform: scale(0.92);
-    background: var(--bg-hover) ;
+    background: var(--bg-hover);
   }
 
   .topic-link:active {
@@ -1425,7 +1427,7 @@ body.js-fadein {
 
   .sidebar-list::-webkit-scrollbar-thumb,
   .content::-webkit-scrollbar-thumb {
-    background: var(--bg-hover) ;
+    background: var(--bg-hover);
     border-radius: 4px;
   }
 
@@ -1454,20 +1456,7 @@ body.sidebar-open {
    DARK MODE + MOBILE SPECIFIC STYLES
    ============================================ */
 @media (max-width: 800px) {
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
   /* Dark mode mobile scrollbars */
-  
 }
 
 /* ============================================
@@ -1533,7 +1522,6 @@ body.sidebar-open {
 
 /* Smooth pulse */
 @keyframes pulse {
-
   0%,
   100% {
     opacity: 1;
@@ -1567,8 +1555,6 @@ body.sidebar-open {
   animation: smoothSpin 0.9s cubic-bezier(0.4, 0.15, 0.6, 0.85) infinite;
 }
 
-
-
 /* Loading container - minimal & clean */
 .loading-container {
   display: flex;
@@ -1592,8 +1578,6 @@ body.sidebar-open {
   margin: 0;
   opacity: 0.8;
 }
-
-
 
 /* Article content smooth animation */
 .article-content {
@@ -1678,11 +1662,8 @@ body.sidebar-open {
   animation: slideInLeft 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-
-
 /* These transitions are already defined on each element above.
    Keeping this block empty prevents accidental overrides. */
-
 
 /* Search input focus animation */
 .search-input {
@@ -1720,7 +1701,6 @@ body {
 
 /* Reduced motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
@@ -1890,12 +1870,12 @@ body {
 }
 
 .toc-item:hover {
-  background: var(--bg-hover) ;
+  background: var(--bg-hover);
   transform: translateX(4px);
 }
 
 .toc-item:active {
-  background: var(--bg-hover) ;
+  background: var(--bg-hover);
 }
 
 /* Heading levels */
@@ -1932,7 +1912,7 @@ body {
 
 @keyframes highlightPulse {
   0% {
-    background: var(--bg-hover) ;
+    background: var(--bg-hover);
     border-radius: 8px;
   }
 
@@ -1965,15 +1945,6 @@ body {
 
 /* Dark mode */
 
-
-
-
-
-
-
-
-
-
 /* ============================================
    PRESENTATION / FOCUS MODE
    ============================================ */
@@ -2000,10 +1971,6 @@ body {
   opacity: 1;
   background: rgba(0, 0, 0, 0.06);
 }
-
-
-
-
 
 /* Presentation mode: content takes full screen */
 .app.presentation-mode {
@@ -2099,7 +2066,7 @@ body {
   .nav-container {
     flex-wrap: wrap !important;
   }
-  
+
   .back-to-dashboard-btn {
     display: flex;
     align-items: center;
@@ -2113,21 +2080,21 @@ body {
     order: 1;
     padding: 8px 0;
   }
-  
+
   .nav-actions {
     order: 2 !important;
     margin-left: auto;
     width: auto !important;
     margin-bottom: 0 !important;
   }
-  
+
   .nav-buttons {
     order: 3 !important;
     width: 100% !important;
     padding-right: 0 !important;
     margin-top: 12px;
   }
-  
+
   .search-bar {
     width: 100% !important;
     max-width: 100% !important;
@@ -2135,7 +2102,9 @@ body {
 }
 
 @media (max-width: 600px) {
-  .desktop-only-text { display: none; }
+  .desktop-only-text {
+    display: none;
+  }
 }
 
 /* Fix for TopNav background */
@@ -2149,8 +2118,6 @@ body {
   position: relative;
   z-index: 10;
 }
-
-
 
 @media (max-width: 768px) {
   .folder-nav-top {

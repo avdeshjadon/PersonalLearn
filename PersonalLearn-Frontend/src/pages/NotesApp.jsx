@@ -204,9 +204,11 @@ function NotesApp({ topic }) {
   const brandText =
     currentFolder === "java"
       ? "Java Complete Notes"
-      : currentFolder === "postman"
-          ? "Postman API"
-          : "Interview Prep";
+      : currentFolder === "mysql"
+          ? "MySQL Command Reference"
+          : currentFolder === "postman"
+              ? "Postman API"
+              : "Interview Prep";
 
   // Check if interview mode
   const isInterviewMode = currentFolder === "interview";

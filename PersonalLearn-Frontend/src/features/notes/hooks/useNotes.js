@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { marked } from "marked";
 import { getJavaStructure } from "../data/javaStructure";
 import { getPostmanStructure } from "../data/postmanStructure";
+import { getMysqlStructure } from "../data/mysqlStructure";
 import {
   extractTitleFromMarkdown,
   processAsciiDiagrams,
@@ -61,7 +62,7 @@ export const useNotes = (onGroupExpand) => {
       logger.time(`Build Manifest (${folder})`);
 
       const structureData =
-        folder === "java" ? getJavaStructure() : getPostmanStructure();
+        folder === "java" ? getJavaStructure() : folder === "mysql" ? getMysqlStructure() : getPostmanStructure();
       const fileList = [];
 
       structureData.forEach((group) => {
@@ -115,8 +116,10 @@ export const useNotes = (onGroupExpand) => {
       const defaultSlug =
         currentFolder === "java"
           ? "00-java-roadmap"
-          : currentFolder === "postman"
-            ? "postman-complete"
+          : currentFolder === "mysql"
+            ? "01-mysql-command-reference"
+            : currentFolder === "postman"
+              ? "postman-complete"
             : orderedData.length > 0
               ? orderedData[0].slug
               : "";

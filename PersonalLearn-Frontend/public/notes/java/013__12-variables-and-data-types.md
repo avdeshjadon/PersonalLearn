@@ -1,0 +1,234 @@
+# VARIABLES AND DATA TYPES
+
+## Concept Introduction
+
+> **Interview Definition:** A variable is a named memory location used to store data. Its value can be changed during the execution of a program.
+
+**Variable** ek named memory location hota hai jisme value store hoti hai. It acts like a container jisme aap data store karte ho aur program execution ke dauran uski value change (vary) ho sakti hai.
+
+**Data Type** batata hai ki variable kis type ka data store karega, aur memory me uske liye kitni space allocate (reserve) karni hai.
+
+```java
+int age = 20;
+```
+
+Here:
+
+- int = Data type (integer store karega)
+- age = Variable (memory container ka naam)
+- 20 = Value (jo assign hui hai)
+
+---
+
+## Declaration vs Initialization
+
+**1. Declaration:** Variables ko pehle declare karna padta hai so that compiler ko pata chal sake.
+
+```java
+int age;
+```
+
+**2. Initialization:** First time value assign karne ko initialization kehte hain.
+
+```java
+age = 20;
+```
+
+**3. Declaration + Initialization:** Dono ek sath:
+
+```java
+int age = 20;
+```
+
+---
+
+## Types of Variables
+
+Java mein variables commonly 3 types ke hote hain:
+
+### 1. Local Variable
+
+> **Interview Definition:** A local variable is a variable that is declared inside a method or a block. Its scope is limited to that specific block only.
+
+- Jo variable kisi method, constructor ya block ke andar declare hota hai usko local variable kehte hain.
+- Inka scope sirf usi block ya method tak limited hota hai.
+- Inhe by default koi value nahi milti. Use karne se pehle initialize karna MUST hai.
+
+```java
+public void myMethod() {
+    int count = 10;
+    System.out.println(count);
+}
+```
+
+### 2. Instance Variable (Non-Static)
+
+> **Interview Definition:** An instance variable is declared inside a class but outside any method. Every object of the class has its own separate copy of this variable.
+
+- Jo variable class ke andar hota hai, par kisi method ya block ke bahar.
+- Memory tab allocate hoti hai jab class ka object/instance create hota hai.
+- Har object ke paas apni separate copy hoti hai.
+- Default value automatically mil jaati hai agar initialize na karein.
+
+```java
+class Student {
+    String name;
+    int rollNo;
+}
+```
+
+### 3. Static Variable (Class Variable)
+
+> **Interview Definition:** A static variable belongs to the class rather than any object. Only a single copy of a static variable is created and shared among all the objects of that class.
+
+- Is variable ke sath static keyword use hota hai.
+- Yeh object se nahi balki class se directly related hota hai.
+- Pure class level par iski sirf **ek hi copy** share hoti hai saare objects ke beech.
+- Program start hote hi memory milti hai (class loading ke time).
+
+```java
+class Student {
+    static String collegeName = "ABC College";
+}
+```
+
+---
+
+## Data Types in Java
+
+Data types main 2 categories mein divided hain:
+
+1. **Primitive Data Types** (Built-in data types)
+2. **Non-Primitive Data Types** (Reference data types)
+
+---
+
+### 1. Primitive Data Types
+
+Java mein total 8 primitive data types hain. Ye simple values store karte hain aur directly memory me store hote hain.
+
+| Type    | Stores            | Size                        | Range                | Default Value   | Example            |
+| ------- | ----------------- | --------------------------- | -------------------- | --------------- | ------------------ |
+| byte    | Small integer     | 1 byte (8 bits)             | -128 to 127          | 0               | byte b = 10;       |
+| short   | Integer           | 2 bytes (16 bits)           | -32,768 to 32,767    | 0               | short s = 100;     |
+| int     | Integer (default) | 4 bytes (32 bits)           | approx ±2 Billion    | 0               | int n = 1000;      |
+| long    | Large integer     | 8 bytes (64 bits)           | very large numbers   | 0L              | long l = 100000L;  |
+| float   | Decimal points    | 4 bytes                     | 6-7 decimal digits   | 0.0f            | float f = 10.5f;   |
+| double  | Decimal (default) | 8 bytes                     | 15 decimal digits    | 0.0d            | double d = 10.556; |
+| char    | Single character  | 2 bytes (Unicode)           | '\u0000' to '\uffff' | '\u0000' (null) | char c = 'A';      |
+| boolean | True/False value  | 1 bit (info representation) | true or false        | false           | boolean ok = true; |
+
+#### Points to Remember:
+
+- Dekho float declare karte time end me f ya F lagana padta hai (float f = 3.14f), warna Java usey double maan leta hai.
+- long ko assign karte time end me l ya L lagate hain (long num = 1000L).
+- Java character ke liye Unicode system follow karta hai isliye char 2 bytes leta hai (baaki language C/C++ me ye 1 byte leta hai ASCII ki wajah se).
+
+---
+
+### 2. Non-Primitive Data Types (Reference Types)
+
+- Ye variables data ki actual value nahi hold karte, balki heap memory me object ka **address/reference** hold karte hain.
+- Har non-primitive type ka default value null hota hai.
+- Iska size fix nahi hota hai (depends on hardware and VM).
+
+Examples of Non-Primitive Data Types:
+
+1. **String:** Sequence of characters. (e.g., String name = "Deepak";)
+2. **Arrays:** Collection of similar type elements. (e.g., int[] arr = {1, 2, 3};)
+3. **Classes:** User defined custom data type. (e.g., Objects created by Student s = new Student();)
+4. **Interfaces:** Blueprint for classes.
+
+#### Difference Between Primitive and Non-Primitive Types
+
+| Primitive                                                 | Non-Primitive                                                                   |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| They are predefined in Java.                              | They are created by the programmer (except String, Array).                      |
+| They do not have any methods (cannot call methods).       | They can call methods to perform certain operations.                            |
+| They store the actual value directly in memory.           | They store a memory reference (address) to the actual object.                   |
+| **Memory Location:** Stored in the Stack memory.          | **Memory Location:** Objects are stored in Heap memory (reference is in stack). |
+| **Comparison:** Compared using the == operator.           | **Comparison:** Values compared using the .equals() method.                     |
+| **Nullability:** Cannot hold a null value.                | **Nullability:** Can be assigned a null value.                                  |
+| **Performance:** Faster, as data is accessed directly.    | **Performance:** Slower, as data is accessed via reference.                     |
+| Start with a lowercase letter (e.g., int, boolean).       | Conventionally start with an uppercase letter (e.g., String, Scanner).          |
+| Their size is fixed.                                      | Their size is variable/dynamic.                                                 |
+| Their default value depends on the type (e.g., 0, false). | Their default value is always null.                                             |
+
+## Scope and Lifetime
+
+**Scope** means where variable can be accessed inside a program.
+**Lifetime** means how long variable exists in the memory before being collected by GC (Garbage Collector).
+
+## Constants (final keyword)
+
+When you do not want a variable's value to change, use the `final` keyword. A variable declared with `final` becomes a constant, which means it is unchangeable and read-only.
+
+```java
+final int myNum = 15;
+```
+
+### When to Use final?
+
+You should declare variables as `final` when their values should never change. For example, the number of minutes in an hour, or your birth year. By convention, `final` variables in Java are usually written in **UPPER_CASE** (e.g. `MINUTES_PER_HOUR`).
+
+---
+
+## The var Keyword (Java 10+)
+
+The `var` keyword was introduced in Java 10. It lets the compiler automatically detect the type of a local variable based on the value you assign to it (Type Inference).
+
+```java
+var x = 5;                 // x is an int
+var myDouble = 9.98;       // double
+var myString = "Hello";    // String
+```
+
+### Important Notes on var:
+
+1. `var` only works when you assign a value at the same time:
+   ```java
+   var x;       // Error
+   var x = 5;   // OK
+   ```
+2. Once the type is chosen by the compiler, it stays the same:
+   ```java
+   var x = 5;    // x is an int
+   x = 9.99;     // Error - can't assign a double to an int
+   ```
+3. For complex types, `var` can make the code shorter and easier to read:
+
+   ```java
+   // Without var
+   ArrayList<String> cars = new ArrayList<String>();
+
+   // With var
+   var cars = new ArrayList<String>();
+   ```
+
+---
+
+## Important Interview Questions
+
+**Q1: What is a variable?**
+
+Variable is a named memory location used to store data that can change during program execution.
+
+**Q2: What is data type?**
+
+Data type defines what kind of value a variable can store and how much memory to allocate for it.
+
+**Q3: Difference between local and instance variable?**
+
+Local variable kisi method/block ke andar hota hai. Instance variable class ke andar but method ke bahar hota hai, and is tied to an object.
+
+**Q4: Do local variables get default values?**
+
+No. Local variables must be initialized explicitly before use, otherwise compiler throws an error. Instance and static variables ko by default unka value mil jaata hai (like int->0, Object->null).
+
+**Q5: Difference between Primitive and Non-Primitive data types?**
+
+Primitives directly value store karte hain aur built-in hain (int, float). Non-primitive reference (address) store karte hain aur memory me object represent karte hain (String, Arrays, Classes).
+
+**Q6: Java 'char' 2 bytes kyun leta hai?**
+
+Kyunki Java ASCII encoding nahi, Unicode encoding (UTF-16) use karta hai to support worldwide languages.
