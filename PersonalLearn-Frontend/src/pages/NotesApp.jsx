@@ -8,6 +8,7 @@ import FooterNav, { SiteFooter } from "../components/layout/FooterNav";
 import Overlay from "../components/layout/Overlay";
 import Article from "../features/notes/components/Article";
 import TableOfContents from "../features/notes/components/TableOfContents";
+import ClickSpark from "../components/ui/ClickSpark";
 
 function NotesApp({ topic }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -214,8 +215,9 @@ function NotesApp({ topic }) {
   const isInterviewMode = currentFolder === "interview";
 
   return (
-    <div className={`app${isPresentationMode ? ' presentation-mode' : ''}`}>
-      {/* Overlay for mobile sidebar */}
+    <ClickSpark sparkColor="var(--accent)" sparkSize={12} sparkRadius={15} sparkCount={8} duration={400}>
+      <div className={`app${isPresentationMode ? ' presentation-mode' : ''}`}>
+        {/* Overlay for mobile sidebar */}
       <Overlay isActive={sidebar.isOpen} onClick={sidebar.close} />
 
       {/* Sidebar - hidden for interview or presentation mode */}
@@ -310,6 +312,7 @@ function NotesApp({ topic }) {
         <i className="fa-solid fa-compress"></i>
       </button>
     </div>
+    </ClickSpark>
   );
 }
 
