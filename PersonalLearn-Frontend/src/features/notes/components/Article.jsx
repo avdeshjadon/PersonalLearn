@@ -189,7 +189,63 @@ const Article = memo(
       isLoading,
       contentKey,
     ]);
-    
+
+    // Add copy buttons to code blocks
+    useEffect(() => {
+      if (isLoading) return;
+
+      let attempts = 0;
+      let intervalId;
+
+      const injectButtons = () => {
+        const container = contentRef.current;
+        if (!container || container.getAttribute("data-content-key") !== contentKey) {
+          attempts++;
+          if (attempts > 50) clearInterval(intervalId);
+          return;
+        }
+
+        // Found the right container, we can stop polling
+        clearInterval(intervalId);
+
+        const preElements = container.querySelectorAll("pre");
+
+        preElements.forEach((pre) => {
+          // Prevent duplicate buttons if re-run
+          if (pre.querySelector(".copy-code-btn")) return;
+
+          const button = document.createElement("button");
+          button.className = "copy-code-btn";
+          button.innerHTML = '<i class="fa-regular fa-copy"></i>';
+          button.setAttribute("aria-label", "Copy code");
+          button.setAttribute("title", "Copy code");
+
+          button.addEventListener("click", () => {
+            const code = pre.querySelector("code");
+            if (!code) return;
+
+            navigator.clipboard.writeText(code.innerText).then(() => {
+              button.innerHTML = '<i class="fa-solid fa-check"></i>';
+              button.classList.add("copied");
+              setTimeout(() => {
+                button.innerHTML = '<i class="fa-regular fa-copy"></i>';
+                button.classList.remove("copied");
+              }, 2000);
+            }).catch(err => {
+              console.error('Failed to copy text: ', err);
+            });
+          });
+
+          pre.appendChild(button);
+        });
+      };
+
+      intervalId = setInterval(injectButtons, 100);
+      injectButtons();
+
+      return () => clearInterval(intervalId);
+    }, [isLoading, contentKey, highlightedContent]);
+
     return (
       <article className="article">
         <AnimatePresence mode="wait">

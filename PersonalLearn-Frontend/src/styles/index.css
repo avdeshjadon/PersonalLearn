@@ -845,9 +845,45 @@ body.js-fadein {
   padding: 0;
 }
 
+/* Copy Code Button */
+.article pre .copy-code-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--md-text-muted);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 5;
+  font-size: 1.1rem;
+}
 
+.article pre:hover .copy-code-btn,
+.article pre .copy-code-btn:focus,
+.article pre .copy-code-btn.copied {
+  opacity: 1;
+}
 
+.article pre .copy-code-btn:hover {
+  color: #34d399; /* Light green */
+  transform: scale(1.1);
+}
 
+.article pre .copy-code-btn:active {
+  transform: scale(0.95);
+  transition: transform 0.08s;
+}
+
+.article pre .copy-code-btn.copied {
+  color: #34d399; /* Light green */
+}
 
 /* ASCII Diagrams */
 .article .ascii-diagram {
