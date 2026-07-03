@@ -117,7 +117,7 @@ export const useNotes = (onGroupExpand) => {
         currentFolder === "java"
           ? "00-java-roadmap"
           : currentFolder === "mysql"
-            ? "01-mysql-command-reference"
+            ? "00-mysql-installation"
             : currentFolder === "postman"
               ? "postman-complete"
             : orderedData.length > 0

@@ -848,7 +848,8 @@ body.js-fadein {
 /* Copy Code Button */
 .article pre .copy-code-btn {
   position: absolute;
-  top: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
   right: 1rem;
   background: transparent;
   border: none;
@@ -873,11 +874,11 @@ body.js-fadein {
 
 .article pre .copy-code-btn:hover {
   color: #34d399; /* Light green */
-  transform: scale(1.1);
+  transform: translateY(-50%) scale(1.1);
 }
 
 .article pre .copy-code-btn:active {
-  transform: scale(0.95);
+  transform: translateY(-50%) scale(0.95);
   transition: transform 0.08s;
 }
 

@@ -1,4 +1,4 @@
-# MySQL Command Reference
+# MySQL Installation
 
 This guide provides a comprehensive overview of essential MySQL commands, covering installation, user management, and permissions, primarily tailored for macOS environments using Homebrew.
 
@@ -118,6 +118,12 @@ This grants all privileges (CRUD operations, schema changes) on `testdb` to the 
 GRANT ALL PRIVILEGES ON testdb.* TO 'avdesh'@'localhost';
 ```
 
+**Granular Permissions (Best Practice for Apps):**
+For production apps, you should only grant what is necessary:
+```sql
+GRANT SELECT, INSERT, UPDATE, DELETE ON testdb.* TO 'app_user'@'localhost';
+```
+
 **For all databases:**
 *(Warning: Use this with caution, as it gives full control over the entire MySQL server)*
 ```sql
@@ -126,6 +132,7 @@ GRANT ALL PRIVILEGES ON *.* TO 'avdesh'@'localhost' WITH GRANT OPTION;
 
 **Apply changes:**
 Always remember to flush privileges after making changes to user permissions to ensure they take effect immediately.
+> **Note:** `FLUSH PRIVILEGES;` is strictly only required if you directly modify the `mysql.user` grant tables using `INSERT`, `UPDATE`, or `DELETE`. When using commands like `GRANT`, `REVOKE`, or `CREATE USER`, MySQL automatically flushes privileges for you, but running it anyway is a safe habit!
 ```sql
 FLUSH PRIVILEGES;
 ```
@@ -185,6 +192,16 @@ USE testdb;
 SHOW TABLES;
 ```
 
+### Check Table Structure (Schema)
+To see the columns and data types of a specific table:
+```sql
+DESCRIBE table_name;
+```
+To see the exact SQL command that was used to create the table (useful for copying table structures):
+```sql
+SHOW CREATE TABLE table_name;
+```
+
 ---
 
 ## Service Control and Testing
@@ -219,3 +236,43 @@ If you installed MySQL via Homebrew, you can manage the background service using
   ```bash
   brew services list
   ```
+
+---
+
+## Advanced Administration & Maintenance
+
+### Database Export and Import (Backup & Restore)
+
+**Export (Backup):**
+Use `mysqldump` to create a `.sql` backup file of your database. Run this from your normal terminal (not inside the MySQL prompt):
+```bash
+mysqldump -u root -p testdb > backup.sql
+```
+
+**Import (Restore):**
+To restore a `.sql` file into a database (ensure the database already exists):
+```bash
+mysql -u root -p testdb < backup.sql
+```
+
+### Monitoring & Process Management
+
+If your database is running slow, you can see all currently executing queries and kill any that are stuck.
+
+**View Running Processes:**
+```sql
+SHOW PROCESSLIST;
+```
+*(This shows the `Id`, `User`, `Time`, and `State` of all running queries).*
+
+**Kill a Process:**
+If a query with `Id` 45 is stuck and locking up the database:
+```sql
+KILL 45;
+```
+
+### Viewing Storage Engines
+To see which storage engines (like `InnoDB` or `MyISAM`) are supported and active:
+```sql
+SHOW ENGINES;
+```
